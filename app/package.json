@@ -1,0 +1,10 @@
+{
+  "name": "ajanda",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/ana.js",
+  "scripts": {
+    "start": "electron main"
+  },
+  "author": "Nuri U."
+}

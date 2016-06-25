@@ -1,0 +1,5 @@
+node_modules/
+typings/
+.vscode
+app/js
+durum.sh

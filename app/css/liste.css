@@ -1,0 +1,133 @@
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#liste .top-bar {
+  padding-left: 0px;
+  height: 25px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.steps {
+  position: relative;
+  top: 5%;
+  min-width: 100%;
+  overflow-y: scroll;
+  height: 77.5vh;
+  padding-bottom: 1px;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+.ui-sortable-placeholder {
+  border: 1px dotted #fff;
+  padding: 30px 20px;
+  position: relative;
+}
+
+.ui-sortable-placeholder:after {
+  content: "Yeni yerim burası olacak!";
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  color: #fff;
+  text-align: center;
+}
+
+label {
+  background: #34495E;
+  height: 69px;
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid #2C3E50;
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.7s ease;
+  position: relative;
+  padding: 5px 5px 5px 70px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+label h2 span {
+  display: block;
+  font-size: 12px;
+  text-transform: capitalize;
+  font-weight: normal;
+  color: #bdc3c7;
+}
+
+label:before {
+  content: "";
+  width: 19px;
+  height: 19px;
+  border: 1px solid #416282;
+  display: block;
+  position: absolute;
+  border-radius: 100%;
+  left: 20px;
+  top: 30%;
+  transition: border 0.7s ease;
+  z-index: 9999;
+}
+
+label:after {
+  content: "";
+  width: 60px;
+  height: 68px;
+  background: #2C3E50;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#label-1:checked ~ label[for=label-1],
+#label-2:checked ~ label[for=label-2] {
+  background: #2C3E50;
+  color: #1ABC9C;
+}
+
+#label-1:checked ~ label[for=label-1] h2 span,
+#label-2:checked ~ label[for=label-2] h2 span {
+  color: #1ABC9C;
+}
+
+#label-1:checked ~ label[for=label-1]:before ,
+#label-2:checked ~ label[for=label-2]:before {
+  background: #1abc9d no-repeat center center;
+  border: 1px solid #1abc9d;
+}
+
+li:first-child label {
+  height: 100px;
+  text-transform: uppercase;
+  font-size: 15px;
+  border-right: 8px solid #f87c85;
+}
+
+li:first-child label:before {
+  top: 40%;
+}
+
+li:first-child label:after {
+  height: 100px;
+}
+
+.listeGirdisi input {
+  top: 0%;
+  width: 100%;
+  vertical-align: middle;
+  height: 50px;
+  font-size: 20px;
+}

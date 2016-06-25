@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ajanda</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../node_modules/blaze/dist/blaze.min.css">
+    <link rel="stylesheet" href="../node_modules/blaze/dist/blaze.animations.min.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/liste.css">
+    <link rel="stylesheet" href="css/takvim.css">
+    <link rel="stylesheet" href="css/ajanda.css">
+
+    <!-- JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <script src="../node_modules/jquery/dist/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="../node_modules/jquery-ui/jquery-ui.js"></script>
+    <script src="js/liste.js"></script>
+
+</head>
+
+<body class="ajanda">
+    <div class="o-container o-container--super" id="icerik">
+        <div class="o-grid">
+            <div class="o-grid__cell  o-grid__cell--width-20" id="menu">
+
+                <aside id="sidebar" class="sidebar sidebar-colored open" role="navigation">
+
+                    <div class="sidebar-header header-colored">
+                        <div class="top-bar"></div>
+                        <a class="sidebar-brand" href="#"><i class="zmdi zmdi-menu"></i> Menü</a>
+                    </div>
+                    <ul class="nav sidebar-nav">
+                        <li class="active"><a href="#"><i class="zmdi zmdi-inbox"></i> Tüm Notlar</a></li>
+                    </ul>
+                </aside>
+
+            </div>
+
+            <div class="o-grid__cell  o-grid__cell--width-50" id="liste">
+
+                <div class="top-bar"></div>
+                <div class="listeGirdisi">
+                    <input type="text" placeholder="Yeni girdi" />
+                </div>
+                <div class="steps">
+                    <ul id="sortable">
+                        <li>
+                            <input id='label-1' type='checkbox' />
+                            <label for='label-1'><h2>Madde bir <span>Açıklama 1</span></h2></label>
+                        </li>
+                        <li>
+                            <input id='label-2' type='checkbox' checked/>
+                            <label for='label-2'><h2>Madde iki <span>Açıklama 2</span></h2></label>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="o-grid__cell o-grid__cell--width-30" id="takvim">
+                <div class="top-bar"></div>
+                <div class="c-calendar c-calendar--higher">
+                    <button class="c-calendar__control">‹</button>
+                    <div class="c-calendar__header">2016</div>
+                    <button class="c-calendar__control">›</button>
+
+                    <button class="c-calendar__control">‹</button>
+                    <div class="c-calendar__header">Ocak</div>
+                    <button class="c-calendar__control">›</button>
+
+                    <div class="c-calendar__day">Pzt</div>
+                    <div class="c-calendar__day">Salı</div>
+                    <div class="c-calendar__day">Çrş</div>
+                    <div class="c-calendar__day">Prş</div>
+                    <div class="c-calendar__day">Cuma</div>
+                    <div class="c-calendar__day">Cmt</div>
+                    <div class="c-calendar__day">Pzr</div>
+
+                    <button class="c-calendar__date">27</button>
+                    <button class="c-calendar__date">28</button>
+                    <button class="c-calendar__date">29</button>
+                    <button class="c-calendar__date">30</button>
+                    <button class="c-calendar__date">31</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">01</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">02</button>
+                    <button class="c-calendar__date c-calendar__date--in-month c-calendar__date--today">03</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">04</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">05</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">06</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">07</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">08</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">09</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">10</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">11</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">12</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">13</button>
+                    <button class="c-calendar__date c-calendar__date--in-month c-calendar__date--selected">14</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">15</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">16</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">17</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">18</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">19</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">20</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">21</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">22</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">23</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">24</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">25</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">26</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">27</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">28</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">29</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">30</button>
+                    <button class="c-calendar__date c-calendar__date--in-month">31</button>
+                    <button class="c-calendar__date">01</button>
+                    <button class="c-calendar__date">02</button>
+                    <button class="c-calendar__date">03</button>
+                    <button class="c-calendar__date">04</button>
+                    <button class="c-calendar__date">05</button>
+
+                    <button class="c-button c-button--block c-button--primary">Bugün'e Git</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

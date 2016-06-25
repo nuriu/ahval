@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "outDir": "app/js",
+        "sourceMap": false
+    },
+    "exclude": [
+        "node_modules",
+        "tsconfig",
+        "wwwroot"
+    ]
+}
