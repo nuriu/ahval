@@ -10,9 +10,11 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 1800,
         height: 900,
+        center: true,
         icon: __dirname + "/../img/is.png"
     });
-    
+
+    mainWindow.setMinimumSize(1200, 700);
     mainWindow.loadURL(`file://${__dirname}/../ana.html`);
 
     mainWindow.webContents.openDevTools();

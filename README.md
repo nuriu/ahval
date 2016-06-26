@@ -8,4 +8,4 @@ Kullanılan Teknolojiler
 - TypeScript
 - jQuery
 - jQuery-UI
-- BlazeCSS
+- Semantic UI

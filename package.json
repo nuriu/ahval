@@ -10,8 +10,8 @@
     "electron-prebuilt": "^1.2.2"
   },
   "dependencies": {
-    "blaze": "^2.5.1",
     "jquery": "^3.0.0",
-    "jquery-ui": "^1.10.5"
+    "jquery-ui": "^1.10.5",
+    "semantic-ui": "^2.1.8"
   }
 }

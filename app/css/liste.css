@@ -14,9 +14,9 @@ ul {
   position: relative;
   top: 5%;
   min-width: 100%;
-  overflow-y: scroll;
-  height: 77.5vh;
-  padding-bottom: 1px;
+  overflow-y: auto;
+  height: 79vh;
+  padding-bottom: 5px;
 }
 
 input[type=checkbox] {
@@ -110,8 +110,9 @@ label:after {
 }
 
 li:first-child label {
+  padding-top: 25px;
   height: 100px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-size: 15px;
   border-right: 8px solid #f87c85;
 }

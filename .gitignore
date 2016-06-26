@@ -1,5 +1,6 @@
 node_modules/
 typings/
-.vscode
+semantic/
 app/js
+.vscode
 durum.sh
