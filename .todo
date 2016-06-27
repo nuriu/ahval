@@ -1,9 +1,12 @@
 ☐ Takvim ihtiyaçlarının belirlenmesi, sistem mimarisinin tasarlanması @critical 
 
 Arayüz:
-    ☐ Liste için scrollbar modernleştirilmesi @high 
-    ☐ Liste girdi alanının düzenlenmesi @high 
-    ☐ Takvim alanının ihtiyaçlar doğrultusunda geliştirilmesi @high 
+    ☐ Liste için scrollbar modernleştirilmesi @high @today 
+    ✔ Liste girdi alanının düzenlenmesi @high @done
+    ☐ Takvim alanının ihtiyaçlar doğrultusunda geliştirilmesi @high
+    ☐ Etiket sisteminin uyarlanması @high  
 
 Altyapı:
-    ☐ Veritabanının tasarlanması @critical 
+    ☐ Veritabanının tasarlanması @critical
+    ☐ Takvim sisteminin geliştirilmesi @critical  
+    ☐ Etiket sisteminin geliştirilmesi @high

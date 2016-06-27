@@ -1,4 +1,4 @@
-ul {
+.notlar ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -10,26 +10,27 @@ ul {
   background: rgba(0, 0, 0, 0.1);
 }
 
-.steps {
+.notlar {
   position: relative;
   top: 5%;
   min-width: 100%;
   overflow-y: auto;
-  height: 79vh;
+  height: 80vh;
   padding-bottom: 5px;
+  overflow-x: hidden;
 }
 
-input[type=checkbox] {
+.notlar input[type=checkbox] {
   display: none;
 }
 
-.ui-sortable-placeholder {
+.notlar .ui-sortable-placeholder {
   border: 1px dotted #fff;
   padding: 30px 20px;
   position: relative;
 }
 
-.ui-sortable-placeholder:after {
+.notlar .ui-sortable-placeholder:after {
   content: "Yeni yerim burası olacak!";
   position: absolute;
   top: 30%;
@@ -40,7 +41,7 @@ input[type=checkbox] {
   text-align: center;
 }
 
-label {
+.notlar label {
   background: #34495E;
   height: 69px;
   width: 100%;
@@ -60,7 +61,7 @@ label {
   -webkit-box-sizing: border-box;
 }
 
-label h2 span {
+.notlar label h2 span {
   display: block;
   font-size: 12px;
   text-transform: capitalize;
@@ -68,7 +69,7 @@ label h2 span {
   color: #bdc3c7;
 }
 
-label:before {
+.notlar label:before {
   content: "";
   width: 19px;
   height: 19px;
@@ -82,7 +83,7 @@ label:before {
   z-index: 9999;
 }
 
-label:after {
+.notlar label:after {
   content: "";
   width: 60px;
   height: 68px;
@@ -92,24 +93,24 @@ label:after {
   top: 0;
 }
 
-#label-1:checked ~ label[for=label-1],
-#label-2:checked ~ label[for=label-2] {
+.notlar #label-1:checked ~ label[for=label-1],
+.notlar #label-2:checked ~ label[for=label-2] {
   background: #2C3E50;
   color: #1ABC9C;
 }
 
-#label-1:checked ~ label[for=label-1] h2 span,
-#label-2:checked ~ label[for=label-2] h2 span {
+.notlar #label-1:checked ~ label[for=label-1] h2 span,
+.notlar #label-2:checked ~ label[for=label-2] h2 span {
   color: #1ABC9C;
 }
 
-#label-1:checked ~ label[for=label-1]:before ,
-#label-2:checked ~ label[for=label-2]:before {
+.notlar #label-1:checked ~ label[for=label-1]:before ,
+.notlar #label-2:checked ~ label[for=label-2]:before {
   background: #1abc9d no-repeat center center;
-  border: 1px solid #1abc9d;
+  border: 10px solid #1abc9d;
 }
 
-li:first-child label {
+.notlar li:first-child label {
   padding-top: 25px;
   height: 100px;
   text-transform: capitalize;
@@ -117,11 +118,11 @@ li:first-child label {
   border-right: 8px solid #f87c85;
 }
 
-li:first-child label:before {
+.notlar li:first-child label:before {
   top: 40%;
 }
 
-li:first-child label:after {
+.notlar li:first-child label:after {
   height: 100px;
 }
 
@@ -129,6 +130,32 @@ li:first-child label:after {
   top: 0%;
   width: 100%;
   vertical-align: middle;
-  height: 50px;
-  font-size: 20px;
+  height: 47px;
+  font-size: 16px;
+  display: block;
+  border: none;
+  border-bottom: solid 1px #1abc9c;
+  -webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #1abc9c 4%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #1abc9c 4%);
+  background-position: -2000px 0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 0px 10px;
+}
+
+.listeGirdisi input:focus, input:valid {
+  box-shadow: none;
+  outline: none;
+  background-position: 0 0;
+  box-shadow: 0 14px 50px rgba(0,0,0,0.75), 0 10px 10px rgba(0,0,0,0.5);
+}
+
+.listeGirdisi input:focus::-webkit-input-placeholder, input:valid::-webkit-input-placeholder {
+  color: #1abc9c;
+  -webkit-transform: translateY(-20px);
+          transform: translateY(-20px);
+  visibility: collapse !important;
 }
