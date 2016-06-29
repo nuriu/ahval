@@ -1,0 +1,23 @@
+#zaman #tarihAlani {
+  float: right;
+  padding-right: 5%;
+  font-size: 28px;
+  font-weight: 300;
+  padding-bottom: 0px;
+}
+
+#zaman #saatAlani {
+  float: right;
+  padding-right: 5%;
+  font-size: 18px;
+  font-weight: 300;
+  margin-top: -50px;
+}
+
+#zaman ul {
+  list-style: none;
+}
+
+#zaman li {
+  display: inline;
+}

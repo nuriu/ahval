@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../semantic/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <link rel="stylesheet" type="text/css" href="css/liste.css">
+    <link rel="stylesheet" type="text/css" href="css/zaman.css">
     <link rel="stylesheet" type="text/css" href="css/ajanda.css">
 
     <!-- JS -->
@@ -17,6 +18,7 @@
     <script src="../node_modules/jquery-ui/jquery-ui.js"></script>
     <script src="../semantic/dist/semantic.min.js"></script>
     <script src="js/liste.js"></script>
+    <script src="js/zaman.js"></script>
 
 </head>
 
@@ -44,18 +46,18 @@
 
             <div class="listeGirdisi">
                 <input placeholder="Yeni Girdi" type="text" required="" />
-                
+
             </div>
 
             <div class="notlar">
                 <ul id="sortable">
                     <li>
                         <input id='label-1' type='checkbox' />
-                        <label for='label-1'><h2>Madde bir <span>Açıklama 1</span></h2></label>
+                        <label for='label-1'><h2>Madde bir<i class="resize vertical icon" style="float:right;"></i><span>Açıklama 1</span></h2></label>
                     </li>
                     <li>
                         <input id='label-2' type='checkbox' checked />
-                        <label for='label-2'><h2>Madde iki <span>Açıklama 2</span></h2></label>
+                        <label for='label-2'><h2>Madde iki<i class="resize vertical icon" style="float:right;"></i><span>Açıklama 2</span></h2></label>
                     </li>
 
                 </ul>
@@ -64,12 +66,29 @@
 
 
 
-        <div class="three wide column" id="takvim">
+        <div class="three wide column" id="zaman">
             <div class="top-bar"></div>
-            <!-- TAKVİM -->
-        </div>
 
+            <div id="tarihAlani">
+                <ul>
+                    <li id="gun"></li>
+                    <li id="ay"></li>
+                    <li id="yil"></li>
+                </ul>
+            </div>
+            <div id="saatAlani">
+                <ul>
+                    <li id="saat">00</li>
+                    <li> : </li>
+                    <li id="dakika">00</li>
+                    <li> : </li>
+                    <li id="saniye">00</li>
+                </ul>
+            </div>
+
+        </div>
 
     </div>
 </body>
+
 </html>

@@ -27,7 +27,7 @@ body {
   border-top-right-radius: 25px;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  min-width: 75%;
+  min-width: 90%;
 }
 
 #icerik:hover {
@@ -45,7 +45,7 @@ body {
   padding: 0px;
 }
 
-#takvim {
+#zaman {
   margin: 0px;
   padding: 0px;
 }
