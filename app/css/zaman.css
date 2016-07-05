@@ -1,9 +1,11 @@
 #zaman #tarihAlani {
   float: right;
   padding-right: 5%;
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 300;
   padding-bottom: 0px;
+  margin-top: -90px;
+  color: white;
 }
 
 #zaman #saatAlani {
@@ -11,7 +13,8 @@
   padding-right: 5%;
   font-size: 18px;
   font-weight: 300;
-  margin-top: -50px;
+  margin-top: -110px;
+  color: white;
 }
 
 #zaman ul {
@@ -20,4 +23,8 @@
 
 #zaman li {
   display: inline;
+}
+
+#akis {
+  padding: 5%;
 }

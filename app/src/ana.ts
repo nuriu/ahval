@@ -18,7 +18,7 @@ function createWindow() {
     mainWindow.loadURL(`file://${__dirname}/../ana.html`);
 
     mainWindow.webContents.openDevTools();
-    mainWindow.setMenu(null);
+    //mainWindow.setMenu(null);
 
     mainWindow.on('closed', function () {
         mainWindow = null;
