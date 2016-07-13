@@ -3,7 +3,7 @@ Arayüz:
     ✔ Liste girdi alanının düzenlenmesi @high @done
     ✔ Zaman alanının ihtiyaçlar doğrultusunda geliştirilmesi @high @done
     ☐ Etiket sisteminin uyarlanması @high  
-    ☐ Zaman alanının modernleştirilmesi, ihtiyaçlara göre düzenlenmesi @low 
+    ✔ Zaman alanının modernleştirilmesi, ihtiyaçlara göre düzenlenmesi @low @done
 
 Altyapı:
     ☐ Veritabanının tasarlanması @critical

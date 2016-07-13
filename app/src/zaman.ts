@@ -29,15 +29,3 @@ $(document).ready(function () {
   document.getElementById("yil").innerHTML = new Date().getUTCFullYear().toString();
 
 });
-
-
-$(document).ready(function () {
-  $('#gun').html(function () {
-    var date = new Date();
-    return (date.getDate());
-  });
-  $('span.month').html(function () {
-    var date = new Date();
-    return month;
-  });
-});

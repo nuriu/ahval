@@ -2,7 +2,7 @@
   "name": "ajanda",
   "version": "0.0.1",
   "description": "",
-  "main": "src/ana.js",
+  "main": "js/ana.js",
   "scripts": {
     "start": "electron main"
   },

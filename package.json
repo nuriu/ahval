@@ -10,8 +10,8 @@
     "electron-prebuilt": "^1.2.2"
   },
   "dependencies": {
-    "jquery": "^3.0.0",
-    "jquery-ui": "^1.10.5",
+    "jquery": "^3.1.0",
+    "components-jqueryui": "github:components/jqueryui",
     "semantic-ui": "^2.2.0"
   }
 }
