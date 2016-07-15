@@ -9,3 +9,4 @@ Kullanılan Teknolojiler
 - jQuery
 - jQuery-UI
 - Semantic UI
+- sql.js

@@ -5,6 +5,7 @@
     "github-electron/electron-prebuilt": "registry:dt/github-electron/electron-prebuilt#0.30.1+20160316155526",
     "jquery": "registry:dt/jquery#1.10.0+20160620094458",
     "jqueryui": "registry:dt/jqueryui#1.9.0+20160509160024",
-    "node": "registry:dt/node#6.0.0+20160621231320"
+    "node": "registry:dt/node#6.0.0+20160621231320",
+    "sql.js": "registry:dt/sql.js#0.0.0+20160316155526"
   }
 }

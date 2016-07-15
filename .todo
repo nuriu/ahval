@@ -4,8 +4,9 @@ Arayüz:
     ✔ Zaman alanının ihtiyaçlar doğrultusunda geliştirilmesi @high @done
     ☐ Etiket sisteminin uyarlanması @high  
     ✔ Zaman alanının modernleştirilmesi, ihtiyaçlara göre düzenlenmesi @low @done
+    ☐ Küçük ekranlardanki arayüz uzunluğunun düzenlenmesi @critical 
 
 Altyapı:
-    ☐ Veritabanının tasarlanması @critical
+    ☐ Veritabanının ihtiyaçlara göre tasarlanması @critical
     ✔ Zaman sisteminin geliştirilmesi @critical @done
     ☐ Etiket sisteminin geliştirilmesi @high
