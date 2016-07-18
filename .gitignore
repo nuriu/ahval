@@ -2,3 +2,5 @@ node_modules/
 typings/
 semantic/
 app/js
+*.mdj
+veritabani-journal

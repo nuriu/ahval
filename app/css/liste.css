@@ -24,13 +24,13 @@
   display: none;
 }
 
-.notlar .ui-sortable-placeholder {
+.notlar .siralanabilir-yeni-yer-metni {
   border: 1px dotted #fff;
   padding: 30px 20px;
   position: relative;
 }
 
-.notlar .ui-sortable-placeholder:after {
+.notlar .siralanabilir-yeni-yer-metni:after {
   content: "Yeni yerim burası olacak!";
   position: absolute;
   top: 30%;
@@ -115,7 +115,6 @@
   height: 100px;
   text-transform: capitalize;
   font-size: 15px;
-  border-right: 8px solid #f87c85;
 }
 
 .notlar li:first-child label:before {
