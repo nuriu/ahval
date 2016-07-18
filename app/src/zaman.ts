@@ -1,3 +1,5 @@
+/// <reference path="../../typings/index.d.ts" />
+
 $(document).ready(function () {
 
   // saniye
