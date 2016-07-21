@@ -13,3 +13,5 @@ Altyapı:
     ✔ Etiket sisteminin geliştirilmesi @low @done
     ☐ Veritabanının yoksa oluşturulması @high 
     ☐ Veritabanı varsa / oluşturulduysa tabloların yüklenmesi @high 
+    ☐ Not ekleme (eklerken etiket belirleme seçeneği) @high 
+    ☐ Not arşivleme (haftada / ayda bir) @low 

@@ -7,16 +7,16 @@ var fb = fs.readFileSync(`${__dirname}/db/veritabani`);
 var db = new SQL.Database(fb);
 
 
-var tariheGoreTumNotlar = db.exec("SELECT * FROM NOTLAR ORDER BY TARIH ASC");
-console.log(tariheGoreTumNotlar[0].values);
+var tariheGoreTumNotlar = db.exec("SELECT * FROM NOTLAR ORDER BY TARIH ASC")[0].values;
+console.log(tariheGoreTumNotlar);
 
 $(function () {
     notlariListele();
 });
 
 function notlariListele() {
-    for (let indis = 0; indis < tariheGoreTumNotlar[0].values.length; indis++) {
-        let eleman = tariheGoreTumNotlar[0].values[indis];
+    for (let indis = 0; indis < tariheGoreTumNotlar.length; indis++) {
+        let eleman = tariheGoreTumNotlar[indis];
         let ifade: String = "<li>";
 
         // TAMAMLANMA DURUMU

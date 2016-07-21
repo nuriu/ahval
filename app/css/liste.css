@@ -28,6 +28,7 @@
   border: 1px dotted #fff;
   padding: 30px 20px;
   position: relative;
+  box-shadow: 10px 10px 10px rgba(0,0,0,0.75), 10px 10px 10px rgba(0,0,0,0.5);
 }
 
 .notlar .siralanabilir-yeni-yer-metni:after {
