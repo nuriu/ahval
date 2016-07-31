@@ -1,17 +1,5 @@
-Arayüz:
-    ✔ Liste için scrollbar modernleştirilmesi @high @done
-    ✔ Liste girdi alanının düzenlenmesi @high @done
-    ✔ Zaman alanının ihtiyaçlar doğrultusunda geliştirilmesi @high @done
-    ☐ Etiket sisteminin uyarlanması @high  
-    ✔ Zaman alanının modernleştirilmesi, ihtiyaçlara göre düzenlenmesi @low @done
-    ☐ Küçük ekranlardanki arayüz uzunluğunun diğer çözünürlüklere göre düzenlenmesi @critical 
-
-Altyapı:
-    ✔ Veritabanının ihtiyaçlara göre tasarlanması @critical @done
-    ✔ Zaman sisteminin geliştirilmesi @critical @done
-    ☐ Liste girdilerindeki çoklu stil sorunun çözülmesi @critical 
-    ✔ Etiket sisteminin geliştirilmesi @low @done
-    ☐ Veritabanının yoksa oluşturulması @high 
-    ☐ Veritabanı varsa / oluşturulduysa tabloların yüklenmesi @high 
-    ☐ Not ekleme (eklerken etiket belirleme seçeneği) @high 
-    ☐ Not arşivleme (haftada / ayda bir) @low 
+☐ GitHub kullanıcı girişi entegrasyonu
+✔ GitHub profil bilgilerinin gösterilmesi @done
+✔ GitHub proje sayısının ve isimlerinin gösterilmesi @done
+✔ GitHub projeye ait iş sayısının gösterilmesi @done
+☐ GitHub projeye ait işlerin gösterilmesi @critical 
