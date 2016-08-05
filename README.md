@@ -1,5 +1,7 @@
 # Ajanda
 
+Geliştiriciler için akıllı ajanda.  
+
 ![Ajanda](resim/1.png)
 
 Kullanılan Teknolojiler
@@ -10,3 +12,5 @@ Kullanılan Teknolojiler
 - jQuery-UI
 - Semantic UI
 - sql.js
+- GitHub API
+- superagent

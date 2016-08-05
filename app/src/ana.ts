@@ -4,7 +4,7 @@ var electron = require("electron");
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 
-let anaPencere;
+let anaPencere: any;
 
 function createWindow() {
     anaPencere = new BrowserWindow({
@@ -18,22 +18,24 @@ function createWindow() {
     anaPencere.loadURL(`file://${__dirname}/../ana.html`);
 
     anaPencere.webContents.openDevTools();
-    anaPencere.setMenu(null);
+    //anaPencere.setMenu(null);
 
     anaPencere.on('closed', function () {
         anaPencere = null;
     });
 }
 
-app.on('ready', createWindow);
+app.on("ready", () => {
+    createWindow();
+});
 
-app.on('window-all-closed', function () {
+app.on("window-all-closed", () => {
     if (process.platform !== 'darwin') {
         app.quit();
     };
 });
 
-app.on('activate', function () {
+app.on("activate", () => {
     if (anaPencere === null) {
         createWindow();
     };

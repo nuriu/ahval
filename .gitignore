@@ -4,5 +4,7 @@ semantic/
 app/js
 *.mdj
 veritabani-journal
-*.VC.DB
-*.VC.DB-wal
+id.ajanda
+*.DB
+*.DB-wal
+*.DB-shm
