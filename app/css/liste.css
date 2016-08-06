@@ -1,8 +1,3 @@
-.isler ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
 
 #liste .top-bar {
   padding-left: 0px;
@@ -18,6 +13,12 @@
   height: 80vh;
   padding-bottom: 5px;
   overflow-x: hidden;
+}
+
+.isler ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .isler input[type=checkbox] {
@@ -74,19 +75,17 @@
   top: 0;
 }
 
-.isler #label-1:checked ~ label[for=label-1],
-.isler #label-2:checked ~ label[for=label-2] {
+.isler input[type=checkbox]:checked + label {
   background: #2C3E50;
   color: #1ABC9C;
+  text-decoration: line-through;
 }
 
-.isler #label-1:checked ~ label[for=label-1] h2 span,
-.isler #label-2:checked ~ label[for=label-2] h2 span {
+.isler input[type=checkbox]:checked + label h2 span {
   color: #1ABC9C;
 }
 
-.isler #label-1:checked ~ label[for=label-1]:before ,
-.isler #label-2:checked ~ label[for=label-2]:before {
+.isler input[type=checkbox]:checked + label:before {
   background: #1abc9d no-repeat center center;
   border: 10px solid #1abc9d;
 }

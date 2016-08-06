@@ -38,16 +38,31 @@ body {
   margin: 0px;
   padding: 0px;
   border-top-left-radius: 25px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select:none;
+  user-select:none;
+  -o-user-select:none;
 }
 
 #liste {
   background: #34495E;
   padding: 0px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select:none;
+  user-select:none;
+  -o-user-select:none;
 }
 
 #zaman {
   margin: 0px;
   padding: 0px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select:none;
+  user-select:none;
+  -o-user-select:none;
 }
 
 aside {

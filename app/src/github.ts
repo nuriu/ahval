@@ -158,6 +158,7 @@ function gitHubProjeListesiniYazdir() {
 
 function aktifProjeyiDegistir(projeAdi: string) {
     if (aktifProje == projeAdi) return;
+    (<HTMLInputElement>document.getElementById("yeniGirdi")).value = null;
     document.getElementById(aktifProje).className = null;
     document.getElementById(projeAdi).className = "active";
     aktifProje = projeAdi;
@@ -168,26 +169,40 @@ function aktifProjeyiDegistir(projeAdi: string) {
 }
 
 function projeninIsleriniYazdir() {
+
+    document.getElementById("siralanabilir").innerHTML = "<li><label><h2>Yükleniyor...</h2></label></li>";
     let ifade: string = "<li>";
-    
+
     gh.getIssues(KULLANICI.login, aktifProje).listIssues({
-        state: "all"
+        state: "open"
     }, function (hata: string, isler: any) {
         for (var i = 0; i < isler.length; i++) {
-            if (isler[i].state == "open") {
-                ifade += "<input id='" + isler[i].id + "' type='checkbox' />";
-            } else {
-                ifade += "<input id='" + isler[i].id + "' type='checkbox' checked />";
-            }
+            ifade += "<input id='" + isler[i].id + "' type='checkbox' />";
+
             if (isler[i].labels.length > 0) {
                 ifade += "<label for='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";'>";
             } else {
                 ifade += "<label for='" + isler[i].id + "'>";
             }
 
-            ifade += "\
-            <h2>" + isler[i].title + "<span>" + isler[i].created_at + "</span></h2>\
-            </label></li>";
+            ifade += "<h2>" + isler[i].title + "<span>" + isler[i].created_at + "</span></h2></label></li>";
+        }
+    });
+
+    gh.getIssues(KULLANICI.login, aktifProje).listIssues({
+        state: "closed"
+    }, function (hata: string, isler: any) {
+        for (var i = 0; i < isler.length; i++) {
+
+            ifade += "<input id='" + isler[i].id + "' type='checkbox' checked />";
+
+            if (isler[i].labels.length > 0) {
+                ifade += "<label for='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";'>";
+            } else {
+                ifade += "<label for='" + isler[i].id + "'>";
+            }
+
+            ifade += "<h2>" + isler[i].title + "<span>" + isler[i].created_at + "</span></h2></label></li>";
         }
         document.getElementById("siralanabilir").innerHTML = ifade;
     });
