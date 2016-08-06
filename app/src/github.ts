@@ -14,9 +14,19 @@ var KULLANICI: any;
 var PROJELER: any;
 var fb2 = fs.readFileSync(`${__dirname}/db/id.ajanda`);
 var db2 = new SQL.Database(fb2);
+
 $(document).ready(function () {
-    document.getElementById("projeListesi").innerHTML = "<li class='active'><a href='#'><i class='browser icon'></i> Tüm Notlar</a></li>";
-    gitHubGirisYap();
+    document.getElementById("projeListesi").innerHTML = "<li class='active'><a href='#'><i class='browser icon'></i> Tüm İşler</a></li>";
+
+    if (!window.localStorage.getItem("githubtoken")) {
+        gitHubGirisYap();
+    } else {
+        gh = new GitHub({
+            token: window.localStorage.getItem("githubtoken")
+        });
+        bilgileriYazdir();
+    }
+
 });
 
 function gitHubGirisYap() {
@@ -38,8 +48,8 @@ function gitHubGirisYap() {
 
     dogrulamaPenceresi.setMenu(null);
 
-    var githubUrl = 'https://github.com/login/oauth/authorize?';
-    var dogrulamaUrl = githubUrl + 'client_id=' + secenekler.istemci_id + '&scope=' + secenekler.kapsamlar;
+    var githubUrl = "https://github.com/login/oauth/authorize?";
+    var dogrulamaUrl = githubUrl + "client_id=" + secenekler.istemci_id + "&scope=" + secenekler.kapsamlar;
     dogrulamaPenceresi.loadURL(dogrulamaUrl);
     dogrulamaPenceresi.show();
 
@@ -55,33 +65,33 @@ function gitHubGirisYap() {
         if (kod) {
             self.GitHubtanTokenIste(secenekler, kod);
         } else if (hata) {
-            alert('Hata! GitHub üyeliğiniz ile giriş yapmalısınız. Lütfen tekrar deneyin.');
+            alert("Hata! GitHub üyeliğiniz ile giriş yapmalısınız. Lütfen tekrar deneyin.");
         }
     }
 
-    dogrulamaPenceresi.webContents.on('will-navigate', function (olay: any, url: string) {
+    dogrulamaPenceresi.webContents.on("will-navigate", function (olay: any, url: string) {
         cagriylaIlgilen(url);
     });
 
-    dogrulamaPenceresi.webContents.on('did-get-redirect-request', function (olay: any, eskiUrl: string, yeniUrl: string) {
+    dogrulamaPenceresi.webContents.on("did-get-redirect-request", function (olay: any, eskiUrl: string, yeniUrl: string) {
         cagriylaIlgilen(yeniUrl);
     });
 
-    dogrulamaPenceresi.on('close', function () {
+    dogrulamaPenceresi.on("close", function () {
         dogrulamaPenceresi = null;
     }, false);
 }
 
 function GitHubtanTokenIste(secenekler: any, kod: any) {
     request
-        .post('https://github.com/login/oauth/access_token', {
+        .post("https://github.com/login/oauth/access_token", {
             client_id: secenekler.istemci_id,
             client_secret: secenekler.istemci_sir,
             code: kod,
         })
         .end(function (hata: string, cevap: any) {
             if (cevap && cevap.ok) {
-                window.localStorage.setItem('githubtoken', cevap.body.access_token);
+                window.localStorage.setItem("githubtoken", cevap.body.access_token);
 
                 gh = new GitHub({
                     token: cevap.body.access_token
@@ -106,9 +116,10 @@ function bilgileriYazdir() {
         sort: "full_name",
         direction: "asc"
     }, function (hata: string, icerik: Object) {
-        PROJELER = icerik;
+        PROJELER = icerik;        
         gitHubProjeListesiniYazdir();
     });
+
 }
 
 function gitHubProfilBilgileriniYazdir() {
@@ -135,20 +146,8 @@ function gitHubProjeListesiniYazdir() {
     if (PROJELER) {
         document.getElementById("projeListesiBaslik").innerHTML = "<i class='tasks icon'></i> Projeler (" + PROJELER.length + ")";
         for (var i = 0; i < PROJELER.length; i++) {
-            let proje = PROJELER[i];
-
-            $.get("https://api.github.com/repos/nuriu/" + proje.name + "/issues", function (veri) {
-                if (veri != "") {
-                    //console.log(veri);
-                    document.getElementById("projeListesi").innerHTML += "<li><a href='#'>" + proje.name + " (" + veri.length + ")</a></li>";
-                } else {
-                    document.getElementById("projeListesi").innerHTML += "<li><a href='#'>" + proje.name + " (0)</a></li>";
-                }
-            }).fail(function (hata: any) {
-                if (hata.status == 404) {
-                    document.getElementById("projeListesi").innerHTML += "<li><a href='#'>" + proje.name + " (0)</a></li>";
-                }
-            });
+            document.getElementById("projeListesi").innerHTML += "<li><a href='#'> <i class='unlock alternate icon'></i> " 
+            + PROJELER[i].name + " (" + PROJELER[i].open_issues_count + ")</a></li>";
         }
     }
 }
