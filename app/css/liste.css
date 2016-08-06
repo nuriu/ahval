@@ -24,24 +24,6 @@
   display: none;
 }
 
-.isler .siralanabilir-yeni-yer-metni {
-  border: 1px dotted #fff;
-  padding: 30px 20px;
-  position: relative;
-  box-shadow: 10px 10px 10px rgba(0,0,0,0.75), 10px 10px 10px rgba(0,0,0,0.5);
-}
-
-.isler .siralanabilir-yeni-yer-metni:after {
-  content: "Yeni yerim burası olacak!";
-  position: absolute;
-  top: 30%;
-  left: 0;
-  right: 0;
-  margin: auto;
-  color: #fff;
-  text-align: center;
-}
-
 .isler label {
   background: #34495E;
   height: 69px;
@@ -50,8 +32,6 @@
   border-bottom: 1px solid #2C3E50;
   color: #fff;
   text-transform: capitalize;
-  font-weight: 900;
-  font-size: 11px;
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.7s ease;

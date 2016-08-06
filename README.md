@@ -9,7 +9,6 @@ Kullanılan Teknolojiler
 - Electron
 - TypeScript
 - jQuery
-- jQuery-UI
 - Semantic UI
 - sql.js
 - GitHub API

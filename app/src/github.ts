@@ -14,9 +14,12 @@ var KULLANICI: any;
 var PROJELER: any;
 var fb2 = fs.readFileSync(`${__dirname}/db/id.ajanda`);
 var db2 = new SQL.Database(fb2);
+var aktifProje: string;
 
 $(document).ready(function () {
-    document.getElementById("projeListesi").innerHTML = "<li class='active'><a href='#'><i class='browser icon'></i> Tüm İşler</a></li>";
+    document.getElementById("projeListesi").innerHTML = "<li class='active' id='tumIsler' onclick='aktifProjeyiDegistir(this.id)'><a href='#'><i class='browser icon'></i> Tüm İşler</a></li>";
+
+    aktifProje = "tumIsler";
 
     if (!window.localStorage.getItem("githubtoken")) {
         gitHubGirisYap();
@@ -116,7 +119,7 @@ function bilgileriYazdir() {
         sort: "full_name",
         direction: "asc"
     }, function (hata: string, icerik: Object) {
-        PROJELER = icerik;        
+        PROJELER = icerik;
         gitHubProjeListesiniYazdir();
     });
 
@@ -142,12 +145,50 @@ function gitHubProfilBilgileriniYazdir() {
         </div>";
     }
 }
+
 function gitHubProjeListesiniYazdir() {
     if (PROJELER) {
         document.getElementById("projeListesiBaslik").innerHTML = "<i class='tasks icon'></i> Projeler (" + PROJELER.length + ")";
         for (var i = 0; i < PROJELER.length; i++) {
-            document.getElementById("projeListesi").innerHTML += "<li><a href='#'> <i class='unlock alternate icon'></i> " 
-            + PROJELER[i].name + " (" + PROJELER[i].open_issues_count + ")</a></li>";
+            document.getElementById("projeListesi").innerHTML += "<li id='" + PROJELER[i].name + "' onclick='aktifProjeyiDegistir(this.id)'><a href='#'> <i class='unlock alternate icon'></i> "
+                + PROJELER[i].name + " (" + PROJELER[i].open_issues_count + ")</a></li>";
         }
     }
+}
+
+function aktifProjeyiDegistir(projeAdi: string) {
+    if (aktifProje == projeAdi) return;
+    document.getElementById(aktifProje).className = null;
+    document.getElementById(projeAdi).className = "active";
+    aktifProje = projeAdi;
+
+    if (projeAdi != "tumIsler") {
+        projeninIsleriniYazdir();
+    }
+}
+
+function projeninIsleriniYazdir() {
+    let ifade: string = "<li>";
+    
+    gh.getIssues(KULLANICI.login, aktifProje).listIssues({
+        state: "all"
+    }, function (hata: string, isler: any) {
+        for (var i = 0; i < isler.length; i++) {
+            if (isler[i].state == "open") {
+                ifade += "<input id='" + isler[i].id + "' type='checkbox' />";
+            } else {
+                ifade += "<input id='" + isler[i].id + "' type='checkbox' checked />";
+            }
+            if (isler[i].labels.length > 0) {
+                ifade += "<label for='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";'>";
+            } else {
+                ifade += "<label for='" + isler[i].id + "'>";
+            }
+
+            ifade += "\
+            <h2>" + isler[i].title + "<span>" + isler[i].created_at + "</span></h2>\
+            </label></li>";
+        }
+        document.getElementById("siralanabilir").innerHTML = ifade;
+    });
 }

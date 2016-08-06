@@ -2,5 +2,10 @@
 ✔ GitHub profil bilgilerinin gösterilmesi @done
 ✔ GitHub proje sayısının ve isimlerinin gösterilmesi @done
 ✔ GitHub projeye ait iş sayısının gösterilmesi @done
-☐ Aktif projenin değiştirilmesi
-☐ Aktif projenin işlerinin temin edilmesi
+✔ Aktif projenin değiştirilmesi @done
+✔ Aktif projenin işlerinin temin edilmesi @done
+✔ Aktif projenin işlerinin listelenmesi @done
+☐ Son olayların profil bilgilerinin altındaki alanda listelenmesi @low
+☐ Etiket sisteminin iyileştirilmesi (birden fazla etiket için)
+☐ Aktif olmayan işlerin stil bazında ayrıştırılması
+☐ Listedeki çalışmayan işlevlerin onarılması

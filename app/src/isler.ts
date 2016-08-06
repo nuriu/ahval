@@ -34,7 +34,7 @@ function notlariListele() {
         }
 
         ifade +="\
-        <h2>" + eleman[1] + "<i class='resize vertical icon' style='float:right;'></i><span>" + eleman[2] + "</span></h2>\
+        <h2>" + eleman[1] + "<span>" + eleman[2] + "</span></h2>\
         </label></li>";
 
         document.getElementById("siralanabilir").innerHTML += ifade;
