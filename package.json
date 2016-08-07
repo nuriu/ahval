@@ -1,8 +1,10 @@
 {
   "name": "ajanda",
   "version": "0.0.1",
+  "description": "Geliştiriciler için akıllı ajanda.",
+  "main": "app/js/ana.js",
   "scripts": {
-    "start": "electron app"
+    "start": "electron app/js/ana.js"
   },
   "author": "Nuri U.",
   "license": "MIT",

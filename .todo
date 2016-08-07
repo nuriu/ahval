@@ -9,4 +9,5 @@
 ☐ Etiket sisteminin iyileştirilmesi (birden fazla etiket için) @high 
 ✔ Aktif olmayan işlerin stil bazında ayrıştırılması @done
 ✔ Listedeki çalışmayan işlevlerin onarılması @done
-☐ Listedeki tarih formatının düzenlenmesi
+☐ Listedeki tarih formatının düzenlenmesi @critical 
+☐ Aktif projeye ait son katkıların gösterilmesi @high  

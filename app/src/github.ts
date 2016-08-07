@@ -150,8 +150,13 @@ function gitHubProjeListesiniYazdir() {
     if (PROJELER) {
         document.getElementById("projeListesiBaslik").innerHTML = "<i class='tasks icon'></i> Projeler (" + PROJELER.length + ")";
         for (var i = 0; i < PROJELER.length; i++) {
-            document.getElementById("projeListesi").innerHTML += "<li id='" + PROJELER[i].name + "' onclick='aktifProjeyiDegistir(this.id)'><a href='#'> <i class='unlock alternate icon'></i> "
-                + PROJELER[i].name + " (" + PROJELER[i].open_issues_count + ")</a></li>";
+            if (PROJELER[i].private) {
+                document.getElementById("projeListesi").innerHTML += "<li id='" + PROJELER[i].name + "' onclick='aktifProjeyiDegistir(this.id)'><a href='#'> <i class='lock icon'></i> "
+                    + PROJELER[i].name + " (" + PROJELER[i].open_issues_count + ")</a></li>";
+            } else {
+                document.getElementById("projeListesi").innerHTML += "<li id='" + PROJELER[i].name + "' onclick='aktifProjeyiDegistir(this.id)'><a href='#'> <i class='unlock alternate icon'></i> "
+                    + PROJELER[i].name + " (" + PROJELER[i].open_issues_count + ")</a></li>";
+            }
         }
     }
 }
