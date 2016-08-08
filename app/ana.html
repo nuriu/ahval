@@ -7,7 +7,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="../semantic/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="css/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="css/menu.css">
     <link rel="stylesheet" type="text/css" href="css/liste.css">
     <link rel="stylesheet" type="text/css" href="css/akis.css">
     <link rel="stylesheet" type="text/css" href="css/ajanda.css">
@@ -24,19 +24,19 @@
 <body class="ajanda">
     <div class="ui three column doubling grid container" id="icerik">
         <div class="three wide column" id="menu">
-            <aside id="sidebar" class="sidebar sidebar-colored open" role="navigation">
+            <aside id="menu" class="menu menu-renkli acik" role="navigation">
 
-                <div class="sidebar-header header-colored">
-                    <div class="top-bar"></div>
-                    <a class="sidebar-brand" href="#" id="projeListesiBaslik"><i class="tasks icon"></i> Projeler</a>
+                <div class="menu-bas header-renkli">
+                    <div class="ust-bar"></div>
+                    <a class="menu-baslik" href="#" id="projeListesiBaslik"><i class="tasks icon"></i> Projeler</a>
                 </div>
-                <ul class="nav sidebar-nav" id="projeListesi">
+                <ul class="nav menu-nav" id="projeListesi">
                     <li><h2>Yükleniyor...</h2></li>
                 </ul>
             </aside>
         </div>
         <div class="eight wide column" id="liste">
-            <div class="top-bar"></div>
+            <div class="ust-bar"></div>
             <div class="listeGirdisi">
                 <input id="yeniGirdi" placeholder="Yeni Girdi" type="text" required="" />
             </div>
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="five wide column" id="zaman">
-            <div class="top-bar"></div>
+            <div class="ust-bar"></div>
             <div id="tarihAlani">
                 <ul>
                     <li id="gun"></li>

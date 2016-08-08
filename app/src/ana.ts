@@ -14,11 +14,11 @@ function createWindow() {
         icon: __dirname + "/../img/is.png"
     });
 
-    anaPencere.setMinimumSize(1200, 700);
+    //anaPencere.setMinimumSize(1200, 700);
     anaPencere.loadURL(`file://${__dirname}/../ana.html`);
 
     anaPencere.webContents.openDevTools();
-    anaPencere.setMenu(null);
+    //anaPencere.setMenu(null);
 
     anaPencere.on('closed', function () {
         anaPencere = null;

@@ -18,7 +18,7 @@ var aktifProje: string;
 
 $(document).ready(function () {
     document.getElementById("projeListesi").innerHTML = "\
-    <li class='active' id='tumIsler' onclick='aktifProjeyiDegistir(this.id)'>\
+    <li class='aktif' id='tumIsler' onclick='aktifProjeyiDegistir(this.id)'>\
     <a href='#'><i class='browser icon'></i> Tüm İşler</a></li>";
 
     aktifProje = "tumIsler";
@@ -167,7 +167,7 @@ function aktifProjeyiDegistir(projeAdi: string) {
     if (aktifProje == projeAdi) return;
     (<HTMLInputElement>document.getElementById("yeniGirdi")).value = null;
     document.getElementById(aktifProje).className = null;
-    document.getElementById(projeAdi).className = "active";
+    document.getElementById(projeAdi).className = "aktif";
     aktifProje = projeAdi;
 
     if (projeAdi != "tumIsler") {
@@ -221,8 +221,6 @@ function projeninKatkilariniYazdir() {
     gh.getRepo(KULLANICI.login, aktifProje).listCommits({
 
     }, function(hata: string, katkilar: any){
-        console.log(katkilar);
-        
         for (let i = 0; i < katkilar.length; i++) {
             ifade += "\
             <div class='event'>\
