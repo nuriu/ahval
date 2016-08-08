@@ -18,7 +18,7 @@ function createWindow() {
     anaPencere.loadURL(`file://${__dirname}/../ana.html`);
 
     anaPencere.webContents.openDevTools();
-    //anaPencere.setMenu(null);
+    anaPencere.setMenu(null);
 
     anaPencere.on('closed', function () {
         anaPencere = null;
