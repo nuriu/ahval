@@ -21,13 +21,9 @@
   padding: 0;
 }
 
-.isler input[type=checkbox] {
-  display: none;
-}
-
-.isler label {
+.isler .is {
   background: #34495E;
-  height: 69px;
+  height: 80px;
   width: 100%;
   display: block;
   border-bottom: 1px solid #2C3E50;
@@ -37,72 +33,51 @@
   cursor: pointer;
   transition: all 0.7s ease;
   position: relative;
-  padding: 5px 5px 5px 70px;
+  padding: 15px 5px 5px 20px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
 
-.isler label h2 span {
+.isler .bitmis {
+  height: 60px;
+  padding-left: 60px;
+}
+
+.isler .is h2 span {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   text-transform: capitalize;
   font-weight: normal;
   color: #bdc3c7;
 }
 
-.isler label:before {
-  content: "";
-  width: 19px;
-  height: 19px;
-  border: 1px solid #416282;
+.isler .bitmis:before {
+  content: "✔";
+  font-size: 30px;
   display: block;
   position: absolute;
-  border-radius: 100%;
   left: 20px;
-  top: 30%;
-  transition: border 0.7s ease;
   z-index: 9999;
 }
 
-.isler label:after {
-  content: "";
-  width: 60px;
-  height: 68px;
-  background: #2C3E50;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-.isler input[type=checkbox]:checked + label {
+.isler .bitmis {
   background: #2C3E50;
   color: #1ABC9C;
   text-decoration: line-through;
 }
 
-.isler input[type=checkbox]:checked + label h2 span {
+.isler .bitmis h3 span {
+  display: block;
+  font-size: 12px;
+  text-transform: capitalize;
+  font-weight: normal;
   color: #1ABC9C;
 }
 
-.isler input[type=checkbox]:checked + label:before {
+.isler .is :before {
   background: #1abc9d no-repeat center center;
   border: 10px solid #1abc9d;
-}
-
-.isler li:first-child label {
-  padding-top: 25px;
-  height: 100px;
-  text-transform: capitalize;
-  font-size: 15px;
-}
-
-.isler li:first-child label:before {
-  top: 40%;
-}
-
-.isler li:first-child label:after {
-  height: 100px;
 }
 
 .listeGirdisi input {

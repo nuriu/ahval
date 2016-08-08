@@ -179,19 +179,18 @@ function aktifProjeyiDegistir(projeAdi: string) {
 }
 
 function projeninIsleriniYazdir() {
-    document.getElementById("siralanabilir").innerHTML = "<li><label><h2>Yükleniyor...</h2></label></li>";
-    let ifade: string = "<li>";
+    document.getElementById("siralanabilir").innerHTML = "<li><div class='is'><h3>Yükleniyor...</h3></label></li>";
+    let ifade: string = "";
 
     gh.getIssues(KULLANICI.login, aktifProje).listIssues({
         state: "open"
     }, function (hata: string, isler: any) {
         for (let i = 0; i < isler.length; i++) {
-            ifade += "<input id='" + isler[i].id + "' type='checkbox' />";
-
+            ifade += "<li>"
             if (isler[i].labels.length > 0) {
-                ifade += "<label for='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";'>";
+                ifade += "<div class='is' id='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";' onclick='isBilgileriniYazdir(this.id)'>";
             } else {
-                ifade += "<label for='" + isler[i].id + "'>";
+                ifade += "<div class='is' id='" + isler[i].id + "' onclick='isBilgileriniYazdir(this.id)'>";
             }
 
             ifade += "<h2>" + isler[i].title + "<span>" + gitHubTarihi(isler[i].created_at) + "</span></h2></label></li>";
@@ -202,15 +201,14 @@ function projeninIsleriniYazdir() {
         state: "closed"
     }, function (hata: string, isler: any) {
         for (let i = 0; i < isler.length; i++) {
-            ifade += "<input id='" + isler[i].id + "' type='checkbox' checked />";
-
+            ifade += "<li>"
             if (isler[i].labels.length > 0) {
-                ifade += "<label for='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";'>";
+                ifade += "<div class='bitmis is' id='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";' onclick='isBilgileriniYazdir(this.id)'>";
             } else {
-                ifade += "<label for='" + isler[i].id + "'>";
+                ifade += "<div class='bitmis is' id='" + isler[i].id + "' onclick='isBilgileriniYazdir(this.id)'>";
             }
 
-            ifade += "<h2>" + isler[i].title + "<span>" + gitHubTarihi(isler[i].created_at) + "</span></h2></label></li>";
+            ifade += "<h3>" + isler[i].title + "<span>" + gitHubTarihi(isler[i].created_at) + "</span></h3></label></li>";
         }
         document.getElementById("siralanabilir").innerHTML = ifade;
     });
@@ -220,7 +218,7 @@ function projeninKatkilariniYazdir() {
     let ifade: string = "<div class='ui feed'>";
     gh.getRepo(KULLANICI.login, aktifProje).listCommits({
 
-    }, function(hata: string, katkilar: any){
+    }, function (hata: string, katkilar: any) {
         for (let i = 0; i < katkilar.length; i++) {
             ifade += "\
             <div class='event'>\
@@ -239,7 +237,7 @@ function projeninKatkilariniYazdir() {
 }
 
 function gitHubTarihi(tarih: string) {
-    let ay: string = "", gun: string = "", yil: string = ""; 
+    let ay: string = "", gun: string = "", yil: string = "";
     for (let i = 0; i < tarih.length; i++) {
         if (tarih[i] != "-") {
             if (i >= 0 && i < 4) {
@@ -255,4 +253,8 @@ function gitHubTarihi(tarih: string) {
     }
     tarih = gun + "." + ay + "." + yil;
     return tarih;
+}
+
+function isBilgileriniYazdir(id: string) {
+    console.log(id);
 }

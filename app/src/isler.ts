@@ -19,24 +19,25 @@ function notlariListele() {
         let eleman = tariheGoreTumNotlar[indis];
         let ifade: String = "<li>";
 
-        // TAMAMLANMA DURUMU
-        if (eleman[4] == 1)
-            ifade += "<input id='" + eleman[0] + "' type='checkbox' checked />";
-        else
-            ifade += "<input id='" + eleman[0] + "' type='checkbox' />";        
-
-        // ETİKET DURUMU
-        if (eleman[3] != 0) {
-            let etiketinRengi: String = db.exec("SELECT RENK FROM ETIKETLER WHERE ID="+ eleman[3])[0].values[0];            
-            ifade += "<label for='" + eleman[0] + "' style='border-right: 8px solid " + etiketinRengi + ";'>";
+        if (eleman[4] == 1) {
+            if (eleman[3] != 0) {
+                let etiketinRengi: String = db.exec("SELECT RENK FROM ETIKETLER WHERE ID=" + eleman[3])[0].values[0];
+                ifade += "<div class='bitmis is' id='" + eleman[0] + "' style='border-right: 8px solid " + etiketinRengi + ";'>";
+            } else {
+                ifade += "<div class='bitmis is' id='" + eleman[0] + "'>";
+            }
+            ifade += "<h3>" + eleman[1] + "<span>" + eleman[2] + "</span></h3>";
         } else {
-            ifade += "<label for='" + eleman[0] + "'>";
+            if (eleman[3] != 0) {
+                let etiketinRengi: String = db.exec("SELECT RENK FROM ETIKETLER WHERE ID=" + eleman[3])[0].values[0];
+                ifade += "<div class='is' id='" + eleman[0] + "' style='border-right: 8px solid " + etiketinRengi + ";'>";
+            } else {
+                ifade += "<div class='is' id='" + eleman[0] + "'>";
+            }
+            ifade += "<h2>" + eleman[1] + "<span>" + eleman[2] + "</span></h2>";
         }
-
-        ifade +="\
-        <h2>" + eleman[1] + "<span>" + eleman[2] + "</span></h2>\
-        </label></li>";
-
+        
+        ifade += "</div></li>";
         document.getElementById("siralanabilir").innerHTML += ifade;
     }
 }
