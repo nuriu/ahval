@@ -370,8 +370,141 @@ function isBilgileriniYazdir(indis: number) {
                             </div>\
                         </div>\
                     </div>";
-            } else if (olay.event == "") {
-                
+            } else if (olay.event == "closed") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.actor.login + "\
+                                </a> bu işi kapattı.\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            } else if (olay.event == "reopened") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.actor.login + "\
+                                </a> bu işi yeniden açtı.\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            } else if (olay.event == "subscribed") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.actor.login + "\
+                                </a> bu işe abone oldu.\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            } else if (olay.event == "mentioned") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.actor.login + "\
+                                </a> kişisinden bu işte bahsedildi.\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            } else if (olay.event == "milestoned") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.actor.login + "\
+                                </a> bu işi " + olay.milestone.title + " kilometre taşına ekledi.\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            } else if (olay.event == "demilestoned") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.actor.login + "\
+                                </a> bu işi " + olay.milestone.title + " kilometre taşından çıkardı.\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            } else if (olay.event == "renamed") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.actor.login + "\
+                                </a> bu işin adını <b><i>" + olay.rename.to + "</i></b> olarak değiştirdi.\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            } else if (olay.event == "locked") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.actor.login + "\
+                                </a> bu işi kilitledi.\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            } else if (olay.event == "unlocked") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.actor.login + "\
+                                </a> bu işin kilidini kaldırdı.\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
             }
         }
 
