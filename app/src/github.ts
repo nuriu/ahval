@@ -259,8 +259,9 @@ function gitHubTarihi(tarih: string) {
 }
 
 function isBilgileriniYazdir(indis: number) {
+    //console.log(aktifProjeninIsleri[indis]);
 
-    let ifade: string = "\
+    let ozet: string = "\
     <div class='ui fluid card'>\
         <div class='content'>\
             <div class='header'>" + aktifProjeninIsleri[indis].title + "</div>\
@@ -279,5 +280,35 @@ function isBilgileriniYazdir(indis: number) {
         </div>\
     </div>";
 
-    document.getElementById("github").innerHTML = ifade;
+    document.getElementById("github").innerHTML = ozet + "</br>";
+
+    gh.getIssues(KULLANICI.login, aktifProje).listIssueEvents(aktifProjeninIsleri[indis].number, function (hata: string, olaylar: any) {
+        let ifade = "<div class='ui feed'>";
+
+        for (let i = 0; i < olaylar.length; i++) {
+            let olay = olaylar[i];
+
+            if (olay.event == "labeled") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.actor.login + "\
+                                </a>\
+                                <div class='ui label' style='background-color: #" + olay.label.color +"; color: white;'>" + olay.label.name + "</div> etiketini ekledi.\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            }
+        }
+
+        ifade += "</div>";
+
+        document.getElementById("github").innerHTML += ifade;
+    });
 }
