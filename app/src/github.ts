@@ -15,6 +15,7 @@ var PROJELER: any;
 var fb2 = fs.readFileSync(`${__dirname}/db/id.ajanda`);
 var db2 = new SQL.Database(fb2);
 var aktifProje: string;
+var aktifProjeninIsleri: any[] = null;
 
 $(document).ready(function () {
     document.getElementById("projeListesi").innerHTML = "\
@@ -68,7 +69,7 @@ function gitHubGirisYap() {
         }
 
         if (kod) {
-            self.GitHubtanTokenIste(secenekler, kod);
+            self.gitHubtanTokenIste(secenekler, kod);
         } else if (hata) {
             alert("Hata! GitHub üyeliğiniz ile giriş yapmalısınız. Lütfen tekrar deneyin.");
         }
@@ -87,7 +88,7 @@ function gitHubGirisYap() {
     }, false);
 }
 
-function GitHubtanTokenIste(secenekler: any, kod: any) {
+function gitHubtanTokenIste(secenekler: any, kod: any) {
     request
         .post("https://github.com/login/oauth/access_token", {
             client_id: secenekler.istemci_id,
@@ -168,6 +169,7 @@ function aktifProjeyiDegistir(projeAdi: string) {
     (<HTMLInputElement>document.getElementById("yeniGirdi")).value = null;
     document.getElementById(aktifProje).className = null;
     document.getElementById(projeAdi).className = "aktif";
+    aktifProjeninIsleri = null;
     aktifProje = projeAdi;
 
     if (projeAdi != "tumIsler") {
@@ -185,14 +187,14 @@ function projeninIsleriniYazdir() {
     gh.getIssues(KULLANICI.login, aktifProje).listIssues({
         state: "open"
     }, function (hata: string, isler: any) {
+        aktifProjeninIsleri = isler;
         for (let i = 0; i < isler.length; i++) {
             ifade += "<li>"
             if (isler[i].labels.length > 0) {
-                ifade += "<div class='is' id='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";' onclick='isBilgileriniYazdir(this.id)'>";
+                ifade += "<div class='is' id='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";' onclick='isBilgileriniYazdir(" + aktifProjeninIsleri.indexOf(isler[i]) + ")'>";
             } else {
-                ifade += "<div class='is' id='" + isler[i].id + "' onclick='isBilgileriniYazdir(this.id)'>";
+                ifade += "<div class='is' id='" + isler[i].id + "' onclick='isBilgileriniYazdir(" + aktifProjeninIsleri.indexOf(isler[i]) + ")'>";
             }
-
             ifade += "<h2>" + isler[i].title + "<span>" + gitHubTarihi(isler[i].created_at) + "</span></h2></label></li>";
         }
     });
@@ -201,13 +203,13 @@ function projeninIsleriniYazdir() {
         state: "closed"
     }, function (hata: string, isler: any) {
         for (let i = 0; i < isler.length; i++) {
+            aktifProjeninIsleri.push(isler[i]);
             ifade += "<li>"
             if (isler[i].labels.length > 0) {
-                ifade += "<div class='bitmis is' id='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";' onclick='isBilgileriniYazdir(this.id)'>";
+                ifade += "<div class='bitmis is' id='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";' onclick='isBilgileriniYazdir(" + aktifProjeninIsleri.indexOf(isler[i]) + ")'>";
             } else {
-                ifade += "<div class='bitmis is' id='" + isler[i].id + "' onclick='isBilgileriniYazdir(this.id)'>";
+                ifade += "<div class='bitmis is' id='" + isler[i].id + "' onclick='isBilgileriniYazdir(" + aktifProjeninIsleri.indexOf(isler[i]) + ")'>";
             }
-
             ifade += "<h3>" + isler[i].title + "<span>" + gitHubTarihi(isler[i].created_at) + "</span></h3></label></li>";
         }
         document.getElementById("siralanabilir").innerHTML = ifade;
@@ -216,6 +218,7 @@ function projeninIsleriniYazdir() {
 
 function projeninKatkilariniYazdir() {
     let ifade: string = "<div class='ui feed'>";
+
     gh.getRepo(KULLANICI.login, aktifProje).listCommits({
 
     }, function (hata: string, katkilar: any) {
@@ -255,6 +258,26 @@ function gitHubTarihi(tarih: string) {
     return tarih;
 }
 
-function isBilgileriniYazdir(id: string) {
-    console.log(id);
+function isBilgileriniYazdir(indis: number) {
+
+    let ifade: string = "\
+    <div class='ui fluid card'>\
+        <div class='content'>\
+            <div class='header'>" + aktifProjeninIsleri[indis].title + "</div>\
+            <div class='meta'>\
+                <span class='right floated time'><i class='calendar outline icon'></i> " + gitHubTarihi(aktifProjeninIsleri[indis].updated_at) + " tarihinde güncellendi.</span>\
+                <span class='category'></span>\
+            </div>\
+            <div class='description'>\
+            " + aktifProjeninIsleri[indis].body + "\
+            </div>\
+        </div>\
+        <div class='extra content'>\
+            <div class='right floated author'>\
+                <img class='ui avatar image' src='" + aktifProjeninIsleri[indis].user.avatar_url + "' />\
+            </div>\
+        </div>\
+    </div>";
+
+    document.getElementById("github").innerHTML = ifade;
 }

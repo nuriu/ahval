@@ -1,8 +1,11 @@
 AKTİF:
     ☐ Proje özetinin / bilgilerinin gösterilmesi @low 
-    ☐ İş özetinin / bilgilerinin gösterilmesi @low 
     ☐ Son olayların profil bilgilerinin altındaki alanda listelenmesi @low
     ☐ Etiket sisteminin iyileştirilmesi (birden fazla etiket için) @high 
+    ☐ Tüm projeye hata kontrollerinin eklenmesi @low
+    ☐ İş özetinde işin sahip olduğu etiketlerin gösterilmesi @low 
+    ☐ İş özetinde işin ait olduğu kilometre taşının gösterilmesi @low 
+    ☐ İşe ait olayların iş özetinin altında gösterilmesi @high 
 
 
 
@@ -18,3 +21,4 @@ ARŞİV:
     ✔ Listedeki çalışmayan işlevlerin onarılması @done
     ✔ Listedeki tarih formatının düzenlenmesi @done
     ✔ Aktif projeye ait katkıların gösterilmesi @done
+    ✔ İş özetinin / bilgilerinin gösterilmesi @done

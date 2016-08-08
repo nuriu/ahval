@@ -1,4 +1,4 @@
-#zaman #tarihAlani {
+#akis #tarihAlani {
   float: right;
   padding-right: 5%;
   font-size: 22px;
@@ -8,7 +8,7 @@
   color: white;
 }
 
-#zaman #saatAlani {
+#akis #saatAlani {
   float: right;
   padding-right: 5%;
   font-size: 18px;
@@ -17,11 +17,11 @@
   color: white;
 }
 
-#zaman ul {
+#akis ul {
   list-style: none;
 }
 
-#zaman li {
+#akis li {
   display: inline;
 }
 
