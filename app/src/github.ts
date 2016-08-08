@@ -299,11 +299,79 @@ function isBilgileriniYazdir(indis: number) {
                                 <a class='user'>\
                                     " + olay.actor.login + "\
                                 </a>\
-                                <div class='ui label' style='background-color: #" + olay.label.color +"; color: white;'>" + olay.label.name + "</div> etiketini ekledi.\
+                                <div class='ui label' style='background-color: #" + olay.label.color + "; color: white;'>" + olay.label.name + "</div> etiketini ekledi.\
                                 <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
                             </div>\
                         </div>\
                     </div>";
+            } else if (olay.event == "unlabeled") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.actor.login + "\
+                                </a>\
+                                <div class='ui label' style='background-color: #" + olay.label.color + "; color: white;'>" + olay.label.name + "</div> etiketini kaldırdı.\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            } else if (olay.event == "assigned") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.assigner.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.assigner.login + "\
+                                </a>";
+                if (olay.assigner.login == olay.assignee.login) {
+                    ifade += " bu işi kendisine atadı."
+                } else {
+                    ifade += " tarafından \
+                                <a class='user'>\
+                                    " + olay.assignee.login + "\
+                                </a> bu işe atandı.";
+                }
+
+                ifade += "\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            } else if (olay.event == "unassigned") {
+                ifade += "\
+                    <div class='event'>\
+                        <div class='label'>\
+                            <img class='ui avatar image' src='" + olay.assigner.avatar_url + "'>\
+                        </div>\
+                        <div class='content'>\
+                            <div class='summary'>\
+                                <a class='user'>\
+                                    " + olay.assigner.login + "\
+                                </a>";
+                if (olay.assigner.login == olay.assignee.login) {
+                    ifade += " bu işi kendisinden aldı."
+                } else {
+                    ifade += " tarafından \
+                                <a class='user'>\
+                                    " + olay.assignee.login + "\
+                                </a> bu işten alındı.";
+                }
+
+                ifade += "\
+                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
+                            </div>\
+                        </div>\
+                    </div>";
+            } else if (olay.event == "") {
+                
             }
         }
 
