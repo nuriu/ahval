@@ -261,28 +261,80 @@ function gitHubTarihi(tarih: string) {
 function isBilgileriniYazdir(indis: number) {
     //console.log(aktifProjeninIsleri[indis]);
 
+    isOzetiniYazdir(aktifProjeninIsleri[indis]);
+
+    isOlaylariniYazdir(aktifProjeninIsleri[indis]);
+
+    isYorumlariniYazdir(aktifProjeninIsleri[indis]);
+}
+
+function isOzetiniYazdir(is: any) {
     let ozet: string = "\
     <div class='ui fluid card'>\
         <div class='content'>\
-            <div class='header'>" + aktifProjeninIsleri[indis].title + "</div>\
+            <div class='header'>" + is.title + "</div>\
             <div class='meta'>\
-                <span class='right floated time'><i class='calendar outline icon'></i> " + gitHubTarihi(aktifProjeninIsleri[indis].updated_at) + " tarihinde güncellendi.</span>\
-                <span class='category'></span>\
+                <span class='right floated time'><i class='calendar outline icon'></i> " + gitHubTarihi(is.updated_at) + " tarihinde güncellendi.</span>";
+                if (is.milestone) {
+                    ozet += "<span class='category'>" + is.milestone.title + "</span>";
+                }
+    ozet += "\
             </div>\
             <div class='description'>\
-            " + aktifProjeninIsleri[indis].body + "\
+            " + is.body + "\
             </div>\
         </div>\
         <div class='extra content'>\
             <div class='right floated author'>\
-                <img class='ui avatar image' src='" + aktifProjeninIsleri[indis].user.avatar_url + "' />\
+                <img class='ui avatar image' src='" + is.user.avatar_url + "' />\
+            </div>\
+            <div class='left floated'>\
+                Deneme\
             </div>\
         </div>\
     </div>";
 
     document.getElementById("github").innerHTML = ozet + "</br>";
+}
 
-    gh.getIssues(KULLANICI.login, aktifProje).listIssueEvents(aktifProjeninIsleri[indis].number, function (hata: string, olaylar: any) {
+function isYorumlariniYazdir(is: any) {
+    gh.getIssues(KULLANICI.login, aktifProje).listIssueComments(is.number, function (hata: string, yorumlar: any) {
+        if (!hata && yorumlar.length > 0) {
+
+            let ifade: string = "<div class='ui comments'>";
+            
+            for (let i = 0; i < yorumlar.length; i++) {
+                let yorum = yorumlar[i];
+
+                ifade += "\
+                <div class='comment'>\
+                    <a class='avatar'>\
+                        <img src='" + yorum.user.avatar_url + "'>\
+                    </a>\
+                    <div class='content'>\
+                        <a class='author'>" + yorum.user.login + "</a>\
+                        <div class='metadata'>\
+                            <div class='date'>" + gitHubTarihi(yorum.updated_at) + "</div>\
+                        </div>\
+                        <div class='text'>\
+                            " + yorum.body + "\
+                        </div>\
+                        <div class='actions'>\
+                            <a class='reply active'>Cevapla</a>\
+                        </div>\
+                    </div>\
+                </div>";
+            }
+
+            ifade += "</div>"
+
+            document.getElementById("github").innerHTML += ifade;
+        }        
+    });
+}
+
+function isOlaylariniYazdir(is: any) {
+    gh.getIssues(KULLANICI.login, aktifProje).listIssueEvents(is.number, function (hata: string, olaylar: any) {
         let ifade = "<div class='ui feed'>";
 
         for (let i = 0; i < olaylar.length; i++) {
@@ -512,61 +564,4 @@ function isBilgileriniYazdir(indis: number) {
 
         document.getElementById("github").innerHTML += ifade;
     });
-
-    gh.getIssues(KULLANICI.login, aktifProje).listIssueComments(aktifProjeninIsleri[indis].number, function (hata: string, yorumlar: any) {
-        if (!hata && yorumlar.length > 0) {
-
-            let ifade: string = "<div class='ui comments'>";
-            
-            for (let i = 0; i < yorumlar.length; i++) {
-                let yorum = yorumlar[i];
-                console.log(yorum);
-                
-                ifade += "\
-                <div class='comment'>\
-                    <a class='avatar'>\
-                        <img src='" + yorum.user.avatar_url + "'>\
-                    </a>\
-                    <div class='content'>\
-                        <a class='author'>" + yorum.user.login + "</a>\
-                        <div class='metadata'>\
-                            <div class='date'>" + gitHubTarihi(yorum.updated_at) + "</div>\
-                        </div>\
-                        <div class='text'>\
-                            " + yorum.body + "\
-                        </div>\
-                        <div class='actions'>\
-                            <a class='reply active'>Cevapla</a>\
-                        </div>\
-                    </div>\
-                </div>";
-            }
-
-            ifade += "</div>"
-
-            document.getElementById("github").innerHTML += ifade;
-        }        
-    });
 }
-
-/*
-<div class="ui comments">
-  <div class="comment">
-    <a class="avatar">
-      <img src="/images/avatar/small/steve.jpg">
-    </a>
-    <div class="content">
-      <a class="author">Steve Jobes</a>
-      <div class="metadata">
-        <div class="date">2 days ago</div>
-      </div>
-      <div class="text">
-        Revolutionary!
-      </div>
-      <div class="actions">
-        <a class="reply active">Reply</a>
-      </div>
-    </div>
-  </div>
-</div>
-*/

@@ -8,7 +8,7 @@ var db = new SQL.Database(fb);
 
 
 var tariheGoreTumNotlar = db.exec("SELECT * FROM NOTLAR ORDER BY TARIH ASC")[0].values;
-console.log(tariheGoreTumNotlar);
+//console.log(tariheGoreTumNotlar);
 
 $(function () {
     notlariListele();
