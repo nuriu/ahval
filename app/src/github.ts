@@ -240,7 +240,7 @@ function projeninKatkilariniYazdir() {
 }
 
 function gitHubTarihi(tarih: string) {
-    let ay: string = "", gun: string = "", yil: string = "";
+    let zaman: string = "", gun: string = "", ay: string = "", yil: string = "";
     for (let i = 0; i < tarih.length; i++) {
         if (tarih[i] != "-") {
             if (i >= 0 && i < 4) {
@@ -249,12 +249,14 @@ function gitHubTarihi(tarih: string) {
                 ay += tarih[i];
             } else if (i >= 0 && i < 10) {
                 gun += tarih[i];
+            } else if (i >= 11 && i < 16) {
+                zaman += tarih[i]
             } else {
                 continue;
             }
         }
     }
-    tarih = gun + "." + ay + "." + yil;
+    tarih = gun + "." + ay + "." + yil + " | " + zaman;
     return tarih;
 }
 
@@ -274,7 +276,7 @@ function isOzetiniYazdir(is: any) {
         <div class='content'>\
             <div class='header'>" + is.title + "</div>\
             <div class='meta'>\
-                <span class='right floated time'><i class='calendar outline icon'></i> " + gitHubTarihi(is.updated_at) + " tarihinde güncellendi.</span>";
+                <span class='right floated time'><i class='calendar outline icon'></i> " + gitHubTarihi(is.updated_at) + "</span>";
                 if (is.milestone) {
                     ozet += "<span class='category'>" + is.milestone.title + "</span>";
                 }

@@ -4,7 +4,6 @@ AKTİF:
     ☐ Son olayların profil bilgilerinin altındaki alanda listelenmesi @low
     ☐ Etiket sisteminin iyileştirilmesi (birden fazla etiket için) @high 
     ☐ Tüm projeye hata kontrollerinin eklenmesi @low
-    ☐ İş olaylarında gerçekleşen saatin gösterilmesi @low 
     ☐ Mümkünse yorumlara cevap verme işlevi eklenecek, değilse cevapla yazısı kaldırılacak. @low 
     ☐ Yorum ekleme işlevi eklenecek @low 
     ☐ Olay ve yorum alanlarının stil bazında birbirinden ayrıştırılması @low 
@@ -29,3 +28,4 @@ ARŞİV:
     ✔ İşe ait yorumların gösterilmesi @done
     ✔ İş özetinde işin ait olduğu kilometre taşının gösterilmesi @done
     ✔ İş özetinde işin sahip olduğu etiketlerin gösterilmesi @done
+    ✔ İş olaylarında saatin gösterilmesi @done
