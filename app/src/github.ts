@@ -287,11 +287,18 @@ function isOzetiniYazdir(is: any) {
         <div class='extra content'>\
             <div class='right floated author'>\
                 <img class='ui avatar image' src='" + is.user.avatar_url + "' />\
-            </div>\
-            <div class='left floated'>\
-                Deneme\
-            </div>\
-        </div>\
+            </div>";
+    
+            if (is.labels.length > 0) {
+                ozet += "<div class='left floated'>";
+                for (let i = 0; i < is.labels.length; i++) {
+                    let etiket = is.labels[i];
+                    ozet += "<div class='ui label' style='background-color: #" + etiket.color + "; color: white;'>" + etiket.name + "</div>"
+                }
+                ozet += "</div>";
+            }
+
+    ozet +=   "</div>\
     </div>";
 
     document.getElementById("github").innerHTML = ozet + "</br>";
