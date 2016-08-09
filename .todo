@@ -7,6 +7,8 @@ AKTİF:
     ☐ İş özetinde işin sahip olduğu etiketlerin gösterilmesi @low 
     ☐ İş özetinde işin ait olduğu kilometre taşının gösterilmesi @low 
     ☐ İş olaylarında gerçekleşen saatin gösterilmesi @low 
+    ☐ Mümkünse yorumlara cevap verme işlevi eklenecek, değilse cevapla yazısı kaldırılacak. @low 
+    ☐ Yorum ekleme işlevi eklenecek @low 
 
 
 
@@ -24,3 +26,4 @@ ARŞİV:
     ✔ Aktif projeye ait katkıların gösterilmesi @done
     ✔ İş özetinin / bilgilerinin gösterilmesi @done
     ✔ İşe ait olayların iş özetinin altında gösterilmesi @done
+    ✔ İşe ait yorumların gösterilmesi @done

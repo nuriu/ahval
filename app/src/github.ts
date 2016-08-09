@@ -512,4 +512,61 @@ function isBilgileriniYazdir(indis: number) {
 
         document.getElementById("github").innerHTML += ifade;
     });
+
+    gh.getIssues(KULLANICI.login, aktifProje).listIssueComments(aktifProjeninIsleri[indis].number, function (hata: string, yorumlar: any) {
+        if (!hata && yorumlar.length > 0) {
+
+            let ifade: string = "<div class='ui comments'>";
+            
+            for (let i = 0; i < yorumlar.length; i++) {
+                let yorum = yorumlar[i];
+                console.log(yorum);
+                
+                ifade += "\
+                <div class='comment'>\
+                    <a class='avatar'>\
+                        <img src='" + yorum.user.avatar_url + "'>\
+                    </a>\
+                    <div class='content'>\
+                        <a class='author'>" + yorum.user.login + "</a>\
+                        <div class='metadata'>\
+                            <div class='date'>" + gitHubTarihi(yorum.updated_at) + "</div>\
+                        </div>\
+                        <div class='text'>\
+                            " + yorum.body + "\
+                        </div>\
+                        <div class='actions'>\
+                            <a class='reply active'>Cevapla</a>\
+                        </div>\
+                    </div>\
+                </div>";
+            }
+
+            ifade += "</div>"
+
+            document.getElementById("github").innerHTML += ifade;
+        }        
+    });
 }
+
+/*
+<div class="ui comments">
+  <div class="comment">
+    <a class="avatar">
+      <img src="/images/avatar/small/steve.jpg">
+    </a>
+    <div class="content">
+      <a class="author">Steve Jobes</a>
+      <div class="metadata">
+        <div class="date">2 days ago</div>
+      </div>
+      <div class="text">
+        Revolutionary!
+      </div>
+      <div class="actions">
+        <a class="reply active">Reply</a>
+      </div>
+    </div>
+  </div>
+</div>
+*/
