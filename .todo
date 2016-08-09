@@ -1,6 +1,5 @@
 AKTİF:
     ☐ Yazı tipi değiştirilecek @low 
-    ☐ Proje özetinin / bilgilerinin gösterilmesi @low 
     ☐ Son olayların profil bilgilerinin altındaki alanda listelenmesi @low
     ☐ Etiket sisteminin iyileştirilmesi (birden fazla etiket için) @high 
     ☐ Tüm projeye hata kontrollerinin eklenmesi @low
@@ -29,3 +28,4 @@ ARŞİV:
     ✔ İş özetinde işin ait olduğu kilometre taşının gösterilmesi @done
     ✔ İş özetinde işin sahip olduğu etiketlerin gösterilmesi @done
     ✔ İş olaylarında saatin gösterilmesi @done
+    ✔ Proje özetinin / bilgilerinin gösterilmesi @done

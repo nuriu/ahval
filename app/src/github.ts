@@ -174,6 +174,7 @@ function aktifProjeyiDegistir(projeAdi: string) {
 
     if (projeAdi != "tumIsler") {
         projeninIsleriniYazdir();
+        projeOzetiniYazdir();
         projeninKatkilariniYazdir();
     } else {
         gitHubProfilBilgileriniYazdir();
@@ -216,6 +217,34 @@ function projeninIsleriniYazdir() {
     });
 }
 
+function projeOzetiniYazdir() {
+    gh.getRepo(KULLANICI.login, aktifProje).getDetails(function (hata: string, proje: any){
+        let ozet: string = "\
+        <div class='ui fluid card'>\
+            <div class='content'>\
+                <div class='header'>" + proje.name + "</div>\
+                <div class='meta'>\
+                    <span class='right floated time'><i class='calendar outline icon'></i> " + gitHubTarihi(proje.created_at) + "</span>";
+                    if (proje.homepage) {
+                        ozet += "<span class='category'>" + proje.homepage + "</span>";
+                    }
+        ozet += "\
+                </div>\
+                <div class='description'>\
+                " + proje.description + "\
+                </div>\
+            </div>\
+            <div class='extra content'>\
+                <div class='right floated author'>\
+                    <img class='ui avatar image' src='" + proje.owner.avatar_url + "' />\
+                </div>\
+            </div>\
+        </div>";
+
+        document.getElementById("github").innerHTML = ozet + "</br>";
+    });
+}
+
 function projeninKatkilariniYazdir() {
     let ifade: string = "<div class='ui feed'>";
 
@@ -235,7 +264,7 @@ function projeninKatkilariniYazdir() {
             </div>";
         }
         ifade += "</div>";
-        document.getElementById("github").innerHTML = ifade;
+        document.getElementById("github").innerHTML += ifade;
     });
 }
 
