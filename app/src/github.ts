@@ -1,11 +1,9 @@
-/// <reference path="../../typings/index.d.ts" />
-
 var fs = require("fs");
 var SQL = require("sql.js");
-var GitHub = require('github-api');
+var GitHub = require("github-api");
 var request = require("superagent");
-var electron = window.require('electron');
-var ipcRenderer = window.require('electron').ipcRenderer;
+var electron = window.require("electron");
+var ipcRenderer = window.require("electron").ipcRenderer;
 var remote = electron.remote;
 var BrowserWindow = remote.BrowserWindow;
 
@@ -218,16 +216,16 @@ function projeninIsleriniYazdir() {
 }
 
 function projeOzetiniYazdir() {
-    gh.getRepo(KULLANICI.login, aktifProje).getDetails(function (hata: string, proje: any){
+    gh.getRepo(KULLANICI.login, aktifProje).getDetails(function (hata: string, proje: any) {
         let ozet: string = "\
         <div class='ui fluid card'>\
             <div class='content'>\
                 <div class='header'>" + proje.name + "</div>\
                 <div class='meta'>\
                     <span class='right floated time'><i class='calendar outline icon'></i> " + gitHubTarihi(proje.created_at) + "</span>";
-                    if (proje.homepage) {
-                        ozet += "<span class='category'>" + proje.homepage + "</span>";
-                    }
+        if (proje.homepage) {
+            ozet += "<span class='category'>" + proje.homepage + "</span>";
+        }
         ozet += "\
                 </div>\
                 <div class='description'>\
@@ -306,9 +304,9 @@ function isOzetiniYazdir(is: any) {
             <div class='header'>" + is.title + "</div>\
             <div class='meta'>\
                 <span class='right floated time'><i class='calendar outline icon'></i> " + gitHubTarihi(is.updated_at) + "</span>";
-                if (is.milestone) {
-                    ozet += "<span class='category'>" + is.milestone.title + "</span>";
-                }
+    if (is.milestone) {
+        ozet += "<span class='category'>" + is.milestone.title + "</span>";
+    }
     ozet += "\
             </div>\
             <div class='description'>\
@@ -319,17 +317,17 @@ function isOzetiniYazdir(is: any) {
             <div class='right floated author'>\
                 <img class='ui avatar image' src='" + is.user.avatar_url + "' />\
             </div>";
-    
-            if (is.labels.length > 0) {
-                ozet += "<div class='left floated'>";
-                for (let i = 0; i < is.labels.length; i++) {
-                    let etiket = is.labels[i];
-                    ozet += "<div class='ui label' style='background-color: #" + etiket.color + "; color: white;'>" + etiket.name + "</div>"
-                }
-                ozet += "</div>";
-            }
 
-    ozet +=   "</div>\
+    if (is.labels.length > 0) {
+        ozet += "<div class='left floated'>";
+        for (let i = 0; i < is.labels.length; i++) {
+            let etiket = is.labels[i];
+            ozet += "<div class='ui label' style='background-color: #" + etiket.color + "; color: white;'>" + etiket.name + "</div>"
+        }
+        ozet += "</div>";
+    }
+
+    ozet += "</div>\
     </div>";
 
     document.getElementById("github").innerHTML = ozet + "</br>";
@@ -340,7 +338,7 @@ function isYorumlariniYazdir(is: any) {
         if (!hata && yorumlar.length > 0) {
 
             let ifade: string = "<div class='ui comments'>";
-            
+
             for (let i = 0; i < yorumlar.length; i++) {
                 let yorum = yorumlar[i];
 
@@ -367,7 +365,7 @@ function isYorumlariniYazdir(is: any) {
             ifade += "</div>"
 
             document.getElementById("github").innerHTML += ifade;
-        }        
+        }
     });
 }
 

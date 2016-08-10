@@ -1,5 +1,3 @@
-/// <reference path="../../typings/index.d.ts" />
-
 var fs = require("fs");
 var SQL = require("sql.js");
 

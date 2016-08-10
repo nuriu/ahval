@@ -1,7 +1,4 @@
-/// <reference path="../../typings/index.d.ts" />
-
 $(document).ready(function () {
-
   // saniye
   setInterval(function () {
     let saniye = new Date().getSeconds();
@@ -29,5 +26,4 @@ $(document).ready(function () {
 
   // yıl
   document.getElementById("yil").innerHTML = new Date().getUTCFullYear().toString();
-
 });

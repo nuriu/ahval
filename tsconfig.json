@@ -1,12 +1,17 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "moduleResolution": "node",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "outDir": "app/js",
         "sourceMap": false
     },
+    "include": [
+        "typings/index.d.ts",
+        "app/src/*"
+    ],
     "exclude": [
         "node_modules",
         "tsconfig",

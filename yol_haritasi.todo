@@ -1,4 +1,6 @@
 AKTİF:
+    ☐ Mimari değişiklik sebebi ile bozulan özelliklerin onarılması @critical 
+    
     ☐ Yazı tipi değiştirilecek @low 
     ☐ Son olayların profil bilgilerinin altındaki alanda listelenmesi @low
     ☐ Etiket sisteminin iyileştirilmesi (birden fazla etiket için) @high 
@@ -9,6 +11,11 @@ AKTİF:
     ☐ Aynı gün eklenen etiketlerin tek satırda gösterilmesi @low 
     ☐ Yorum ve açıklamaların markdown desteği ile yazdırılması @high 
 
+PASİF / DÜŞÜNÜLÜYOR:
+    ☐ Harici modül sistemi gerçekleştirilemedi, tekrar denenmeli @critical 
+    ☐ Yerel (offline) markdown tabanlı not tutulmasının sağlanması @low
+    ☐ Yerelleştirme altyapısının kurulması @low
+    ☐ İşlerin etiketlere / duruma / kilometre taşına göre kanban tahtası şeklinde gösterilmesi @low 
 
 ARŞİV:
     ✔ GitHub kullanıcı girişi entegrasyonu @done

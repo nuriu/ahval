@@ -1,6 +1,6 @@
 {
   "name": "ajanda",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Geliştiriciler için akıllı ajanda.",
   "main": "app/js/ana.js",
   "scripts": {
