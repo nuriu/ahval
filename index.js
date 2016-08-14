@@ -1,19 +1,18 @@
 var electron = require("electron");
-var app = electron.app;
+var uygulama = electron.app;
 var BrowserWindow = electron.BrowserWindow;
+var anaPencere;
 
-let anaPencere: any;
-
-function createWindow() {
+function pencereyiOlustur() {
     anaPencere = new BrowserWindow({
         width: 1800,
         height: 900,
         center: true,
-        icon: __dirname + "/../img/is.png"
+        icon: __dirname + "/app/img/is.png"
     });
 
     //anaPencere.setMinimumSize(1200, 700);
-    anaPencere.loadURL(`file://${__dirname}/../ana.html`);
+    anaPencere.loadURL(`file://${__dirname}/ana.html`);
 
     anaPencere.webContents.openDevTools();
     //anaPencere.setMenu(null);
@@ -23,18 +22,18 @@ function createWindow() {
     });
 }
 
-app.on("ready", () => {
-    createWindow();
+uygulama.on("ready", () => {
+    pencereyiOlustur();
 });
 
-app.on("window-all-closed", () => {
+uygulama.on("window-all-closed", () => {
     if (process.platform !== 'darwin') {
-        app.quit();
+        uygulama.quit();
     };
 });
 
-app.on("activate", () => {
+uygulama.on("activate", () => {
     if (anaPencere === null) {
-        createWindow();
+        pencereyiOlustur();
     };
 });

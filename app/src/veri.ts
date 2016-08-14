@@ -1,53 +1,46 @@
-var fs = require("fs");
-var SQL = require("sql.js");
-var GitHub = require("github-api");
-var request = require("superagent");
-var electron = window.require("electron");
-var ipcRenderer = window.require("electron").ipcRenderer;
-var remote = electron.remote;
-var BrowserWindow = remote.BrowserWindow;
+import { Kullanici } from "./kullanici";
+import { Proje } from "./proje";
 
-var gh: any;
-var KULLANICI: any;
-var PROJELER: any;
-var fb2 = fs.readFileSync(`${__dirname}/db/id.ajanda`);
-var db2 = new SQL.Database(fb2);
-var aktifProje: string;
-var aktifProjeninIsleri: any[] = null;
+const fs = require("fs");
+const SQL = require("sql.js");
+const GitHub = require("github-api");
+const electron = require("electron");
+const remote = electron.remote;
+const BrowserWindow = remote.BrowserWindow;
 
-$(document).ready(function () {
+let gh: any;
+let KULLANICI: Kullanici;
+let fb2 = fs.readFileSync("app/db/id.ajanda");
+let db2 = new SQL.Database(fb2);
+
+$(document).ready(() => {
     document.getElementById("projeListesi").innerHTML = "\
     <li class='aktif' id='tumIsler' onclick='aktifProjeyiDegistir(this.id)'>\
     <a href='#'><i class='browser icon'></i> Tüm İşler</a></li>";
-
-    aktifProje = "tumIsler";
 
     if (!window.localStorage.getItem("githubtoken")) {
         gitHubGirisYap();
     } else {
         gh = new GitHub({
-            token: window.localStorage.getItem("githubtoken")
+            token: window.localStorage.getItem("githubtoken"),
         });
-        bilgileriYazdir();
+        bilgileriAl();
     }
-
 });
 
 function gitHubGirisYap() {
-    let self = this;
     let secenekler = {
         istemci_id: db2.exec("SELECT * FROM AJANDA")[0].values[0][0],
         istemci_sir: db2.exec("SELECT * FROM AJANDA")[0].values[0][1],
-        kapsamlar: ["repo", "user", "notifications", "gist"]
+        kapsamlar: ["repo", "user", "notifications", "gist"],
     };
 
     let dogrulamaPenceresi = new BrowserWindow({
-        width: 1200,
-        height: 720,
-        show: false,
-        'node-integration': false,
         center: true,
-        icon: __dirname + "/../img/is.png"
+        height: 720,
+        icon: __dirname + "/../img/is.png",
+        show: false,
+        width: 1200,
     });
 
     dogrulamaPenceresi.setMenu(null);
@@ -58,8 +51,8 @@ function gitHubGirisYap() {
     dogrulamaPenceresi.show();
 
     function cagriylaIlgilen(url: string) {
-        let ham_kod = /code=([^&]*)/.exec(url) || null;
-        let kod = (ham_kod && ham_kod.length > 1) ? ham_kod[1] : null;
+        let hamKod = /code=([^&]*)/.exec(url) || null;
+        let kod = (hamKod && hamKod.length > 1) ? hamKod[1] : null;
         let hata = /\?error=(.+)$/.exec(url);
 
         if (kod || hata) {
@@ -67,7 +60,7 @@ function gitHubGirisYap() {
         }
 
         if (kod) {
-            self.gitHubtanTokenIste(secenekler, kod);
+            gitHubtanTokenIste(secenekler, kod);
         } else if (hata) {
             alert("Hata! GitHub üyeliğiniz ile giriş yapmalısınız. Lütfen tekrar deneyin.");
         }
@@ -83,85 +76,82 @@ function gitHubGirisYap() {
 
     dogrulamaPenceresi.on("close", function () {
         dogrulamaPenceresi = null;
-    }, false);
+    });
 }
 
 function gitHubtanTokenIste(secenekler: any, kod: any) {
-    request
-        .post("https://github.com/login/oauth/access_token", {
-            client_id: secenekler.istemci_id,
-            client_secret: secenekler.istemci_sir,
-            code: kod,
-        })
-        .end(function (hata: string, cevap: any) {
-            if (cevap && cevap.ok) {
-                window.localStorage.setItem("githubtoken", cevap.body.access_token);
+    $.post("https://github.com/login/oauth/access_token", {
+        client_id: secenekler.istemci_id,
+        client_secret: secenekler.istemci_sir,
+        code: kod,
+    }).done(function (icerik: string, durum: string) {
+        console.log(durum);
+        console.log(icerik);
+        console.log(icerik.slice(icerik.search("=") + 1, icerik.search("&")));
 
-                gh = new GitHub({
-                    token: cevap.body.access_token
-                });
+        if (durum === "success") {
+            window.localStorage.setItem("githubtoken", icerik.slice(icerik.search("=") + 1, icerik.search("&")));
 
-                bilgileriYazdir();
-
-            } else {
-                console.log(hata);
-            }
-        });
+            gh = new GitHub({
+                token: icerik.slice(icerik.search("=") + 1, icerik.search("&")),
+            });
+            bilgileriAl();
+        }
+    });
 }
 
-function bilgileriYazdir() {
-    gh.getUser().getProfile(function (hata: string, icerik: Object) {
-        KULLANICI = icerik;
-        gitHubProfilBilgileriniYazdir();
+function bilgileriAl() {
+    gh.getUser().getProfile(function (hata: string, icerik: any) {
+        KULLANICI = new Kullanici(icerik.login, icerik.name, icerik.bio, icerik.avatar_url, icerik.company, icerik.location,
+            icerik.blog, icerik.followers, icerik.following, icerik.public_repos);
     });
 
     gh.getUser().listRepos({
-        type: "all",
+        direction: "asc",
         sort: "full_name",
-        direction: "asc"
-    }, function (hata: string, icerik: Object) {
-        PROJELER = icerik;
-        gitHubProjeListesiniYazdir();
+        type: "all",
+    }, function (hata: string, icerik: any) {
+        for (let i = 0; i < icerik.length; i++) {
+            KULLANICI.Projeler.push(new Proje(KULLANICI, icerik[i].full_name, icerik[i].name, icerik[i].description, icerik[i].homepage,
+                icerik[i].language, icerik[i].private, icerik[i].stargazers_count,
+                gitHubTarihi(icerik[i].created_at), gitHubTarihi(icerik[i].updated_at)));
+        }
+        bilgileriGoster();
     });
-
 }
 
-function gitHubProfilBilgileriniYazdir() {
-    if (KULLANICI) {
-        document.getElementById("github").innerHTML = "<div class='ui list'><div class='item'>\
-        <img class='ui tiny avatar image' src='"+ KULLANICI.avatar_url + "'>\
-        <div class='content'>\
-        <span class='header'>" + KULLANICI.name + "</span>\
-        <div class='description'><i class='github icon'></i>" + KULLANICI.login + "<br>"
-            + KULLANICI.bio + "<br>"
-            + KULLANICI.company + "</div>\
-        </div></div></div>";
-        document.getElementById("github").innerHTML += "<br><div class='ui tiny three statistics'>\
-        <div class='statistic'><div class='value'>" + KULLANICI.public_repos + "</div>\
-        <div class='label'>PROJE</div></div>\
-        <div class='statistic'><div class='value'>" + KULLANICI.followers + "</div>\
-        <div class='label'>TAKİPÇİ</div></div>\
-        <div class='statistic'><div class='value'>" + KULLANICI.following + "</div>\
-        <div class='label'>TAKİP EDİLEN</div></div>\
-        </div>";
-    }
+function bilgileriGoster() {
+    KULLANICI.projeleriListele("projeListesi");
+    KULLANICI.ProjeSayisi = KULLANICI.Projeler.length;
+    KULLANICI.bilgileriYazdir("github");
 }
 
-function gitHubProjeListesiniYazdir() {
-    if (PROJELER) {
-        document.getElementById("projeListesiBaslik").innerHTML = "<i class='tasks icon'></i> Projeler (" + PROJELER.length + ")";
-        for (let i = 0; i < PROJELER.length; i++) {
-            if (PROJELER[i].private) {
-                document.getElementById("projeListesi").innerHTML += "<li id='" + PROJELER[i].name + "' onclick='aktifProjeyiDegistir(this.id)'>\
-                <a href='#'> <i class='lock icon'></i> " + PROJELER[i].name + " (" + PROJELER[i].open_issues_count + ")</a></li>";
+function gitHubTarihi(tarih: string) {
+    let zaman: string = "";
+    let gun: string = "";
+    let ay: string = "";
+    let yil: string = "";
+
+    for (let i = 0; i < tarih.length; i++) {
+        if (tarih[i] !== "-") {
+            if (i >= 0 && i < 4) {
+                yil += tarih[i];
+            } else if (i >= 0 && i < 7) {
+                ay += tarih[i];
+            } else if (i >= 0 && i < 10) {
+                gun += tarih[i];
+            } else if (i >= 11 && i < 16) {
+                zaman += tarih[i];
             } else {
-                document.getElementById("projeListesi").innerHTML += "<li id='" + PROJELER[i].name + "' onclick='aktifProjeyiDegistir(this.id)'>\
-                <a href='#'> <i class='unlock alternate icon'></i> " + PROJELER[i].name + " (" + PROJELER[i].open_issues_count + ")</a></li>";
+                continue;
             }
         }
     }
+    tarih = gun + "." + ay + "." + yil + " | " + zaman;
+    return tarih;
 }
 
+/*
 function aktifProjeyiDegistir(projeAdi: string) {
     if (aktifProje == projeAdi) return;
     (<HTMLInputElement>document.getElementById("yeniGirdi")).value = null;
@@ -175,7 +165,7 @@ function aktifProjeyiDegistir(projeAdi: string) {
         projeOzetiniYazdir();
         projeninKatkilariniYazdir();
     } else {
-        gitHubProfilBilgileriniYazdir();
+        KULLANICI.bilgileriYazdir("github");
     }
 }
 
@@ -183,7 +173,7 @@ function projeninIsleriniYazdir() {
     document.getElementById("siralanabilir").innerHTML = "<li><div class='is'><h3>Yükleniyor...</h3></label></li>";
     let ifade: string = "";
 
-    gh.getIssues(KULLANICI.login, aktifProje).listIssues({
+    gh.getIssues(KULLANICI.KullaniciAdi, aktifProje).listIssues({
         state: "open"
     }, function (hata: string, isler: any) {
         aktifProjeninIsleri = isler;
@@ -198,7 +188,7 @@ function projeninIsleriniYazdir() {
         }
     });
 
-    gh.getIssues(KULLANICI.login, aktifProje).listIssues({
+    gh.getIssues(KULLANICI.KullaniciAdi, aktifProje).listIssues({
         state: "closed"
     }, function (hata: string, isler: any) {
         for (let i = 0; i < isler.length; i++) {
@@ -216,7 +206,7 @@ function projeninIsleriniYazdir() {
 }
 
 function projeOzetiniYazdir() {
-    gh.getRepo(KULLANICI.login, aktifProje).getDetails(function (hata: string, proje: any) {
+    gh.getRepo(KULLANICI.KullaniciAdi, aktifProje).getDetails(function (hata: string, proje: any) {
         let ozet: string = "\
         <div class='ui fluid card'>\
             <div class='content'>\
@@ -246,7 +236,7 @@ function projeOzetiniYazdir() {
 function projeninKatkilariniYazdir() {
     let ifade: string = "<div class='ui feed'>";
 
-    gh.getRepo(KULLANICI.login, aktifProje).listCommits({
+    gh.getRepo(KULLANICI.KullaniciAdi, aktifProje).listCommits({
 
     }, function (hata: string, katkilar: any) {
         for (let i = 0; i < katkilar.length; i++) {
@@ -264,27 +254,6 @@ function projeninKatkilariniYazdir() {
         ifade += "</div>";
         document.getElementById("github").innerHTML += ifade;
     });
-}
-
-function gitHubTarihi(tarih: string) {
-    let zaman: string = "", gun: string = "", ay: string = "", yil: string = "";
-    for (let i = 0; i < tarih.length; i++) {
-        if (tarih[i] != "-") {
-            if (i >= 0 && i < 4) {
-                yil += tarih[i];
-            } else if (i >= 0 && i < 7) {
-                ay += tarih[i];
-            } else if (i >= 0 && i < 10) {
-                gun += tarih[i];
-            } else if (i >= 11 && i < 16) {
-                zaman += tarih[i]
-            } else {
-                continue;
-            }
-        }
-    }
-    tarih = gun + "." + ay + "." + yil + " | " + zaman;
-    return tarih;
 }
 
 function isBilgileriniYazdir(indis: number) {
@@ -334,7 +303,7 @@ function isOzetiniYazdir(is: any) {
 }
 
 function isYorumlariniYazdir(is: any) {
-    gh.getIssues(KULLANICI.login, aktifProje).listIssueComments(is.number, function (hata: string, yorumlar: any) {
+    gh.getIssues(KULLANICI.KullaniciAdi, aktifProje).listIssueComments(is.number, function (hata: string, yorumlar: any) {
         if (!hata && yorumlar.length > 0) {
 
             let ifade: string = "<div class='ui comments'>";
@@ -370,7 +339,7 @@ function isYorumlariniYazdir(is: any) {
 }
 
 function isOlaylariniYazdir(is: any) {
-    gh.getIssues(KULLANICI.login, aktifProje).listIssueEvents(is.number, function (hata: string, olaylar: any) {
+    gh.getIssues(KULLANICI.KullaniciAdi, aktifProje).listIssueEvents(is.number, function (hata: string, olaylar: any) {
         let ifade = "<div class='ui feed'>";
 
         for (let i = 0; i < olaylar.length; i++) {
@@ -601,3 +570,4 @@ function isOlaylariniYazdir(is: any) {
         document.getElementById("github").innerHTML += ifade;
     });
 }
+*/

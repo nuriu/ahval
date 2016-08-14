@@ -1,20 +1,15 @@
 {
     "compilerOptions": {
+        "target": "ES5",
         "module": "commonjs",
         "moduleResolution": "node",
-        "noImplicitAny": true,
         "removeComments": true,
-        "preserveConstEnums": true,
-        "outDir": "app/js",
-        "sourceMap": false
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true
     },
-    "include": [
-        "typings/index.d.ts",
-        "app/src/*"
-    ],
     "exclude": [
         "node_modules",
-        "tsconfig",
-        "wwwroot"
+        "tsconfig"
     ]
 }

@@ -6,13 +6,14 @@ Geliştiriciler için akıllı ajanda.
 
 **Kullanılan Teknolojiler;**
 
+- NodeJS
+- Webpack
 - Electron
 - TypeScript
 - jQuery
 - Semantic UI
-- sql.js
 - GitHub API
-- superagent
+- sql.js
 
 **Değişim Günlüğü;**
 

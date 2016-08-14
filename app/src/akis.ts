@@ -21,7 +21,8 @@ $(document).ready(function () {
   document.getElementById("gun").innerHTML = new Date().getDate().toString();
 
   // ay
-  let ay = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"][new Date().getMonth()];
+  let ay = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
+  [new Date().getMonth()];
   document.getElementById("ay").innerHTML = ay;
 
   // yıl
