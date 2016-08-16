@@ -8,7 +8,8 @@ function pencereyiOlustur() {
         width: 1800,
         height: 900,
         center: true,
-        icon: __dirname + "/app/img/is.png"
+        icon: __dirname + "/app/img/is.png",
+        //frame: false
     });
 
     //anaPencere.setMinimumSize(1200, 700);
@@ -16,6 +17,7 @@ function pencereyiOlustur() {
 
     anaPencere.webContents.openDevTools();
     //anaPencere.setMenu(null);
+    //anaPencere.setFullScreen(true);
 
     anaPencere.on('closed', function () {
         anaPencere = null;

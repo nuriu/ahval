@@ -1,5 +1,6 @@
 import { Is } from "./is";
 import { Kullanici } from "./kullanici";
+import { GithubTarihi } from "./tarih";
 
 export class Proje {
     public Sahip: Kullanici;
@@ -11,11 +12,11 @@ export class Proje {
     public Dil: string;
     public OzelMi: boolean;
     public YildizSayisi: number;
-    public OlusturmaTarihi: string;
-    public GuncellemeTarihi: string;
+    public OlusturmaTarihi: GithubTarihi;
+    public GuncellemeTarihi: GithubTarihi;
 
-    constructor(sahip: Kullanici, tAd: string, ad: string, aciklama: string, anaSayfa: string, dil: string, ozelMi: boolean, 
-                yildizSayisi: number, olusturmaTarihi: string, guncellemeTarihi: string) {
+    constructor(sahip: Kullanici, tAd: string, ad: string, aciklama: string, anaSayfa: string, dil: string, ozelMi: boolean,
+                yildizSayisi: number, olusturmaTarihi: GithubTarihi, guncellemeTarihi: GithubTarihi) {
         this.Sahip = sahip;
         this.TamAd = tAd;
         this.Ad = ad;

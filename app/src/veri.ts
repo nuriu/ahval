@@ -1,5 +1,7 @@
+import { Is } from "./is";
 import { Kullanici } from "./kullanici";
 import { Proje } from "./proje";
+import { GithubTarihi } from "./tarih";
 
 const fs = require("fs");
 const SQL = require("sql.js");
@@ -25,6 +27,7 @@ $(document).ready(() => {
             token: window.localStorage.getItem("githubtoken"),
         });
         bilgileriAl();
+        bilgileriYazdir();
     }
 });
 
@@ -101,11 +104,18 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
 }
 
 function bilgileriAl() {
+    kulaniciBilgileriniAl();
+    projeBilgileriniAl();
+}
+
+function kulaniciBilgileriniAl() {
     gh.getUser().getProfile(function (hata: string, icerik: any) {
         KULLANICI = new Kullanici(icerik.login, icerik.name, icerik.bio, icerik.avatar_url, icerik.company, icerik.location,
-            icerik.blog, icerik.followers, icerik.following, icerik.public_repos);
+            icerik.blog, icerik.followers, icerik.following);
     });
+}
 
+function projeBilgileriniAl() {
     gh.getUser().listRepos({
         direction: "asc",
         sort: "full_name",
@@ -114,41 +124,32 @@ function bilgileriAl() {
         for (let i = 0; i < icerik.length; i++) {
             KULLANICI.Projeler.push(new Proje(KULLANICI, icerik[i].full_name, icerik[i].name, icerik[i].description, icerik[i].homepage,
                 icerik[i].language, icerik[i].private, icerik[i].stargazers_count,
-                gitHubTarihi(icerik[i].created_at), gitHubTarihi(icerik[i].updated_at)));
+                new GithubTarihi(icerik[i].created_at), new GithubTarihi(icerik[i].updated_at)));
         }
-        bilgileriGoster();
+        isBilgileriniAl();
     });
 }
 
-function bilgileriGoster() {
-    KULLANICI.projeleriListele("projeListesi");
-    KULLANICI.ProjeSayisi = KULLANICI.Projeler.length;
-    KULLANICI.bilgileriYazdir("github");
+function isBilgileriniAl() {
+    for (let i = 0; i < KULLANICI.Projeler.length; i++) {
+        gh.getIssues(KULLANICI.KullaniciAdi, KULLANICI.Projeler[i].Ad).listIssues({
+            state: "all",
+        }, function (hata: string, isler: any) {
+            for (let j = 0; j < isler.length; j++) {
+                KULLANICI.Projeler[i].Isler.push(new Is(KULLANICI.Projeler[i], isler[j].title, isler[j].number, isler[j].body,
+                    isler[j].state, new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
+                    new GithubTarihi(isler[j].closed_at)));
+            }
+            console.log(KULLANICI.Projeler[i]);
+        });
+    }
 }
 
-function gitHubTarihi(tarih: string) {
-    let zaman: string = "";
-    let gun: string = "";
-    let ay: string = "";
-    let yil: string = "";
-
-    for (let i = 0; i < tarih.length; i++) {
-        if (tarih[i] !== "-") {
-            if (i >= 0 && i < 4) {
-                yil += tarih[i];
-            } else if (i >= 0 && i < 7) {
-                ay += tarih[i];
-            } else if (i >= 0 && i < 10) {
-                gun += tarih[i];
-            } else if (i >= 11 && i < 16) {
-                zaman += tarih[i];
-            } else {
-                continue;
-            }
-        }
-    }
-    tarih = gun + "." + ay + "." + yil + " | " + zaman;
-    return tarih;
+function bilgileriYazdir() {
+    setTimeout(() => {
+        KULLANICI.projeleriListele("projeListesi");
+        KULLANICI.bilgileriYazdir("github");
+    }, 3000);
 }
 
 /*
