@@ -4,6 +4,7 @@ import { Katki } from "./katki";
 import { Kullanici } from "./kullanici";
 import { Proje } from "./proje";
 import { GithubTarihi } from "./tarih";
+import { Yorum } from "./yorum";
 
 const fs = require("fs");
 const SQL = require("sql.js");
@@ -121,7 +122,6 @@ function kulaniciBilgileriniAl() {
             icerik.blog, icerik.followers, icerik.following);
     });
 }
-
 function projeBilgileriniAl() {
     gh.getUser().listRepos({
         direction: "asc",
@@ -151,6 +151,19 @@ function isBilgileriniAl() {
                         new Etiket(KULLANICI.Projeler[i].Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
                     );
                 }
+
+                gh.getIssues(KULLANICI.KullaniciAdi, KULLANICI.Projeler[i].Ad).listIssueComments(
+                    KULLANICI.Projeler[i].Isler[j].No, function (hata2: string, yorumlar: any) {
+                        for (let l = 0; l < yorumlar.length; l++) {
+                            KULLANICI.Projeler[i].Isler[j].Yorumlar.push(
+                                new Yorum(
+                                    yorumlar[l].user.login, yorumlar[l].user.avatar_url, yorumlar[l].body,
+                                    new GithubTarihi(yorumlar[l].created_at), new GithubTarihi(yorumlar[l].updated_at)
+                                )
+                            );
+                        }
+                    }
+                );
             }
         });
 
@@ -166,6 +179,18 @@ function isBilgileriniAl() {
                         new Etiket(KULLANICI.Projeler[i].Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
                     );
                 }
+                gh.getIssues(KULLANICI.KullaniciAdi, KULLANICI.Projeler[i].Ad).listIssueComments(
+                    KULLANICI.Projeler[i].Isler[j].No, function (hata2: string, yorumlar: any) {
+                        for (let l = 0; l < yorumlar.length; l++) {
+                            KULLANICI.Projeler[i].Isler[j].Yorumlar.push(
+                                new Yorum(
+                                    yorumlar[l].user.login, yorumlar[l].user.avatar_url, yorumlar[l].body,
+                                    new GithubTarihi(yorumlar[l].created_at), new GithubTarihi(yorumlar[l].updated_at)
+                                )
+                            );
+                        }
+                    }
+                );
             }
             console.log(KULLANICI.Projeler[i]);
         });

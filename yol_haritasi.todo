@@ -1,5 +1,5 @@
 AKTİF:
-    ☐ Mimari değişiklik sebebi ile bozulan özelliklerin onarılması @critical 
+    ☐ Katkıyı/olayı/yorumu vb yapan kişinin tüm bilgilerinin alınması @critical 
     ☐ Yazı tipi değiştirilecek @low 
     ☐ Son olayların profil bilgilerinin altındaki alanda listelenmesi @low
     ☐ Etiket sisteminin iyileştirilmesi (birden fazla etiket için) @high 
@@ -11,7 +11,6 @@ AKTİF:
     ☐ Yorum ve açıklamaların markdown desteği ile yazdırılması @high 
 
 PASİF / DÜŞÜNÜLÜYOR:
-    ☐ Harici modül sistemi gerçekleştirilemedi, tekrar denenmeli @critical 
     ☐ Yerel (offline) markdown tabanlı not tutulmasının sağlanması @low
     ☐ Yerelleştirme altyapısının kurulması @low
     ☐ İşlerin etiketlere / duruma / kilometre taşına göre kanban tahtası şeklinde gösterilmesi @low 
@@ -35,3 +34,5 @@ ARŞİV:
     ✔ İş özetinde işin sahip olduğu etiketlerin gösterilmesi @done
     ✔ İş olaylarında saatin gösterilmesi @done
     ✔ Proje özetinin / bilgilerinin gösterilmesi @done
+    ✔ Mimari değişiklik sebebi ile bozulan özelliklerin onarılması @done
+    ✔ Harici modül sistemi gerçekleştirilemedi, tekrar denenmeli @done
