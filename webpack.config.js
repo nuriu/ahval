@@ -7,13 +7,10 @@ module.exports = {
   debug: true,
   entry: {
     'app': [
-      './app/src/isler',
       './app/src/akis',
       './app/src/is',
       './app/src/proje',
-      './app/src/kullanici'
-    ],
-    'veri': [
+      './app/src/kullanici',
       './app/src/veri'
     ]
   },

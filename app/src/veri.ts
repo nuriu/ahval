@@ -12,29 +12,34 @@ const BrowserWindow = remote.BrowserWindow;
 
 let gh: any;
 let KULLANICI: Kullanici;
-let fb2 = fs.readFileSync("app/db/id.ajanda");
-let db2 = new SQL.Database(fb2);
+let fb = fs.readFileSync("app/db/id.ajanda");
+let db = new SQL.Database(fb);
+let aktifProje: string = null;
 
 $(document).ready(() => {
     document.getElementById("projeListesi").innerHTML = "\
-    <li class='aktif' id='tumIsler' onclick='aktifProjeyiDegistir(this.id)'>\
-    <a href='#'><i class='browser icon'></i> Tüm İşler</a></li>";
+    <li class='aktif' id='tumIsler'>\
+    <a href='#'><i class='loading spinner icon'></i> Yükleniyor...</a></li>";
 
-    if (!window.localStorage.getItem("githubtoken")) {
+    if (window.localStorage.getItem("githubtoken") === null) {
         gitHubGirisYap();
     } else {
         gh = new GitHub({
             token: window.localStorage.getItem("githubtoken"),
         });
+
         bilgileriAl();
-        bilgileriYazdir();
+
+        setTimeout(() => {
+            bilgileriYazdir();
+        }, 1000);
     }
 });
 
 function gitHubGirisYap() {
     let secenekler = {
-        istemci_id: db2.exec("SELECT * FROM AJANDA")[0].values[0][0],
-        istemci_sir: db2.exec("SELECT * FROM AJANDA")[0].values[0][1],
+        istemci_id: db.exec("SELECT * FROM AJANDA")[0].values[0][0],
+        istemci_sir: db.exec("SELECT * FROM AJANDA")[0].values[0][1],
         kapsamlar: ["repo", "user", "notifications", "gist"],
     };
 
@@ -89,7 +94,6 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
         code: kod,
     }).done(function (icerik: string, durum: string) {
         console.log(durum);
-        console.log(icerik);
         console.log(icerik.slice(icerik.search("=") + 1, icerik.search("&")));
 
         if (durum === "success") {
@@ -98,6 +102,7 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
             gh = new GitHub({
                 token: icerik.slice(icerik.search("=") + 1, icerik.search("&")),
             });
+
             bilgileriAl();
         }
     });
@@ -142,33 +147,48 @@ function isBilgileriniAl() {
             }
             console.log(KULLANICI.Projeler[i]);
         });
+        setTimeout(() => {
+            document.getElementById(KULLANICI.Projeler[i].Ad).addEventListener("click", () => {
+                aktifProjeyiDegistir(KULLANICI.Projeler[i]);
+            });
+        }, 4000);
     }
 }
 
 function bilgileriYazdir() {
     setTimeout(() => {
         KULLANICI.projeleriListele("projeListesi");
+    }, 2000);
+
+    setTimeout(() => {
         KULLANICI.bilgileriYazdir("github");
-    }, 3000);
+    }, 2000);
 }
 
-/*
-function aktifProjeyiDegistir(projeAdi: string) {
-    if (aktifProje == projeAdi) return;
-    (<HTMLInputElement>document.getElementById("yeniGirdi")).value = null;
-    document.getElementById(aktifProje).className = null;
-    document.getElementById(projeAdi).className = "aktif";
-    aktifProjeninIsleri = null;
-    aktifProje = projeAdi;
+function aktifProjeyiDegistir(proje: Proje) {
+    if (proje !== null) {
+        console.log(aktifProje + " - " + proje.Ad);
+        (<HTMLInputElement>document.getElementById("yeniGirdi")).value = null;
 
-    if (projeAdi != "tumIsler") {
-        projeninIsleriniYazdir();
-        projeOzetiniYazdir();
-        projeninKatkilariniYazdir();
+        if (aktifProje === proje.Ad) {
+            return;
+        }
+
+        if (aktifProje !== null) {
+            document.getElementById(aktifProje).className = null;
+        }
+
+        document.getElementById(proje.Ad).className = "aktif";
+        aktifProje = proje.Ad;
     } else {
+        document.getElementById("tumIsler").className = "aktif";
         KULLANICI.bilgileriYazdir("github");
+        aktifProje = null;
     }
 }
+
+
+/*
 
 function projeninIsleriniYazdir() {
     document.getElementById("siralanabilir").innerHTML = "<li><div class='is'><h3>Yükleniyor...</h3></label></li>";
