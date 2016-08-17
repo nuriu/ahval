@@ -1,5 +1,6 @@
 import { Etiket } from "./etiket";
 import { Is } from "./is";
+import { Katki } from "./katki";
 import { Kullanici } from "./kullanici";
 import { Proje } from "./proje";
 import { GithubTarihi } from "./tarih";
@@ -173,6 +174,17 @@ function isBilgileriniAl() {
             document.getElementById(KULLANICI.Projeler[i].Ad).addEventListener("click", () => {
                 aktifProjeyiDegistir(KULLANICI.Projeler[i]);
             });
+
+            gh.getRepo(KULLANICI.KullaniciAdi, KULLANICI.Projeler[i].Ad).listCommits({}, function (hata2: string, katkilar: any) {
+                for (let j = 0; j < katkilar.length; j++) {
+                    KULLANICI.Projeler[i].Katkilar.push(
+                        new Katki(
+                            katkilar[j].committer.login, katkilar[j].author.avatar_url, katkilar[j].commit.message,
+                            new GithubTarihi(katkilar[j].commit.committer.date)
+                        )
+                    );
+                }
+            });
         }, 4000);
     }
 }
@@ -189,7 +201,6 @@ function bilgileriYazdir() {
 
 function aktifProjeyiDegistir(proje: Proje) {
     if (proje !== null) {
-        console.log(aktifProje + " - " + proje.Ad);
         (<HTMLInputElement>document.getElementById("yeniGirdi")).value = null;
 
         if (aktifProje === proje.Ad) {
@@ -202,7 +213,8 @@ function aktifProjeyiDegistir(proje: Proje) {
 
         document.getElementById(proje.Ad).className = "aktif";
         aktifProje = proje.Ad;
-        proje.isleriYazdir();
+
+        projeBilgileriniYazdir(proje);
     } else {
         document.getElementById("tumIsler").className = "aktif";
         KULLANICI.bilgileriYazdir("github");
@@ -210,371 +222,8 @@ function aktifProjeyiDegistir(proje: Proje) {
     }
 }
 
-
-/*
-function projeOzetiniYazdir() {
-    gh.getRepo(KULLANICI.KullaniciAdi, aktifProje).getDetails(function (hata: string, proje: any) {
-        let ozet: string = "\
-        <div class='ui fluid card'>\
-            <div class='content'>\
-                <div class='header'>" + proje.name + "</div>\
-                <div class='meta'>\
-                    <span class='right floated time'><i class='calendar outline icon'></i> " + gitHubTarihi(proje.created_at) + "</span>";
-        if (proje.homepage) {
-            ozet += "<span class='category'>" + proje.homepage + "</span>";
-        }
-        ozet += "\
-                </div>\
-                <div class='description'>\
-                " + proje.description + "\
-                </div>\
-            </div>\
-            <div class='extra content'>\
-                <div class='right floated author'>\
-                    <img class='ui avatar image' src='" + proje.owner.avatar_url + "' />\
-                </div>\
-            </div>\
-        </div>";
-
-        document.getElementById("github").innerHTML = ozet + "</br>";
-    });
+function projeBilgileriniYazdir(proje: Proje) {
+    proje.ozetiYazdir();
+    proje.isleriYazdir();
+    proje.katkilariYazdir();
 }
-
-function projeninKatkilariniYazdir() {
-    let ifade: string = "<div class='ui feed'>";
-
-    gh.getRepo(KULLANICI.KullaniciAdi, aktifProje).listCommits({
-
-    }, function (hata: string, katkilar: any) {
-        for (let i = 0; i < katkilar.length; i++) {
-            ifade += "\
-            <div class='event'>\
-                <div class='label'><img src='" + katkilar[i].author.avatar_url + "'></div>\
-                <div class='content'>\
-                    <div class='date'>" + katkilar[i].commit.committer.name + "</div>\
-                    <div class='summary'>" + katkilar[i].commit.message + "\
-                        <div class='date'>" + gitHubTarihi(katkilar[i].commit.committer.date) + "</div>\
-                    </div>\
-                </div>\
-            </div>";
-        }
-        ifade += "</div>";
-        document.getElementById("github").innerHTML += ifade;
-    });
-}
-
-function isBilgileriniYazdir(indis: number) {
-    //console.log(aktifProjeninIsleri[indis]);
-
-    isOzetiniYazdir(aktifProjeninIsleri[indis]);
-
-    isOlaylariniYazdir(aktifProjeninIsleri[indis]);
-
-    isYorumlariniYazdir(aktifProjeninIsleri[indis]);
-}
-
-function isOzetiniYazdir(is: any) {
-    let ozet: string = "\
-    <div class='ui fluid card'>\
-        <div class='content'>\
-            <div class='header'>" + is.title + "</div>\
-            <div class='meta'>\
-                <span class='right floated time'><i class='calendar outline icon'></i> " + gitHubTarihi(is.updated_at) + "</span>";
-    if (is.milestone) {
-        ozet += "<span class='category'>" + is.milestone.title + "</span>";
-    }
-    ozet += "\
-            </div>\
-            <div class='description'>\
-            " + is.body + "\
-            </div>\
-        </div>\
-        <div class='extra content'>\
-            <div class='right floated author'>\
-                <img class='ui avatar image' src='" + is.user.avatar_url + "' />\
-            </div>";
-
-    if (is.labels.length > 0) {
-        ozet += "<div class='left floated'>";
-        for (let i = 0; i < is.labels.length; i++) {
-            let etiket = is.labels[i];
-            ozet += "<div class='ui label' style='background-color: #" + etiket.color + "; color: white;'>" + etiket.name + "</div>"
-        }
-        ozet += "</div>";
-    }
-
-    ozet += "</div>\
-    </div>";
-
-    document.getElementById("github").innerHTML = ozet + "</br>";
-}
-
-function isYorumlariniYazdir(is: any) {
-    gh.getIssues(KULLANICI.KullaniciAdi, aktifProje).listIssueComments(is.number, function (hata: string, yorumlar: any) {
-        if (!hata && yorumlar.length > 0) {
-
-            let ifade: string = "<div class='ui comments'>";
-
-            for (let i = 0; i < yorumlar.length; i++) {
-                let yorum = yorumlar[i];
-
-                ifade += "\
-                <div class='comment'>\
-                    <a class='avatar'>\
-                        <img src='" + yorum.user.avatar_url + "'>\
-                    </a>\
-                    <div class='content'>\
-                        <a class='author'>" + yorum.user.login + "</a>\
-                        <div class='metadata'>\
-                            <div class='date'>" + gitHubTarihi(yorum.updated_at) + "</div>\
-                        </div>\
-                        <div class='text'>\
-                            " + yorum.body + "\
-                        </div>\
-                        <div class='actions'>\
-                            <a class='reply active'>Cevapla</a>\
-                        </div>\
-                    </div>\
-                </div>";
-            }
-
-            ifade += "</div>"
-
-            document.getElementById("github").innerHTML += ifade;
-        }
-    });
-}
-
-function isOlaylariniYazdir(is: any) {
-    gh.getIssues(KULLANICI.KullaniciAdi, aktifProje).listIssueEvents(is.number, function (hata: string, olaylar: any) {
-        let ifade = "<div class='ui feed'>";
-
-        for (let i = 0; i < olaylar.length; i++) {
-            let olay = olaylar[i];
-
-            if (olay.event == "labeled") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.actor.login + "\
-                                </a>\
-                                <div class='ui label' style='background-color: #" + olay.label.color + "; color: white;'>" + olay.label.name + "</div> etiketini ekledi.\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "unlabeled") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.actor.login + "\
-                                </a>\
-                                <div class='ui label' style='background-color: #" + olay.label.color + "; color: white;'>" + olay.label.name + "</div> etiketini kaldırdı.\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "assigned") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.assigner.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.assigner.login + "\
-                                </a>";
-                if (olay.assigner.login == olay.assignee.login) {
-                    ifade += " bu işi kendisine atadı."
-                } else {
-                    ifade += " tarafından \
-                                <a class='user'>\
-                                    " + olay.assignee.login + "\
-                                </a> bu işe atandı.";
-                }
-
-                ifade += "\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "unassigned") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.assigner.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.assigner.login + "\
-                                </a>";
-                if (olay.assigner.login == olay.assignee.login) {
-                    ifade += " bu işi kendisinden aldı."
-                } else {
-                    ifade += " tarafından \
-                                <a class='user'>\
-                                    " + olay.assignee.login + "\
-                                </a> bu işten alındı.";
-                }
-
-                ifade += "\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "closed") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.actor.login + "\
-                                </a> bu işi kapattı.\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "reopened") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.actor.login + "\
-                                </a> bu işi yeniden açtı.\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "subscribed") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.actor.login + "\
-                                </a> bu işe abone oldu.\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "mentioned") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.actor.login + "\
-                                </a> kişisinden bu işte bahsedildi.\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "milestoned") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.actor.login + "\
-                                </a> bu işi " + olay.milestone.title + " kilometre taşına ekledi.\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "demilestoned") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.actor.login + "\
-                                </a> bu işi " + olay.milestone.title + " kilometre taşından çıkardı.\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "renamed") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.actor.login + "\
-                                </a> bu işin adını <b><i>" + olay.rename.to + "</i></b> olarak değiştirdi.\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "locked") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.actor.login + "\
-                                </a> bu işi kilitledi.\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            } else if (olay.event == "unlocked") {
-                ifade += "\
-                    <div class='event'>\
-                        <div class='label'>\
-                            <img class='ui avatar image' src='" + olay.actor.avatar_url + "'>\
-                        </div>\
-                        <div class='content'>\
-                            <div class='summary'>\
-                                <a class='user'>\
-                                    " + olay.actor.login + "\
-                                </a> bu işin kilidini kaldırdı.\
-                                <div class='date'>" + gitHubTarihi(olay.created_at) + "</div>\
-                            </div>\
-                        </div>\
-                    </div>";
-            }
-        }
-
-        ifade += "</div>";
-
-        document.getElementById("github").innerHTML += ifade;
-    });
-}
-*/

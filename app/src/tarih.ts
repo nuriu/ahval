@@ -1,10 +1,10 @@
-
 export class GithubTarihi {
     public Saat: string = "";
     public Gun: string = "";
     public Ay: string = "";
     public Yil: string = "";
     public Tarih: string = "";
+
     constructor(tarih: string) {
         if (tarih !== null) {
             for (let i = 0; i < tarih.length; i++) {

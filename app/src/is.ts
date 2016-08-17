@@ -32,4 +32,16 @@ export class Is {
     public bilgileriYazdir() {
         console.log("#" + this.No + " > " + this.Baslik);
     }
+
+    public ozetiYazdir() {
+
+    }
+
+    public yorumlariYazdir() {
+
+    }
+
+    public olaylariYazdir() {
+        
+    }
 }
