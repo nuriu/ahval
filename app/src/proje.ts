@@ -30,4 +30,10 @@ export class Proje {
         this.Isler = new Array<Is>();
     }
 
+    public isleriYazdir() {
+        for (let i = 0; i < this.Isler.length; i++) {
+
+        }
+    }
+
 }

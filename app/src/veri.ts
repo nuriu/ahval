@@ -1,3 +1,4 @@
+import { Etiket } from "./etiket";
 import { Is } from "./is";
 import { Kullanici } from "./kullanici";
 import { Proje } from "./proje";
@@ -138,15 +139,36 @@ function projeBilgileriniAl() {
 function isBilgileriniAl() {
     for (let i = 0; i < KULLANICI.Projeler.length; i++) {
         gh.getIssues(KULLANICI.KullaniciAdi, KULLANICI.Projeler[i].Ad).listIssues({
-            state: "all",
+            state: "open",
         }, function (hata: string, isler: any) {
             for (let j = 0; j < isler.length; j++) {
-                KULLANICI.Projeler[i].Isler.push(new Is(KULLANICI.Projeler[i], isler[j].title, isler[j].number, isler[j].body,
-                    isler[j].state, new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
+                KULLANICI.Projeler[i].Isler.push(new Is(isler[j].number, KULLANICI.Projeler[i], isler[j].title, isler[j].body,
+                    "Açık", new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
                     new GithubTarihi(isler[j].closed_at)));
+                for (let k = 0; k < isler[j].labels.length; k++) {
+                    KULLANICI.Projeler[i].Isler[j].Etiketler.push(
+                        new Etiket(KULLANICI.Projeler[i].Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
+                    );
+                }
+            }
+        });
+
+        gh.getIssues(KULLANICI.KullaniciAdi, KULLANICI.Projeler[i].Ad).listIssues({
+            state: "closed",
+        }, function (hata: string, isler: any) {
+            for (let j = 0; j < isler.length; j++) {
+                KULLANICI.Projeler[i].Isler.push(new Is(isler[j].number, KULLANICI.Projeler[i], isler[j].title, isler[j].body,
+                    "Kapalı", new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
+                    new GithubTarihi(isler[j].closed_at)));
+                for (let k = 0; k < isler[j].labels.length; k++) {
+                    KULLANICI.Projeler[i].Isler[j].Etiketler.push(
+                        new Etiket(KULLANICI.Projeler[i].Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
+                    );
+                }
             }
             console.log(KULLANICI.Projeler[i]);
         });
+
         setTimeout(() => {
             document.getElementById(KULLANICI.Projeler[i].Ad).addEventListener("click", () => {
                 aktifProjeyiDegistir(KULLANICI.Projeler[i]);
@@ -180,6 +202,7 @@ function aktifProjeyiDegistir(proje: Proje) {
 
         document.getElementById(proje.Ad).className = "aktif";
         aktifProje = proje.Ad;
+        proje.isleriYazdir();
     } else {
         document.getElementById("tumIsler").className = "aktif";
         KULLANICI.bilgileriYazdir("github");
@@ -189,7 +212,6 @@ function aktifProjeyiDegistir(proje: Proje) {
 
 
 /*
-
 function projeninIsleriniYazdir() {
     document.getElementById("siralanabilir").innerHTML = "<li><div class='is'><h3>Yükleniyor...</h3></label></li>";
     let ifade: string = "";
