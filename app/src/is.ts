@@ -28,4 +28,8 @@ export class Is {
         this.Etiketler = new Array<Etiket>();
         this.Olaylar = new Array<Olay>();
     }
+
+    public bilgileriYazdir() {
+        console.log("#" + this.No + " > " + this.Baslik);
+    }
 }

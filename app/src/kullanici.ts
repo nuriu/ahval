@@ -13,7 +13,7 @@ export class Kullanici {
     public Projeler: Array<Proje>;
 
     constructor(kAdi: string, ad: string, bio: string, avatar: string, sirket: string, yer: string, site: string,
-        takipciSayisi: number, takipEdilenKisiSayisi: number) {
+                takipciSayisi: number, takipEdilenKisiSayisi: number) {
         this.KullaniciAdi = kAdi;
         this.Ad = ad;
         this.Bio = bio;

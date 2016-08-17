@@ -184,7 +184,7 @@ function bilgileriYazdir() {
 
     setTimeout(() => {
         KULLANICI.bilgileriYazdir("github");
-    }, 2000);
+    }, 2500);
 }
 
 function aktifProjeyiDegistir(proje: Proje) {
@@ -212,42 +212,6 @@ function aktifProjeyiDegistir(proje: Proje) {
 
 
 /*
-function projeninIsleriniYazdir() {
-    document.getElementById("siralanabilir").innerHTML = "<li><div class='is'><h3>Yükleniyor...</h3></label></li>";
-    let ifade: string = "";
-
-    gh.getIssues(KULLANICI.KullaniciAdi, aktifProje).listIssues({
-        state: "open"
-    }, function (hata: string, isler: any) {
-        aktifProjeninIsleri = isler;
-        for (let i = 0; i < isler.length; i++) {
-            ifade += "<li>"
-            if (isler[i].labels.length > 0) {
-                ifade += "<div class='is' id='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";' onclick='isBilgileriniYazdir(" + aktifProjeninIsleri.indexOf(isler[i]) + ")'>";
-            } else {
-                ifade += "<div class='is' id='" + isler[i].id + "' onclick='isBilgileriniYazdir(" + aktifProjeninIsleri.indexOf(isler[i]) + ")'>";
-            }
-            ifade += "<h2>" + isler[i].title + "<span>" + gitHubTarihi(isler[i].created_at) + "</span></h2></label></li>";
-        }
-    });
-
-    gh.getIssues(KULLANICI.KullaniciAdi, aktifProje).listIssues({
-        state: "closed"
-    }, function (hata: string, isler: any) {
-        for (let i = 0; i < isler.length; i++) {
-            aktifProjeninIsleri.push(isler[i]);
-            ifade += "<li>"
-            if (isler[i].labels.length > 0) {
-                ifade += "<div class='bitmis is' id='" + isler[i].id + "' style='border-right: 8px solid #" + isler[i].labels[0].color + ";' onclick='isBilgileriniYazdir(" + aktifProjeninIsleri.indexOf(isler[i]) + ")'>";
-            } else {
-                ifade += "<div class='bitmis is' id='" + isler[i].id + "' onclick='isBilgileriniYazdir(" + aktifProjeninIsleri.indexOf(isler[i]) + ")'>";
-            }
-            ifade += "<h3>" + isler[i].title + "<span>" + gitHubTarihi(isler[i].created_at) + "</span></h3></label></li>";
-        }
-        document.getElementById("siralanabilir").innerHTML = ifade;
-    });
-}
-
 function projeOzetiniYazdir() {
     gh.getRepo(KULLANICI.KullaniciAdi, aktifProje).getDetails(function (hata: string, proje: any) {
         let ozet: string = "\
