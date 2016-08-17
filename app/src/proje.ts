@@ -66,7 +66,7 @@ export class Proje {
 
         for (let i = 0; i < this.Isler.length; i++) {
             if (this.Isler[i].Durum === "Açık") {
-                ifade += "<li>"
+                ifade += "<li>";
                 if (this.Isler[i].Etiketler.length > 0) {
                     ifade += "\
                     <div class='is' id='" + this.Isler[i].No + "' \
@@ -76,7 +76,7 @@ export class Proje {
                 }
                 ifade += "<h2>" + this.Isler[i].Baslik + "<span>" + this.Isler[i].OlusturmaTarihi.Tarih + "</span></h2></label></li>";
             } else {
-                ifade += "<li>"
+                ifade += "<li>";
                 if (this.Isler[i].Etiketler.length > 0) {
                     ifade += "\
                     <div class='bitmis is' id='" + this.Isler[i].No + "' \

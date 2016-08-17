@@ -139,61 +139,8 @@ function projeBilgileriniAl() {
 
 function isBilgileriniAl() {
     for (let i = 0; i < KULLANICI.Projeler.length; i++) {
-        gh.getIssues(KULLANICI.KullaniciAdi, KULLANICI.Projeler[i].Ad).listIssues({
-            state: "open",
-        }, function (hata: string, isler: any) {
-            for (let j = 0; j < isler.length; j++) {
-                KULLANICI.Projeler[i].Isler.push(new Is(isler[j].number, KULLANICI.Projeler[i], isler[j].title, isler[j].body,
-                    "Açık", new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
-                    new GithubTarihi(isler[j].closed_at)));
-                for (let k = 0; k < isler[j].labels.length; k++) {
-                    KULLANICI.Projeler[i].Isler[j].Etiketler.push(
-                        new Etiket(KULLANICI.Projeler[i].Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
-                    );
-                }
-
-                gh.getIssues(KULLANICI.KullaniciAdi, KULLANICI.Projeler[i].Ad).listIssueComments(
-                    KULLANICI.Projeler[i].Isler[j].No, function (hata2: string, yorumlar: any) {
-                        for (let l = 0; l < yorumlar.length; l++) {
-                            KULLANICI.Projeler[i].Isler[j].Yorumlar.push(
-                                new Yorum(
-                                    yorumlar[l].user.login, yorumlar[l].user.avatar_url, yorumlar[l].body,
-                                    new GithubTarihi(yorumlar[l].created_at), new GithubTarihi(yorumlar[l].updated_at)
-                                )
-                            );
-                        }
-                    }
-                );
-            }
-        });
-
-        gh.getIssues(KULLANICI.KullaniciAdi, KULLANICI.Projeler[i].Ad).listIssues({
-            state: "closed",
-        }, function (hata: string, isler: any) {
-            for (let j = 0; j < isler.length; j++) {
-                KULLANICI.Projeler[i].Isler.push(new Is(isler[j].number, KULLANICI.Projeler[i], isler[j].title, isler[j].body,
-                    "Kapalı", new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
-                    new GithubTarihi(isler[j].closed_at)));
-                for (let k = 0; k < isler[j].labels.length; k++) {
-                    KULLANICI.Projeler[i].Isler[j].Etiketler.push(
-                        new Etiket(KULLANICI.Projeler[i].Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
-                    );
-                }
-                gh.getIssues(KULLANICI.KullaniciAdi, KULLANICI.Projeler[i].Ad).listIssueComments(
-                    KULLANICI.Projeler[i].Isler[j].No, function (hata2: string, yorumlar: any) {
-                        for (let l = 0; l < yorumlar.length; l++) {
-                            KULLANICI.Projeler[i].Isler[j].Yorumlar.push(
-                                new Yorum(
-                                    yorumlar[l].user.login, yorumlar[l].user.avatar_url, yorumlar[l].body,
-                                    new GithubTarihi(yorumlar[l].created_at), new GithubTarihi(yorumlar[l].updated_at)
-                                )
-                            );
-                        }
-                    }
-                );
-            }
-            console.log(KULLANICI.Projeler[i]);
-        });
+        acikIslerinBilgileriniAl(KULLANICI.Projeler[i]);
+        kapaliIslerinBilgileriniAl(KULLANICI.Projeler[i]);
 
         setTimeout(() => {
             document.getElementById(KULLANICI.Projeler[i].Ad).addEventListener("click", () => {
@@ -211,7 +158,68 @@ function isBilgileriniAl() {
                 }
             });
         }, 4000);
+
+        console.log(KULLANICI.Projeler[i]);
     }
+}
+
+function acikIslerinBilgileriniAl(proje: Proje) {
+    gh.getIssues(KULLANICI.KullaniciAdi, proje.Ad).listIssues({
+        state: "open",
+    }, function (hata: string, isler: any) {
+        for (let j = 0; j < isler.length; j++) {
+            proje.Isler.push(new Is(isler[j].number, proje, isler[j].title, isler[j].body,
+                "Açık", new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
+                new GithubTarihi(isler[j].closed_at)));
+
+            for (let k = 0; k < isler[j].labels.length; k++) {
+                proje.Isler[j].Etiketler.push(
+                    new Etiket(proje.Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
+                );
+            }
+
+            iseAitYorumlariAl(proje.Isler[j]);
+        }
+    });
+}
+
+function kapaliIslerinBilgileriniAl(proje: Proje) {
+    gh.getIssues(KULLANICI.KullaniciAdi, proje.Ad).listIssues({
+        state: "closed",
+    }, function (hata: string, isler: any) {
+        for (let j = 0; j < isler.length; j++) {
+            proje.Isler.push(new Is(isler[j].number, proje, isler[j].title, isler[j].body,
+                "Kapalı", new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
+                new GithubTarihi(isler[j].closed_at)));
+
+            for (let k = 0; k < isler[j].labels.length; k++) {
+                proje.Isler[j].Etiketler.push(
+                    new Etiket(proje.Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
+                );
+            }
+
+            iseAitYorumlariAl(proje.Isler[j]);
+        }
+    });
+}
+
+function iseAitYorumlariAl(is: Is) {
+    gh.getIssues(KULLANICI.KullaniciAdi, is.Proje.Ad).listIssueComments(
+        is.No, function (hata2: string, yorumlar: any) {
+            for (let l = 0; l < yorumlar.length; l++) {
+                is.Yorumlar.push(
+                    new Yorum(
+                        yorumlar[l].user.login, yorumlar[l].user.avatar_url, yorumlar[l].body,
+                        new GithubTarihi(yorumlar[l].created_at), new GithubTarihi(yorumlar[l].updated_at)
+                    )
+                );
+            }
+        }
+    );
+}
+
+function iseAitOlaylariAl() {
+
 }
 
 function bilgileriYazdir() {
