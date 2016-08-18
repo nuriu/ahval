@@ -68,3 +68,7 @@ body {
 aside {
   border-top-left-radius: 25px;
 }
+
+* {
+  font-family: 'Roboto', sans-serif;
+}

@@ -1,5 +1,4 @@
 AKTİF:
-    ☐ Yazı tipi değiştirilecek @low 
     ☐ Son olayların profil bilgilerinin altındaki alanda listelenmesi @low
     ☐ Etiket sisteminin iyileştirilmesi (birden fazla etiket için) @high 
     ☐ Tüm projeye hata kontrollerinin eklenmesi @low
@@ -36,3 +35,4 @@ ARŞİV:
     ✔ Proje özetinin / bilgilerinin gösterilmesi @done
     ✔ Mimari değişiklik sebebi ile bozulan özelliklerin onarılması @done
     ✔ Harici modül sistemi gerçekleştirilemedi, tekrar denenmeli @done
+    ✔ Yazı tipi değiştirilecek @done

@@ -274,9 +274,6 @@ function kapaliIslerinBilgileriniAl(proje: Proje) {
                     }
 
                 }
-
-                iseAitYorumlariAl(proje.Isler[j]);
-                iseAitOlaylariAl(proje.Isler[j]);
             }
 
             iseAitYorumlariAl(proje.Isler[j]);

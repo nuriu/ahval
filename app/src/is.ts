@@ -81,8 +81,8 @@ export class Is {
 
     public yorumlariYazdir() {
         let ifade: string = "<div class='ui comments'>";
-        for (let i = 0; i < this.Yorumlar.length; i++) {
 
+        for (let i = 0; i < this.Yorumlar.length; i++) {
             ifade += "\
                 <div class='comment'>\
                     <a class='avatar'>\
@@ -104,7 +104,6 @@ export class Is {
         }
 
         ifade += "</div>";
-
         document.getElementById("github").innerHTML += ifade;
     }
 
