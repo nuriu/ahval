@@ -1,4 +1,5 @@
 import { Etiket } from "./etiket";
+import { Hedef } from "./hedef";
 import { Olay } from "./olay";
 import { Proje } from "./proje";
 import { GithubTarihi } from "./tarih";
@@ -13,6 +14,7 @@ export class Is {
     public Etiketler: Array<Etiket>;
     public Olaylar: Array<Olay>;
     public Yorumlar: Array<Yorum>;
+    public Hedef: Hedef;
     public OlusturmaTarihi: GithubTarihi;
     public GuncellemeTarihi: GithubTarihi;
     public KapanmaTarihi: GithubTarihi;
@@ -45,11 +47,11 @@ export class Is {
             <div class='header'>" + this.Baslik + "</div>\
             <div class='meta'>\
                 <span class='right floated time'><i class='calendar outline icon'></i> " + this.GuncellemeTarihi.Tarih + "</span>";
-        /*
-        if (is.milestone) {
-            ozet += "<span class='category'>" + is.milestone.title + "</span>";
+
+        if (this.Hedef) {
+            ozet += "<span class='category'>" + this.Hedef.Baslik + "</span>";
         }
-        */
+
         ozet += "\
             </div>\
             <div class='description'>\

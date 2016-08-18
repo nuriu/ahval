@@ -1,8 +1,8 @@
 import { GithubTarihi } from "./tarih";
 
 export class Katki {
-    public Yapan: string;
-    public Avatar: string;
+    public Yapan: string; // TODO: KULLANICI OLACAK
+    public Avatar: string; // TODO: KULLANICI OLACAK
     public Mesaj: string;
     public YapilanTarih: GithubTarihi;
 

@@ -1,7 +1,9 @@
 import { Etiket } from "./etiket";
+import { Hedef } from "./hedef";
 import { Is } from "./is";
 import { Katki } from "./katki";
 import { Kullanici } from "./kullanici";
+import { Olay } from "./olay";
 import { Proje } from "./proje";
 import { GithubTarihi } from "./tarih";
 import { Yorum } from "./yorum";
@@ -122,6 +124,7 @@ function kulaniciBilgileriniAl() {
             icerik.blog, icerik.followers, icerik.following);
     });
 }
+
 function projeBilgileriniAl() {
     gh.getUser().listRepos({
         direction: "asc",
@@ -172,13 +175,51 @@ function acikIslerinBilgileriniAl(proje: Proje) {
                 "Açık", new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
                 new GithubTarihi(isler[j].closed_at)));
 
+            // Etiketler
             for (let k = 0; k < isler[j].labels.length; k++) {
                 proje.Isler[j].Etiketler.push(
                     new Etiket(proje.Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
                 );
             }
 
-            iseAitYorumlariAl(proje.Isler[j]);
+            // Hedef
+            if (isler[j].milestone) {
+                if (isler[j].milestone.state === "open") {
+                    proje.Isler[j].Hedef = new Hedef(
+                        isler[j].milestone.title,
+                        isler[j].milestone.number,
+                        "Açık",
+                        isler[j].milestone.creator.login,
+                        isler[j].milestone.description,
+                        isler[j].milestone.open_issues,
+                        isler[j].milestone.closed_issues,
+                        new GithubTarihi(isler[j].milestone.due_on),
+                        new GithubTarihi(isler[j].milestone.created_at),
+                        new GithubTarihi(isler[j].milestone.updated_at),
+                        new GithubTarihi(isler[j].milestone.closed_at)
+                    );
+                } else {
+                    if (isler[j].milestone.state === "open") {
+                        proje.Isler[j].Hedef = new Hedef(
+                            isler[j].milestone.title,
+                            isler[j].milestone.number,
+                            "Kapalı",
+                            isler[j].milestone.creator.login,
+                            isler[j].milestone.description,
+                            isler[j].milestone.open_issues,
+                            isler[j].milestone.closed_issues,
+                            new GithubTarihi(isler[j].milestone.due_on),
+                            new GithubTarihi(isler[j].milestone.created_at),
+                            new GithubTarihi(isler[j].milestone.updated_at),
+                            new GithubTarihi(isler[j].milestone.closed_at)
+                        );
+                    }
+
+                }
+
+                iseAitYorumlariAl(proje.Isler[j]);
+                iseAitOlaylariAl(proje.Isler[j]);
+            }
         }
     });
 }
@@ -192,13 +233,54 @@ function kapaliIslerinBilgileriniAl(proje: Proje) {
                 "Kapalı", new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
                 new GithubTarihi(isler[j].closed_at)));
 
+            // Etiketler
             for (let k = 0; k < isler[j].labels.length; k++) {
                 proje.Isler[j].Etiketler.push(
                     new Etiket(proje.Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
                 );
             }
 
+            // Hedef
+            if (isler[j].milestone) {
+                if (isler[j].milestone.state === "open") {
+                    proje.Isler[j].Hedef = new Hedef(
+                        isler[j].milestone.title,
+                        isler[j].milestone.number,
+                        "Açık",
+                        isler[j].milestone.creator.login,
+                        isler[j].milestone.description,
+                        isler[j].milestone.open_issues,
+                        isler[j].milestone.closed_issues,
+                        new GithubTarihi(isler[j].milestone.due_on),
+                        new GithubTarihi(isler[j].milestone.created_at),
+                        new GithubTarihi(isler[j].milestone.updated_at),
+                        new GithubTarihi(isler[j].milestone.closed_at)
+                    );
+                } else {
+                    if (isler[j].milestone.state === "open") {
+                        proje.Isler[j].Hedef = new Hedef(
+                            isler[j].milestone.title,
+                            isler[j].milestone.number,
+                            "Kapalı",
+                            isler[j].milestone.creator.login,
+                            isler[j].milestone.description,
+                            isler[j].milestone.open_issues,
+                            isler[j].milestone.closed_issues,
+                            new GithubTarihi(isler[j].milestone.due_on),
+                            new GithubTarihi(isler[j].milestone.created_at),
+                            new GithubTarihi(isler[j].milestone.updated_at),
+                            new GithubTarihi(isler[j].milestone.closed_at)
+                        );
+                    }
+
+                }
+
+                iseAitYorumlariAl(proje.Isler[j]);
+                iseAitOlaylariAl(proje.Isler[j]);
+            }
+
             iseAitYorumlariAl(proje.Isler[j]);
+            iseAitOlaylariAl(proje.Isler[j]);
         }
     });
 }
@@ -218,8 +300,32 @@ function iseAitYorumlariAl(is: Is) {
     );
 }
 
-function iseAitOlaylariAl() {
+function iseAitOlaylariAl(is: Is) {
+    gh.getIssues(KULLANICI.KullaniciAdi, is.Proje.Ad).listIssueEvents(is.No, function (hata: string, olaylar: any) {
 
+        for (let i = 0; i < olaylar.length; i++) {
+            let olay = olaylar[i];
+            let eklenecekOlay: Olay = new Olay(is, olay.event, olay.actor.login, olay.actor.avatar_url, new GithubTarihi(olay.created_at));
+
+            if (olay.label) { eklenecekOlay.Etiket = new Etiket(is, olay.label.name, olay.label.color); }
+
+            if (olay.assignee && olay.assigner) {
+                eklenecekOlay.Atayan = olay.assigner.login;
+                eklenecekOlay.AtayanAvatar = olay.assigner.avatar_url;
+                eklenecekOlay.Atanan = olay.assignee.login;
+                eklenecekOlay.AtananAvatar = olay.assignee.avatar_url;
+            }
+
+            if (olay.milestone) { eklenecekOlay.Hedef = new Hedef(olay.milestone.title); }
+
+            if (olay.rename) {
+                eklenecekOlay.OncekiAd = olay.rename.from;
+                eklenecekOlay.SonrakiAd = olay.rename.to;
+            }
+
+            is.Olaylar.push(eklenecekOlay);
+        }
+    });
 }
 
 function bilgileriYazdir() {
