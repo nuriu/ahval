@@ -1,5 +1,4 @@
 AKTİF:
-    ☐ Katkıyı/olayı/yorumu vb yapan kişinin tüm bilgilerinin alınması @critical 
     ☐ Yazı tipi değiştirilecek @low 
     ☐ Son olayların profil bilgilerinin altındaki alanda listelenmesi @low
     ☐ Etiket sisteminin iyileştirilmesi (birden fazla etiket için) @high 
@@ -11,6 +10,7 @@ AKTİF:
     ☐ Yorum ve açıklamaların markdown desteği ile yazdırılması @high 
 
 PASİF / DÜŞÜNÜLÜYOR:
+    ☐ Katkıyı/olayı/yorumu vb yapan kişinin tüm bilgilerinin alınması @low 
     ☐ Yerel (offline) markdown tabanlı not tutulmasının sağlanması @low
     ☐ Yerelleştirme altyapısının kurulması @low
     ☐ İşlerin etiketlere / duruma / kilometre taşına göre kanban tahtası şeklinde gösterilmesi @low 

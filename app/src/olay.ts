@@ -3,7 +3,7 @@ import { Hedef } from "./hedef";
 import { Is } from "./is";
 import { GithubTarihi } from "./tarih";
 
-const enum Turler {
+export const enum Turler {
     EtiketEkleme,
     EtiketKaldirma,
     KisiyeAtama,

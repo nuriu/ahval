@@ -1,6 +1,7 @@
 import { Etiket } from "./etiket";
 import { Hedef } from "./hedef";
 import { Olay } from "./olay";
+import { Turler } from "./olay";
 import { Proje } from "./proje";
 import { GithubTarihi } from "./tarih";
 import { Yorum } from "./yorum";
@@ -38,6 +39,7 @@ export class Is {
         console.log("#" + this.No + " > " + this.Baslik);
         this.ozetiYazdir();
         this.yorumlariYazdir();
+        this.olaylariYazdir();
     }
 
     public ozetiYazdir() {
@@ -107,6 +109,195 @@ export class Is {
     }
 
     public olaylariYazdir() {
+        let ifade = "<div class='ui feed'>";
 
+        for (let i = 0; i < this.Olaylar.length; i++) {
+            let olay = this.Olaylar[i];
+
+            switch (olay.Tur) {
+                case Turler.EtiketEkleme:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.Avatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>" + olay.Aktor + "</a>\
+                                        <div class='ui label' style='background-color: " + olay.Etiket.Renk + "; color: white;'>"
+                        + olay.Etiket.Ad + "</div> etiketini ekledi.\
+                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.EtiketKaldirma:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.Avatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>" + olay.Aktor + "</a>\
+                                        <div class='ui label' style='background-color: #" + olay.Etiket.Renk + "; color: white;'>"
+                        + olay.Etiket.Ad + "</div> etiketini kaldırdı.\
+                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.KisiyeAtama:
+                    ifade += " <div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.AtayanAvatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>" + olay.Atayan + "</a>";
+
+                    if (olay.Atayan === olay.Atanan) {
+                        ifade += " bu işi kendisine atadı.";
+                    } else {
+                        ifade += " tarafından <a class='user'>" + olay.Atanan + "</a> bu işe atandı.";
+                    }
+
+                    ifade += "<div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.KisidenAlma:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.AtayanAvatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>" + olay.Atayan + "</a>";
+
+                    if (olay.Atayan === olay.Atanan) {
+                        ifade += " bu işi kendisinden aldı.";
+                    } else {
+                        ifade += " tarafından <a class='user'>" + olay.Atanan + "</a> bu işten alındı.";
+                    }
+
+                    ifade += "<div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.Kapatma:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.Avatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>" + olay.Aktor + "</a> bu işi kapattı.\
+                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.TekrarAcma:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.Avatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>\
+                                            " + olay.Aktor + "\
+                                        </a> bu işi yeniden açtı.\
+                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.AboneOlma:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.Avatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>\
+                                            " + olay.Aktor + "\
+                                        </a> bu işe abone oldu.\
+                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.Bahsetme:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.Avatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>\
+                                            " + olay.Aktor + "\
+                                        </a> kişisinden bu işte bahsedildi.\
+                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.HedefEkleme:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.Avatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>\
+                                            " + olay.Aktor + "\
+                                        </a> bu işi " + olay.Hedef.Baslik + " hedefine ekledi.\
+                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.HedefKaldirma:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.Avatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>\
+                                            " + olay.Aktor + "\
+                                        </a> bu işi " + olay.Hedef.Baslik + " hedefinden çıkardı.\
+                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.YenidenAdlandirma:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.Avatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>\
+                                            " + olay.Aktor + "\
+                                        </a> bu işin adını <b><i>" + olay.SonrakiAd + "</i></b> olarak değiştirdi.\
+                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.Kilitleme:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.Avatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>\
+                                            " + olay.Aktor + "\
+                                        </a> bu işi kilitledi.\
+                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                case Turler.KilidiAcma:
+                    ifade += "<div class='event'>\
+                                <div class='label'>\
+                                    <img class='ui avatar image' src='" + olay.Avatar + "'>\
+                                </div>\
+                                <div class='content'>\
+                                    <div class='summary'>\
+                                        <a class='user'>\
+                                            " + olay.Aktor + "\
+                                        </a> bu işin kilidini kaldırdı.\
+                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        ifade += "</div>";
+        document.getElementById("github").innerHTML += ifade;
     }
 }
