@@ -43,6 +43,7 @@ body {
   -ms-user-select:none;
   user-select:none;
   -o-user-select:none;
+  background-color: #D21B59;
 }
 
 #liste {
