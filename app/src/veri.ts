@@ -331,7 +331,7 @@ function bilgileriYazdir() {
     }, 2000);
 
     setTimeout(() => {
-        KULLANICI.bilgileriYazdir("github");
+        KULLANICI.bilgileriYazdir("profil");
     }, 2500);
 }
 
@@ -353,7 +353,7 @@ function aktifProjeyiDegistir(proje: Proje) {
         projeBilgileriniYazdir(proje);
     } else {
         document.getElementById("tumIsler").className = "aktif";
-        KULLANICI.bilgileriYazdir("github");
+        KULLANICI.bilgileriYazdir("profil");
         aktifProje = null;
     }
 }
@@ -361,5 +361,4 @@ function aktifProjeyiDegistir(proje: Proje) {
 function projeBilgileriniYazdir(proje: Proje) {
     proje.ozetiYazdir();
     proje.isleriYazdir();
-    proje.katkilariYazdir();
 }

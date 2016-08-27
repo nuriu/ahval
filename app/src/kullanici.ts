@@ -36,7 +36,8 @@ export class Kullanici {
             + this.Sirket + "</div>\
         </div></div></div>";
 
-        document.getElementById(yerID).innerHTML += "<br><div class='ui tiny three statistics'>\
+        /*
+        document.getElementById(yerID).innerHTML += "<div class='ui tiny three statistics'>\
         <div class='statistic'><div class='value'>" + this.Projeler.length + "</div>\
         <div class='label'>PROJE</div></div>\
         <div class='statistic'><div class='value'>" + this.TakipciSayisi + "</div>\
@@ -44,6 +45,7 @@ export class Kullanici {
         <div class='statistic'><div class='value'>" + this.TakipEdilenKisiSayisi + "</div>\
         <div class='label'>TAKİP EDİLEN</div></div>\
         </div>";
+        */
     }
 
     public projeleriListele(yerID: string) {

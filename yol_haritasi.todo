@@ -1,8 +1,6 @@
 AKTİF:
-    ☐ Son olayların profil bilgilerinin altındaki alanda listelenmesi @low
-    ☐ Etiket sisteminin iyileştirilmesi (birden fazla etiket için) @high 
+    ☐ Son olayların açılıştaki alanda listelenmesi @low
     ☐ Tüm projeye hata kontrollerinin eklenmesi @low
-    ☐ Mümkünse yorumlara cevap verme işlevi eklenecek, değilse cevapla yazısı kaldırılacak. @low 
     ☐ Yorum ekleme işlevi eklenecek @low 
     ☐ Olay ve yorum alanlarının stil bazında birbirinden ayrıştırılması @low 
     ☐ Aynı gün eklenen etiketlerin tek satırda gösterilmesi @low 

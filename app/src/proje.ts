@@ -37,9 +37,10 @@ export class Proje {
         let ozet: string = "\
         <div class='ui fluid card'>\
             <div class='content'>\
-                <div class='header'>" + this.Ad + "</div>\
+                <img class='right floated mini ui image' src='" + this.Sahip.Avatar + "' />\
+                <div class='header'> " + this.Ad + " </div>\
                 <div class='meta'>\
-                    <span class='right floated time'><i class='calendar outline icon'></i> " + this.OlusturmaTarihi.Tarih + "</span>";
+                    <span class='left floated time'><i class='calendar outline icon'></i> " + this.OlusturmaTarihi.Tarih + " | </span>";
         if (this.AnaSayfa) {
             ozet += "<span class='category'>" + this.AnaSayfa + "</span>";
         }
@@ -49,54 +50,31 @@ export class Proje {
                 " + this.Aciklama + "\
                 </div>\
             </div>\
-            <div class='extra content'>\
-                <div class='right floated author'>\
-                    <img class='ui avatar image' src='" + this.Sahip.Avatar + "' />\
-                </div>\
-            </div>\
+            <div class='extra content'>" +
+            this.katkilariYazdir() +
+            "</div>\
         </div>";
 
-        document.getElementById("github").innerHTML = ozet + "</br>";
+        document.getElementById("projeBilgileri").innerHTML = ozet;
     }
 
     public isleriYazdir() {
-        document.getElementById("siralanabilir").innerHTML = "\
-        <li><div class='is'><i class='loading spinner icon'></i> <h3>Yükleniyor...</h3></div></li>";
-        let ifade: string = "";
+        document.getElementById("projeIsleri").innerHTML = "";
 
         for (let i = 0; i < this.Isler.length; i++) {
             if (this.Isler[i].Durum === "Açık") {
-                ifade += "<li>";
-                if (this.Isler[i].Etiketler.length > 0) {
-                    ifade += "\
-                    <div class='is' id='" + this.Isler[i].No + "' \
-                    style='border-right: 8px solid " + this.Isler[i].Etiketler[0].Renk + ";'>";
-                } else {
-                    ifade += "<div class='is' id='" + this.Isler[i].No + "'>";
-                }
-                ifade += "<h2>" + this.Isler[i].Baslik + "<span>" + this.Isler[i].OlusturmaTarihi.Tarih + "</span></h2></label></li>";
-            } else {
-                ifade += "<li>";
-                if (this.Isler[i].Etiketler.length > 0) {
-                    ifade += "\
-                    <div class='bitmis is' id='" + this.Isler[i].No + "' \
-                    style='border-right: 8px solid " + this.Isler[i].Etiketler[0].Renk + ";'>";
-                } else {
-                    ifade += "<div class='bitmis is' id='" + this.Isler[i].No + "'>";
-                }
-                ifade += "<h3>" + this.Isler[i].Baslik + "<span>" + this.Isler[i].OlusturmaTarihi.Tarih + "</span></h3></label></li>";
+                this.Isler[i].ozetiYazdir("projeIsleri");
             }
-
-            setTimeout(() => {
-                document.getElementById("" + this.Isler[i].No).addEventListener("click", () => {
-                    this.Isler[i].bilgileriYazdir();
-                });
-            }, 500);
         }
-        document.getElementById("siralanabilir").innerHTML = ifade;
+
+        for (let i = 0; i < this.Isler.length; i++) {
+            if (this.Isler[i].Durum === "Kapalı") {
+                this.Isler[i].ozetiYazdir("projeIsleri");
+            }
+        }
     }
 
-    public katkilariYazdir() {
+    private katkilariYazdir(): string {
         let ifade: string = "<div class='ui feed'>";
         for (let i = 0; i < this.Katkilar.length; i++) {
             ifade += "\
@@ -111,6 +89,6 @@ export class Proje {
             </div>";
         }
         ifade += "</div>";
-        document.getElementById("github").innerHTML += ifade;
+        return ifade;
     }
 }

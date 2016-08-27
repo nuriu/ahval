@@ -1,0 +1,41 @@
+#zaman #tarihAlani {
+  float: right;
+  padding-right: 5%;
+  font-size: 22px;
+  font-weight: 300;
+  padding-bottom: 0px;
+  margin-top: -90px;
+  color: white;
+}
+
+#zaman #saatAlani {
+  float: right;
+  padding-right: 5%;
+  font-size: 18px;
+  font-weight: 300;
+  margin-top: -110px;
+  color: white;
+}
+
+#zaman ul {
+  list-style: none;
+}
+
+#zaman li {
+  display: inline;
+}
+
+#profil {
+  float: left;
+  left: 7%;
+  margin-top: -110px;
+  position: absolute;
+  z-index: 9999;
+}
+
+#profil > .list > .item > .content > .header,
+#profil > .list > .item > .content > .meta,
+#profil > .list > .item > .content > .description,
+#profil > .list > .item > .content > .extra {
+  color: white;
+}

@@ -37,14 +37,13 @@ export class Is {
 
     public bilgileriYazdir() {
         console.log("#" + this.No + " > " + this.Baslik);
-        this.ozetiYazdir();
-        this.yorumlariYazdir();
-        this.olaylariYazdir();
+        // this.yorumlariYazdir();
+        // this.olaylariYazdir();
     }
 
-    public ozetiYazdir() {
+    public ozetiYazdir(yerID: string) {
         let ozet: string = "\
-        <div class='ui fluid card'>\
+        <div class='ui fluid card' id='" + this.No + "'>\
         <div class='content'>\
             <div class='header'>" + this.Baslik + "</div>\
             <div class='meta'>\
@@ -76,7 +75,13 @@ export class Is {
         }
 
         ozet += "</div></div>";
-        document.getElementById("github").innerHTML = ozet + "</br>";
+        document.getElementById(yerID).innerHTML += ozet;
+
+        setTimeout(() => {
+            document.getElementById("" + this.No).addEventListener("click", () => {
+                this.bilgileriYazdir();
+            });
+        }, 500);
     }
 
     public yorumlariYazdir() {

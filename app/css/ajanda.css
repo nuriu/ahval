@@ -46,18 +46,9 @@ body {
   background-color: #D21B59;
 }
 
-#liste {
-  background: #34495E;
-  padding: 0px;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select:none;
-  user-select:none;
-  -o-user-select:none;
-}
-
 #akis {
-  margin: 0px;
+  border-top-right-radius: 25px;
+  background: #34495E;
   padding: 0px;
   -moz-user-select: none;
   -webkit-user-select: none;

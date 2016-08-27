@@ -6,11 +6,11 @@
     <title>Ajanda</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400">
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="app/css/menu.css">
-    <link rel="stylesheet" type="text/css" href="app/css/liste.css">
     <link rel="stylesheet" type="text/css" href="app/css/akis.css">
+    <link rel="stylesheet" type="text/css" href="app/css/ust.css">
     <link rel="stylesheet" type="text/css" href="app/css/ajanda.css">
 
     <!-- JS -->
@@ -21,7 +21,11 @@
 </head>
 
 <body class="ajanda">
-    <div class="ui three column doubling grid container" id="icerik">
+    <div id="profil">
+    </div>
+
+    <div class="ui two column doubling grid container" id="icerik">
+
         <div class="three wide column" id="menu">
             <aside id="menu" class="menu menu-renkli acik" role="navigation">
 
@@ -29,43 +33,54 @@
                     <div class="ust-bar"></div>
                     <a class="menu-baslik" href="#" id="projeListesiBaslik"><i class="tasks icon"></i> Projeler</a>
                 </div>
+
                 <ul class="nav menu-nav" id="projeListesi">
                     <li>
                         <h2>Yükleniyor...</h2>
                     </li>
                 </ul>
+
             </aside>
         </div>
-        <div class="seven wide column" id="liste">
+
+        <div class="thirteen wide column" id="akis">
+            <div id="zaman">
+                <div class="ust-bar"></div>
+
+                <div id="tarihAlani">
+                    <ul>
+                        <li id="gun">00</li>
+                        <li id="ay">00</li>
+                        <li id="yil">0000</li>
+                    </ul>
+                </div>
+
+                <div id="saatAlani">
+                    <ul>
+                        <li id="saat">00</li>
+                        <li> : </li>
+                        <li id="dakika">00</li>
+                        <li> : </li>
+                        <li id="saniye">00</li>
+                    </ul>
+                </div>
+
+            </div>
+
             <div class="ust-bar"></div>
-            <div class="listeGirdisi">
-                <input id="yeniGirdi" placeholder="Yeni Girdi" type="text" required="" />
-            </div>
-            <div class="isler">
-                <ul id="siralanabilir">
-                </ul>
-            </div>
-        </div>
-        <div class="six wide column" id="akis">
-            <div class="ust-bar"></div>
-            <div id="tarihAlani">
-                <ul>
-                    <li id="gun">00</li>
-                    <li id="ay">00</li>
-                    <li id="yil">0000</li>
-                </ul>
-            </div>
-            <div id="saatAlani">
-                <ul>
-                    <li id="saat">00</li>
-                    <li> : </li>
-                    <li id="dakika">00</li>
-                    <li> : </li>
-                    <li id="saniye">00</li>
-                </ul>
-            </div>
-            <div id="github">
-                <h3><i class='loading spinner icon'></i> Yükleniyor...</h3>
+
+            <div class="isGirdisi"><input id="yeniGirdi" placeholder="Yeni Girdi" type="text" required="" /></div>
+
+            <div id="isler">
+                <div class="ui equal width grid">
+
+                    <div class="left floated column" id="projeIsleri">
+                    </div>
+
+                    <div class="right floated column" id="projeBilgileri">
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

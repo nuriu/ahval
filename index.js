@@ -12,7 +12,7 @@ function pencereyiOlustur() {
         //frame: false
     });
 
-    //anaPencere.setMinimumSize(1200, 700);
+    anaPencere.setMinimumSize(1200, 700);
     anaPencere.loadURL(`file://${__dirname}/ana.html`);
 
     anaPencere.webContents.openDevTools();

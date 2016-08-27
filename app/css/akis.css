@@ -1,56 +1,60 @@
-#akis #tarihAlani {
-  float: right;
-  padding-right: 5%;
-  font-size: 22px;
-  font-weight: 300;
-  padding-bottom: 0px;
-  margin-top: -90px;
-  color: white;
+
+#akis .ust-bar {
+  padding-left: 0px;
+  height: 12.5px;
+  background: rgba(0, 0, 0, 0.1);
 }
 
-#akis #saatAlani {
-  float: right;
-  padding-right: 5%;
-  font-size: 18px;
-  font-weight: 300;
-  margin-top: -110px;
-  color: white;
-}
-
-#akis ul {
-  list-style: none;
-}
-
-#akis li {
-  display: inline;
-}
-
-#github {
-  padding: 20px;
+#isler {
+  position: relative;
+  top: 5%;
+  min-width: 100%;
   overflow-y: auto;
-  height: 84.5vh;
+  height: 82vh;
+  padding: 3%;
+  overflow-x: hidden;
 }
 
-#github::-webkit-scrollbar-track
-{
+.isGirdisi input {
+  top: 0%;
+  width: 100%;
+  vertical-align: middle;
+  height: 47px;
+  font-size: 16px;
+  display: block;
+  border: none;
+  border-bottom: solid 1px #1abc9c;
+  -webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #1abc9c 4%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #1abc9c 4%);
+  background-position: -2000px 0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 0px 10px;
+}
+
+.isGirdisi input:focus, input:valid {
+  box-shadow: none;
+  outline: none;
+  background-position: 0 0;
+  box-shadow: 0 14px 50px rgba(0,0,0,0.75), 0 10px 10px rgba(0,0,0,0.5);
+}
+
+#isler::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #34495E;
 }
 
-#github::-webkit-scrollbar
-{
+#isler::-webkit-scrollbar {
 	width: 12px;
 	background-color: #34495E;
 }
 
-#github::-webkit-scrollbar-thumb
-{
+#isler::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   background-color: #1abc9c;
-}
-
-#github .description {
-  display: block;
 }
