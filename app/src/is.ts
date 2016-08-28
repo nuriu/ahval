@@ -36,52 +36,54 @@ export class Is {
     }
 
     public bilgileriYazdir() {
-        console.log("#" + this.No + " > " + this.Baslik);
+        console.log("#" + this.No + " > " + this.Baslik + " : " + this.Durum);
         // this.yorumlariYazdir();
         // this.olaylariYazdir();
     }
 
     public ozetiYazdir(yerID: string) {
-        let ozet: string = "\
-        <div class='ui fluid card' id='" + this.No + "'>\
-        <div class='content'>\
-            <div class='header'>" + this.Baslik + "</div>\
-            <div class='meta'>\
-                <span class='right floated time'><i class='calendar outline icon'></i> " + this.GuncellemeTarihi.Tarih + "</span>";
+        if (this.Durum === "Açık") {
+            let ozet: string = "\
+            <div class='ui fluid card' id='" + this.No + "'>\
+            <div class='content'>\
+                <div class='header'>" + this.Baslik + "</div>\
+                <div class='meta'>\
+                    <span class='right floated time'><i class='calendar outline icon'></i> " + this.GuncellemeTarihi.Tarih + "</span>";
 
-        if (this.Hedef) {
-            ozet += "<span class='category'>" + this.Hedef.Baslik + "</span>";
-        }
-
-        ozet += "\
-            </div>\
-            <div class='description'>\
-            " + this.Icerik + "\
-            </div>\
-        </div>\
-        <div class='extra content'>\
-            <div class='right floated author'>\
-                <img class='ui avatar image' src='" + this.Proje.Sahip.Avatar + "' />\
-            </div>";
-
-        if (this.Etiketler.length > 0) {
-            ozet += "<div class='left floated'>";
-            for (let i = 0; i < this.Etiketler.length; i++) {
-                ozet += "\
-                <div class='ui label' style='background-color: " + this.Etiketler[i].Renk + "; color: white;'>"
-                    + this.Etiketler[i].Ad + "</div>";
+            if (this.Hedef) {
+                ozet += "<span class='category'>" + this.Hedef.Baslik + "</span>";
             }
-            ozet += "</div>";
+
+            ozet += "</div>\
+                <div class='description'>\
+                " + this.Icerik + "\
+                </div>\
+            </div>\
+            <div class='extra content' >\
+                <div class='right floated author'>\
+                    <img class='ui avatar image' src='" + this.Proje.Sahip.Avatar + "' />\
+                </div>";
+
+            if (this.Etiketler.length > 0) {
+                ozet += "<div class='left floated'>";
+                for (let i = 0; i < this.Etiketler.length; i++) {
+                    ozet += "\
+                    <div class='ui label' style='background-color: " + this.Etiketler[i].Renk + "; color: white;'>"
+                        + this.Etiketler[i].Ad + "</div>";
+                }
+                ozet += "</div>";
+            }
+
+            ozet += "</div></div>";
+
+            document.getElementById(yerID).innerHTML += ozet;
+
+            setTimeout(() => {
+                document.getElementById("" + this.No).addEventListener("click", () => {
+                    this.bilgileriYazdir();
+                });
+            }, 500);
         }
-
-        ozet += "</div></div>";
-        document.getElementById(yerID).innerHTML += ozet;
-
-        setTimeout(() => {
-            document.getElementById("" + this.No).addEventListener("click", () => {
-                this.bilgileriYazdir();
-            });
-        }, 500);
     }
 
     public yorumlariYazdir() {

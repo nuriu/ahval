@@ -33,6 +33,26 @@ export class Proje {
         this.Katkilar = new Array<Katki>();
     }
 
+    public kapaliIsSayisi(): number {
+        let kapaliIsSayisi = 0;
+        for (let i = 0; i < this.Isler.length; i++) {
+            if (this.Isler[i].Durum === "Kapalı") {
+                kapaliIsSayisi++;
+            }
+        }
+        return kapaliIsSayisi;
+    }
+
+    public acikIsSayisi(): number {
+        let acikIsSayisi = 0;
+        for (let i = 0; i < this.Isler.length; i++) {
+            if (this.Isler[i].Durum === "Açık") {
+                acikIsSayisi++;
+            }
+        }
+        return acikIsSayisi;
+    }
+
     public ozetiYazdir() {
         let ozet: string = "\
         <div class='ui fluid card'>\

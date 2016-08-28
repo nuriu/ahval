@@ -1,8 +1,8 @@
-# Ajanda
+# ![Ajanda](resim/logo.png)
 
 Geliştiriciler için akıllı ajanda.  
 
-![Ajanda](resim/1.png)
+![Ajanda Son Hali](resim/1.png)
 
 **Kullanılan Teknolojiler;**
 
@@ -22,3 +22,6 @@ Geliştiriciler için akıllı ajanda.
     - Kilitli / açık projelerin listelenmesi
     - Seçilen projeye ait bilgilerin, katkıların (commits) ve işlerin (issues) listelenmesi
     - Seçilen işe ait bilgilerin ve olayların getirilmesi
+
+
+*Secret book Icon Artist:* **ArtDesigner.lv**

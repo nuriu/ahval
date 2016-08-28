@@ -54,10 +54,12 @@ export class Kullanici {
         for (let i = 0; i < this.Projeler.length; i++) {
             if (this.Projeler[i].OzelMi === true) {
                 document.getElementById(yerID).innerHTML += "<li id='" + this.Projeler[i].Ad + "'>\
-                <a href='#'> <i class='lock icon'></i> " + this.Projeler[i].Ad + " (" + this.Projeler[i].Isler.length + ")</a></li>";
+                <a href='#'> <i class='lock icon'></i> " + this.Projeler[i].Ad + " (" + this.Projeler[i].acikIsSayisi() +
+                    " / " + this.Projeler[i].Isler.length + ")</a></li>";
             } else {
                 document.getElementById(yerID).innerHTML += "<li id='" + this.Projeler[i].Ad + "'>\
-                <a href='#'> <i class='unlock icon'></i> " + this.Projeler[i].Ad + " (" + this.Projeler[i].Isler.length + ")</a></li>";
+                <a href='#'> <i class='unlock icon'></i> " + this.Projeler[i].Ad + " (" + this.Projeler[i].acikIsSayisi() +
+                    " / " + this.Projeler[i].Isler.length + ")</a></li>";
             }
         }
     }
