@@ -2,7 +2,13 @@
 
 Geliştiriciler için akıllı ajanda.  
 
-![Ajanda Son Hali](resim/1.png)
+> Proje Görünümü
+
+![Ajanda - Proje](resim/1.png)
+
+> İş Görünümü
+
+![Ajanda - İş](resim/2.png)
 
 **Kullanılan Teknolojiler;**
 
@@ -11,6 +17,7 @@ Geliştiriciler için akıllı ajanda.
 - Electron
 - TypeScript
 - jQuery
+- jQuery UI
 - Semantic UI
 - GitHub API
 - sql.js

@@ -30,7 +30,7 @@
   left: 7%;
   margin-top: -110px;
   position: absolute;
-  z-index: 9999;
+  z-index: 1;
 }
 
 #profil > .list > .item > .content > .header,

@@ -58,7 +58,7 @@ export class Kullanici {
                     " / " + this.Projeler[i].Isler.length + ")</a></li>";
             } else {
                 document.getElementById(yerID).innerHTML += "<li id='" + this.Projeler[i].Ad + "'>\
-                <a href='#'> <i class='unlock icon'></i> " + this.Projeler[i].Ad + " (" + this.Projeler[i].acikIsSayisi() +
+                <a href='#'> <i class='unlock alternate icon'></i> " + this.Projeler[i].Ad + " (" + this.Projeler[i].acikIsSayisi() +
                     " / " + this.Projeler[i].Isler.length + ")</a></li>";
             }
         }

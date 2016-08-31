@@ -1,3 +1,5 @@
+/// <reference path="../../typings/index.d.ts" />
+
 import { Etiket } from "./etiket";
 import { Hedef } from "./hedef";
 import { Olay } from "./olay";
@@ -36,9 +38,43 @@ export class Is {
     }
 
     public bilgileriYazdir() {
-        console.log("#" + this.No + " > " + this.Baslik + " : " + this.Durum);
-        // this.yorumlariYazdir();
-        // this.olaylariYazdir();
+        let ifade: string = "";
+
+        ifade += "<i class='close icon'></i><div class='header'>" + this.Baslik + "</div>";
+        ifade += "<div class='content'><div class='ui grid'><div class='row'><div class='three wide column'><div class='ui list'>";
+        ifade += "<div class='item'>\
+        <i class='calendar outline icon'></i> <div class='content'>" + this.GuncellemeTarihi.Tarih + "</div></div>";
+
+        if (this.Hedef) {
+            ifade += "<div class='item'><i class='flag checkered icon'></i> <div class='content'>" + this.Hedef.Baslik + "</div></div>";
+        }
+
+        if (this.Etiketler) {
+            for (let i = 0; i < this.Etiketler.length; i++) {
+                ifade += "<div class='item'>\
+                            <div class='ui tag label etiketYazi' style='background-color: " + this.Etiketler[i].Renk + "; color: white;'>" +
+                    this.Etiketler[i].Ad + "</div></div>";
+            }
+        }
+
+        ifade += "</div></div>\
+                    <div class='thirteen wide column'>\
+                        <p>" + this.Icerik + "</p>\
+                    </div>\
+                </div>";
+
+        // ifade += "<div class='ui horizontal divider'>Olaylar</div>";
+
+        ifade += "<div class='row'><div class='eight wide column'><div class='ui horizontal divider'>Yorumlar</div>" +
+            this.yorumlariYazdir() + "</div>\
+            <div class='eight wide column' ><div class='ui horizontal divider'>Olaylar</div>" + this.olaylariYazdir() + "</div>\
+            </div></div></div>";
+
+        document.getElementById("isDetaylari").innerHTML = ifade;
+
+        $('.long.modal').modal('show');
+
+
     }
 
     public ozetiYazdir(yerID: string) {
@@ -51,7 +87,7 @@ export class Is {
                     <span class='right floated time'><i class='calendar outline icon'></i> " + this.GuncellemeTarihi.Tarih + "</span>";
 
             if (this.Hedef) {
-                ozet += "<span class='category'>" + this.Hedef.Baslik + "</span>";
+                ozet += "<span class='category'><i class='flag checkered icon'></i> " + this.Hedef.Baslik + "</span>";
             }
 
             ozet += "</div>\
@@ -68,7 +104,7 @@ export class Is {
                 ozet += "<div class='left floated'>";
                 for (let i = 0; i < this.Etiketler.length; i++) {
                     ozet += "\
-                    <div class='ui label' style='background-color: " + this.Etiketler[i].Renk + "; color: white;'>"
+                    <div class='ui label etiketYazi' style='background-color: " + this.Etiketler[i].Renk + "; color: white;'>"
                         + this.Etiketler[i].Ad + "</div>";
                 }
                 ozet += "</div>";
@@ -86,7 +122,7 @@ export class Is {
         }
     }
 
-    public yorumlariYazdir() {
+    public yorumlariYazdir(): string {
         let ifade: string = "<div class='ui comments'>";
 
         for (let i = 0; i < this.Yorumlar.length; i++) {
@@ -111,10 +147,10 @@ export class Is {
         }
 
         ifade += "</div>";
-        document.getElementById("github").innerHTML += ifade;
+        return ifade;
     }
 
-    public olaylariYazdir() {
+    public olaylariYazdir(): string {
         let ifade = "<div class='ui feed'>";
 
         for (let i = 0; i < this.Olaylar.length; i++) {
@@ -129,7 +165,7 @@ export class Is {
                                 <div class='content'>\
                                     <div class='summary'>\
                                         <a class='user'>" + olay.Aktor + "</a>\
-                                        <div class='ui label' style='background-color: " + olay.Etiket.Renk + "; color: white;'>"
+                                        <div class='ui label etiketYazi' style='background-color: " + olay.Etiket.Renk + "; color: white;'>"
                         + olay.Etiket.Ad + "</div> etiketini ekledi.\
                                         <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
                     break;
@@ -142,7 +178,7 @@ export class Is {
                                 <div class='content'>\
                                     <div class='summary'>\
                                         <a class='user'>" + olay.Aktor + "</a>\
-                                        <div class='ui label' style='background-color: #" + olay.Etiket.Renk + "; color: white;'>"
+                                        <div class='ui label etiketYazi' style='background-color: #" + olay.Etiket.Renk + "; color: white;'>"
                         + olay.Etiket.Ad + "</div> etiketini kaldırdı.\
                                         <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
                     break;
@@ -304,6 +340,6 @@ export class Is {
         }
 
         ifade += "</div>";
-        document.getElementById("github").innerHTML += ifade;
+        return ifade;
     }
 }
