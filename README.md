@@ -1,6 +1,6 @@
 # ![Ajanda](resim/logo.png)
 
-Geliştiriciler için akıllı ajanda.  
+Geliştiriciler için yardımcı ajanda.  
 
 > Proje Görünümü
 
@@ -28,7 +28,7 @@ Geliştiriciler için akıllı ajanda.
     - GitHub üzerinden kullanıcı girişi ve bilgilerin çekilmesi
     - Kilitli / açık projelerin listelenmesi
     - Seçilen projeye ait bilgilerin, katkıların (commits) ve işlerin (issues) listelenmesi
-    - Seçilen işe ait bilgilerin ve olayların getirilmesi
+    - Seçilen işe ait bilgilerin ve olayların gösterilmesi
 
 
 *Secret book Icon Artist:* **ArtDesigner.lv**

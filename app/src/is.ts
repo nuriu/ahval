@@ -23,7 +23,7 @@ export class Is {
     public KapanmaTarihi: GithubTarihi;
 
     constructor(no: number, proje: Proje, baslik: string, icerik: string, durum: string,
-                olusturmaTarihi: GithubTarihi, guncellemeTarihi: GithubTarihi, kapanmaTarihi: GithubTarihi) {
+        olusturmaTarihi: GithubTarihi, guncellemeTarihi: GithubTarihi, kapanmaTarihi: GithubTarihi) {
         this.Proje = proje;
         this.Baslik = baslik;
         this.No = no;
@@ -40,7 +40,8 @@ export class Is {
     public bilgileriYazdir() {
         let ifade: string = "";
 
-        ifade += "<i class='close icon'></i><div class='header'>" + this.Baslik + "</div>";
+        ifade += "<i class='close icon'></i><div class='header'><span style='font-size: 12px;'>#</span>\
+                <span class='isNo'>" + this.No + "</span>" + this.Baslik + "</div>";
         ifade += "<div class='content'><div class='ui grid'><div class='row'><div class='three wide column'><div class='ui list'>";
         ifade += "<div class='item'>\
         <i class='calendar outline icon'></i> <div class='content'>" + this.GuncellemeTarihi.Tarih + "</div></div>";
@@ -76,9 +77,11 @@ export class Is {
     public ozetiYazdir(yerID: string) {
         if (this.Durum === "Açık") {
             let ozet: string = "\
-            <div class='ui fluid card' id='" + this.No + "'>\
+            <div class='ui fluid card'>\
             <div class='content'>\
-                <div class='header'>" + this.Baslik + "</div>\
+                <div class='header'> <span style='font-size: 12px;'>#</span>\
+                <span class='isNo'>" + this.No + "</span> \
+                <a href='#' id='" + this.No + "' style='color: gray;'>" + this.Baslik + "</a></div>\
                 <div class='meta'>\
                     <span class='right floated time'><i class='calendar outline icon'></i> " + this.GuncellemeTarihi.Tarih + "</span>";
 
