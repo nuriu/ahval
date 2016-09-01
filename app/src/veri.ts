@@ -98,8 +98,10 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
         client_secret: secenekler.istemci_sir,
         code: kod,
     }).done(function (icerik: string, durum: string) {
+        /* token
         console.log(durum);
         console.log(icerik.slice(icerik.search("=") + 1, icerik.search("&")));
+        */
 
         if (durum === "success") {
             window.localStorage.setItem("githubtoken", icerik.slice(icerik.search("=") + 1, icerik.search("&")));
@@ -162,7 +164,7 @@ function isBilgileriniAl() {
             });
         }, 4000);
 
-        console.log(KULLANICI.Projeler[i]);
+        // console.log(KULLANICI.Projeler[i]);
     }
 }
 
@@ -199,25 +201,27 @@ function acikIslerinBilgileriniAl(proje: Proje) {
                         new GithubTarihi(isler[j].milestone.closed_at)
                     );
                 } else {
-                    if (isler[j].milestone.state === "open") {
-                        proje.Isler[j].Hedef = new Hedef(
-                            isler[j].milestone.title,
-                            isler[j].milestone.number,
-                            "Kapalı",
-                            isler[j].milestone.creator.login,
-                            isler[j].milestone.description,
-                            isler[j].milestone.open_issues,
-                            isler[j].milestone.closed_issues,
-                            new GithubTarihi(isler[j].milestone.due_on),
-                            new GithubTarihi(isler[j].milestone.created_at),
-                            new GithubTarihi(isler[j].milestone.updated_at),
-                            new GithubTarihi(isler[j].milestone.closed_at)
-                        );
-                    }
-
+                    proje.Isler[j].Hedef = new Hedef(
+                        isler[j].milestone.title,
+                        isler[j].milestone.number,
+                        "Kapalı",
+                        isler[j].milestone.creator.login,
+                        isler[j].milestone.description,
+                        isler[j].milestone.open_issues,
+                        isler[j].milestone.closed_issues,
+                        new GithubTarihi(isler[j].milestone.due_on),
+                        new GithubTarihi(isler[j].milestone.created_at),
+                        new GithubTarihi(isler[j].milestone.updated_at),
+                        new GithubTarihi(isler[j].milestone.closed_at)
+                    );
                 }
+            }
 
+            if (proje.Isler[j].Yorumlar.length < 1) {
                 iseAitYorumlariAl(proje.Isler[j]);
+            }
+
+            if (proje.Isler[j].Olaylar.length < 1) {
                 iseAitOlaylariAl(proje.Isler[j]);
             }
         }
@@ -235,7 +239,7 @@ function kapaliIslerinBilgileriniAl(proje: Proje) {
 
             // Etiketler
             for (let k = 0; k < isler[j].labels.length; k++) {
-                proje.Isler[j].Etiketler.push(
+                proje.Isler[proje.Isler.length - 1].Etiketler.push(
                     new Etiket(proje.Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
                 );
             }
@@ -243,7 +247,7 @@ function kapaliIslerinBilgileriniAl(proje: Proje) {
             // Hedef
             if (isler[j].milestone) {
                 if (isler[j].milestone.state === "open") {
-                    proje.Isler[j].Hedef = new Hedef(
+                    proje.Isler[proje.Isler.length - 1].Hedef = new Hedef(
                         isler[j].milestone.title,
                         isler[j].milestone.number,
                         "Açık",
@@ -257,27 +261,29 @@ function kapaliIslerinBilgileriniAl(proje: Proje) {
                         new GithubTarihi(isler[j].milestone.closed_at)
                     );
                 } else {
-                    if (isler[j].milestone.state === "open") {
-                        proje.Isler[j].Hedef = new Hedef(
-                            isler[j].milestone.title,
-                            isler[j].milestone.number,
-                            "Kapalı",
-                            isler[j].milestone.creator.login,
-                            isler[j].milestone.description,
-                            isler[j].milestone.open_issues,
-                            isler[j].milestone.closed_issues,
-                            new GithubTarihi(isler[j].milestone.due_on),
-                            new GithubTarihi(isler[j].milestone.created_at),
-                            new GithubTarihi(isler[j].milestone.updated_at),
-                            new GithubTarihi(isler[j].milestone.closed_at)
-                        );
-                    }
-
+                    proje.Isler[proje.Isler.length - 1].Hedef = new Hedef(
+                        isler[j].milestone.title,
+                        isler[j].milestone.number,
+                        "Kapalı",
+                        isler[j].milestone.creator.login,
+                        isler[j].milestone.description,
+                        isler[j].milestone.open_issues,
+                        isler[j].milestone.closed_issues,
+                        new GithubTarihi(isler[j].milestone.due_on),
+                        new GithubTarihi(isler[j].milestone.created_at),
+                        new GithubTarihi(isler[j].milestone.updated_at),
+                        new GithubTarihi(isler[j].milestone.closed_at)
+                    );
                 }
             }
 
-            iseAitYorumlariAl(proje.Isler[j]);
-            iseAitOlaylariAl(proje.Isler[j]);
+            if (proje.Isler[j].Yorumlar.length < 1) {
+                iseAitYorumlariAl(proje.Isler[proje.Isler.length - 1]);
+            }
+
+            if (proje.Isler[j].Olaylar.length < 1) {
+                iseAitOlaylariAl(proje.Isler[proje.Isler.length - 1]);
+            }
         }
     });
 }

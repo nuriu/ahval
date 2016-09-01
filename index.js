@@ -31,11 +31,11 @@ uygulama.on("ready", () => {
 uygulama.on("window-all-closed", () => {
     if (process.platform !== 'darwin') {
         uygulama.quit();
-    };
+    }
 });
 
 uygulama.on("activate", () => {
     if (anaPencere === null) {
         pencereyiOlustur();
-    };
+    }
 });

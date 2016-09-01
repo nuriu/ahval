@@ -63,8 +63,6 @@ export class Is {
                     </div>\
                 </div>";
 
-        // ifade += "<div class='ui horizontal divider'>Olaylar</div>";
-
         ifade += "<div class='row'><div class='eight wide column'><div class='ui horizontal divider'>Yorumlar</div>" +
             this.yorumlariYazdir() + "</div>\
             <div class='eight wide column' ><div class='ui horizontal divider'>Olaylar</div>" + this.olaylariYazdir() + "</div>\
@@ -72,9 +70,7 @@ export class Is {
 
         document.getElementById("isDetaylari").innerHTML = ifade;
 
-        $('.long.modal').modal('show');
-
-
+        $(".long.modal").modal("show");
     }
 
     public ozetiYazdir(yerID: string) {
@@ -177,10 +173,10 @@ export class Is {
                                 </div>\
                                 <div class='content'>\
                                     <div class='summary'>\
-                                        <a class='user'>" + olay.Aktor + "</a>\
-                                        <div class='ui label etiketYazi' style='background-color: #" + olay.Etiket.Renk + "; color: white;'>"
+                                    <a class='user'>" + olay.Aktor + "</a>\
+                                    <div class='ui label etiketYazi' style='background-color: #" + olay.Etiket.Renk + "; color: white;'>"
                         + olay.Etiket.Ad + "</div> etiketini kaldırdı.\
-                                        <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
+                                    <div class='date'>" + olay.GerceklesmeTarihi.Tarih + "</div></div></div></div>";
                     break;
 
                 case Turler.KisiyeAtama:
