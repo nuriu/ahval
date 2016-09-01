@@ -10,12 +10,12 @@ import { Yorum } from "./yorum";
 
 const fs = require("fs");
 const SQL = require("sql.js");
-const GitHub = require("github-api");
+const Client = require("github");
 const electron = require("electron");
 const remote = electron.remote;
 const BrowserWindow = remote.BrowserWindow;
 
-let gh: any;
+let github: any;
 let KULLANICI: Kullanici;
 let fb = fs.readFileSync("app/db/id.ajanda");
 let db = new SQL.Database(fb);
@@ -26,11 +26,14 @@ $(document).ready(() => {
     <li class='aktif' id='tumIsler'>\
     <a href='#'><i class='loading spinner icon'></i> Yükleniyor...</a></li>";
 
+    github = window["github"];
+
     if (window.localStorage.getItem("githubtoken") === null) {
         gitHubGirisYap();
     } else {
-        gh = new GitHub({
+        github.authenticate({
             token: window.localStorage.getItem("githubtoken"),
+            type: "oauth",
         });
 
         bilgileriAl();
@@ -106,8 +109,9 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
         if (durum === "success") {
             window.localStorage.setItem("githubtoken", icerik.slice(icerik.search("=") + 1, icerik.search("&")));
 
-            gh = new GitHub({
+            github.authenticate({
                 token: icerik.slice(icerik.search("=") + 1, icerik.search("&")),
+                type: "oauth",
             });
 
             bilgileriAl();
@@ -121,24 +125,30 @@ function bilgileriAl() {
 }
 
 function kulaniciBilgileriniAl() {
-    gh.getUser().getProfile(function (hata: string, icerik: any) {
-        KULLANICI = new Kullanici(icerik.login, icerik.name, icerik.bio, icerik.avatar_url, icerik.company, icerik.location,
-            icerik.blog, icerik.followers, icerik.following);
+    github.users.get({}, function (hata, veri) {
+        if (!hata) {
+            KULLANICI = new Kullanici(veri.login, veri.name, veri.bio, veri.avatar_url, veri.company, veri.location,
+                veri.blog, veri.followers, veri.following);
+        } else {
+            console.log(hata);
+        }
     });
 }
 
 function projeBilgileriniAl() {
-    gh.getUser().listRepos({
-        direction: "asc",
-        sort: "full_name",
-        type: "all",
-    }, function (hata: string, icerik: any) {
-        for (let i = 0; i < icerik.length; i++) {
-            KULLANICI.Projeler.push(new Proje(KULLANICI, icerik[i].full_name, icerik[i].name, icerik[i].description, icerik[i].homepage,
-                icerik[i].language, icerik[i].private, icerik[i].stargazers_count,
-                new GithubTarihi(icerik[i].created_at), new GithubTarihi(icerik[i].updated_at)));
+    github.repos.getAll({
+        "affiliation": "owner,organization_member"
+    }, function (hata, veri) {
+        if (!hata) {
+            for (let i = 0; i < veri.length; i++) {
+                KULLANICI.Projeler.push(new Proje(KULLANICI, veri[i].full_name, veri[i].name, veri[i].description, veri[i].homepage,
+                    veri[i].language, veri[i].private, veri[i].stargazers_count,
+                    new GithubTarihi(veri[i].created_at), new GithubTarihi(veri[i].updated_at)));
+            }
+            isBilgileriniAl();
+        } else {
+            console.log(hata);
         }
-        isBilgileriniAl();
     });
 }
 
@@ -147,186 +157,223 @@ function isBilgileriniAl() {
         acikIslerinBilgileriniAl(KULLANICI.Projeler[i]);
         kapaliIslerinBilgileriniAl(KULLANICI.Projeler[i]);
 
+        // Proje katkıları
+        github.repos.getCommits({
+            user: KULLANICI.KullaniciAdi,
+            repo: KULLANICI.Projeler[i].Ad,
+        }, function (hata, veri) {
+            if (!hata) {
+                for (let j = 0; j < veri.length; j++) {
+                    KULLANICI.Projeler[i].Katkilar.push(
+                        new Katki(
+                            veri[j].committer.login, veri[j].author.avatar_url, veri[j].commit.message,
+                            new GithubTarihi(veri[j].commit.committer.date)
+                        )
+                    );
+                }
+            } else {
+                console.log(hata);
+            }
+        });
+
         setTimeout(() => {
             document.getElementById(KULLANICI.Projeler[i].Ad).addEventListener("click", () => {
                 aktifProjeyiDegistir(KULLANICI.Projeler[i]);
             });
+        }, 2500);
 
-            gh.getRepo(KULLANICI.KullaniciAdi, KULLANICI.Projeler[i].Ad).listCommits({}, function (hata2: string, katkilar: any) {
-                for (let j = 0; j < katkilar.length; j++) {
-                    KULLANICI.Projeler[i].Katkilar.push(
-                        new Katki(
-                            katkilar[j].committer.login, katkilar[j].author.avatar_url, katkilar[j].commit.message,
-                            new GithubTarihi(katkilar[j].commit.committer.date)
-                        )
-                    );
-                }
-            });
-        }, 4000);
-
-        // console.log(KULLANICI.Projeler[i]);
+        console.log(KULLANICI.Projeler[i]);
     }
 }
 
 function acikIslerinBilgileriniAl(proje: Proje) {
-    gh.getIssues(KULLANICI.KullaniciAdi, proje.Ad).listIssues({
+    github.issues.getForRepo({
+        user: KULLANICI.KullaniciAdi,
+        repo: proje.Ad,
         state: "open",
-    }, function (hata: string, isler: any) {
-        for (let j = 0; j < isler.length; j++) {
-            proje.Isler.push(new Is(isler[j].number, proje, isler[j].title, isler[j].body,
-                "Açık", new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
-                new GithubTarihi(isler[j].closed_at)));
+    }, function (hata, veri) {
+        if (!hata) {
+            for (let j = 0; j < veri.length; j++) {
+                proje.Isler.push(new Is(veri[j].number, proje, veri[j].title, veri[j].body,
+                    "Açık", new GithubTarihi(veri[j].created_at), new GithubTarihi(veri[j].updated_at),
+                    new GithubTarihi(veri[j].closed_at)));
 
-            // Etiketler
-            for (let k = 0; k < isler[j].labels.length; k++) {
-                proje.Isler[j].Etiketler.push(
-                    new Etiket(proje.Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
-                );
-            }
-
-            // Hedef
-            if (isler[j].milestone) {
-                if (isler[j].milestone.state === "open") {
-                    proje.Isler[j].Hedef = new Hedef(
-                        isler[j].milestone.title,
-                        isler[j].milestone.number,
-                        "Açık",
-                        isler[j].milestone.creator.login,
-                        isler[j].milestone.description,
-                        isler[j].milestone.open_issues,
-                        isler[j].milestone.closed_issues,
-                        new GithubTarihi(isler[j].milestone.due_on),
-                        new GithubTarihi(isler[j].milestone.created_at),
-                        new GithubTarihi(isler[j].milestone.updated_at),
-                        new GithubTarihi(isler[j].milestone.closed_at)
-                    );
-                } else {
-                    proje.Isler[j].Hedef = new Hedef(
-                        isler[j].milestone.title,
-                        isler[j].milestone.number,
-                        "Kapalı",
-                        isler[j].milestone.creator.login,
-                        isler[j].milestone.description,
-                        isler[j].milestone.open_issues,
-                        isler[j].milestone.closed_issues,
-                        new GithubTarihi(isler[j].milestone.due_on),
-                        new GithubTarihi(isler[j].milestone.created_at),
-                        new GithubTarihi(isler[j].milestone.updated_at),
-                        new GithubTarihi(isler[j].milestone.closed_at)
+                // Etiketler
+                for (let k = 0; k < veri[j].labels.length; k++) {
+                    proje.Isler[proje.Isler.length - 1].Etiketler.push(
+                        new Etiket(proje.Isler[proje.Isler.length - 1], veri[j].labels[k].name, veri[j].labels[k].color)
                     );
                 }
-            }
 
-            if (proje.Isler[j].Yorumlar.length < 1) {
-                iseAitYorumlariAl(proje.Isler[j]);
-            }
+                // Hedef
+                if (veri[j].milestone) {
+                    if (veri[j].milestone.state === "open") {
+                        proje.Isler[proje.Isler.length - 1].Hedef = new Hedef(
+                            veri[j].milestone.title,
+                            veri[j].milestone.number,
+                            "Açık",
+                            veri[j].milestone.creator.login,
+                            veri[j].milestone.description,
+                            veri[j].milestone.open_issues,
+                            veri[j].milestone.closed_issues,
+                            new GithubTarihi(veri[j].milestone.due_on),
+                            new GithubTarihi(veri[j].milestone.created_at),
+                            new GithubTarihi(veri[j].milestone.updated_at),
+                            new GithubTarihi(veri[j].milestone.closed_at)
+                        );
+                    } else {
+                        proje.Isler[proje.Isler.length - 1].Hedef = new Hedef(
+                            veri[j].milestone.title,
+                            veri[j].milestone.number,
+                            "Kapalı",
+                            veri[j].milestone.creator.login,
+                            veri[j].milestone.description,
+                            veri[j].milestone.open_issues,
+                            veri[j].milestone.closed_issues,
+                            new GithubTarihi(veri[j].milestone.due_on),
+                            new GithubTarihi(veri[j].milestone.created_at),
+                            new GithubTarihi(veri[j].milestone.updated_at),
+                            new GithubTarihi(veri[j].milestone.closed_at)
+                        );
+                    }
+                }
 
-            if (proje.Isler[j].Olaylar.length < 1) {
-                iseAitOlaylariAl(proje.Isler[j]);
+                if (proje.Isler[j].Yorumlar.length < 1) {
+                    iseAitYorumlariAl(proje.Isler[proje.Isler.length - 1]);
+                }
+
+                if (proje.Isler[j].Olaylar.length < 1) {
+                    iseAitOlaylariAl(proje.Isler[proje.Isler.length - 1]);
+                }
             }
+        } else {
+            console.log(hata);
         }
     });
 }
 
 function kapaliIslerinBilgileriniAl(proje: Proje) {
-    gh.getIssues(KULLANICI.KullaniciAdi, proje.Ad).listIssues({
+    github.issues.getForRepo({
+        user: KULLANICI.KullaniciAdi,
+        repo: proje.Ad,
         state: "closed",
-    }, function (hata: string, isler: any) {
-        for (let j = 0; j < isler.length; j++) {
-            proje.Isler.push(new Is(isler[j].number, proje, isler[j].title, isler[j].body,
-                "Kapalı", new GithubTarihi(isler[j].created_at), new GithubTarihi(isler[j].updated_at),
-                new GithubTarihi(isler[j].closed_at)));
+    }, function (hata, veri) {
+        if (!hata) {
+            for (let j = 0; j < veri.length; j++) {
+                proje.Isler.push(new Is(veri[j].number, proje, veri[j].title, veri[j].body,
+                    "Kapalı", new GithubTarihi(veri[j].created_at), new GithubTarihi(veri[j].updated_at),
+                    new GithubTarihi(veri[j].closed_at)));
 
-            // Etiketler
-            for (let k = 0; k < isler[j].labels.length; k++) {
-                proje.Isler[proje.Isler.length - 1].Etiketler.push(
-                    new Etiket(proje.Isler[j], isler[j].labels[k].name, isler[j].labels[k].color)
-                );
-            }
-
-            // Hedef
-            if (isler[j].milestone) {
-                if (isler[j].milestone.state === "open") {
-                    proje.Isler[proje.Isler.length - 1].Hedef = new Hedef(
-                        isler[j].milestone.title,
-                        isler[j].milestone.number,
-                        "Açık",
-                        isler[j].milestone.creator.login,
-                        isler[j].milestone.description,
-                        isler[j].milestone.open_issues,
-                        isler[j].milestone.closed_issues,
-                        new GithubTarihi(isler[j].milestone.due_on),
-                        new GithubTarihi(isler[j].milestone.created_at),
-                        new GithubTarihi(isler[j].milestone.updated_at),
-                        new GithubTarihi(isler[j].milestone.closed_at)
-                    );
-                } else {
-                    proje.Isler[proje.Isler.length - 1].Hedef = new Hedef(
-                        isler[j].milestone.title,
-                        isler[j].milestone.number,
-                        "Kapalı",
-                        isler[j].milestone.creator.login,
-                        isler[j].milestone.description,
-                        isler[j].milestone.open_issues,
-                        isler[j].milestone.closed_issues,
-                        new GithubTarihi(isler[j].milestone.due_on),
-                        new GithubTarihi(isler[j].milestone.created_at),
-                        new GithubTarihi(isler[j].milestone.updated_at),
-                        new GithubTarihi(isler[j].milestone.closed_at)
+                // Etiketler
+                for (let k = 0; k < veri[j].labels.length; k++) {
+                    proje.Isler[proje.Isler.length - 1].Etiketler.push(
+                        new Etiket(proje.Isler[proje.Isler.length - 1], veri[j].labels[k].name, veri[j].labels[k].color)
                     );
                 }
-            }
 
-            if (proje.Isler[j].Yorumlar.length < 1) {
-                iseAitYorumlariAl(proje.Isler[proje.Isler.length - 1]);
-            }
+                // Hedef
+                if (veri[j].milestone) {
+                    if (veri[j].milestone.state === "open") {
+                        proje.Isler[proje.Isler.length - 1].Hedef = new Hedef(
+                            veri[j].milestone.title,
+                            veri[j].milestone.number,
+                            "Açık",
+                            veri[j].milestone.creator.login,
+                            veri[j].milestone.description,
+                            veri[j].milestone.open_issues,
+                            veri[j].milestone.closed_issues,
+                            new GithubTarihi(veri[j].milestone.due_on),
+                            new GithubTarihi(veri[j].milestone.created_at),
+                            new GithubTarihi(veri[j].milestone.updated_at),
+                            new GithubTarihi(veri[j].milestone.closed_at)
+                        );
+                    } else {
+                        proje.Isler[proje.Isler.length - 1].Hedef = new Hedef(
+                            veri[j].milestone.title,
+                            veri[j].milestone.number,
+                            "Kapalı",
+                            veri[j].milestone.creator.login,
+                            veri[j].milestone.description,
+                            veri[j].milestone.open_issues,
+                            veri[j].milestone.closed_issues,
+                            new GithubTarihi(veri[j].milestone.due_on),
+                            new GithubTarihi(veri[j].milestone.created_at),
+                            new GithubTarihi(veri[j].milestone.updated_at),
+                            new GithubTarihi(veri[j].milestone.closed_at)
+                        );
+                    }
+                }
 
-            if (proje.Isler[j].Olaylar.length < 1) {
-                iseAitOlaylariAl(proje.Isler[proje.Isler.length - 1]);
+                if (proje.Isler[j].Yorumlar.length < 1) {
+                    iseAitYorumlariAl(proje.Isler[proje.Isler.length - 1]);
+                }
+
+                if (proje.Isler[j].Olaylar.length < 1) {
+                    iseAitOlaylariAl(proje.Isler[proje.Isler.length - 1]);
+                }
             }
+        } else {
+            console.log(hata);
         }
     });
 }
 
 function iseAitYorumlariAl(is: Is) {
-    gh.getIssues(KULLANICI.KullaniciAdi, is.Proje.Ad).listIssueComments(
-        is.No, function (hata2: string, yorumlar: any) {
-            for (let l = 0; l < yorumlar.length; l++) {
+    github.issues.getComments({
+        number: is.No,
+        repo: is.Proje.Ad,
+        user: KULLANICI.KullaniciAdi,
+    }, function (hata, veri) {
+        if (!hata) {
+            for (let i = 0; i < veri.length; i++) {
                 is.Yorumlar.push(
                     new Yorum(
-                        yorumlar[l].user.login, yorumlar[l].user.avatar_url, yorumlar[l].body,
-                        new GithubTarihi(yorumlar[l].created_at), new GithubTarihi(yorumlar[l].updated_at)
+                        veri[i].user.login, veri[i].user.avatar_url, veri[i].body,
+                        new GithubTarihi(veri[i].created_at), new GithubTarihi(veri[i].updated_at)
                     )
                 );
             }
+        } else {
+            console.log(hata);
         }
-    );
+    });
 }
 
 function iseAitOlaylariAl(is: Is) {
-    gh.getIssues(KULLANICI.KullaniciAdi, is.Proje.Ad).listIssueEvents(is.No, function (hata: string, olaylar: any) {
+    github.issues.getEvents({
+        user: KULLANICI.KullaniciAdi,
+        repo: is.Proje.Ad,
+        number: is.No,
+    }, function (hata, veri) {
+        if (!hata) {
+            for (let i = 0; i < veri.length; i++) {
+                let olay = veri[i];
 
-        for (let i = 0; i < olaylar.length; i++) {
-            let olay = olaylar[i];
-            let eklenecekOlay: Olay = new Olay(is, olay.event, olay.actor.login, olay.actor.avatar_url, new GithubTarihi(olay.created_at));
+                let eklenecekOlay: Olay = new Olay(
+                    is, olay.event, olay.actor.login, olay.actor.avatar_url,
+                    new GithubTarihi(olay.created_at)
+                );
 
-            if (olay.label) { eklenecekOlay.Etiket = new Etiket(is, olay.label.name, olay.label.color); }
+                if (olay.label) { eklenecekOlay.Etiket = new Etiket(is, olay.label.name, olay.label.color); }
 
-            if (olay.assignee && olay.assigner) {
-                eklenecekOlay.Atayan = olay.assigner.login;
-                eklenecekOlay.AtayanAvatar = olay.assigner.avatar_url;
-                eklenecekOlay.Atanan = olay.assignee.login;
-                eklenecekOlay.AtananAvatar = olay.assignee.avatar_url;
+                if (olay.assignee && olay.assigner) {
+                    eklenecekOlay.Atayan = olay.assigner.login;
+                    eklenecekOlay.AtayanAvatar = olay.assigner.avatar_url;
+                    eklenecekOlay.Atanan = olay.assignee.login;
+                    eklenecekOlay.AtananAvatar = olay.assignee.avatar_url;
+                }
+
+                if (olay.milestone) { eklenecekOlay.Hedef = new Hedef(olay.milestone.title); }
+
+                if (olay.rename) {
+                    eklenecekOlay.OncekiAd = olay.rename.from;
+                    eklenecekOlay.SonrakiAd = olay.rename.to;
+                }
+
+                is.Olaylar.push(eklenecekOlay);
             }
-
-            if (olay.milestone) { eklenecekOlay.Hedef = new Hedef(olay.milestone.title); }
-
-            if (olay.rename) {
-                eklenecekOlay.OncekiAd = olay.rename.from;
-                eklenecekOlay.SonrakiAd = olay.rename.to;
-            }
-
-            is.Olaylar.push(eklenecekOlay);
+        } else {
+            console.log(hata);
         }
     });
 }
@@ -334,11 +381,8 @@ function iseAitOlaylariAl(is: Is) {
 function bilgileriYazdir() {
     setTimeout(() => {
         KULLANICI.projeleriListele("projeListesi");
-    }, 2000);
-
-    setTimeout(() => {
-        KULLANICI.bilgileriYazdir("profil");
-    }, 2500);
+    }, 1500);
+    KULLANICI.bilgileriYazdir("profil");
 }
 
 function aktifProjeyiDegistir(proje: Proje) {

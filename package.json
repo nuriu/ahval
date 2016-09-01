@@ -22,7 +22,7 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
-    "github-api": "^2.3.0",
+    "github": "^2.6.0",
     "jquery": "^3.1.0",
     "semantic-ui": "^2.2.0",
     "sql.js": "^0.3.2"

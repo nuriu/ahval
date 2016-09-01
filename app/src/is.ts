@@ -23,7 +23,7 @@ export class Is {
     public KapanmaTarihi: GithubTarihi;
 
     constructor(no: number, proje: Proje, baslik: string, icerik: string, durum: string,
-        olusturmaTarihi: GithubTarihi, guncellemeTarihi: GithubTarihi, kapanmaTarihi: GithubTarihi) {
+                olusturmaTarihi: GithubTarihi, guncellemeTarihi: GithubTarihi, kapanmaTarihi: GithubTarihi) {
         this.Proje = proje;
         this.Baslik = baslik;
         this.No = no;
