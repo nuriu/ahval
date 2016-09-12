@@ -35,6 +35,7 @@ Geliştiriciler için yardımcı ajanda. (Helpful agenda for the developers.)
 > npm install
 
 **TR**: Geriye kalan tek şey projeyi derleyip çalıştırmak;
+
 **EN**: Now you can compile and run with; 
 
 > npm run build && npm run start

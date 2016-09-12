@@ -62,6 +62,11 @@ export class Is {
     public KapanmaTarihi: GithubTarihi;
 
     /**
+     * GitHub client.
+     */
+    private github = window["github"];
+
+    /**
      * Creates issue object with given infos.
      * @param no Issue number.
      * @param proje Related project (repo) object.
@@ -123,11 +128,12 @@ export class Is {
             </div></div></div>";
 
         document.getElementById("isDetaylari").innerHTML = ifade;
-        //$(".long.modal").modal("show");
+        $(".long.modal").modal("show");
     }
 
     /**
      * Prints issue summary inside the element with given ID.
+     * @param yerID Element ID where info will be rendered.
      */
     public ozetiYazdir(yerID: string) {
         if (this.Durum === "Açık") {
@@ -403,5 +409,71 @@ export class Is {
 
         ifade += "</div>";
         return ifade;
+    }
+
+    /**
+     * Get all comments belongs to this issue.
+     */
+    public iseAitYorumlariAl() {
+        this.github.issues.getComments({
+            number: this.No,
+            repo: this.Proje.Ad,
+            user: this.Proje.Sahip.KullaniciAdi,
+        }, (hata, veri) => {
+            if (!hata) {
+                for (let i = 0; i < veri.length; i++) {
+                    this.Yorumlar.push(
+                        new Yorum(
+                            veri[i].user.login, veri[i].user.avatar_url, veri[i].body,
+                            new GithubTarihi(veri[i].created_at), new GithubTarihi(veri[i].updated_at)
+                        )
+                    );
+                }
+            } else {
+                console.log(hata);
+            }
+        });
+    }
+
+    /**
+     * Get all events related to this issue.
+     */
+    public iseAitOlaylariAl() {
+        this.github.issues.getEvents({
+            number: this.No,
+            repo: this.Proje.Ad,
+            user: this.Proje.Sahip.KullaniciAdi,
+        }, (hata, veri) => {
+            if (!hata) {
+                for (let i = 0; i < veri.length; i++) {
+                    let olay = veri[i];
+
+                    let eklenecekOlay: Olay = new Olay(
+                        this, olay.event, olay.actor.login, olay.actor.avatar_url,
+                        new GithubTarihi(olay.created_at)
+                    );
+
+                    if (olay.label) { eklenecekOlay.Etiket = new Etiket(this, olay.label.name, olay.label.color); }
+
+                    if (olay.assignee && olay.assigner) {
+                        eklenecekOlay.Atayan = olay.assigner.login;
+                        eklenecekOlay.AtayanAvatar = olay.assigner.avatar_url;
+                        eklenecekOlay.Atanan = olay.assignee.login;
+                        eklenecekOlay.AtananAvatar = olay.assignee.avatar_url;
+                    }
+
+                    if (olay.milestone) { eklenecekOlay.Hedef = new Hedef(olay.milestone.title); }
+
+                    if (olay.rename) {
+                        eklenecekOlay.OncekiAd = olay.rename.from;
+                        eklenecekOlay.SonrakiAd = olay.rename.to;
+                    }
+
+                    this.Olaylar.push(eklenecekOlay);
+                }
+            } else {
+                console.log(hata);
+            }
+        });
     }
 }
