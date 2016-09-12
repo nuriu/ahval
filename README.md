@@ -20,15 +20,18 @@ Geliştiriciler için yardımcı ajanda.
 - jQuery UI
 - Semantic UI
 - GitHub API
-- sql.js
 
-**Değişim Günlüğü;**
+### Derleme
 
-- s0.1.0:
-    - GitHub üzerinden kullanıcı girişi ve bilgilerin çekilmesi
-    - Kilitli / açık projelerin listelenmesi
-    - Seçilen projeye ait bilgilerin, katkıların (commits) ve işlerin (issues) listelenmesi
-    - Seçilen işe ait bilgilerin ve olayların gösterilmesi
+Projeyi derlemeden önce Proje dizinine *ID* ve *SECRET* isimli iki dosya oluşturup *ID* dosyasına GitHub **Client ID**, *SECRET* dosyasına GitHub **Client Secret** anahtarlarını girmeniz gerekmektedir.
+
+Bu işlemi gerçekleştirdek sonra aşağıdaki kod ile gereksinimleri kurabilirsiniz;
+
+> npm install
+
+Geriye kalan tek şey projeyi derleyip çalıştırmak;
+
+> npm run build && npm run start
 
 
 *Secret book Icon Artist:* **ArtDesigner.lv**

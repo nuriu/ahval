@@ -9,7 +9,6 @@ import { GithubTarihi } from "./tarih";
 import { Yorum } from "./yorum";
 
 const fs = require("fs");
-const SQL = require("sql.js");
 const Client = require("github");
 const electron = require("electron");
 const remote = electron.remote;
@@ -17,11 +16,28 @@ const BrowserWindow = remote.BrowserWindow;
 
 let github: any;
 let KULLANICI: Kullanici;
-let fb = fs.readFileSync("app/db/id.ajanda");
-let db = new SQL.Database(fb);
 let aktifProje: string = null;
 
 $(document).ready(() => {
+    let id: string;
+    let secret: string;
+
+    fs.readFile("ID", "utf8", (hata: any, veri: any) => {
+        if (hata) {
+            return console.log(hata);
+        } else {
+            id = veri;
+
+            fs.readFile("SECRET", "utf8", (hata2: any, veri2: any) => {
+                if (hata2) {
+                    return console.log(hata2);
+                } else {
+                    secret = veri2;
+                }
+            });
+        }
+    });
+
     document.getElementById("projeListesi").innerHTML = "\
     <li class='aktif' id='tumIsler'>\
     <a href='#'><i class='loading spinner icon'></i> Yükleniyor...</a></li>";
@@ -29,7 +45,7 @@ $(document).ready(() => {
     github = window["github"];
 
     if (window.localStorage.getItem("githubtoken") === null) {
-        gitHubGirisYap();
+        gitHubGirisYap(id, secret);
     } else {
         github.authenticate({
             token: window.localStorage.getItem("githubtoken"),
@@ -44,10 +60,10 @@ $(document).ready(() => {
     }
 });
 
-function gitHubGirisYap() {
+function gitHubGirisYap(id: string, secret: string) {
     let secenekler = {
-        istemci_id: db.exec("SELECT * FROM AJANDA")[0].values[0][0],
-        istemci_sir: db.exec("SELECT * FROM AJANDA")[0].values[0][1],
+        istemci_id: id,
+        istemci_sir: secret,
         kapsamlar: ["repo", "user", "notifications", "gist"],
     };
 

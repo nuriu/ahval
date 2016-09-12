@@ -2,9 +2,8 @@ node_modules/
 typings/
 semantic/
 build/
-*.mdj
 *.DB
 *.DB-wal
 *.DB-shm
-id.ajanda
-veritabani-journal
+ID
+SECRET
