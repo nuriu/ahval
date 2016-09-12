@@ -8,20 +8,70 @@ import { Proje } from "./proje";
 import { GithubTarihi } from "./tarih";
 import { Yorum } from "./yorum";
 
+/**
+ * Issue class.
+ */
 export class Is {
+    /**
+     * Issue number.
+     */
     public No: number;
+    /**
+     * Related project (repo).
+     */
     public Proje: Proje;
+    /**
+     * Issue title.
+     */
     public Baslik: string;
+    /**
+     * Body of the issue.
+     */
     public Icerik: string;
+    /**
+     * Issue status.
+     */
     public Durum: string;
+    /**
+     * Issue label list.
+     */
     public Etiketler: Array<Etiket>;
+    /**
+     * Issue event list.
+     */
     public Olaylar: Array<Olay>;
+    /**
+     * Issue comment list.
+     */
     public Yorumlar: Array<Yorum>;
+    /**
+     * Issue milestone.
+     */
     public Hedef: Hedef;
+    /**
+     * Creation date.
+     */
     public OlusturmaTarihi: GithubTarihi;
+    /**
+     * Update date.
+     */
     public GuncellemeTarihi: GithubTarihi;
+    /**
+     * Close date.
+     */
     public KapanmaTarihi: GithubTarihi;
 
+    /**
+     * Creates issue object with given infos.
+     * @param no Issue number.
+     * @param proje Related project (repo) object.
+     * @param baslik Issue title.
+     * @param icerik Issue body.
+     * @param durum Issue status.
+     * @param olusturmaTarihi Creation date.
+     * @param guncellemeTarihi Update date.
+     * @param kapanmaTarihi Close date.
+     */
     constructor(no: number, proje: Proje, baslik: string, icerik: string, durum: string,
                 olusturmaTarihi: GithubTarihi, guncellemeTarihi: GithubTarihi, kapanmaTarihi: GithubTarihi) {
         this.Proje = proje;
@@ -37,6 +87,9 @@ export class Is {
         this.Yorumlar = new Array<Yorum>();
     }
 
+    /**
+     * Prints issue details in modal.
+     */
     public bilgileriYazdir() {
         let ifade: string = "";
 
@@ -70,10 +123,12 @@ export class Is {
             </div></div></div>";
 
         document.getElementById("isDetaylari").innerHTML = ifade;
-
-        $(".long.modal").modal("show");
+        //$(".long.modal").modal("show");
     }
 
+    /**
+     * Prints issue summary inside the element with given ID.
+     */
     public ozetiYazdir(yerID: string) {
         if (this.Durum === "Açık") {
             let ozet: string = "\
@@ -121,6 +176,10 @@ export class Is {
         }
     }
 
+    /**
+     * Generates HTML code for the issue comments.
+     * @return(s) Generated HTML code string.
+     */
     public yorumlariYazdir(): string {
         let ifade: string = "<div class='ui comments'>";
 
@@ -149,6 +208,10 @@ export class Is {
         return ifade;
     }
 
+    /**
+     * Generates HTML code for the issue events.
+     * @return(s) Generated HTML code string.
+     */
     public olaylariYazdir(): string {
         let ifade = "<div class='ui feed'>";
 

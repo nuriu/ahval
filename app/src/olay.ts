@@ -3,44 +3,136 @@ import { Hedef } from "./hedef";
 import { Is } from "./is";
 import { GithubTarihi } from "./tarih";
 
+/**
+ * Issue related event types.
+ */
 export const enum Turler {
+    /**
+     * Adding label.
+     */
     EtiketEkleme,
+    /**
+     * Removing label.
+     */
     EtiketKaldirma,
+    /**
+     * Assigning to the user.
+     */
     KisiyeAtama,
+    /**
+     * Unassigning from the user.
+     */
     KisidenAlma,
+    /**
+     * Closing.
+     */
     Kapatma,
+    /**
+     * Reopening.
+     */
     TekrarAcma,
+    /**
+     * Subscribing.
+     */
     AboneOlma,
+    /**
+     * Mentioning.
+     */
     Bahsetme,
+    /**
+     * Adding to the milestone.
+     */
     HedefEkleme,
+    /**
+     * Removing from the milestone.
+     */
     HedefKaldirma,
+    /**
+     * Renaming.
+     */
     YenidenAdlandirma,
+    /**
+     * Locking.
+     */
     Kilitleme,
+    /**
+     * Unlocking.
+     */
     KilidiAcma
 }
 
+/**
+ * Event class for issue events.
+ */
 export class Olay {
+    /**
+     * Owner issue.
+     */
     public Is: Is;
+    /**
+     * Event type.
+     */
     public Tur: Turler;
+    /**
+     * Actor of the event.
+     */
     public Aktor: string; // TODO: KULLANICI OLACAK
+    /**
+     * Avatar link of the actor.
+     */
     public Avatar: string;
+    /**
+     * Occurrence date of the event.
+     */
     public GerceklesmeTarihi: GithubTarihi;
-    // Etiket ekleme - kaldırma
+    /**
+     * Label object for labelling unlabelling events.
+     */
     public Etiket: Etiket;
-    // Kişiye atama - kişiden alma // TODO: KULLANICI OLACAK
-    public Atayan: string; 
+    /**
+     * Assigner username. 
+     */
+    public Atayan: string; // TODO: KULLANICI OLACAK
+    /**
+     * Avatar link of the assigner. 
+     */
     public AtayanAvatar: string;
-    public Atanan: string;
+    /**
+     * Assignee username.
+     */
+    public Atanan: string; // TODO: KULLANICI OLACAK
+    /**
+     * Avatar link of the assignee.
+     */
     public AtananAvatar: string;
-    // Hedef ekleme - kaldırma
+    /**
+     * Milestone object for milestone related events.
+     */
     public Hedef: Hedef;
-    // Yeniden adlandırma
+    /**
+     * Previous name of the issue. For renaming events.
+     */
     public OncekiAd: string;
+    /**
+     * New name of the issue. For renaming events.
+     */
     public SonrakiAd: string;
 
+    /**
+     * Creates new event object with given info.
+     * @param is Related issue.
+     * @param olayTuru Event type.
+     * @param aktor Event actor.
+     * @param avatar Avatar link of the actor.
+     * @param gerceklesmeTarihi Occurrence date.
+     * @param etiket Label info.
+     * @param atayan Assigner username.
+     * @param atayanAvatar Avatar link of the assigner.
+     * @param atanan Assignee username.
+     * @param atananAvatar Avatar link of the assignee.
+     */
     constructor(is: Is, olayTuru: string, aktor: string, avatar: string, gerceklesmeTarihi: GithubTarihi,
-                etiket?: Etiket, atayan?: string, atayanAvatar?: string, atanan?: string, atananAvatar?: string
-    ) {
+                etiket?: Etiket, atayan?: string, atayanAvatar?: string, atanan?: string, atananAvatar?: string) {
         this.Is = is;
         this.Aktor = aktor;
         this.Avatar = avatar;

@@ -3,20 +3,72 @@ import { Katki } from "./katki";
 import { Kullanici } from "./kullanici";
 import { GithubTarihi } from "./tarih";
 
+/**
+ * Project (repo) class.
+ */
 export class Proje {
+    /**
+     * Owner of the repo.
+     */
     public Sahip: Kullanici;
+    /**
+     * Full name of the repo.
+     */
     public TamAd: string;
+    /**
+     * Name of the repo.
+     */
     public Ad: string;
+    /**
+     * Description for the repo.
+     */
     public Aciklama: string;
+    /**
+     * Homepage of the repo.
+     */
     public AnaSayfa: string;
+    /**
+     * Main language of the repo. 
+     */
     public Dil: string;
+    /**
+     * is Private?
+     */
     public OzelMi: boolean;
+    /**
+     * Star count.
+     */
     public YildizSayisi: number;
+    /**
+     * Issue list.
+     */
     public Isler: Array<Is>;
+    /**
+     * Comment list.
+     */
     public Katkilar: Array<Katki>;
+    /**
+     * Creation date of the repo.
+     */
     public OlusturmaTarihi: GithubTarihi;
+    /**
+     * Update date of the repo.
+     */
     public GuncellemeTarihi: GithubTarihi;
 
+    /**
+     * Creates project (repo) object with given info.
+     * @param sahip Owner.
+     * @param tAd Full name of the repo.
+     * @param ad Repo name.
+     * @param aciklama Description for the repo.
+     * @param anaSayfa Homepage.
+     * @param dil Main language.
+     * @param ozelMi Private status of the repo.
+     * @param yildizSayisi Star count.
+     * @param olusturmaTarihi Creation date.
+     * @param guncellemeTarihi Update date.
+     */
     constructor(sahip: Kullanici, tAd: string, ad: string, aciklama: string, anaSayfa: string, dil: string, ozelMi: boolean,
                 yildizSayisi: number, olusturmaTarihi: GithubTarihi, guncellemeTarihi: GithubTarihi) {
         this.Sahip = sahip;
@@ -39,8 +91,20 @@ export class Proje {
         }
     }
 
+    /**
+     * Updates repo related infos.
+     * @param sahip Owner.
+     * @param tAd Full name of the repo.
+     * @param ad Repo name.
+     * @param aciklama Description for the repo.
+     * @param anaSayfa Homepage.
+     * @param dil Main language.
+     * @param ozelMi Private status of the repo.
+     * @param yildizSayisi Star count.
+     * @param guncellemeTarihi Update date.
+     */
     public bilgileriGuncelle(sahip: Kullanici, tAd: string, ad: string, aciklama: string, anaSayfa: string, dil: string, ozelMi: boolean,
-                             yildizSayisi: number, olusturmaTarihi: GithubTarihi, guncellemeTarihi: GithubTarihi) {
+        yildizSayisi: number, guncellemeTarihi: GithubTarihi) {
         this.Sahip = sahip;
         this.TamAd = tAd;
         this.Ad = ad;
@@ -49,10 +113,13 @@ export class Proje {
         this.Dil = dil;
         this.OzelMi = ozelMi;
         this.YildizSayisi = yildizSayisi;
-        this.OlusturmaTarihi = olusturmaTarihi;
         this.GuncellemeTarihi = guncellemeTarihi;
     }
 
+    /**
+     * Counts closed issues.
+     * @return(s) Count of the closed issues.
+     */
     public kapaliIsSayisi(): number {
         let kapaliIsSayisi = 0;
         for (let i = 0; i < this.Isler.length; i++) {
@@ -63,6 +130,10 @@ export class Proje {
         return kapaliIsSayisi;
     }
 
+    /**
+     * Counts open issues.
+     * @return(s) Count of the open issues.
+     */
     public acikIsSayisi(): number {
         let acikIsSayisi = 0;
         for (let i = 0; i < this.Isler.length; i++) {
@@ -73,6 +144,9 @@ export class Proje {
         return acikIsSayisi;
     }
 
+    /**
+     * Prints project (repo) summary.
+     */
     public ozetiYazdir() {
         let ozet: string = "\
         <div class='ui fluid card'>\
@@ -98,6 +172,9 @@ export class Proje {
         document.getElementById("projeBilgileri").innerHTML = ozet;
     }
 
+    /**
+     * Prints all of the open issues that project (repo) have.
+     */
     public isleriYazdir() {
         document.getElementById("projeIsleri").innerHTML = "";
 
@@ -114,6 +191,9 @@ export class Proje {
         }
     }
 
+    /**
+     * Prints last commits made for the project (repo).
+     */
     private katkilariYazdir(): string {
         let ifade: string = "<div class='ui feed'>";
         for (let i = 0; i < this.Katkilar.length; i++) {

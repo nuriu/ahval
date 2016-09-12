@@ -1,7 +1,7 @@
 {
   "name": "ajanda",
   "version": "0.1.0",
-  "description": "Geliştiriciler için akıllı ajanda.",
+  "description": "Geliştiriciler için yardımcı ajanda.",
   "main": "index.js",
   "scripts": {
     "build": "webpack --progress --profile --colors --display-error-details --display-cached",

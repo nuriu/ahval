@@ -1,10 +1,32 @@
+/**
+ * Handler class for date and time formatting.
+ */
 export class GithubTarihi {
+    /**
+     * Hour.
+     */
     public Saat: string = "";
+    /**
+     * Day.
+     */
     public Gun: string = "";
+    /**
+     * Month.
+     */
     public Ay: string = "";
+    /**
+     * Year.
+     */
     public Yil: string = "";
+    /**
+     * Date.
+     */
     public Tarih: string = "";
 
+    /**
+     * Creates formatted date and time info with given string.
+     * @param tarih GitHub date string.
+     */
     constructor(tarih: string) {
         if (tarih !== null) {
             for (let i = 0; i < tarih.length; i++) {
