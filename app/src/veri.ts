@@ -415,7 +415,12 @@ function aktifProjeyiDegistir(proje: Proje) {
         document.getElementById(proje.Ad).className = "aktif";
         aktifProje = proje.Ad;
 
-        projeBilgileriniYazdir(proje);
+        KULLANICI.projeBilgileriniGuncelle(aktifProje);
+
+        setTimeout(() => {
+            projeBilgileriniYazdir(proje);
+        }, 1000);
+
     } else {
         document.getElementById("tumIsler").className = "aktif";
         KULLANICI.bilgileriYazdir("profil");

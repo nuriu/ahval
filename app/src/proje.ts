@@ -29,8 +29,28 @@ export class Proje {
         this.YildizSayisi = yildizSayisi;
         this.OlusturmaTarihi = olusturmaTarihi;
         this.GuncellemeTarihi = guncellemeTarihi;
-        this.Isler = new Array<Is>();
-        this.Katkilar = new Array<Katki>();
+
+        if (!this.Isler) {
+            this.Isler = new Array<Is>();
+        }
+
+        if (!this.Katkilar) {
+            this.Katkilar = new Array<Katki>();
+        }
+    }
+
+    public bilgileriGuncelle(sahip: Kullanici, tAd: string, ad: string, aciklama: string, anaSayfa: string, dil: string, ozelMi: boolean,
+                             yildizSayisi: number, olusturmaTarihi: GithubTarihi, guncellemeTarihi: GithubTarihi) {
+        this.Sahip = sahip;
+        this.TamAd = tAd;
+        this.Ad = ad;
+        this.Aciklama = aciklama;
+        this.AnaSayfa = anaSayfa;
+        this.Dil = dil;
+        this.OzelMi = ozelMi;
+        this.YildizSayisi = yildizSayisi;
+        this.OlusturmaTarihi = olusturmaTarihi;
+        this.GuncellemeTarihi = guncellemeTarihi;
     }
 
     public kapaliIsSayisi(): number {

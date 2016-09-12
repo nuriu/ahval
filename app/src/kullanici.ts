@@ -1,4 +1,5 @@
 import { Proje } from "./proje";
+import { GithubTarihi } from "./tarih";
 
 export class Kullanici {
     public KullaniciAdi: string;
@@ -11,6 +12,8 @@ export class Kullanici {
     public TakipciSayisi: number;
     public TakipEdilenKisiSayisi: number;
     public Projeler: Array<Proje>;
+
+    private github = window["github"];
 
     constructor(kAdi: string, ad: string, bio: string, avatar: string, sirket: string, yer: string, site: string,
                 takipciSayisi: number, takipEdilenKisiSayisi: number) {
@@ -35,17 +38,6 @@ export class Kullanici {
             + this.Bio + "<br>"
             + this.Sirket + "</div>\
         </div></div></div>";
-
-        /*
-        document.getElementById(yerID).innerHTML += "<div class='ui tiny three statistics'>\
-        <div class='statistic'><div class='value'>" + this.Projeler.length + "</div>\
-        <div class='label'>PROJE</div></div>\
-        <div class='statistic'><div class='value'>" + this.TakipciSayisi + "</div>\
-        <div class='label'>TAKİPÇİ</div></div>\
-        <div class='statistic'><div class='value'>" + this.TakipEdilenKisiSayisi + "</div>\
-        <div class='label'>TAKİP EDİLEN</div></div>\
-        </div>";
-        */
     }
 
     public projeleriListele(yerID: string) {
@@ -62,5 +54,24 @@ export class Kullanici {
                     " / " + this.Projeler[i].Isler.length + ")</a></li>";
             }
         }
+    }
+
+    public projeBilgileriniGuncelle(ad: string) {
+        this.github.repos.get({
+            repo: ad,
+            user: this.KullaniciAdi,
+        }, (hata, veri) => {
+            if (!hata) {
+                for (let i = 0; i < this.Projeler.length; i++) {
+                    if (ad === this.Projeler[i].Ad) {
+                        this.Projeler[i].bilgileriGuncelle(this, veri.full_name, veri.name, veri.description, veri.homepage, veri.language,
+                            veri.private, veri.stargazers_count, new GithubTarihi(veri.created_at), new GithubTarihi(veri.updated_at));
+                        break;
+                    }
+                }
+            } else {
+                console.log(hata);
+            }
+        });
     }
 }
