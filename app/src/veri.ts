@@ -9,7 +9,6 @@ import { GithubTarihi } from "./tarih";
 import { Yorum } from "./yorum";
 
 const fs = require("fs");
-const Client = require("github");
 const electron = require("electron");
 const remote = electron.remote;
 const BrowserWindow = remote.BrowserWindow;
@@ -98,15 +97,15 @@ function gitHubGirisYap(id: string, secret: string) {
         }
     }
 
-    dogrulamaPenceresi.webContents.on("will-navigate", function (olay: any, url: string) {
+    dogrulamaPenceresi.webContents.on("will-navigate", (olay: any, url: string) => {
         cagriylaIlgilen(url);
     });
 
-    dogrulamaPenceresi.webContents.on("did-get-redirect-request", function (olay: any, eskiUrl: string, yeniUrl: string) {
+    dogrulamaPenceresi.webContents.on("did-get-redirect-request", (olay: any, eskiUrl: string, yeniUrl: string) => {
         cagriylaIlgilen(yeniUrl);
     });
 
-    dogrulamaPenceresi.on("close", function () {
+    dogrulamaPenceresi.on("close", () => {
         dogrulamaPenceresi = null;
     });
 }
@@ -116,7 +115,7 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
         client_id: secenekler.istemci_id,
         client_secret: secenekler.istemci_sir,
         code: kod,
-    }).done(function (icerik: string, durum: string) {
+    }).done((icerik: string, durum: string) => {
         /* token
         console.log(durum);
         console.log(icerik.slice(icerik.search("=") + 1, icerik.search("&")));
@@ -141,7 +140,7 @@ function bilgileriAl() {
 }
 
 function kulaniciBilgileriniAl() {
-    github.users.get({}, function (hata, veri) {
+    github.users.get({}, (hata, veri) => {
         if (!hata) {
             KULLANICI = new Kullanici(veri.login, veri.name, veri.bio, veri.avatar_url, veri.company, veri.location,
                 veri.blog, veri.followers, veri.following);
@@ -153,8 +152,8 @@ function kulaniciBilgileriniAl() {
 
 function projeBilgileriniAl() {
     github.repos.getAll({
-        "affiliation": "owner,organization_member"
-    }, function (hata, veri) {
+        affiliation: "owner,organization_member",
+    }, (hata, veri) => {
         if (!hata) {
             for (let i = 0; i < veri.length; i++) {
                 KULLANICI.Projeler.push(new Proje(KULLANICI, veri[i].full_name, veri[i].name, veri[i].description, veri[i].homepage,
@@ -175,9 +174,9 @@ function isBilgileriniAl() {
 
         // Proje katkıları
         github.repos.getCommits({
-            user: KULLANICI.KullaniciAdi,
             repo: KULLANICI.Projeler[i].Ad,
-        }, function (hata, veri) {
+            user: KULLANICI.KullaniciAdi,
+        }, (hata, veri) => {
             if (!hata) {
                 for (let j = 0; j < veri.length; j++) {
                     KULLANICI.Projeler[i].Katkilar.push(
@@ -204,10 +203,10 @@ function isBilgileriniAl() {
 
 function acikIslerinBilgileriniAl(proje: Proje) {
     github.issues.getForRepo({
-        user: KULLANICI.KullaniciAdi,
         repo: proje.Ad,
         state: "open",
-    }, function (hata, veri) {
+        user: KULLANICI.KullaniciAdi,
+    }, (hata, veri) => {
         if (!hata) {
             for (let j = 0; j < veri.length; j++) {
                 proje.Isler.push(new Is(veri[j].number, proje, veri[j].title, veri[j].body,
@@ -270,10 +269,10 @@ function acikIslerinBilgileriniAl(proje: Proje) {
 
 function kapaliIslerinBilgileriniAl(proje: Proje) {
     github.issues.getForRepo({
-        user: KULLANICI.KullaniciAdi,
         repo: proje.Ad,
         state: "closed",
-    }, function (hata, veri) {
+        user: KULLANICI.KullaniciAdi,
+    }, (hata, veri) => {
         if (!hata) {
             for (let j = 0; j < veri.length; j++) {
                 proje.Isler.push(new Is(veri[j].number, proje, veri[j].title, veri[j].body,
@@ -339,7 +338,7 @@ function iseAitYorumlariAl(is: Is) {
         number: is.No,
         repo: is.Proje.Ad,
         user: KULLANICI.KullaniciAdi,
-    }, function (hata, veri) {
+    }, (hata, veri) => {
         if (!hata) {
             for (let i = 0; i < veri.length; i++) {
                 is.Yorumlar.push(
@@ -357,10 +356,10 @@ function iseAitYorumlariAl(is: Is) {
 
 function iseAitOlaylariAl(is: Is) {
     github.issues.getEvents({
-        user: KULLANICI.KullaniciAdi,
-        repo: is.Proje.Ad,
         number: is.No,
-    }, function (hata, veri) {
+        repo: is.Proje.Ad,
+        user: KULLANICI.KullaniciAdi,
+    }, (hata, veri) => {
         if (!hata) {
             for (let i = 0; i < veri.length; i++) {
                 let olay = veri[i];
