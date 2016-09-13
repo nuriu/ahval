@@ -1,3 +1,4 @@
+import { Is } from "./is";
 import { Katki } from "./katki";
 import { Proje } from "./proje";
 import { GithubTarihi } from "./tarih";
@@ -70,7 +71,7 @@ export class Kullanici {
      * @param takipEdilenKisiSayisi Following count of the user.
      */
     constructor(kAdi: string, ad: string, bio: string, avatar: string, sirket: string, yer: string, site: string,
-                takipciSayisi: number, takipEdilenKisiSayisi: number) {
+        takipciSayisi: number, takipEdilenKisiSayisi: number) {
         this.KullaniciAdi = kAdi;
         this.Ad = ad;
         this.Bio = bio;
@@ -135,6 +136,16 @@ export class Kullanici {
                     if (ad === this.Projeler[i].Ad) {
                         this.Projeler[i].bilgileriGuncelle(this, veri.full_name, veri.name, veri.description, veri.homepage, veri.language,
                             veri.private, veri.stargazers_count, new GithubTarihi(veri.updated_at));
+
+                        // İş ve katkı bilgilerini temizle.
+                        this.Projeler[i].Isler = new Array<Is>();
+                        this.Projeler[i].Katkilar = new Array<Katki>();
+
+                        // Yeni verileri çek.
+                        this.Projeler[i].acikIslerinBilgileriniAl();
+                        this.Projeler[i].kapaliIslerinBilgileriniAl();
+                        this.Projeler[i].katkilariAl();
+
                         break;
                     }
                 }
@@ -173,21 +184,7 @@ export class Kullanici {
      */
     public projeKatkilariniAl() {
         for (let i = 0; i < this.Projeler.length; i++) {
-            this.github.repos.getCommits({
-                repo: this.Projeler[i].Ad,
-                user: this.KullaniciAdi,
-            }, (hata, veri) => {
-                if (!hata) {
-                    for (let j = 0; j < veri.length; j++) {
-                        this.Projeler[i].Katkilar.push(new Katki(
-                            veri[j].committer.login, veri[j].author.avatar_url, veri[j].commit.message,
-                            new GithubTarihi(veri[j].commit.committer.date)
-                        ));
-                    }
-                } else {
-                    console.log(hata);
-                }
-            });
+            this.Projeler[i].katkilariAl();
         }
     }
 
@@ -231,8 +228,12 @@ export class Kullanici {
 
             setTimeout(() => {
                 proje.ozetiYazdir();
+            }, 2000);
+
+            setTimeout(() => {
                 proje.isleriYazdir();
-            }, 1000);
+            }, 2000);
+
 
         } else {
             document.getElementById("tumIsler").className = "aktif";

@@ -337,6 +337,31 @@ export class Proje {
     }
 
     /**
+     * Get last 30 commits made for this project.
+     */
+    public katkilariAl() {
+        if (this.Katkilar) {
+            this.Katkilar = new Array<Katki>();
+        }
+
+        this.github.repos.getCommits({
+            repo: this.Ad,
+            user: this.Sahip.KullaniciAdi,
+        }, (hata, veri) => {
+            if (!hata) {
+                for (let j = 0; j < veri.length; j++) {
+                    this.Katkilar.push(new Katki(
+                        veri[j].committer.login, veri[j].author.avatar_url, veri[j].commit.message,
+                        new GithubTarihi(veri[j].commit.committer.date)
+                    ));
+                }
+            } else {
+                console.log(hata);
+            }
+        });
+    }
+
+    /**
      * Prints last commits made for the project (repo).
      */
     private katkilariYazdir(): string {
