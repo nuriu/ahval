@@ -60,13 +60,6 @@ $(document).ready(() => {
         });
 
         bilgileriAl();
-
-        setTimeout(() => {
-            KULLANICI.bilgileriYazdir("profil");
-            setTimeout(() => {
-                KULLANICI.projeleriListele("projeListesi");
-            }, 1500);
-        }, 1000);
     }
 });
 
@@ -164,7 +157,6 @@ function bilgileriAl() {
                 veri.blog, veri.followers, veri.following);
 
             KULLANICI.projeBilgileriniAl();
-
         } else {
             console.log(hata);
         }

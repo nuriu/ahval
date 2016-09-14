@@ -71,7 +71,7 @@ export class Kullanici {
      * @param takipEdilenKisiSayisi Following count of the user.
      */
     constructor(kAdi: string, ad: string, bio: string, avatar: string, sirket: string, yer: string, site: string,
-        takipciSayisi: number, takipEdilenKisiSayisi: number) {
+                takipciSayisi: number, takipEdilenKisiSayisi: number) {
         this.KullaniciAdi = kAdi;
         this.Ad = ad;
         this.Bio = bio;
@@ -107,19 +107,17 @@ export class Kullanici {
         document.getElementById("projeListesiBaslik").innerHTML = "<i class='tasks icon'></i> Projeler (" + this.Projeler.length + ")";
         document.getElementById(yerID).innerHTML = null;
 
-        setTimeout(() => {
-            for (let i = 0; i < this.Projeler.length; i++) {
-                if (this.Projeler[i].OzelMi === true) {
-                    document.getElementById(yerID).innerHTML += "<li id='" + this.Projeler[i].Ad + "'>\
+        for (let i = 0; i < this.Projeler.length; i++) {
+            if (this.Projeler[i].OzelMi === true) {
+                document.getElementById(yerID).innerHTML += "<li id='" + this.Projeler[i].Ad + "'>\
                 <a href='#'> <i class='lock icon'></i> " + this.Projeler[i].Ad + " (" + this.Projeler[i].acikIsSayisi() +
-                        " / " + this.Projeler[i].Isler.length + ")</a></li>";
-                } else {
-                    document.getElementById(yerID).innerHTML += "<li id='" + this.Projeler[i].Ad + "'>\
+                    " / " + this.Projeler[i].Isler.length + ")</a></li>";
+            } else {
+                document.getElementById(yerID).innerHTML += "<li id='" + this.Projeler[i].Ad + "'>\
                 <a href='#'> <i class='unlock alternate icon'></i> " + this.Projeler[i].Ad + " (" + this.Projeler[i].acikIsSayisi() +
-                        " / " + this.Projeler[i].Isler.length + ")</a></li>";
-                }
+                    " / " + this.Projeler[i].Isler.length + ")</a></li>";
             }
-        }, 1000);
+        }
     }
 
     /**
@@ -146,6 +144,14 @@ export class Kullanici {
                         this.Projeler[i].kapaliIslerinBilgileriniAl();
                         this.Projeler[i].katkilariAl();
 
+                        // Güncel bilgileri yazdır.
+                        setTimeout(() => {
+                            this.Projeler[i].ozetiYazdir();
+                        }, 1500);
+                        setTimeout(() => {
+                            this.Projeler[i].isleriYazdir();
+                        }, 1500);
+
                         break;
                     }
                 }
@@ -163,6 +169,8 @@ export class Kullanici {
             affiliation: "owner,organization_member",
         }, (hata, veri) => {
             if (!hata) {
+                console.log(veri);
+
                 if (this.Projeler.length > 0) {
                     this.Projeler = new Array<Proje>();
                 }
@@ -171,8 +179,14 @@ export class Kullanici {
                         veri[i].language, veri[i].private, veri[i].stargazers_count,
                         new GithubTarihi(veri[i].created_at), new GithubTarihi(veri[i].updated_at)));
                 }
+                this.bilgileriYazdir("profil");
                 this.projeKatkilariniAl();
                 this.isBilgileriniAl();
+
+                setTimeout(() => {
+                    this.projeleriListele("projeListesi");
+                }, 1500);
+
             } else {
                 console.log(hata);
             }
@@ -200,9 +214,7 @@ export class Kullanici {
                 document.getElementById(this.Projeler[i].Ad).addEventListener("click", () => {
                     this.aktifProjeyiDegistir(this.Projeler[i]);
                 });
-            }, 2500);
-
-            console.log(this.Projeler[i]);
+            }, 2000);
         }
     }
 
@@ -225,16 +237,6 @@ export class Kullanici {
             document.getElementById(proje.Ad).className = "aktif";
             this.aktifProje = proje.Ad;
             this.projeBilgileriniGuncelle(this.aktifProje);
-
-            setTimeout(() => {
-                proje.ozetiYazdir();
-            }, 2000);
-
-            setTimeout(() => {
-                proje.isleriYazdir();
-            }, 2000);
-
-
         } else {
             document.getElementById("tumIsler").className = "aktif";
             this.bilgileriYazdir("profil");
