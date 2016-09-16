@@ -118,6 +118,8 @@ export class Kullanici {
                     " / " + this.Projeler[i].Isler.length + ")</a></li>";
             }
         }
+
+        this.aktifProjeyiDegistir(this.Projeler[0]);
     }
 
     /**
@@ -150,7 +152,13 @@ export class Kullanici {
                         }, 1500);
                         setTimeout(() => {
                             this.Projeler[i].isleriYazdir();
-                        }, 1500);
+                        }, 1000);
+
+                        setTimeout(() => {
+                            if (document.getElementById("isler").className) {
+                                document.getElementById("isler").className = null;
+                            }
+                        }, 500);
 
                         break;
                     }
