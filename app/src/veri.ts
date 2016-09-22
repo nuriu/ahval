@@ -26,6 +26,29 @@ let github: any;
 let KULLANICI: Kullanici;
 
 $(document).ready(() => {
+    $('.basic.modal').modal('setting', 'closable', false).modal('show');
+
+    document.getElementById("GitHub").addEventListener("click", () => {
+        console.log("GitHub Seçildi!");
+        $('.basic.modal').modal('hide');
+        gitHubAktiflestir();
+    });
+
+    document.getElementById("GitLab").addEventListener("click", () => {
+        console.log("GitLab Seçildi!");
+        $('.basic.modal').modal('hide');
+    });
+
+    document.getElementById("Bitbucket").addEventListener("click", () => {
+        console.log("Bitbucket Seçildi!");
+        $('.basic.modal').modal('hide');
+    });
+});
+
+/**
+ * Activates GitHub.
+ */
+function gitHubAktiflestir() {
     let id: string;
     let secret: string;
 
@@ -61,7 +84,7 @@ $(document).ready(() => {
 
         bilgileriAl();
     }
-});
+}
 
 /**
  * Login with GitHub.

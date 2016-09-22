@@ -124,34 +124,6 @@ export class Proje {
     }
 
     /**
-     * Counts closed issues.
-     * @return(s) Count of the closed issues.
-     */
-    public kapaliIsSayisi(): number {
-        let kapaliIsSayisi = 0;
-        for (let i = 0; i < this.Isler.length; i++) {
-            if (this.Isler[i].Durum === "Kapalı") {
-                kapaliIsSayisi++;
-            }
-        }
-        return kapaliIsSayisi;
-    }
-
-    /**
-     * Counts open issues.
-     * @return(s) Count of the open issues.
-     */
-    public acikIsSayisi(): number {
-        let acikIsSayisi = 0;
-        for (let i = 0; i < this.Isler.length; i++) {
-            if (this.Isler[i].Durum === "Açık") {
-                acikIsSayisi++;
-            }
-        }
-        return acikIsSayisi;
-    }
-
-    /**
      * Prints project (repo) summary.
      */
     public ozetiYazdir() {

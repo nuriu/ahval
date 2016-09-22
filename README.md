@@ -1,6 +1,6 @@
 # ![Ajanda](https://raw.githubusercontent.com/nuriu/ajanda/master/resim/logo.png)
 
-Geliştiriciler için yardımcı ajanda. (Helpful agenda for the developers.)  
+Geliştiriciler için yardımcı ajanda. (Assistant agenda for the developers.)  
 
 > Proje Görünümü (Project (Repo) View)
 
