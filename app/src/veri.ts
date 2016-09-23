@@ -1,3 +1,4 @@
+import { GitHub } from "./github";
 import { Kullanici } from "./kullanici";
 
 /**
@@ -26,6 +27,7 @@ let github: any;
 let KULLANICI: Kullanici;
 
 $(document).ready(() => {
+
     $('.basic.modal').modal('setting', 'closable', false).modal('show');
 
     document.getElementById("GitHub").addEventListener("click", () => {
@@ -57,12 +59,20 @@ function gitHubAktiflestir() {
             return console.log(hata);
         } else {
             id = veri;
-
             fs.readFile("SECRET", "utf8", (hata2: any, veri2: any) => {
                 if (hata2) {
                     return console.log(hata2);
                 } else {
                     secret = veri2;
+                    if (window.localStorage.getItem("githubtoken") === null) {
+                        gitHubGirisYap(id, secret);
+                    } else {
+                        github.authenticate({
+                            token: window.localStorage.getItem("githubtoken"),
+                            type: "oauth",
+                        });
+                        bilgileriAl();
+                    }
                 }
             });
         }
@@ -74,16 +84,7 @@ function gitHubAktiflestir() {
 
     github = window["github"];
 
-    if (window.localStorage.getItem("githubtoken") === null) {
-        gitHubGirisYap(id, secret);
-    } else {
-        github.authenticate({
-            token: window.localStorage.getItem("githubtoken"),
-            type: "oauth",
-        });
 
-        bilgileriAl();
-    }
 }
 
 /**
@@ -106,7 +107,7 @@ function gitHubGirisYap(id: string, secret: string) {
         width: 1200,
     });
 
-    dogrulamaPenceresi.setMenu(null);
+    //dogrulamaPenceresi.setMenu(null);
 
     let githubUrl = "https://github.com/login/oauth/authorize?";
     let dogrulamaUrl = githubUrl + "client_id=" + secenekler.istemci_id + "&scope=" + secenekler.kapsamlar;
@@ -164,6 +165,7 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
                 token: icerik.slice(icerik.search("=") + 1, icerik.search("&")),
                 type: "oauth",
             });
+
 
             bilgileriAl();
         }

@@ -71,7 +71,7 @@ export class Kullanici {
      * @param takipEdilenKisiSayisi Following count of the user.
      */
     constructor(kAdi: string, ad: string, bio: string, avatar: string, sirket: string, yer: string, site: string,
-        takipciSayisi: number, takipEdilenKisiSayisi: number) {
+                takipciSayisi: number, takipEdilenKisiSayisi: number) {
         this.KullaniciAdi = kAdi;
         this.Ad = ad;
         this.Bio = bio;
@@ -115,6 +115,11 @@ export class Kullanici {
                 document.getElementById(yerID).innerHTML += "<li id='" + this.Projeler[i].Ad + "'>\
                 <a href='#'> <i class='unlock alternate icon'></i> " + this.Projeler[i].Ad + "</a></li>";
             }
+            setTimeout(() => {
+                document.getElementById(this.Projeler[i].Ad).addEventListener("click", () => {
+                    this.aktifProjeyiDegistir(this.Projeler[i]);
+                });
+            }, 500);
         }
 
         this.aktifProjeyiDegistir(this.Projeler[0]);
@@ -141,22 +146,7 @@ export class Kullanici {
 
                         // Yeni verileri çek.
                         this.Projeler[i].acikIslerinBilgileriniAl();
-                        // this.Projeler[i].kapaliIslerinBilgileriniAl();
                         this.Projeler[i].katkilariAl();
-
-                        // Güncel bilgileri yazdır.
-                        setTimeout(() => {
-                            this.Projeler[i].isleriYazdir();
-                        }, 1000);
-                        setTimeout(() => {
-                            this.Projeler[i].ozetiYazdir();
-                        }, 1500);
-
-                        setTimeout(() => {
-                            if (document.getElementById("isler").className) {
-                                document.getElementById("isler").className = null;
-                            }
-                        }, 500);
 
                         break;
                     }
@@ -175,8 +165,6 @@ export class Kullanici {
             affiliation: "owner,organization_member",
         }, (hata, veri) => {
             if (!hata) {
-                console.log(veri);
-
                 if (this.Projeler.length > 0) {
                     this.Projeler = new Array<Proje>();
                 }
@@ -186,12 +174,10 @@ export class Kullanici {
                         new GithubTarihi(veri[i].created_at), new GithubTarihi(veri[i].updated_at)));
                 }
                 this.bilgileriYazdir("profil");
-                this.projeKatkilariniAl();
-                this.isBilgileriniAl();
 
                 setTimeout(() => {
                     this.projeleriListele("projeListesi");
-                }, 1500);
+                }, 500);
 
             } else {
                 console.log(hata);
@@ -200,35 +186,13 @@ export class Kullanici {
     }
 
     /**
-     * Gets last 30 commits made for all projects.
-     */
-    public projeKatkilariniAl() {
-        for (let i = 0; i < this.Projeler.length; i++) {
-            this.Projeler[i].katkilariAl();
-        }
-    }
-
-    /**
-     * Gets all issues of all projects.
-     */
-    public isBilgileriniAl() {
-        for (let i = 0; i < this.Projeler.length; i++) {
-            this.Projeler[i].acikIslerinBilgileriniAl();
-            // this.Projeler[i].kapaliIslerinBilgileriniAl();
-
-            setTimeout(() => {
-                document.getElementById(this.Projeler[i].Ad).addEventListener("click", () => {
-                    this.aktifProjeyiDegistir(this.Projeler[i]);
-                });
-            }, 2000);
-        }
-    }
-
-    /**
      * Changes active project to given project.
      * @params proje New project to activate.
      */
     private aktifProjeyiDegistir(proje: Proje) {
+        document.getElementById("projeIsleri").innerHTML = "";
+        document.getElementById("projeBilgileri").innerHTML = "";
+
         if (proje !== null) {
             (<HTMLInputElement>document.getElementById("yeniGirdi")).value = null;
 
@@ -242,7 +206,7 @@ export class Kullanici {
 
             document.getElementById(proje.Ad).className = "aktif";
             this.aktifProje = proje.Ad;
-            this.projeBilgileriniGuncelle(this.aktifProje);
+            this.projeBilgileriniGuncelle(proje.Ad);
         } else {
             document.getElementById("tumIsler").className = "aktif";
             this.aktifProje = null;

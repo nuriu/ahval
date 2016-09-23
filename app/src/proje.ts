@@ -77,7 +77,7 @@ export class Proje {
      * @param guncellemeTarihi Update date.
      */
     constructor(sahip: Kullanici, tAd: string, ad: string, aciklama: string, anaSayfa: string, dil: string, ozelMi: boolean,
-                yildizSayisi: number, olusturmaTarihi: GithubTarihi, guncellemeTarihi: GithubTarihi) {
+        yildizSayisi: number, olusturmaTarihi: GithubTarihi, guncellemeTarihi: GithubTarihi) {
         this.Sahip = sahip;
         this.TamAd = tAd;
         this.Ad = ad;
@@ -233,75 +233,7 @@ export class Proje {
                         this.Isler[this.Isler.length - 1].iseAitOlaylariAl();
                     }
                 }
-            } else {
-                console.log(hata);
-            }
-        });
-    }
-
-    /**
-     * Get all closed issues for this project (repo).
-     */
-    public kapaliIslerinBilgileriniAl() {
-        this.github.issues.getForRepo({
-            repo: this.Ad,
-            state: "closed",
-            user: this.Sahip.KullaniciAdi,
-        }, (hata, veri) => {
-            if (!hata) {
-                for (let j = 0; j < veri.length; j++) {
-                    this.Isler.push(new Is(veri[j].number, this, veri[j].title, veri[j].body,
-                        "Kapalı", new GithubTarihi(veri[j].created_at), new GithubTarihi(veri[j].updated_at),
-                        new GithubTarihi(veri[j].closed_at)));
-
-                    // Etiketler
-                    for (let k = 0; k < veri[j].labels.length; k++) {
-                        this.Isler[this.Isler.length - 1].Etiketler.push(
-                            new Etiket(this.Isler[this.Isler.length - 1], veri[j].labels[k].name, veri[j].labels[k].color)
-                        );
-                    }
-
-                    // Hedef
-                    if (veri[j].milestone) {
-                        if (veri[j].milestone.state === "open") {
-                            this.Isler[this.Isler.length - 1].Hedef = new Hedef(
-                                veri[j].milestone.title,
-                                veri[j].milestone.number,
-                                "Açık",
-                                veri[j].milestone.creator.login,
-                                veri[j].milestone.description,
-                                veri[j].milestone.open_issues,
-                                veri[j].milestone.closed_issues,
-                                new GithubTarihi(veri[j].milestone.due_on),
-                                new GithubTarihi(veri[j].milestone.created_at),
-                                new GithubTarihi(veri[j].milestone.updated_at),
-                                new GithubTarihi(veri[j].milestone.closed_at)
-                            );
-                        } else {
-                            this.Isler[this.Isler.length - 1].Hedef = new Hedef(
-                                veri[j].milestone.title,
-                                veri[j].milestone.number,
-                                "Kapalı",
-                                veri[j].milestone.creator.login,
-                                veri[j].milestone.description,
-                                veri[j].milestone.open_issues,
-                                veri[j].milestone.closed_issues,
-                                new GithubTarihi(veri[j].milestone.due_on),
-                                new GithubTarihi(veri[j].milestone.created_at),
-                                new GithubTarihi(veri[j].milestone.updated_at),
-                                new GithubTarihi(veri[j].milestone.closed_at)
-                            );
-                        }
-                    }
-
-                    if (this.Isler[j].Yorumlar.length < 1) {
-                        this.Isler[this.Isler.length - 1].iseAitYorumlariAl();
-                    }
-
-                    if (this.Isler[j].Olaylar.length < 1) {
-                        this.Isler[this.Isler.length - 1].iseAitOlaylariAl();
-                    }
-                }
+                this.isleriYazdir();
             } else {
                 console.log(hata);
             }
@@ -327,6 +259,7 @@ export class Proje {
                         new GithubTarihi(veri[j].commit.committer.date)
                     ));
                 }
+                this.ozetiYazdir();
             } else {
                 console.log(hata);
             }

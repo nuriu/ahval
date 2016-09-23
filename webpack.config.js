@@ -11,7 +11,8 @@ module.exports = {
       './app/src/is',
       './app/src/proje',
       './app/src/kullanici',
-      './app/src/veri'
+      './app/src/veri',
+      './app/src/github'
     ]
   },
   output: {
