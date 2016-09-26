@@ -120,7 +120,7 @@ export class Is {
                     <div class='thirteen wide column'>\
                         <p>" + this.Icerik + "</p>\
                     </div>\
-                </div>";
+                 </div>";
 
         ifade += "<div class='row'><div class='eight wide column'><div class='ui horizontal divider'>Yorumlar</div>" +
             this.yorumlariYazdir() + "</div>\

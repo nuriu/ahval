@@ -107,7 +107,7 @@ function gitHubGirisYap(id: string, secret: string) {
         width: 1200,
     });
 
-    //dogrulamaPenceresi.setMenu(null);
+    dogrulamaPenceresi.setMenu(null);
 
     let githubUrl = "https://github.com/login/oauth/authorize?";
     let dogrulamaUrl = githubUrl + "client_id=" + secenekler.istemci_id + "&scope=" + secenekler.kapsamlar;
