@@ -12,18 +12,18 @@
   "author": "Nuri Uzunoğlu",
   "license": "MIT",
   "devDependencies": {
-    "electron-prebuilt": "^1.3.3",
+    "electron-prebuilt": "^1.4.2",
     "gulp": "^3.9.1",
     "json-loader": "^0.5.4",
-    "ts-loader": "^0.7.2",
+    "ts-loader": "^0.8.2",
     "tslint": "^3.14.0",
-    "typescript": "^1.8.10",
+    "typescript": "^2.0.3",
     "typings": "^1.0.4",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
-    "github": "^2.6.0",
+    "github": "^3.1.1",
     "jquery": "^3.1.0"
   }
 }
