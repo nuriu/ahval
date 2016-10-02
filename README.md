@@ -8,6 +8,10 @@
 
 >Geliştiriciler için yardımcı ajanda. (Assistant agenda for the developers.)  
 
+[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
+[![Build status](https://ci.appveyor.com/api/projects/status/ycvxorpuvelji2kn?svg=true)](https://ci.appveyor.com/project/nuriu/ajanda-o0i0c)
+[![Build status](https://api.travis-ci.org/nuriu/ajanda.svg)](https://travis-ci.org/nuriu/ajanda)
+
 > Proje Görünümü (Project (Repo) View)
 
 ![Ajanda - Proje](https://raw.githubusercontent.com/nuriu/ajanda/master/resim/1.png)
@@ -38,7 +42,7 @@
 
 **EN**: Then install dependencies with;
 
-> npm install
+> npm install && npm run build_semantic
 
 **TR**: Geriye kalan tek şey projeyi derleyip çalıştırmak;
 
