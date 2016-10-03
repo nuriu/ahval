@@ -5,14 +5,14 @@ var anaPencere;
 
 function pencereyiOlustur() {
     anaPencere = new BrowserWindow({
-        width: 1800,
-        height: 900,
+        width: 800,
+        height: 600,
         center: true,
         icon: __dirname + "/app/img/is.png",
         //frame: false
     });
 
-    anaPencere.setMinimumSize(1200, 700);
+    anaPencere.setMinimumSize(800, 600);
     anaPencere.loadURL(`file://${__dirname}/ana.html`);
 
     anaPencere.webContents.openDevTools();

@@ -7,7 +7,6 @@ module.exports = {
   debug: true,
   entry: {
     'app': [
-      './app/src/akis',
       './app/src/is',
       './app/src/proje',
       './app/src/kullanici',

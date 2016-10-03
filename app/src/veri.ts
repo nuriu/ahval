@@ -27,23 +27,21 @@ let github: any;
 let KULLANICI: Kullanici;
 
 $(document).ready(() => {
-
-    $('.basic.modal').modal('setting', 'closable', false).modal('show');
-
     document.getElementById("GitHub").addEventListener("click", () => {
         console.log("GitHub Seçildi!");
-        $('.basic.modal').modal('hide');
         gitHubAktiflestir();
     });
 
     document.getElementById("GitLab").addEventListener("click", () => {
         console.log("GitLab Seçildi!");
-        $('.basic.modal').modal('hide');
     });
 
     document.getElementById("Bitbucket").addEventListener("click", () => {
         console.log("Bitbucket Seçildi!");
-        $('.basic.modal').modal('hide');
+    });
+
+    document.getElementById("Trello").addEventListener("click", () => {
+        console.log("Trello Seçildi!");
     });
 });
 
@@ -78,13 +76,7 @@ function gitHubAktiflestir() {
         }
     });
 
-    document.getElementById("projeListesi").innerHTML = "\
-    <li class='aktif' id='tumIsler'>\
-    <a href='#'><i class='loading spinner icon'></i> Yükleniyor...</a></li>";
-
     github = window["github"];
-
-
 }
 
 /**
@@ -166,7 +158,6 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
                 type: "oauth",
             });
 
-
             bilgileriAl();
         }
     });
@@ -180,8 +171,8 @@ function bilgileriAl() {
         if (!hata) {
             KULLANICI = new Kullanici(veri.login, veri.name, veri.bio, veri.avatar_url, veri.company, veri.location,
                 veri.blog, veri.followers, veri.following);
-
-            KULLANICI.projeBilgileriniAl();
+            console.log(veri);
+            console.log(KULLANICI);
         } else {
             console.log(hata);
         }
