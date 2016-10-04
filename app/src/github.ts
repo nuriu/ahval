@@ -77,13 +77,19 @@ export class GitHub {
     public kullaniciyiGetir() {
         this.istemci.users.get({}, (hata, veri) => {
             if (!hata) {
-                this.Kullanici = new Kullanici(veri.login, veri.name, veri.bio, veri.avatar_url, veri.company, veri.location,
-                    veri.blog, veri.followers, veri.following);
+
+                this.Kullanici = new Kullanici(
+                    veri.login, veri.name, veri.bio, veri.avatar_url,
+                    veri.company, veri.location, veri.blog, veri.followers,
+                    veri.following
+                );
+
                 console.log(veri);
                 console.log(this.Kullanici);
             } else {
                 console.log(hata);
             }
         });
+        $("#icerik").load("./app/ui/github.html");
     }
 }
