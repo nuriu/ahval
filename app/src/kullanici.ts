@@ -1,7 +1,4 @@
-import { Is } from "./is";
-import { Katki } from "./katki";
 import { Proje } from "./proje";
-import { GithubTarihi } from "./tarih";
 
 /**
  * Main user class for storing GitHub user info and actions for it.
@@ -47,16 +44,6 @@ export class Kullanici {
      * Projects (repos) of user.
      */
     public Projeler: Array<Proje>;
-
-    /**
-     * GitHub client.
-     */
-    private github = window["github"];
-
-    /**
-     * Active project.
-     */
-    private aktifProje: string = null;
 
     /**
      * Creates user object with given info.

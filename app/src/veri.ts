@@ -1,5 +1,4 @@
 import { GitHub } from "./github";
-import { Kullanici } from "./kullanici";
 
 /**
  * File system.
@@ -20,11 +19,7 @@ const BrowserWindow = remote.BrowserWindow;
 /**
  * GitHub client.
  */
-let github: any;
-/**
- * User.
- */
-let KULLANICI: Kullanici;
+let github: GitHub;
 
 $(document).ready(() => {
     document.getElementById("GitHub").addEventListener("click", () => {
@@ -52,31 +47,29 @@ function gitHubAktiflestir() {
     let id: string;
     let secret: string;
 
+    github = new GitHub();
     fs.readFile("ID", "utf8", (hata: any, veri: any) => {
         if (hata) {
             return console.log(hata);
         } else {
             id = veri;
+            github.idBelirle(id);
             fs.readFile("SECRET", "utf8", (hata2: any, veri2: any) => {
                 if (hata2) {
                     return console.log(hata2);
                 } else {
                     secret = veri2;
+                    github.secretBelirle(secret);
                     if (window.localStorage.getItem("githubtoken") === null) {
                         gitHubGirisYap(id, secret);
                     } else {
-                        github.authenticate({
-                            token: window.localStorage.getItem("githubtoken"),
-                            type: "oauth",
-                        });
-                        bilgileriAl();
+                        github.authenticate(window.localStorage.getItem("githubtoken"));
+                        github.kullaniciyiGetir();
                     }
                 }
             });
         }
     });
-
-    github = window["github"];
 }
 
 /**
@@ -153,28 +146,9 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
         if (durum === "success") {
             window.localStorage.setItem("githubtoken", icerik.slice(icerik.search("=") + 1, icerik.search("&")));
 
-            github.authenticate({
-                token: icerik.slice(icerik.search("=") + 1, icerik.search("&")),
-                type: "oauth",
-            });
+            github.authenticate(icerik.slice(icerik.search("=") + 1, icerik.search("&")));
 
-            bilgileriAl();
-        }
-    });
-}
-
-/**
- * Get all info.
- */
-function bilgileriAl() {
-    github.users.get({}, (hata, veri) => {
-        if (!hata) {
-            KULLANICI = new Kullanici(veri.login, veri.name, veri.bio, veri.avatar_url, veri.company, veri.location,
-                veri.blog, veri.followers, veri.following);
-            console.log(veri);
-            console.log(KULLANICI);
-        } else {
-            console.log(hata);
+            github.kullaniciyiGetir();
         }
     });
 }

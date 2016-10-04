@@ -7,11 +7,17 @@ module.exports = {
   debug: true,
   entry: {
     'app': [
+      './app/src/tarih',
+      './app/src/etiket',
+      './app/src/hedef',
+      './app/src/olay',
+      './app/src/yorum',
       './app/src/is',
+      './app/src/katki',
       './app/src/proje',
       './app/src/kullanici',
-      './app/src/veri',
-      './app/src/github'
+      './app/src/github',
+      './app/src/veri'
     ]
   },
   output: {
