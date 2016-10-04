@@ -23,6 +23,8 @@ $('.menu .item').tab({
             var response = {
                 akis : () => {
                     $("#akis").load("./app/ui/github/akis.html");
+                    var github = window["gh"];
+                    github.akisiGetir();
                 },
                 profil  : () => {
                     $("#profil").load("./app/ui/github/profil.html");

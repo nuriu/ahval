@@ -60,6 +60,7 @@ function gitHubAktiflestir() {
                 } else {
                     secret = veri2;
                     github.secretBelirle(secret);
+
                     if (window.localStorage.getItem("githubtoken") === null) {
                         gitHubGirisYap(id, secret);
                     } else {

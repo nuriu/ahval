@@ -18,6 +18,9 @@ module.exports = {
       './app/src/kullanici',
       './app/src/github',
       './app/src/veri'
+    ],
+    'akis.github': [
+      './app/src/github/akis'
     ]
   },
   output: {
