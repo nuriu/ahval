@@ -98,11 +98,13 @@ export class GitHub {
     public akisiGetir() {
         let ifade: string = "";
         this.istemci.activity.getEventsReceived({
-            user: this.Kullanici.KullaniciAdi,
+            username: this.Kullanici.KullaniciAdi,
         }, (hata, veri) => {
             if (!hata) {
                 console.log(veri);
 
+                document.getElementById("akisAlani").innerHTML = null;
+                
                 for (let i = 0; i < veri.length; i++) {
                     let olay = veri[i];
                     let tarih = new GithubTarihi(olay.created_at);
@@ -149,7 +151,7 @@ export class GitHub {
                         </div>\
                         <div class="content">\
                             <div class="summary">\
-                                <a class="user" id="aktor">' + aktor + '</a>\
+                                <a class="user" id="' + aktor + '">' + aktor + '</a>\
                                 <span>' + cumle + '</span>\
                                 <div class="date" id="tarih">' + tarih.Tarih + '</div>\
                             </div>\
@@ -163,5 +165,31 @@ export class GitHub {
                 console.log(hata);
             }
         });
+    }
+
+    /**
+     * 
+     * @param KullaniciAdi
+     */
+    private profilBilgileriPenceresiniGoster(kullaniciAdi: string) {
+        let ifade = '<i class="close icon"></i>\
+                    <div class="header">' + kullaniciAdi +
+            '</div>\
+                    <div class="image content">\
+                        <div class="image">\
+                            An image can appear on left or an icon\
+                        </div>\
+                        <div class="description">\
+                            A description can appear on the right\
+                        </div>\
+                    </div>\
+                    <div class="actions">\
+                        <div class="ui button">Cancel</div>\
+                        <div class="ui button">OK</div>\
+                    </div>';
+
+        document.getElementById("modal").innerHTML = ifade;
+
+        $('.ui.modal').modal('show');
     }
 }

@@ -45,9 +45,11 @@
     </div>
     
     <script type="text/javascript">
-        window.githubClient = require("github");
-        window.github = new window.githubClient({
-            debug: false
+        $(document).ready(function () {
+            window.githubClient = require("github");
+            window.github = new window.githubClient({
+                debug: false
+            });
         });
     </script>
 </body>
