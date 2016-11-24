@@ -140,6 +140,9 @@ export class GitHub {
                             cumle = " bir projeyi kopyaladı.";
                             ozne = "<a href='#'>" + olay.repo.name + "</a>";
                             break;
+                        case "PublicEvent":
+                            cumle = " bir projesini herkese açık hale getirdi.";
+                            ozne = "<a href='#'>" + olay.repo.name + "</a>";
                         default:
                             break;
                     }
