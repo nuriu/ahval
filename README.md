@@ -44,13 +44,13 @@
 
 **EN**: Then install dependencies with;
 
-> npm install && npm run build_semantic
+> npm run setup
 
 **TR**: Geriye kalan tek şey projeyi derleyip çalıştırmak;
 
 **EN**: Now you can compile and run with; 
 
-> npm run build && npm run start
+> npm run compile
 
 
 ### Documentation
