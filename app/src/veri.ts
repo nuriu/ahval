@@ -1,5 +1,5 @@
 import { GitHub } from "./github/github";
-import { Trello } from "./trello/trello";
+import { TrelloIstemci } from "./trello/trello";
 
 /**
  * File system.
@@ -21,6 +21,7 @@ const BrowserWindow = remote.BrowserWindow;
  * GitHub client.
  */
 let github: GitHub;
+let trello: TrelloIstemci;
 
 $(document).ready(() => {
     document.getElementById("GitHub").addEventListener("click", () => {
@@ -157,13 +158,7 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
 }
 
 function trelloAktiflestir() {
-    let key: string;
-    let token: string;
-    fs.readFile("keys/trello/key", "utf8", (hata, veri) => {
-        if (hata) {
-            return console.log(hata);
-        } else {
-            let key = veri;
-        }
-    });
+    trello = new TrelloIstemci();
+
+    trello.aktiflestir();
 }
