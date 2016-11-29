@@ -36,7 +36,7 @@
 
 ### Derleme (Compiling)
 
-**TR**: Projeyi derlemeden önce Proje dizinine *ID* ve *SECRET* isimli iki dosya oluşturup *ID* dosyasına GitHub **Client ID**, *SECRET* dosyasına GitHub **Client Secret** anahtarlarını girmeniz gerekmektedir.
+**TR**: Projeyi derlemeden önce Proje yolu/keys/github dizinine *ID* ve *SECRET* isimli iki dosya oluşturup *ID* dosyasına GitHub **Client ID**, *SECRET* dosyasına GitHub **Client Secret** anahtarlarını girmeniz gerekmektedir.
 
 **EN**: Before compiling you should create two files named *ID* and *SECRET*. After that enter your **Client ID** to *ID* and your **Client Secret** to *SECRET*.
 

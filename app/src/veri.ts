@@ -1,4 +1,5 @@
-import { GitHub } from "./github";
+import { GitHub } from "./github/github";
+import { Trello } from "./trello/trello";
 
 /**
  * File system.
@@ -37,6 +38,7 @@ $(document).ready(() => {
 
     document.getElementById("Trello").addEventListener("click", () => {
         console.log("Trello Seçildi!");
+        trelloAktiflestir();
     });
 });
 
@@ -48,13 +50,13 @@ function gitHubAktiflestir() {
     let secret: string;
 
     github = new GitHub();
-    fs.readFile("ID", "utf8", (hata: any, veri: any) => {
+    fs.readFile("keys/github/ID", "utf8", (hata: any, veri: any) => {
         if (hata) {
             return console.log(hata);
         } else {
             id = veri;
             github.idBelirle(id);
-            fs.readFile("SECRET", "utf8", (hata2: any, veri2: any) => {
+            fs.readFile("keys/github/SECRET", "utf8", (hata2: any, veri2: any) => {
                 if (hata2) {
                     return console.log(hata2);
                 } else {
@@ -150,6 +152,18 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
             github.authenticate(icerik.slice(icerik.search("=") + 1, icerik.search("&")));
 
             github.kullaniciyiGetir();
+        }
+    });
+}
+
+function trelloAktiflestir() {
+    let key: string;
+    let token: string;
+    fs.readFile("keys/trello/key", "utf8", (hata, veri) => {
+        if (hata) {
+            return console.log(hata);
+        } else {
+            let key = veri;
         }
     });
 }

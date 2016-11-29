@@ -7,20 +7,25 @@ module.exports = {
   debug: true,
   entry: {
     'app': [
-      './app/src/tarih',
-      './app/src/etiket',
-      './app/src/hedef',
-      './app/src/olay',
-      './app/src/yorum',
-      './app/src/is',
-      './app/src/katki',
-      './app/src/proje',
-      './app/src/kullanici',
-      './app/src/github',
       './app/src/veri'
     ],
+    'trello': [
+      './app/src/trello/trello'
+    ],
+    'github': [
+      './app/src/github/github',
+      './app/src/github/tarih',
+      './app/src/github/etiket',
+      './app/src/github/hedef',
+      './app/src/github/olay',
+      './app/src/github/yorum',
+      './app/src/github/is',
+      './app/src/github/katki',
+      './app/src/github/proje',
+      './app/src/github/kullanici',
+    ],
     'akis.github': [
-      './app/src/github/akis'
+      './app/src/github/akis',
     ]
   },
   output: {

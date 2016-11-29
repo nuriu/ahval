@@ -6,5 +6,4 @@ build/
 *.DB
 *.DB-wal
 *.DB-shm
-ID
-SECRET
+keys/

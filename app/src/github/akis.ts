@@ -1,4 +1,4 @@
-import { GitHub } from "../github";
+import { GitHub } from "./github";
 
 let github: GitHub;
 

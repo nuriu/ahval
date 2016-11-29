@@ -16,10 +16,12 @@
     <script type="text/javascript" src="semantic/dist/semantic.min.js"></script>
     <script type="text/javascript" src="build/common.js"></script>
     <script type="text/javascript" src="build/app.js"></script>
+    <script type="text/javascript" src="build/github.js"></script>
+    <script type="text/javascript" src="build/trello.js"></script>
 </head>
 
 <body class="ajanda">
-    
+
     <div class="ui left visible vertical inverted very thin sidebar icon menu">
         <a class="item" style="padding-left:13px;" id="GitHub">
             <i class="big github icon"></i>
@@ -43,9 +45,10 @@
             </h2>
         </div>
     </div>
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
+            var fs = require("fs");
             window.githubClient = require("github");
             window.github = new window.githubClient({
                 debug: false

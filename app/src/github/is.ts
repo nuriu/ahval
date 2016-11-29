@@ -1,5 +1,3 @@
-/// <reference path="../../typings/index.d.ts" />
-
 import { Etiket } from "./etiket";
 import { Hedef } from "./hedef";
 import { Olay } from "./olay";
