@@ -22,10 +22,16 @@ module.exports = {
       './app/src/github/is',
       './app/src/github/katki',
       './app/src/github/proje',
-      './app/src/github/kullanici',
+      './app/src/github/kullanici'
     ],
     'akis.github': [
-      './app/src/github/akis',
+      './app/src/github/akis'
+    ],
+    'akis.trello': [
+      './app/src/trello/akis'
+    ],
+    'panolar.trello': [
+      './app/src/trello/panolar'
     ]
   },
   output: {

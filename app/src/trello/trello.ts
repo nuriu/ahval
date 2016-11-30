@@ -1,7 +1,7 @@
 export class TrelloIstemci {
     private Anahtar: string;
 
-    public aktiflestir() {
+    constructor() {
         this.Anahtar = window["trllKey"];
 
         Trello.authorize({
@@ -19,8 +19,6 @@ export class TrelloIstemci {
             error: function () { console.log("Trello yetkilendirmesi başarısız"); }
         });
 
-        Trello.get("members/me/boards", (boards) => {
-            console.log(boards);
-        });
+        $("#icerik").load("./app/ui/trello.html");
     }
 }

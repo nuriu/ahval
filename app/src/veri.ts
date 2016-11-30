@@ -39,7 +39,7 @@ $(document).ready(() => {
 
     document.getElementById("Trello").addEventListener("click", () => {
         console.log("Trello Seçildi!");
-        trelloAktiflestir();
+        trello = new TrelloIstemci();
     });
 });
 
@@ -157,8 +157,3 @@ function gitHubtanTokenIste(secenekler: any, kod: any) {
     });
 }
 
-function trelloAktiflestir() {
-    trello = new TrelloIstemci();
-
-    trello.aktiflestir();
-}

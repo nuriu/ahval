@@ -43,7 +43,7 @@ export class Kullanici {
     /**
      * Projects (repos) of user.
      */
-    public Projeler: Array<Proje>;
+    public Projeler: Proje[];
 
     /**
      * Creates user object with given info.
