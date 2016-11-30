@@ -19,7 +19,7 @@ function yildizliPanoEkle(pano: any) {
     kod += '<div class="header">' + pano.name + "</div>";
     kod += '<div class="description">' + pano.desc + "</div>";
     kod += "</div>";
-    kod += '<div class="ui bottom attached button" id="' + pano.id + '">Panoya Geç</div>';
+    kod += '<div class="ui bottom attached teal button" id="' + pano.id + '">Panoya Geç</div>';
     kod += "</div></div>";
 
     $("#yildizliPanolar").append(kod);
@@ -33,7 +33,7 @@ function kisiselPanoEkle(pano: any) {
     kod += '<div class="header">' + pano.name + "</div>";
     kod += '<div class="description">' + pano.desc + "</div>";
     kod += "</div>";
-    kod += '<div class="ui bottom attached button" id="' + pano.id + '">Panoya Geç</div>';
+    kod += '<div class="ui bottom attached teal button" id="' + pano.id + '">Panoya Geç</div>';
     kod += "</div></div>";
 
     $("#kisiselPanolar").append(kod);
