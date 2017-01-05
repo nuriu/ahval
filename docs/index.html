@@ -3,11 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AjandaDocs</title>
+	<title>ajanda</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
-	<script src="assets/js/modernizr.js"></script>
 </head>
 <body>
 <header>
@@ -23,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">AjandaDocs</a>
+					<a href="index.html" class="title">ajanda</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -39,8 +38,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -57,7 +54,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> AjandaDocs</h1>
+			<h1> ajanda</h1>
 		</div>
 	</div>
 </header>
@@ -67,7 +64,7 @@
 			<div class="tsd-panel tsd-typography">
 				<h1 align="center">
 					<br>
-					<img width="500" src="https://raw.githubusercontent.com/nuriu/ajanda/master/resim/logo.png" alt="Ajanda">
+					<img width="500" src="https://cdn.rawgit.com/nuriu/ajanda/master/resim/logo.png" alt="Ajanda">
 					<br>
 					<br>
 					<br>
@@ -95,23 +92,23 @@
 					<li>Electron</li>
 					<li>TypeScript</li>
 					<li>jQuery</li>
-					<li>jQuery UI</li>
+					<li>React</li>
 					<li>Semantic UI</li>
 					<li>GitHub API</li>
 					<li>Typedoc</li>
 				</ul>
 				<h3 id="derleme-compiling-">Derleme (Compiling)</h3>
-				<p><strong>TR</strong>: Projeyi derlemeden önce Proje dizinine <em>ID</em> ve <em>SECRET</em> isimli iki dosya oluşturup <em>ID</em> dosyasına GitHub <strong>Client ID</strong>, <em>SECRET</em> dosyasına GitHub <strong>Client Secret</strong> anahtarlarını girmeniz gerekmektedir.</p>
-				<p><strong>EN</strong>: Before compiling you should create two files named <em>ID</em> and <em>SECRET</em>. After that enter your <strong>Client ID</strong> to <em>ID</em> and your <strong>Client Secret</strong> to <em>SECRET</em>.</p>
+				<p><strong>TR</strong>: Projeyi derlemeden önce <em>Proje yolu/keys/github</em> dizinine <em>ID</em> ve <em>SECRET</em> isimli iki dosya oluşturup <em>ID</em> dosyasına GitHub <strong>Client ID</strong>, <em>SECRET</em> dosyasına GitHub <strong>Client Secret</strong> anahtarlarını girmeniz gerekmektedir.</p>
+				<p><strong>EN</strong>: Before compiling you should create two files named <em>ID</em> and <em>SECRET</em> at <em>path/to/project/keys/github/</em>. After that enter your <strong>Client ID</strong> to <em>ID</em> and your <strong>Client Secret</strong> to <em>SECRET</em>.</p>
 				<p><strong>TR</strong>: Bu işlemi gerçekleştirdek sonra aşağıdaki kod ile gereksinimleri kurabilirsiniz;</p>
 				<p><strong>EN</strong>: Then install dependencies with;</p>
 				<blockquote>
-					<p>npm install &amp;&amp; npm run build_semantic</p>
+					<p>npm run setup</p>
 				</blockquote>
 				<p><strong>TR</strong>: Geriye kalan tek şey projeyi derleyip çalıştırmak;</p>
 				<p><strong>EN</strong>: Now you can compile and run with; </p>
 				<blockquote>
-					<p>npm run build &amp;&amp; npm run start</p>
+					<p>npm run compile</p>
 				</blockquote>
 				<h3 id="documentation">Documentation</h3>
 				<p>You can check it out @ <a href="http://nuriuzunoglu.com/ajanda/">http://nuriuzunoglu.com/ajanda/</a></p>
@@ -128,38 +125,8 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum">
-						<a href="enums/turler.html" class="tsd-kind-icon">Turler</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/etiket.html" class="tsd-kind-icon">Etiket</a>
-					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/github.html" class="tsd-kind-icon">Git<wbr>Hub</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/githubtarihi.html" class="tsd-kind-icon">Github<wbr>Tarihi</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/hedef.html" class="tsd-kind-icon">Hedef</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/is.html" class="tsd-kind-icon">Is</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/katki.html" class="tsd-kind-icon">Katki</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/kullanici.html" class="tsd-kind-icon">Kullanici</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/olay.html" class="tsd-kind-icon">Olay</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/proje.html" class="tsd-kind-icon">Proje</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/yorum.html" class="tsd-kind-icon">Yorum</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#browserwindow" class="tsd-kind-icon">Browser<wbr>Window</a>
@@ -177,20 +144,20 @@
 						<a href="globals.html#remote" class="tsd-kind-icon">remote</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
-						<a href="globals.html#githubaktiflestir" class="tsd-kind-icon">git<wbr>Hub<wbr>Aktiflestir</a>
+						<a href="globals.html#activategithub" class="tsd-kind-icon">activate<wbr>Git<wbr>Hub</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
-						<a href="globals.html#githubgirisyap" class="tsd-kind-icon">git<wbr>Hub<wbr>Giris<wbr>Yap</a>
+						<a href="globals.html#gettokenfromgithub" class="tsd-kind-icon">get<wbr>Token<wbr>From<wbr>Git<wbr>Hub</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
-						<a href="globals.html#githubtantokeniste" class="tsd-kind-icon">git<wbr>Hubtan<wbr>Token<wbr>Iste</a>
+						<a href="globals.html#loginwithgithub" class="tsd-kind-icon">login<wbr>With<wbr>Git<wbr>Hub</a>
 					</li>
 				</ul>
 			</nav>
 		</div>
 	</div>
 </div>
-<footer>
+<footer class="with-border-bottom">
 	<div class="container">
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
@@ -249,6 +216,9 @@
 		</div>
 	</div>
 </footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
 <script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>

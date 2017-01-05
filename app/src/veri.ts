@@ -1,5 +1,4 @@
 import { GitHub } from "./github/github";
-import { TrelloIstemci } from "./trello/trello";
 
 /**
  * File system.
@@ -21,12 +20,11 @@ const BrowserWindow = remote.BrowserWindow;
  * GitHub client.
  */
 let github: GitHub;
-let trello: TrelloIstemci;
 
 $(document).ready(() => {
     document.getElementById("GitHub").addEventListener("click", () => {
         console.log("GitHub Seçildi!");
-        gitHubAktiflestir();
+        activateGitHub();
     });
 
     document.getElementById("GitLab").addEventListener("click", () => {
@@ -39,14 +37,13 @@ $(document).ready(() => {
 
     document.getElementById("Trello").addEventListener("click", () => {
         console.log("Trello Seçildi!");
-        trello = new TrelloIstemci();
     });
 });
 
 /**
  * Activates GitHub.
  */
-function gitHubAktiflestir() {
+function activateGitHub() {
     let id: string;
     let secret: string;
 
@@ -56,19 +53,19 @@ function gitHubAktiflestir() {
             return console.log(hata);
         } else {
             id = veri;
-            github.idBelirle(id);
+            github.setID(id);
             fs.readFile("keys/github/SECRET", "utf8", (hata2: any, veri2: any) => {
                 if (hata2) {
                     return console.log(hata2);
                 } else {
                     secret = veri2;
-                    github.secretBelirle(secret);
+                    github.setSecret(secret);
 
                     if (window.localStorage.getItem("githubtoken") === null) {
-                        gitHubGirisYap(id, secret);
+                        loginWithGitHub(id, secret);
                     } else {
                         github.authenticate(window.localStorage.getItem("githubtoken"));
-                        github.kullaniciyiGetir();
+                        github.getUser();
                     }
                 }
             });
@@ -79,16 +76,16 @@ function gitHubAktiflestir() {
 /**
  * Login with GitHub.
  * @param id Client ID.
- * @param secret Client Secret.
+ * @param secret Client Secret Key.
  */
-function gitHubGirisYap(id: string, secret: string) {
-    let secenekler = {
-        istemci_id: id,
-        istemci_sir: secret,
-        kapsamlar: ["repo", "user", "notifications", "gist"],
+function loginWithGitHub(id: string, secret: string) {
+    let options = {
+        clientID: id,
+        clientSecret: secret,
+        context: ["repo", "user", "notifications", "gist"],
     };
 
-    let dogrulamaPenceresi = new BrowserWindow({
+    let authWindow = new BrowserWindow({
         center: true,
         height: 720,
         icon: __dirname + "/../img/is.png",
@@ -96,63 +93,63 @@ function gitHubGirisYap(id: string, secret: string) {
         width: 1200,
     });
 
-    dogrulamaPenceresi.setMenu(null);
+    authWindow.setMenu(null);
 
     let githubUrl = "https://github.com/login/oauth/authorize?";
-    let dogrulamaUrl = githubUrl + "client_id=" + secenekler.istemci_id + "&scope=" + secenekler.kapsamlar;
-    dogrulamaPenceresi.loadURL(dogrulamaUrl);
-    dogrulamaPenceresi.show();
+    let authUrl = githubUrl + "client_id=" + options.clientID + "&scope=" + options.context;
+    authWindow.loadURL(authUrl);
+    authWindow.show();
 
-    function cagriylaIlgilen(url: string) {
-        let hamKod = /code=([^&]*)/.exec(url) || null;
-        let kod = (hamKod && hamKod.length > 1) ? hamKod[1] : null;
-        let hata = /\?error=(.+)$/.exec(url);
+    function handleCall(url: string) {
+        let rawCode = /code=([^&]*)/.exec(url) || null;
+        let kod = (rawCode && rawCode.length > 1) ? rawCode[1] : null;
+        let error = /\?error=(.+)$/.exec(url);
 
-        if (kod || hata) {
-            dogrulamaPenceresi.destroy();
+        if (kod || error) {
+            authWindow.destroy();
         }
 
         if (kod) {
-            gitHubtanTokenIste(secenekler, kod);
-        } else if (hata) {
+            getTokenFromGitHub(options, kod);
+        } else if (error) {
             alert("Hata! GitHub üyeliğiniz ile giriş yapmalısınız. Lütfen tekrar deneyin.");
         }
     }
 
-    dogrulamaPenceresi.webContents.on("will-navigate", (olay: any, url: string) => {
-        cagriylaIlgilen(url);
+    authWindow.webContents.on("will-navigate", (olay: any, url: string) => {
+        handleCall(url);
     });
 
-    dogrulamaPenceresi.webContents.on("did-get-redirect-request", (olay: any, eskiUrl: string, yeniUrl: string) => {
-        cagriylaIlgilen(yeniUrl);
+    authWindow.webContents.on("did-get-redirect-request", (olay: any, eskiUrl: string, yeniUrl: string) => {
+        handleCall(yeniUrl);
     });
 
-    dogrulamaPenceresi.on("close", () => {
-        dogrulamaPenceresi = null;
+    authWindow.on("close", () => {
+        authWindow = null;
     });
 }
 
 /**
  * Get token from GitHub.
- * @param secenekler Options for auth.
+ * @param options Options for auth.
  */
-function gitHubtanTokenIste(secenekler: any, kod: any) {
+function getTokenFromGitHub(options: any, kod: any) {
     $.post("https://github.com/login/oauth/access_token", {
-        client_id: secenekler.istemci_id,
-        client_secret: secenekler.istemci_sir,
+        client_id: options.istemci_id,
+        client_secret: options.istemci_sir,
         code: kod,
-    }).done((icerik: string, durum: string) => {
+    }).done((data: string, status: string) => {
         /* token
-        console.log(durum);
-        console.log(icerik.slice(icerik.search("=") + 1, icerik.search("&")));
+        console.log(status);
+        console.log(data.slice(data.search("=") + 1, data.search("&")));
         */
 
-        if (durum === "success") {
-            window.localStorage.setItem("githubtoken", icerik.slice(icerik.search("=") + 1, icerik.search("&")));
+        if (status === "success") {
+            window.localStorage.setItem("githubtoken", data.slice(data.search("=") + 1, data.search("&")));
 
-            github.authenticate(icerik.slice(icerik.search("=") + 1, icerik.search("&")));
+            github.authenticate(data.slice(data.search("=") + 1, data.search("&")));
 
-            github.kullaniciyiGetir();
+            github.getUser();
         }
     });
 }

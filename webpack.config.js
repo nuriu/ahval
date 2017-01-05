@@ -1,65 +1,56 @@
-var path = require('path');
-var webpack = require('webpack');
+var path = require("path");
+var webpack = require("webpack");
+var TypedocWebpackPlugin = require("typedoc-webpack-plugin");
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: "source-map",
   debug: true,
   entry: {
-    'app': [
-      './app/src/veri'
+    "app": [
+      "./app/src/veri",
     ],
-    'trello': [
-      './app/src/trello/trello'
-    ],
-    'github': [
-      './app/src/github/github',
-      './app/src/github/tarih',
-      './app/src/github/etiket',
-      './app/src/github/hedef',
-      './app/src/github/olay',
-      './app/src/github/yorum',
-      './app/src/github/is',
-      './app/src/github/katki',
-      './app/src/github/proje',
-      './app/src/github/kullanici'
-    ],
-    'akis.github': [
-      './app/src/github/akis'
-    ],
-    'akis.trello': [
-      './app/src/trello/akis'
-    ],
-    'panolar.trello': [
-      './app/src/trello/panolar'
+    "github": [
+      "./app/src/github/github"
     ]
   },
   output: {
-    path: __dirname + '/build/',
-    publicPath: 'build/',
-    filename: '[name].js',
-    sourceMapFilename: '[name].js.map',
-    chunkFilename: '[id].chunk.js'
+    chunkFilename: "[id].chunk.js",
+    filename: "[name].js",
+    path: __dirname + "/build/",
+    publicPath: "build/",
+    sourceMapFilename: "[name].js.map",
   },
   resolve: {
-    extensions: ['', '.ts', '.js', '.json', '.css', '.html']
+    extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
   },
   module: {
     loaders: [
       {
-        test: /\.ts$/,
-        loader: 'ts',
-        exclude: [/node_modules/]
+        exclude: [/node_modules/],
+        loader: "awesome-typescript-loader",
+        test: /\.tsx?$/,
       },
       {
+        include: [/node_modules/],
+        loader: "json-loader",
         test: /\.json$/,
-        loader: 'json',
-        include: [/node_modules/]
+      }
+    ],
+    preLoaders: [
+      {
+        loader: "source-map-loader",
+        test: /\.js$/,
       }
     ]
   },
+  externals: {
+    "react": "React",
+    "react-dom": "ReactDOM",
+  },
   plugins: [
-    new CommonsChunkPlugin({ name: 'common', filename: 'common.js' })
+    new CommonsChunkPlugin({ name: "common", filename: "common.js" }),
+    new TypedocWebpackPlugin({mode: "file", ignoreCompilerErrors: true, out: "../docs"}, ["./app/src", "./app/ui"]),
   ],
-  target: 'electron-renderer'
+  target: "electron-renderer",
 };

@@ -1,6 +1,6 @@
 <h1 align="center">
 	<br>
-	<img width="500" src="https://raw.githubusercontent.com/nuriu/ajanda/master/resim/logo.png" alt="Ajanda">
+	<img width="500" src="https://cdn.rawgit.com/nuriu/ajanda/master/resim/logo.png" alt="Ajanda">
 	<br>
 	<br>
 	<br>
@@ -29,16 +29,16 @@
 - Electron
 - TypeScript
 - jQuery
-- jQuery UI
+- React
 - Semantic UI
 - GitHub API
 - Typedoc
 
 ### Derleme (Compiling)
 
-**TR**: Projeyi derlemeden önce Proje yolu/keys/github dizinine *ID* ve *SECRET* isimli iki dosya oluşturup *ID* dosyasına GitHub **Client ID**, *SECRET* dosyasına GitHub **Client Secret** anahtarlarını girmeniz gerekmektedir.
+**TR**: Projeyi derlemeden önce *Proje yolu/keys/github* dizinine *ID* ve *SECRET* isimli iki dosya oluşturup *ID* dosyasına GitHub **Client ID**, *SECRET* dosyasına GitHub **Client Secret** anahtarlarını girmeniz gerekmektedir.
 
-**EN**: Before compiling you should create two files named *ID* and *SECRET*. After that enter your **Client ID** to *ID* and your **Client Secret** to *SECRET*.
+**EN**: Before compiling you should create two files named *ID* and *SECRET* at *path/to/project/keys/github/*. After that enter your **Client ID** to *ID* and your **Client Secret** to *SECRET*.
 
 **TR**: Bu işlemi gerçekleştirdek sonra aşağıdaki kod ile gereksinimleri kurabilirsiniz;
 

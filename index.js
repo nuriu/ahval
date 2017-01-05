@@ -1,10 +1,10 @@
 var electron = require("electron");
-var uygulama = electron.app;
+var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
-var anaPencere;
+var mainWindow;
 
-function pencereyiOlustur() {
-    anaPencere = new BrowserWindow({
+function createWindow() {
+    mainWindow = new BrowserWindow({
         width: 1800,
         height: 900,
         center: true,
@@ -12,30 +12,30 @@ function pencereyiOlustur() {
         //frame: false
     });
 
-    anaPencere.setMinimumSize(800, 600);
-    anaPencere.loadURL(`file://${__dirname}/ana.html`);
+    mainWindow.setMinimumSize(800, 600);
+    mainWindow.loadURL(`file://${__dirname}/ana.html`);
 
-    anaPencere.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
     //anaPencere.setMenu(null);
     //anaPencere.setFullScreen(true);
 
-    anaPencere.on('closed', function () {
-        anaPencere = null;
+    mainWindow.on('closed', function () {
+        mainWindow = null;
     });
 }
 
-uygulama.on("ready", () => {
-    pencereyiOlustur();
+app.on("ready", () => {
+    createWindow();
 });
 
-uygulama.on("window-all-closed", () => {
+app.on("window-all-closed", () => {
     if (process.platform !== 'darwin') {
-        uygulama.quit();
+        app.quit();
     }
 });
 
-uygulama.on("activate", () => {
-    if (anaPencere === null) {
-        pencereyiOlustur();
+app.on("activate", () => {
+    if (mainWindow === null) {
+        createWindow();
     }
 });

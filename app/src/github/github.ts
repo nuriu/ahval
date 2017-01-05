@@ -1,14 +1,11 @@
-import { Kullanici } from "./kullanici";
-import { GithubTarihi } from "./tarih";
-
 /**
  * GitHub client class.
  */
 export class GitHub {
     /**
-     * GitHub User.
+     * GitHub username.
      */
-    public Kullanici: Kullanici;
+    public username: string;
     /**
      * Client id.
      */
@@ -24,41 +21,40 @@ export class GitHub {
     /**
      * Client.
      */
-    private istemci: any;
+    private client: any;
 
     /**
      * Creates client object.
      */
     constructor() {
-        this.istemci = window["github"];
-        window["gh"] = this;
+        this.client = (<any> window).github;
     }
 
     /**
      * Set client id.
      */
-    public idBelirle(id: string) {
+    public setID(id: string) {
         this.id = id;
     }
 
     /**
      * Set cliend secret id.
      */
-    public secretBelirle(secret: string) {
+    public setSecret(secret: string) {
         this.secret = secret;
     }
 
     /**
      * Set client token.
      */
-    public tokenBelirle(token: string) {
+    public setToken(token: string) {
         this.token = token;
     }
 
     /**
      * @return(s) Client token.
      */
-    public tokeniGetir() {
+    public getToken() {
         return this.token;
     }
 
@@ -67,7 +63,7 @@ export class GitHub {
      * @param gitHubToken github token for oauth authentication. 
      */
     public authenticate(gitHubToken: string) {
-        this.istemci.authenticate({
+        this.client.authenticate({
             token: gitHubToken,
             type: "oauth",
         });
@@ -76,18 +72,12 @@ export class GitHub {
     /**
      * Get Authenticated GitHub user and create Kullanici object..
      */
-    public kullaniciyiGetir() {
-        this.istemci.users.get({}, (hata, veri) => {
-            if (!hata) {
-                this.Kullanici = new Kullanici(
-                    veri.login, veri.name, veri.bio, veri.avatar_url,
-                    veri.company, veri.location, veri.blog, veri.followers,
-                    veri.following
-                );
-
-                $("#icerik").load("./app/ui/github.html");
+    public getUser() {
+        this.client.users.get({}, (error: any, data: any) => {
+            if (!error) {
+                console.log(data);
             } else {
-                console.log(hata);
+                console.log(error);
             }
         });
     }
@@ -95,104 +85,16 @@ export class GitHub {
     /**
      * Get events.
      */
-    public akisiGetir() {
+    public getStream() {
         let ifade: string = "";
-        this.istemci.activity.getEventsReceived({
-            username: this.Kullanici.KullaniciAdi,
-        }, (hata, veri) => {
-            if (!hata) {
-                console.log(veri);
-
-                document.getElementById("akisAlani").innerHTML = null;
-                
-                for (let i = 0; i < veri.length; i++) {
-                    let olay = veri[i];
-                    let tarih = new GithubTarihi(olay.created_at);
-                    let aktor = olay.actor.login;
-                    let avatar = olay.actor.avatar_url;
-                    let cumle = "";
-                    let ozne;
-
-                    switch (olay.type) {
-                        case "WatchEvent":
-                            cumle = "bir projeyi takip etti.";
-                            ozne = "<a href='#'>" + olay.repo.name + "</a>";
-                            break;
-                        case "IssuesEvent":
-                            if (olay.payload.action === "opened") {
-                                cumle = " bir iş açtı.";
-                                ozne = "<a href='#'>" + olay.repo.name + "</a>" +
-                                    " > <a href='#'> #" + olay.payload.issue.number + ": "
-                                    + olay.payload.issue.title + "</a>";
-                            } else {
-                                cumle = " bir işi kapattı.";
-                                ozne = "<a href='#'>" + olay.repo.name + "</a>" +
-                                    " > <a href='#'> #" + olay.payload.issue.number + ": "
-                                    + olay.payload.issue.title + "</a>";
-                            }
-                            break;
-                        case "PushEvent":
-                            cumle = " bir projeye katkı yaptı.";
-                            ozne = "<a href='#'>" + olay.repo.name + "</a>" +
-                                " > <a href='#'>" + olay.payload.commits[0].message + "</a>";
-                            break;
-                        case "ForkEvent":
-                            cumle = " bir projeyi kopyaladı.";
-                            ozne = "<a href='#'>" + olay.repo.name + "</a>";
-                            break;
-                        case "PublicEvent":
-                            cumle = " bir projesini herkese açık hale getirdi.";
-                            ozne = "<a href='#'>" + olay.repo.name + "</a>";
-                        default:
-                            break;
-                    }
-
-                    ifade += '\
-                    <div class="event">\
-                        <div class="label">\
-                            <img src="' + avatar + '">\
-                        </div>\
-                        <div class="content">\
-                            <div class="summary">\
-                                <a class="user" id="' + aktor + '">' + aktor + '</a>\
-                                <span>' + cumle + '</span>\
-                                <div class="date" id="tarih">' + tarih.Tarih + '</div>\
-                            </div>\
-                            <div class="extra text">' + ozne + '\
-                            </div>\
-                        </div>\
-                    </div><br/>';
-                }
-                document.getElementById("akisAlani").innerHTML = ifade;
+        this.client.activity.getEventsReceived({
+            username: this.username,
+        }, (error: any, data: any) => {
+            if (!error) {
+                console.log(data);
             } else {
-                console.log(hata);
+                console.log(error);
             }
         });
-    }
-
-    /**
-     * 
-     * @param KullaniciAdi
-     */
-    private profilBilgileriPenceresiniGoster(kullaniciAdi: string) {
-        let ifade = '<i class="close icon"></i>\
-                    <div class="header">' + kullaniciAdi +
-            '</div>\
-                    <div class="image content">\
-                        <div class="image">\
-                            An image can appear on left or an icon\
-                        </div>\
-                        <div class="description">\
-                            A description can appear on the right\
-                        </div>\
-                    </div>\
-                    <div class="actions">\
-                        <div class="ui button">Cancel</div>\
-                        <div class="ui button">OK</div>\
-                    </div>';
-
-        document.getElementById("modal").innerHTML = ifade;
-
-        $('.ui.modal').modal('show');
     }
 }
