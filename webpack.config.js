@@ -4,15 +4,16 @@ var TypedocWebpackPlugin = require("typedoc-webpack-plugin");
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
 module.exports = {
-  devtool: "source-map",
+  //devtool: "source-map",
   debug: true,
   entry: {
     "app": [
       "./app/src/veri",
+      "./app/src/ui/selectAnything.tsx",
     ],
     "github": [
-      "./app/src/github/github"
-    ]
+      "./app/src/github/github",
+    ],
   },
   output: {
     chunkFilename: "[id].chunk.js",
@@ -50,7 +51,7 @@ module.exports = {
   },
   plugins: [
     new CommonsChunkPlugin({ name: "common", filename: "common.js" }),
-    new TypedocWebpackPlugin({mode: "file", ignoreCompilerErrors: true, out: "../docs"}, ["./app/src", "./app/ui"]),
+    new TypedocWebpackPlugin({mode: "file", ignoreCompilerErrors: true, out: "../docs"}, ["./app/src"]),
   ],
   target: "electron-renderer",
 };

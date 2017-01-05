@@ -6,16 +6,15 @@
     <title>Ajanda</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400">
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="app/css/ajanda.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400" />
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css" />
+    <link rel="stylesheet" type="text/css" href="node_modules/@blueprintjs/core/dist/blueprint.css" />
+    <link rel="stylesheet" type="text/css" href="app/css/ajanda.css" />
+
     <!-- JS -->
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <script type="text/javascript" src="semantic/dist/semantic.min.js"></script>
-    <script type="text/javascript" src="build/common.js"></script>
-    <script type="text/javascript" src="build/app.js"></script>
-    <script type="text/javascript" src="build/github.js"></script>
 </head>
 
 <body class="ajanda">
@@ -38,28 +37,38 @@
     <div class="pusher" style="padding:15px 85px 25px 25px;" id="icerik">
         <div class="ui inverted segment">
             <h2 class="ui center aligned inverted icon header" style="padding-top:4em;">
-                <i class="circular left arrow icon"></i> Seçim Yapın
-                <p style="padding-top:2em;">Lütfen yandaki menüden entegre etmek istediğiniz sistemi seçin.</p>
+                <i class="circular left arrow icon"></i>
             </h2>
+            <br />
+            <div id="selectAnything"></div>
         </div>
     </div>
+    
+    <script type="text/javascript" src="node_modules/react/dist/react.js"></script>
+    <script type="text/javascript" src="node_modules/react-dom/dist/react-dom.js"></script>
+
+    <script type="text/javascript" src="build/common.js"></script>
+    <script type="text/javascript" src="build/app.js"></script>
+    <script type="text/javascript" src="build/github.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
             var fs = require("fs");
             window.githubClient = require("github");
+
             window.github = new window.githubClient({
                 debug: false
             });
+
             fs.readFile("keys/trello/key", "utf8", function (hata, veri) {
-            if (hata) {
-                return console.log(hata);
-            } else {
-                $("head").append('<script type="text/javascript" src="https://api.trello.com/1/client.js?key=' + veri + '"/>');
-                window.trll = Trello;
-                window.trllKey = veri;
-            }
-        });
+                if (hata) {
+                    return console.log(hata);
+                } else {
+                    $("head").append('<script type="text/javascript" src="https://api.trello.com/1/client.js?key=' + veri + '"/>');
+                    window.trll = Trello;
+                    window.trllKey = veri;
+                }
+            });
         });
     </script>
 </body>

@@ -13,7 +13,7 @@ function createWindow() {
     });
 
     mainWindow.setMinimumSize(800, 600);
-    mainWindow.loadURL(`file://${__dirname}/ana.html`);
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
 
     mainWindow.webContents.openDevTools();
     //anaPencere.setMenu(null);

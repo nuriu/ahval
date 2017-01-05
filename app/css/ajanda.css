@@ -1,15 +1,6 @@
 body {
   color: white!important;
   background-color: #1B1C1D;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-.summary,
-.date,
-.extra.text {
-  color: darkgray!important;
 }
 
 #menu {

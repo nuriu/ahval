@@ -30,6 +30,7 @@
 - TypeScript
 - jQuery
 - React
+- Blueprint
 - Semantic UI
 - GitHub API
 - Typedoc

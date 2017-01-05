@@ -19,10 +19,15 @@
   },
   "devDependencies": {
     "@types/core-js": "^0.9.35",
+    "@types/dom4": "^1.5.20",
     "@types/electron": "^1.4.31",
+    "@types/es6-shim": "^0.31.32",
     "@types/jquery": "^2.0.39",
+    "@types/moment": "^2.13.0",
     "@types/node": "^6.0.57",
-    "@types/react": "^0.14.55",
+    "@types/pure-render-decorator": "^0.2.27",
+    "@types/react": "^0.14.56",
+    "@types/react-addons-css-transition-group": "^0.14.19",
     "@types/react-dom": "^0.14.20",
     "awesome-typescript-loader": "^3.0.0-beta.17",
     "electron": "^1.4.13",
@@ -37,9 +42,13 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "@blueprintjs/core": "^1.4.0",
+    "@blueprintjs/datetime": "^1.4.0",
+    "@blueprintjs/table": "^1.2.0",
     "github": "^7.2.1",
     "jquery": "^3.1.1",
     "react": "^15.4.1",
+    "react-addons-css-transition-group": "^15.4.1",
     "react-dom": "^15.4.1"
   }
 }
