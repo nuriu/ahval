@@ -128,7 +128,6 @@ function loginWithGitHub(id: string, secret: string) {
         authWindow = null;
     });
 }
-
 /**
  * Get token from GitHub.
  * @param options Options for auth.
