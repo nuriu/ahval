@@ -7,6 +7,10 @@ export class GitHub {
      */
     public username: string;
     /**
+     * GitHub user.
+     */
+    public user: any;
+    /**
      * Client id.
      */
     private id: string;
@@ -60,7 +64,7 @@ export class GitHub {
 
     /**
      * Authenticates client with given token.
-     * @param gitHubToken github token for oauth authentication. 
+     * @param gitHubToken github token for oauth authentication.
      */
     public authenticate(gitHubToken: string) {
         this.client.authenticate({
@@ -76,6 +80,11 @@ export class GitHub {
         this.client.users.get({}, (error: any, data: any) => {
             if (!error) {
                 console.log(data);
+
+                if(!this.user) {
+                    this.user = data;
+                    document.getElementById("GitHub").innerHTML = "<img class='ui avatar image' src='" + this.user.avatar_url + "'>";
+                }
             } else {
                 console.log(error);
             }

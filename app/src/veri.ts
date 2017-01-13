@@ -52,13 +52,13 @@ function activateGitHub() {
         if (hata) {
             return console.log(hata);
         } else {
-            id = veri;
+            id = veri.trim();
             github.setID(id);
             fs.readFile("keys/github/SECRET", "utf8", (hata2: any, veri2: any) => {
                 if (hata2) {
                     return console.log(hata2);
                 } else {
-                    secret = veri2;
+                    secret = veri2.trim();
                     github.setSecret(secret);
 
                     if (window.localStorage.getItem("githubtoken") === null) {
@@ -79,6 +79,8 @@ function activateGitHub() {
  * @param secret Client Secret Key.
  */
 function loginWithGitHub(id: string, secret: string) {
+    console.log(id, secret);
+
     let options = {
         clientID: id,
         clientSecret: secret,
@@ -134,20 +136,18 @@ function loginWithGitHub(id: string, secret: string) {
  */
 function getTokenFromGitHub(options: any, kod: any) {
     $.post("https://github.com/login/oauth/access_token", {
-        client_id: options.istemci_id,
-        client_secret: options.istemci_sir,
+        client_id: options.clientID,
+        client_secret: options.clientSecret,
         code: kod,
     }).done((data: string, status: string) => {
-        /* token
+        /*
         console.log(status);
         console.log(data.slice(data.search("=") + 1, data.search("&")));
         */
 
         if (status === "success") {
             window.localStorage.setItem("githubtoken", data.slice(data.search("=") + 1, data.search("&")));
-
             github.authenticate(data.slice(data.search("=") + 1, data.search("&")));
-
             github.getUser();
         }
     });
