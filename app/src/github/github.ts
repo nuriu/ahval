@@ -74,7 +74,7 @@ export class GitHub {
     }
 
     /**
-     * Get Authenticated GitHub user and create Kullanici object..
+     * Get Authenticated GitHub user.
      */
     public getUser() {
         this.client.users.get({}, (error: any, data: any) => {
@@ -83,7 +83,8 @@ export class GitHub {
 
                 if(!this.user) {
                     this.user = data;
-                    document.getElementById("GitHub").innerHTML = "<img class='ui avatar image' src='" + this.user.avatar_url + "'>";
+                    document.getElementById("GitHub").innerHTML = "<img class='ui avatar image' id='menuGitHubAvatar' src='" + this.user.avatar_url + "' data-title='"+ this.user.name +"' data-content='" + this.user.bio + "'>";
+                    $('#menuGitHubAvatar').popup();
                 }
             } else {
                 console.log(error);

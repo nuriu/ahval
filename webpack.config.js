@@ -4,12 +4,11 @@ var TypedocWebpackPlugin = require("typedoc-webpack-plugin");
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
 module.exports = {
-  //devtool: "source-map",
+  devtool: "source-map",
   debug: true,
   entry: {
     "app": [
       "./app/src/veri",
-      "./app/src/ui/selectAnything.tsx",
     ],
     "github": [
       "./app/src/github/github",

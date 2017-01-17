@@ -6,7 +6,7 @@
 	<br>
 </h1>
 
->Geliştiriciler için yardımcı ajanda. (Assistant agenda for the developers.)  
+>Geliştiriciler için yardımcı ajanda. (Assistant agenda for the developers.)
 
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![Build status](https://ci.appveyor.com/api/projects/status/ycvxorpuvelji2kn?svg=true)](https://ci.appveyor.com/project/nuriu/ajanda-o0i0c)
@@ -29,8 +29,6 @@
 - Electron
 - TypeScript
 - jQuery
-- React
-- Blueprint
 - Semantic UI
 - GitHub API
 - Typedoc
@@ -49,7 +47,7 @@
 
 **TR**: Geriye kalan tek şey projeyi derleyip çalıştırmak;
 
-**EN**: Now you can compile and run with; 
+**EN**: Now you can compile and run with;
 
 > npm run compile
 
