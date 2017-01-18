@@ -10,6 +10,9 @@
         "sourceMap": true,
         "noImplicitAny": true
     },
+    "awesomeTypescriptLoaderOptions": {
+        "useWebpackText": true
+    },
     "exclude": [
         "node_modules",
         "tsconfig"

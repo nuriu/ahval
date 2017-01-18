@@ -28,7 +28,12 @@
 - Webpack
 - Electron
 - TypeScript
+- codelyzer
 - jQuery
+- hammerjs
+- rxjs
+- zone.js
+- Angular 2
 - Semantic UI
 - GitHub API
 - Typedoc

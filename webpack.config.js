@@ -1,5 +1,7 @@
-var path = require("path");
-var webpack = require("webpack");
+const webpack = require("webpack");
+const helpers = require("./helpers");
+const path = require("path");
+
 var TypedocWebpackPlugin = require("typedoc-webpack-plugin");
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
@@ -7,11 +9,12 @@ module.exports = {
   devtool: "source-map",
   debug: true,
   entry: {
-    "app": [
-      "./app/src/veri",
-    ],
+    "polyfills": "./src/polyfills",
+    "vendor": "./src/vendor",
+    "app": "./src/app/app",
     "github": [
-      "./app/src/github/github",
+      "./src/app/veri",
+      "./src/app/github/github",
     ],
   },
   output: {
@@ -22,20 +25,25 @@ module.exports = {
     sourceMapFilename: "[name].js.map",
   },
   resolve: {
-    extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+    extensions: [".ts", ".js", ".json", ".css", ".html"],
+    modules: [helpers.root("src"), "node_modules"],
   },
   module: {
     loaders: [
       {
-        exclude: [/node_modules/],
-        loader: "awesome-typescript-loader",
-        test: /\.tsx?$/,
+        exclude: [/node_modules/, /\.(spec|e2e)\.ts$/],
+        loaders: ["awesome-typescript-loader", "angular2-template-loader"],
+        test: /\.ts$/,
       },
       {
-        include: [/node_modules/],
         loader: "json-loader",
         test: /\.json$/,
-      }
+      },
+      {
+        test: /\.(html|css)$/,
+        loader: "raw-loader",
+        exclude: [helpers.root("index.html")]
+      },
     ],
     preLoaders: [
       {
@@ -49,8 +57,8 @@ module.exports = {
     "react-dom": "ReactDOM",
   },
   plugins: [
-    new CommonsChunkPlugin({ name: "common", filename: "common.js" }),
-    new TypedocWebpackPlugin({mode: "file", ignoreCompilerErrors: true, out: "../docs"}, ["./app/src"]),
+    new CommonsChunkPlugin({ name: ["common", "vendor", "polyfills"], minChunks: Infinity }),
+    new TypedocWebpackPlugin({mode: "file", ignoreCompilerErrors: true, out: "../docs"}, ["./src/app"]),
   ],
   target: "electron-renderer",
 };
