@@ -31,7 +31,7 @@
       ],
       "max-line-length": [
           true,
-          300
+          120
       ],
       "member-ordering": [
           true,
@@ -60,7 +60,7 @@
       ],
       "quotemark": [
           true,
-          "single"
+          "double"
       ],
       "semicolon": true,
       "triple-equals": [

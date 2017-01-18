@@ -3,7 +3,6 @@
         "target": "es5",
         "module": "commonjs",
         "moduleResolution": "node",
-        "jsx": "react",
         "removeComments": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
@@ -14,7 +13,6 @@
         "useWebpackText": true
     },
     "exclude": [
-        "node_modules",
-        "tsconfig"
+        "node_modules"
     ]
 }
