@@ -1,6 +1,6 @@
 <h1 align="center">
 	<br>
-	<img width="500" src="https://cdn.rawgit.com/nuriu/ajanda/master/resim/logo.png" alt="Ajanda">
+	<img width="500" src="https://github.com/nuriu/ajanda/blob/develop/resim/logo.png" alt="Ajanda">
 	<br>
 	<br>
 	<br>
