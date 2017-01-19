@@ -40,7 +40,7 @@ export class SidebarComponent {
 
         switch (selectedItem) {
             case this.items[0].name:
-                if (!this.github) this.github = new GitHub();
+                if (!this.github) this.github = GitHub.getInstance();
 
                 if (this.activeItem) {
                     if (selectedItem != this.activeItem.name) {

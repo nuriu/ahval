@@ -43,12 +43,26 @@ export class GitHub {
      * Client.
      */
     private client: any;
+    /**
+     * Singleton instance.
+     */
+     private static instance: GitHub;
+
+    private constructor() {
+        this.client = (<any> window).github;
+    }
 
     /**
-     * Creates client object.
+     * @brief      Gets the instance of class.
+     *
+     * @return     The instance.
      */
-    constructor() {
-        this.client = (<any> window).github;
+    static getInstance() {
+        if(!GitHub.instance) {
+            GitHub.instance = new GitHub();
+        }
+
+        return GitHub.instance;
     }
 
     /**

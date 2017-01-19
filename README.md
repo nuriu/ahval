@@ -30,7 +30,6 @@
 - TypeScript
 - codelyzer
 - jQuery
-- hammerjs
 - rxjs
 - zone.js
 - Angular 2
