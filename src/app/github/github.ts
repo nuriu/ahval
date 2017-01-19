@@ -20,6 +20,10 @@ const BrowserWindow = remote.BrowserWindow;
  */
 export class GitHub {
     /**
+     * Singleton instance.
+     */
+    private static instance: GitHub;
+    /**
      * GitHub username.
      */
     public username: string;
@@ -43,14 +47,6 @@ export class GitHub {
      * Client.
      */
     private client: any;
-    /**
-     * Singleton instance.
-     */
-    private static instance: GitHub;
-
-    private constructor() {
-        this.client = (<any>window).github;
-    }
 
     /**
      * @brief      Gets the instance of class.
@@ -110,12 +106,10 @@ export class GitHub {
     public getUser() {
         this.client.users.get({}, (error: any, data: any) => {
             if (!error) {
-                console.log(data);
+                // console.log(data);
 
                 if (!this.user) {
                     this.user = data;
-                    document.getElementById("GitHub").innerHTML = "<img class='ui avatar image' id='menuGitHubAvatar' src='" + this.user.avatar_url + "' data-title='" + this.user.name + "' data-content='" + this.user.bio + "'>";
-                    $("#menuGitHubAvatar").popup();
                 }
             } else {
                 console.log(error);
@@ -241,4 +235,9 @@ export class GitHub {
             }
         });
     }
+
+    private constructor() {
+        this.client = (<any>window).github;
+    }
+
 }

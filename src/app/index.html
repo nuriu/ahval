@@ -27,21 +27,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var fs = require("fs");
+            $("#avatarComp").popup();
             window.githubClient = require("github");
 
             window.github = new window.githubClient({
                 debug: false
-            });
-
-            fs.readFile("keys/trello/key", "utf8", function (hata, veri) {
-                if (hata) {
-                    return console.log(hata);
-                } else {
-                    $("head").append('<script type="text/javascript" src="https://api.trello.com/1/client.js?key=' + veri + '"/>');
-                    window.trll = Trello;
-                    window.trllKey = veri;
-                }
             });
         });
     </script>

@@ -4,7 +4,8 @@
         *ngFor="let item of items"
         id="{{item.name}}"
         (click) = select(item.name)>
-        <i class="{{item.iconClass}}"></i>
+        <i class="{{item.iconClass}}" *ngIf="!item.avatarLink"></i>
+        <avatar [avatarLink]="item.avatarLink" *ngIf="item.avatarLink"></avatar>
     </a>
 
 </div>

@@ -7,12 +7,16 @@ import { HttpModule } from "@angular/http";
 import { AppComponent } from "./app.component";
 import { SidebarComponent } from "./components/sidebar.component";
 import { HomeComponent } from "./components/home.component";
+import { AvatarComponent } from "./components/avatar.component";
 
 import { routing, appRoutingProviders } from "./app.routing";
 
 @NgModule({
     imports: [ BrowserModule, HttpModule, FormsModule, ReactiveFormsModule, routing ],
-    declarations: [ AppComponent, SidebarComponent, HomeComponent ],
+    declarations: [ AppComponent,
+                    SidebarComponent,
+                    HomeComponent,
+                    AvatarComponent ],
     bootstrap:    [ AppComponent ],
     providers:    [ appRoutingProviders ]
 })
