@@ -24,10 +24,10 @@ export class SidebarComponent {
      * Sidebar menu items.
      */
     items: any[] = [
-        {name: "GitHub", iconClass: "big github icon" },
-        {name: "GitLab", iconClass: "big orange gitlab icon" },
-        {name: "BitBucket", iconClass: "big blue bitbucket icon" },
-        {name: "Trello", iconClass: "big teal trello icon" }
+        { name: "GitHub", iconClass: "big github icon" },
+        { name: "GitLab", iconClass: "big orange gitlab icon" },
+        { name: "BitBucket", iconClass: "big blue bitbucket icon" },
+        { name: "Trello", iconClass: "big teal trello icon" }
     ];
 
     /**
@@ -67,5 +67,9 @@ export class SidebarComponent {
             default:
                 break;
         }
+
+        $("#menu>.item").removeClass("active");
+
+        $("#menu>#" + this.activeItem.name).addClass("active");
     }
 }

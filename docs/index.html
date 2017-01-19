@@ -67,7 +67,6 @@
 					<img width="500" src="https://github.com/nuriu/ajanda/blob/develop/resim/logo.png" alt="Ajanda">
 					<br>
 					<br>
-					<br>
 				</h1>
 				<blockquote>
 					<p>Geliştiriciler için yardımcı ajanda. (Assistant agenda for the developers.)</p>
@@ -77,14 +76,6 @@
 					<a href="https://travis-ci.org/nuriu/ajanda"><img src="https://api.travis-ci.org/nuriu/ajanda.svg" alt="Build status"></a>
 					<a href="https://david-dm.org/nuriu/ajanda"><img src="https://david-dm.org/nuriu/ajanda/status.svg" alt="Dependency Status"></a>
 				<a href="https://david-dm.org/nuriu/ajanda?type=dev"><img src="https://david-dm.org/nuriu/ajanda/dev-status.svg" alt="Dev-Dependency Status"></a></p>
-				<blockquote>
-					<p>Proje Görünümü (Project (Repo) View)</p>
-				</blockquote>
-				<p><img src="https://raw.githubusercontent.com/nuriu/ajanda/master/resim/1.png" alt="Ajanda - Proje"></p>
-				<blockquote>
-					<p>İş Görünümü (Issue View)</p>
-				</blockquote>
-				<p><img src="https://raw.githubusercontent.com/nuriu/ajanda/master/resim/2.png" alt="Ajanda - İş"></p>
 				<p><strong>Kullanılan Teknolojiler (Used Technologies);</strong></p>
 				<ul>
 					<li>NodeJS</li>
@@ -101,9 +92,16 @@
 					<li>Typedoc</li>
 				</ul>
 				<h3 id="derleme-compiling-">Derleme (Compiling)</h3>
-				<p><strong>TR</strong>: Projeyi derlemeden önce <em>Proje yolu/keys/github</em> dizinine <em>ID</em> ve <em>SECRET</em> isimli iki dosya oluşturup <em>ID</em> dosyasına GitHub <strong>Client ID</strong>, <em>SECRET</em> dosyasına GitHub <strong>Client Secret</strong> anahtarlarını girmeniz gerekmektedir.</p>
-				<p><strong>EN</strong>: Before compiling you should create two files named <em>ID</em> and <em>SECRET</em> at <em>path/to/project/keys/github/</em>. After that enter your <strong>Client ID</strong> to <em>ID</em> and your <strong>Client Secret</strong> to <em>SECRET</em>.</p>
-				<p><strong>TR</strong>: Bu işlemi gerçekleştirdek sonra aşağıdaki kod ile gereksinimleri kurabilirsiniz;</p>
+				<p><strong>TR</strong> Proje dizinine, aşağıdaki bilgileri içeren <em>keys.json</em> isimli bir dosya oluşturun;</p>
+				<p><strong>EN</strong> Create a file named <em>keys.json</em> in the repo dir and insert these;</p>
+				<pre><code class="lang-json">{
+    <span class="hljs-attr">"github"</span>: {
+        <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"client id of your github app"</span>,
+        <span class="hljs-attr">"secret_key"</span>: <span class="hljs-string">"secret key of your github app"</span>
+    }
+}
+</code></pre>
+				<p><strong>TR</strong>: Bu işlemi gerçekleştirdikten sonra aşağıdaki kod ile gereksinimleri kurabilirsiniz;</p>
 				<p><strong>EN</strong>: Then install dependencies with;</p>
 				<blockquote>
 					<p>npm run setup</p>
@@ -111,7 +109,7 @@
 				<p><strong>TR</strong>: Geriye kalan tek şey projeyi derleyip çalıştırmak;</p>
 				<p><strong>EN</strong>: Now you can compile and run with;</p>
 				<blockquote>
-					<p>npm run compile</p>
+					<p>npm run build</p>
 				</blockquote>
 				<h3 id="documentation">Documentation</h3>
 				<p>You can check it out @ <a href="http://nuriuzunoglu.com/ajanda/">http://nuriuzunoglu.com/ajanda/</a></p>
