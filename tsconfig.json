@@ -6,8 +6,7 @@
         "removeComments": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "sourceMap": true,
-        "noImplicitAny": true
+        "sourceMap": true
     },
     "awesomeTypescriptLoaderOptions": {
         "useWebpackText": true
