@@ -1,14 +1,14 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var TypedocWebpackPlugin = require("typedoc-webpack-plugin");
 var helpers = require('./helpers');
 
 module.exports = {
   entry: {
-    'polyfills': './src/polyfills.ts',
-    'vendor': './src/vendor.ts',
-    'app': './src/main.ts',
+    'polyfills': './src/polyfills',
+    'vendor': './src/vendor',
+    'app': './src/main',
     'github': [
-      './src/app/veri',
       './src/app/github/github'
     ]
   },
@@ -42,7 +42,10 @@ module.exports = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: ['common', 'app', 'vendor', 'polyfills']
-    })
+    }),
+    new TypedocWebpackPlugin({
+      mode: "file", ignoreCompilerErrors: true, out: "../docs"}, ["./src/app"]
+    ),
   ],
   target: 'electron-renderer'
 };

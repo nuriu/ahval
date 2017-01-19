@@ -1,4 +1,21 @@
 /**
+ * File system.
+ */
+const fs = require("fs");
+/**
+ * Electron.
+ */
+const electron = require("electron");
+/**
+ * Electron remote.
+ */
+const remote = electron.remote;
+/**
+ * Main window.
+ */
+const BrowserWindow = remote.BrowserWindow;
+
+/**
  * GitHub client class.
  */
 export class GitHub {
@@ -104,6 +121,119 @@ export class GitHub {
                 console.log(data);
             } else {
                 console.log(error);
+            }
+        });
+    }
+
+
+    /**
+     * Activates GitHub.
+     */
+    public activateGitHub() {
+        let id: string;
+        let secret: string;
+
+        fs.readFile("keys/github/ID", "utf8", (hata: any, veri: any) => {
+            if (hata) {
+                return console.log(hata);
+            } else {
+                id = veri.trim();
+                this.setID(id);
+                fs.readFile("keys/github/SECRET", "utf8", (hata2: any, veri2: any) => {
+                    if (hata2) {
+                        return console.log(hata2);
+                    } else {
+                        secret = veri2.trim();
+                        this.setSecret(secret);
+
+                        if (window.localStorage.getItem("githubtoken") === null) {
+                            this.loginWithGitHub(id, secret);
+                        } else {
+                            this.authenticate(window.localStorage.getItem("githubtoken"));
+                            this.getUser();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Login with GitHub.
+     * @param id Client ID.
+     * @param secret Client Secret Key.
+     */
+    private loginWithGitHub(id: string, secret: string) {
+        console.log(id, secret);
+
+        let options = {
+            clientID: id,
+            clientSecret: secret,
+            context: ["repo", "user", "notifications", "gist"],
+        };
+
+        let authWindow = new BrowserWindow({
+            center: true,
+            height: 720,
+            icon: __dirname + "/../img/is.png",
+            show: false,
+            width: 1200,
+        });
+
+        authWindow.setMenu(null);
+
+        let githubUrl = "https://github.com/login/oauth/authorize?";
+        let authUrl = githubUrl + "client_id=" + options.clientID + "&scope=" + options.context;
+        authWindow.loadURL(authUrl);
+        authWindow.show();
+
+        function handleCall(url: string) {
+            let rawCode = /code=([^&]*)/.exec(url) || null;
+            let kod = (rawCode && rawCode.length > 1) ? rawCode[1] : null;
+            let error = /\?error=(.+)$/.exec(url);
+
+            if (kod || error) {
+                authWindow.destroy();
+            }
+
+            if (kod) {
+                this.getTokenFromGitHub(options, kod);
+            } else if (error) {
+                alert("Hata! GitHub üyeliğiniz ile giriş yapmalısınız. Lütfen tekrar deneyin.");
+            }
+        }
+
+        authWindow.webContents.on("will-navigate", (olay: any, url: string) => {
+            handleCall(url);
+        });
+
+        authWindow.webContents.on("did-get-redirect-request", (olay: any, eskiUrl: string, yeniUrl: string) => {
+            handleCall(yeniUrl);
+        });
+
+        authWindow.on("close", () => {
+            authWindow = null;
+        });
+    }
+    /**
+     * Get token from GitHub.
+     * @param options Options for auth.
+     */
+    private getTokenFromGitHub(options: any, kod: any) {
+        $.post("https://github.com/login/oauth/access_token", {
+            client_id: options.clientID,
+            client_secret: options.clientSecret,
+            code: kod,
+        }).done((data: string, status: string) => {
+            /*
+            console.log(status);
+            console.log(data.slice(data.search("=") + 1, data.search("&")));
+            */
+
+            if (status === "success") {
+                window.localStorage.setItem("githubtoken", data.slice(data.search("=") + 1, data.search("&")));
+                this.authenticate(data.slice(data.search("=") + 1, data.search("&")));
+                this.getUser();
             }
         });
     }

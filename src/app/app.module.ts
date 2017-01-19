@@ -11,9 +11,10 @@ import { HomeComponent } from "./components/home.component";
 import { routing, appRoutingProviders } from "./app.routing";
 
 @NgModule({
-  imports: [ BrowserModule, HttpModule, FormsModule, ReactiveFormsModule, routing ],
-  declarations: [ AppComponent, SidebarComponent, HomeComponent ],
-  bootstrap:    [ AppComponent ],
-  providers:    [ appRoutingProviders ]
+    imports: [ BrowserModule, HttpModule, FormsModule, ReactiveFormsModule, routing ],
+    declarations: [ AppComponent, SidebarComponent, HomeComponent ],
+    bootstrap:    [ AppComponent ],
+    providers:    [ appRoutingProviders ]
 })
+
 export class AppModule { }

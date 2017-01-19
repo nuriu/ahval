@@ -1,6 +1,9 @@
 <div class="ui left visible vertical inverted very thin sidebar icon menu" id="menu" >
 
-    <a class="item" style="padding-left:13px;" *ngFor="let item of items"  id="{{item.name}}">
+    <a class="item" style="padding-left:13px;"
+        *ngFor="let item of items"
+        id="{{item.name}}"
+        (click) = select(item.name)>
         <i class="{{item.iconClass}}"></i>
     </a>
 
