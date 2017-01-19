@@ -8,3 +8,8 @@ body {
   -webkit-background-clip: padding-box; /* for Safari */
   background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
 }
+
+#icerik {
+  margin-top: 2rem;
+  margin-left: 5rem;
+}
