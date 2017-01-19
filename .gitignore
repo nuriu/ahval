@@ -6,4 +6,4 @@ build/
 *.DB
 *.DB-wal
 *.DB-shm
-keys/
+keys.json

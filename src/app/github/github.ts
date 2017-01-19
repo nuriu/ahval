@@ -46,10 +46,10 @@ export class GitHub {
     /**
      * Singleton instance.
      */
-     private static instance: GitHub;
+    private static instance: GitHub;
 
     private constructor() {
-        this.client = (<any> window).github;
+        this.client = (<any>window).github;
     }
 
     /**
@@ -58,7 +58,7 @@ export class GitHub {
      * @return     The instance.
      */
     static getInstance() {
-        if(!GitHub.instance) {
+        if (!GitHub.instance) {
             GitHub.instance = new GitHub();
         }
 
@@ -139,7 +139,6 @@ export class GitHub {
         });
     }
 
-
     /**
      * Activates GitHub.
      */
@@ -147,27 +146,18 @@ export class GitHub {
         let id: string;
         let secret: string;
 
-        fs.readFile("keys/github/ID", "utf8", (hata: any, veri: any) => {
-            if (hata) {
-                return console.log(hata);
+        fs.readFile("keys.json", "utf8", (err: any, data: any) => {
+            if (err) {
+                return console.log(err);
             } else {
-                id = veri.trim();
-                this.setID(id);
-                fs.readFile("keys/github/SECRET", "utf8", (hata2: any, veri2: any) => {
-                    if (hata2) {
-                        return console.log(hata2);
-                    } else {
-                        secret = veri2.trim();
-                        this.setSecret(secret);
-
-                        if (window.localStorage.getItem("githubtoken") === null) {
-                            this.loginWithGitHub(id, secret);
-                        } else {
-                            this.authenticate(window.localStorage.getItem("githubtoken"));
-                            this.getUser();
-                        }
-                    }
-                });
+                this.setID(JSON.parse(data).github.client_id);
+                this.setSecret(JSON.parse(data).github.secret_key);
+                if (window.localStorage.getItem("githubtoken") === null) {
+                    this.loginWithGitHub(this.id, this.secret);
+                } else {
+                    this.authenticate(window.localStorage.getItem("githubtoken"));
+                    this.getUser();
+                }
             }
         });
     }
@@ -213,7 +203,7 @@ export class GitHub {
             if (kod) {
                 this.getTokenFromGitHub(options, kod);
             } else if (error) {
-                alert("Hata! GitHub üyeliğiniz ile giriş yapmalısınız. Lütfen tekrar deneyin.");
+                alert("err! GitHub üyeliğiniz ile giriş yapmalısınız. Lütfen tekrar deneyin.");
             }
         }
 

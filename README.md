@@ -39,11 +39,21 @@
 
 ### Derleme (Compiling)
 
-**TR**: Projeyi derlemeden önce *Proje yolu/keys/github* dizinine *ID* ve *SECRET* isimli iki dosya oluşturup *ID* dosyasına GitHub **Client ID**, *SECRET* dosyasına GitHub **Client Secret** anahtarlarını girmeniz gerekmektedir.
+**TR** Proje dizinine, aşağıdaki bilgileri içeren *keys.json* isimli bir dosya oluşturun;
 
-**EN**: Before compiling you should create two files named *ID* and *SECRET* at *path/to/project/keys/github/*. After that enter your **Client ID** to *ID* and your **Client Secret** to *SECRET*.
+**EN** Create a file named *keys.json* in the repo dir and insert these;
 
-**TR**: Bu işlemi gerçekleştirdek sonra aşağıdaki kod ile gereksinimleri kurabilirsiniz;
+```json
+{
+    "github": {
+        "client_id": "client id of your github app",
+        "secret_key": "secret key of your github app"
+    }
+}
+
+```
+
+**TR**: Bu işlemi gerçekleştirdikten sonra aşağıdaki kod ile gereksinimleri kurabilirsiniz;
 
 **EN**: Then install dependencies with;
 
@@ -53,7 +63,7 @@
 
 **EN**: Now you can compile and run with;
 
-> npm run compile
+> npm run build
 
 
 ### Documentation
