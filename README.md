@@ -3,7 +3,6 @@
 	<img width="500" src="https://github.com/nuriu/ajanda/blob/develop/resim/logo.png" alt="Ajanda">
 	<br>
 	<br>
-	<br>
 </h1>
 
 >Geliştiriciler için yardımcı ajanda. (Assistant agenda for the developers.)
@@ -14,13 +13,6 @@
 [![Dependency Status](https://david-dm.org/nuriu/ajanda/status.svg)](https://david-dm.org/nuriu/ajanda)
 [![Dev-Dependency Status](https://david-dm.org/nuriu/ajanda/dev-status.svg)](https://david-dm.org/nuriu/ajanda?type=dev)
 
-> Proje Görünümü (Project (Repo) View)
-
-![Ajanda - Proje](https://raw.githubusercontent.com/nuriu/ajanda/master/resim/1.png)
-
-> İş Görünümü (Issue View)
-
-![Ajanda - İş](https://raw.githubusercontent.com/nuriu/ajanda/master/resim/2.png)
 
 **Kullanılan Teknolojiler (Used Technologies);**
 
