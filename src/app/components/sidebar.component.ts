@@ -37,7 +37,6 @@ export class SidebarComponent {
      */
     select(selectedItem: string) {
         console.log(selectedItem + " seçildi.");
-
         switch (selectedItem) {
             case this.items[0].name:
                 if (!this.github) this.github = GitHub.getInstance();
@@ -69,10 +68,7 @@ export class SidebarComponent {
         }
 
         $("#menu>.item").removeClass("active");
-
         $("#menu>#" + this.activeItem.name).addClass("active");
-
-
 
         if (this.github.user) {
             this.items[0].avatarLink = this.github.user.avatar_url;
