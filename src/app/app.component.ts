@@ -1,5 +1,8 @@
 import { Component } from "@angular/core";
 
+/**
+ * App container component.
+ */
 @Component({
     selector: "app",
     template: `
@@ -9,5 +12,4 @@ import { Component } from "@angular/core";
         </div>
     `
 })
-
 export class AppComponent { }

@@ -1,36 +1,32 @@
 import { Component } from "@angular/core";
 
 import { GitHub } from "../github/github";
-
-interface MenuItem {
-    name: string,
-    iconClass: string,
-    avatarLink: string,
-    routerLink: string
-}
-
-@Component({
-    selector: "sidebar",
-    templateUrl: "sidebar.component.html"
-})
+import { IMenuItem } from "../types/IMenuItem";
 
 /**
  * Class for sidebar component.
  */
+@Component({
+    selector: "sidebar",
+    templateUrl: "./sidebar.component.html"
+})
+
 export class SidebarComponent {
+
     /**
-     * Github client class.
+     * Github client instance.
      */
     github: GitHub;
+
     /**
      * Active menu item.
      */
-    activeItem: any = null;
+    activeItem: IMenuItem = null;
 
     /**
      * Sidebar menu items.
      */
-    items: MenuItem[] = [
+    items: IMenuItem[] = [
         { name: "GitHub", iconClass: "big github icon", avatarLink: null, routerLink: "/github" },
         { name: "GitLab", iconClass: "big orange gitlab icon", avatarLink: null, routerLink: "/gitlab" },
         { name: "BitBucket", iconClass: "big blue bitbucket icon", avatarLink: null, routerLink: "/bitbucket" },
@@ -39,7 +35,7 @@ export class SidebarComponent {
 
     /**
      * Activates selected menu item.
-     * @param  {string} selectedItem  The selected menu item
+     * @param {string} selectedItem The selected menu item.
      */
     select(selectedItem: string) {
         console.log(selectedItem + " seçildi.");
@@ -76,9 +72,11 @@ export class SidebarComponent {
         $("#menu>.item").removeClass("active");
         $("#menu>#" + this.activeItem.name).addClass("active");
 
+        /*
         if (this.github.user) {
             this.items[0].avatarLink = this.github.user.avatar_url;
         }
+        */
 
     }
 }

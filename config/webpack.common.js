@@ -21,6 +21,7 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
+        exclude: helpers.root('node_modules'),
         loaders: ['awesome-typescript-loader', 'angular2-template-loader']
       },
       {
@@ -36,6 +37,10 @@ module.exports = {
         test: /\.css$/,
         include: helpers.root('src', 'app'),
         loader: 'raw'
+      },
+      {
+        test: /\.json$/,
+        loader: 'json'
       }
     ]
   },
@@ -44,7 +49,7 @@ module.exports = {
       name: ['common', 'app', 'vendor', 'polyfills']
     }),
     new TypedocWebpackPlugin({
-      mode: "file", ignoreCompilerErrors: true, out: "../docs"}, ["./src/app"]
+      name: "AjandaDocs", mode: "file", ignoreCompilerErrors: true, out: "../docs"}, ["./src/app"]
     ),
   ],
   target: 'electron-renderer'

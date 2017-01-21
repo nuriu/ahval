@@ -15,6 +15,9 @@ import { TrelloComponent } from "./components/trello.component";
 
 import { routing, appRoutingProviders } from "./app.routing";
 
+/**
+ * Default app module.
+ */
 @NgModule({
     imports: [ BrowserModule, HttpModule, FormsModule, ReactiveFormsModule, routing ],
     declarations: [ AppComponent,
@@ -28,5 +31,4 @@ import { routing, appRoutingProviders } from "./app.routing";
     bootstrap:    [ AppComponent ],
     providers:    [ appRoutingProviders ]
 })
-
 export class AppModule { }

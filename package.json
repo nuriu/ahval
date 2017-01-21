@@ -38,6 +38,7 @@
   "devDependencies": {
     "@types/core-js": "^0.9.35",
     "@types/electron": "^1.4.31",
+    "@types/github": "0.0.0",
     "@types/jquery": "^2.0.39",
     "@types/node": "^7.0.0",
     "angular2-template-loader": "^0.6.0",

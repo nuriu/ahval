@@ -1,15 +1,23 @@
 import { Component, Input } from "@angular/core";
 
-@Component({
-    selector: "avatar",
-    templateUrl: "avatar.component.html"
-})
-
 /**
  * Class for avatar component.
  */
+@Component({
+    selector: "avatar",
+    templateUrl: "./avatar.component.html"
+})
 export class AvatarComponent {
-    @Input() avatarLink;
-    @Input() name;
-    @Input() bio;
+    /**
+     * Image link.
+     */
+    @Input() avatarLink: string;
+    /**
+     * Popup title.
+     */
+    @Input() name: string;
+    /**
+     * Popup description.
+     */
+    @Input() bio: string;
 }

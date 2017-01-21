@@ -7,6 +7,9 @@ import { GitLabComponent } from "./components/gitlab.component";
 import { BitbucketComponent } from "./components/bitbucket.component";
 import { TrelloComponent } from "./components/trello.component";
 
+/**
+ * App routes.
+ */
 export const appRoutes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
     { path: "home", component: HomeComponent },

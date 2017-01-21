@@ -49,9 +49,7 @@ export class GitHub {
     private client: any;
 
     /**
-     * @brief      Gets the instance of class.
-     *
-     * @return     The instance.
+     * Gets the instance of class.
      */
     static getInstance() {
         if (!GitHub.instance) {
@@ -97,6 +95,8 @@ export class GitHub {
         this.client.authenticate({
             token: gitHubToken,
             type: "oauth",
+            //token: this.token,
+            //type: "token"
         });
     }
 
@@ -104,13 +104,13 @@ export class GitHub {
      * Get Authenticated GitHub user.
      */
     public getUser() {
-        this.client.users.get({}, (error: any, data: any) => {
+        this.client.users.get((error: any, data: any) => {
             if (!error) {
                 // console.log(data);
 
-                if (!this.user) {
-                    this.user = data;
-                }
+                if (!this.user) this.user = data;
+
+                return this.user;
             } else {
                 console.log(error);
             }
@@ -137,21 +137,21 @@ export class GitHub {
      * Activates GitHub.
      */
     public activateGitHub() {
-        let id: string;
-        let secret: string;
-
         fs.readFile("keys.json", "utf8", (err: any, data: any) => {
             if (err) {
                 return console.log(err);
             } else {
                 this.setID(JSON.parse(data).github.client_id);
                 this.setSecret(JSON.parse(data).github.secret_key);
+                this.setToken(JSON.parse(data).github.token);
+
+                /*
                 if (window.localStorage.getItem("githubtoken") === null) {
                     this.loginWithGitHub(this.id, this.secret);
                 } else {
                     this.authenticate(window.localStorage.getItem("githubtoken"));
-                    this.getUser();
                 }
+                */
             }
         });
     }
@@ -213,11 +213,18 @@ export class GitHub {
             authWindow = null;
         });
     }
+
     /**
      * Get token from GitHub.
      * @param options Options for auth.
      */
     private getTokenFromGitHub(options: any, kod: any) {
+        let a = this.client.authenticate({
+            type: "oauth",
+            key: options.clientID,
+            secret: options.clientSecret
+        });
+        console.log(a)
         $.post("https://github.com/login/oauth/access_token", {
             client_id: options.clientID,
             client_secret: options.clientSecret,
@@ -231,7 +238,6 @@ export class GitHub {
             if (status === "success") {
                 window.localStorage.setItem("githubtoken", data.slice(data.search("=") + 1, data.search("&")));
                 this.authenticate(data.slice(data.search("=") + 1, data.search("&")));
-                this.getUser();
             }
         });
     }
