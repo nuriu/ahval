@@ -12,7 +12,6 @@
   "bugs": {
     "url": "https://github.com/nuriu/ajanda/issues"
   },
-  "main": "index.js",
   "scripts": {
     "compile": "webpack --progress --profile --colors --display-error-details --display-cached",
     "dev": "webpack --progress --profile --colors --display-error-details --display-cached --watch",

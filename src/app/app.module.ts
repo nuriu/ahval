@@ -8,6 +8,10 @@ import { AppComponent } from "./app.component";
 import { SidebarComponent } from "./components/sidebar.component";
 import { HomeComponent } from "./components/home.component";
 import { AvatarComponent } from "./components/avatar.component";
+import { GitHubComponent } from "./components/github.component";
+import { GitLabComponent } from "./components/gitlab.component";
+import { BitbucketComponent } from "./components/bitbucket.component";
+import { TrelloComponent } from "./components/trello.component";
 
 import { routing, appRoutingProviders } from "./app.routing";
 
@@ -16,7 +20,11 @@ import { routing, appRoutingProviders } from "./app.routing";
     declarations: [ AppComponent,
                     SidebarComponent,
                     HomeComponent,
-                    AvatarComponent ],
+                    AvatarComponent,
+                    GitHubComponent,
+                    GitLabComponent,
+                    BitbucketComponent,
+                    TrelloComponent],
     bootstrap:    [ AppComponent ],
     providers:    [ appRoutingProviders ]
 })

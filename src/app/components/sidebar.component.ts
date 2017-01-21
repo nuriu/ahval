@@ -1,6 +1,13 @@
-import { Component, NgZone } from "@angular/core";
+import { Component } from "@angular/core";
 
 import { GitHub } from "../github/github";
+
+interface MenuItem {
+    name: string,
+    iconClass: string,
+    avatarLink: string,
+    routerLink: string
+}
 
 @Component({
     selector: "sidebar",
@@ -23,17 +30,16 @@ export class SidebarComponent {
     /**
      * Sidebar menu items.
      */
-    items: any[] = [
-        { name: "GitHub", iconClass: "big github icon", avatarLink: null },
-        { name: "GitLab", iconClass: "big orange gitlab icon", avatarLink: null },
-        { name: "BitBucket", iconClass: "big blue bitbucket icon", avatarLink: null },
-        { name: "Trello", iconClass: "big teal trello icon", avatarLink: null }
+    items: MenuItem[] = [
+        { name: "GitHub", iconClass: "big github icon", avatarLink: null, routerLink: "/github" },
+        { name: "GitLab", iconClass: "big orange gitlab icon", avatarLink: null, routerLink: "/gitlab" },
+        { name: "BitBucket", iconClass: "big blue bitbucket icon", avatarLink: null, routerLink: "/bitbucket" },
+        { name: "Trello", iconClass: "big teal trello icon", avatarLink: null, routerLink: "/trello" }
     ];
 
     /**
-     * @brief      Activates selected menu item.
-     *
-     * @param      selectedItem  The selected menu item
+     * Activates selected menu item.
+     * @param  {string} selectedItem  The selected menu item
      */
     select(selectedItem: string) {
         console.log(selectedItem + " seçildi.");
@@ -72,8 +78,6 @@ export class SidebarComponent {
 
         if (this.github.user) {
             this.items[0].avatarLink = this.github.user.avatar_url;
-            this.items[0].uname = this.github.user.name;
-            this.items[0].desc = this.github.user.bio;
         }
 
     }
