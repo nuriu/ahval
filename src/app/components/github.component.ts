@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 
 import { GitHubService } from "../services/github.service";
 
@@ -11,7 +11,7 @@ import { IAvatarComponentItem } from "../types/IAvatarComponentItem";
     selector: "github",
     templateUrl: "./github.component.html"
 })
-export class GitHubComponent implements OnInit, OnChanges {
+export class GitHubComponent implements OnInit {
     /**
      * Active github user.
      */
@@ -26,16 +26,9 @@ export class GitHubComponent implements OnInit, OnChanges {
     }
 
     getActiveUser() {
-        this._githubService.getHttpUser().subscribe(
+        this._githubService.getUser().subscribe(
             data => this.user = data,
-            error => console.log(error),
-            () => console.log("Finished request.")
+            error => console.log(error)
         );
-        //this._githubService.getUser().then(u => this.user = u);
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        console.log(changes);
-        console.log(JSON.stringify(changes));
     }
 }

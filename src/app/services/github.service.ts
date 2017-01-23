@@ -17,6 +17,9 @@ export class GitHubService {
      */
     activated: boolean = false;
 
+    /**
+     * Auth string.
+     */
     auth: string;
 
     constructor(private _http: Http) {
@@ -38,25 +41,25 @@ export class GitHubService {
         });
     }
 
-    getHttpUser() {
+    /**
+     * Get github user info.
+     */
+    getUser() {
         let h = new Headers();
-        console.log(this.auth);
         h.set("Authorization", "Basic " + this.auth);
         return this._http.get("https://api.github.com/user", {
             headers: h
         }).map(res => res.json());
     }
-
-    /**
-     * Get github user info.
-     */
-    getUser() {
-    }
-
     /**
      * Get active users avatar url.
      */
     getUserAvatarLink() {
+        let h = new Headers();
+        h.set("Authorization", "Basic " + this.auth);
+        return this._http.get("https://api.github.com/user", {
+            headers: h
+        }).map(res => res.json().avatar_url);
     }
 
 }

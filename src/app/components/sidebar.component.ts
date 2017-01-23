@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 import { GitHubService } from "../services/github.service";
 
@@ -12,7 +12,7 @@ import { IMenuItem } from "../types/IMenuItem";
     templateUrl: "./sidebar.component.html"
 })
 
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
     /**
      * Active menu item.
      */
@@ -28,7 +28,12 @@ export class SidebarComponent {
         { name: "Trello", iconClass: "big teal trello icon", avatarLink: null, routerLink: "/trello" }
     ];
 
-    constructor(private _githubService: GitHubService) {}
+    constructor(private _githubService: GitHubService) { }
+
+    ngOnInit() {
+
+    }
+
     /**
      * Activates selected menu item.
      * @param {string} selectedItem The selected menu item.
@@ -38,7 +43,10 @@ export class SidebarComponent {
 
         switch (selectedItem) {
             case this.items[0].name:
-                //this.items[0].avatarLink = this._githubService.getUserAvatarLink();
+                this._githubService.getUserAvatarLink().subscribe(
+                    data => this.items[0].avatarLink = data,
+                    error => console.log(error)
+                );
                 this.activeItem = this.items[0];
                 break;
 
