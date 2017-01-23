@@ -51,6 +51,7 @@ export class GitHubService {
             headers: h
         }).map(res => res.json());
     }
+
     /**
      * Get active users avatar url.
      */
