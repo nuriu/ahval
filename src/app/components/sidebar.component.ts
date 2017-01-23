@@ -38,8 +38,8 @@ export class SidebarComponent {
 
         switch (selectedItem) {
             case this.items[0].name:
+                //this.items[0].avatarLink = this._githubService.getUserAvatarLink();
                 this.activeItem = this.items[0];
-                this.items[0].avatarLink = this._githubService.getUserAvatarLink();
                 break;
 
             case this.items[1].name:

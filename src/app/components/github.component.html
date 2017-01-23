@@ -1,5 +1,3 @@
-<h1>github.component.html</h1>
-
-<!--
-<avatar [avatarLink]="user.avatar_url" [name]="user.name" [bio]="user.bio"></avatar>
--->
+<span>Active GitHub User: </span>
+<avatar [avatarLink]="user?.avatar_url" [name]="user?.name" [bio]="user?.bio"></avatar>
+<span> {{ user?.name }}!</span>
