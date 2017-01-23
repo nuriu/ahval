@@ -72,8 +72,8 @@
 								<li class="tsd-kind-class"><a href="classes/appmodule.html" class="tsd-kind-icon">App<wbr>Module</a></li>
 								<li class="tsd-kind-class"><a href="classes/avatarcomponent.html" class="tsd-kind-icon">Avatar<wbr>Component</a></li>
 								<li class="tsd-kind-class"><a href="classes/bitbucketcomponent.html" class="tsd-kind-icon">Bitbucket<wbr>Component</a></li>
-								<li class="tsd-kind-class"><a href="classes/github.html" class="tsd-kind-icon">Git<wbr>Hub</a></li>
 								<li class="tsd-kind-class"><a href="classes/githubcomponent.html" class="tsd-kind-icon">Git<wbr>Hub<wbr>Component</a></li>
+								<li class="tsd-kind-class"><a href="classes/githubservice.html" class="tsd-kind-icon">Git<wbr>Hub<wbr>Service</a></li>
 								<li class="tsd-kind-class"><a href="classes/gitlabcomponent.html" class="tsd-kind-icon">Git<wbr>Lab<wbr>Component</a></li>
 								<li class="tsd-kind-class"><a href="classes/homecomponent.html" class="tsd-kind-icon">Home<wbr>Component</a></li>
 								<li class="tsd-kind-class"><a href="classes/sidebarcomponent.html" class="tsd-kind-icon">Sidebar<wbr>Component</a></li>
@@ -90,12 +90,10 @@
 						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#browserwindow" class="tsd-kind-icon">Browser<wbr>Window</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#approutes" class="tsd-kind-icon">app<wbr>Routes</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#approutingproviders" class="tsd-kind-icon">app<wbr>Routing<wbr>Providers</a></li>
-								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#electron" class="tsd-kind-icon">electron</a></li>
 								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#fs" class="tsd-kind-icon">fs</a></li>
-								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#remote" class="tsd-kind-icon">remote</a></li>
+								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#octonode" class="tsd-kind-icon">octonode</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#routing" class="tsd-kind-icon">routing</a></li>
 							</ul>
 						</section>
@@ -104,28 +102,13 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
-					<a name="browserwindow" class="tsd-anchor"></a>
-					<h3>Browser<wbr>Window</h3>
-					<div class="tsd-signature tsd-kind-icon">Browser<wbr>Window<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;remote.BrowserWindow</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/867d555/src/app/github/github.ts#L16">github/github.ts:16</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Main window.</p>
-						</div>
-					</div>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable">
 					<a name="approutes" class="tsd-anchor"></a>
 					<h3>app<wbr>Routes</h3>
 					<div class="tsd-signature tsd-kind-icon">app<wbr>Routes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Routes</span><span class="tsd-signature-symbol"> =&nbsp;[{ path: &quot;&quot;, redirectTo: &quot;home&quot;, pathMatch: &quot;full&quot; },{ path: &quot;home&quot;, component: HomeComponent },{ path: &quot;github&quot;, component: GitHubComponent },{ path: &quot;gitlab&quot;, component: GitLabComponent },{ path: &quot;bitbucket&quot;, component: BitbucketComponent },{ path: &quot;trello&quot;, component: TrelloComponent }]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/867d555/src/app/app.routing.ts#L13">app.routing.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c499cb3/src/app/app.routing.ts#L13">app.routing.ts:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -140,24 +123,9 @@
 					<div class="tsd-signature tsd-kind-icon">app<wbr>Routing<wbr>Providers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/867d555/src/app/app.routing.ts#L22">app.routing.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c499cb3/src/app/app.routing.ts#L22">app.routing.ts:22</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
-					<a name="electron" class="tsd-anchor"></a>
-					<h3>electron</h3>
-					<div class="tsd-signature tsd-kind-icon">electron<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&quot;electron&quot;)</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/867d555/src/app/github/github.ts#L8">github/github.ts:8</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Electron.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
 					<a name="fs" class="tsd-anchor"></a>
@@ -165,7 +133,7 @@
 					<div class="tsd-signature tsd-kind-icon">fs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&quot;fs&quot;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/867d555/src/app/github/github.ts#L4">github/github.ts:4</a></li>
+							<li>Defined in services/github.service.ts:6</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -175,17 +143,17 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
-					<a name="remote" class="tsd-anchor"></a>
-					<h3>remote</h3>
-					<div class="tsd-signature tsd-kind-icon">remote<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;electron.remote</span></div>
+					<a name="octonode" class="tsd-anchor"></a>
+					<h3>octonode</h3>
+					<div class="tsd-signature tsd-kind-icon">octonode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&quot;octonode&quot;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/867d555/src/app/github/github.ts#L12">github/github.ts:12</a></li>
+							<li>Defined in services/github.service.ts:10</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Electron remote.</p>
+							<p>Github api client.</p>
 						</div>
 					</div>
 				</section>
@@ -195,7 +163,7 @@
 					<div class="tsd-signature tsd-kind-icon">routing<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ModuleWithProviders</span><span class="tsd-signature-symbol"> =&nbsp;RouterModule.forRoot(appRoutes, { useHash: true })</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/867d555/src/app/app.routing.ts#L24">app.routing.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c499cb3/src/app/app.routing.ts#L24">app.routing.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -224,10 +192,10 @@
 						<a href="classes/bitbucketcomponent.html" class="tsd-kind-icon">Bitbucket<wbr>Component</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/github.html" class="tsd-kind-icon">Git<wbr>Hub</a>
+						<a href="classes/githubcomponent.html" class="tsd-kind-icon">Git<wbr>Hub<wbr>Component</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/githubcomponent.html" class="tsd-kind-icon">Git<wbr>Hub<wbr>Component</a>
+						<a href="classes/githubservice.html" class="tsd-kind-icon">Git<wbr>Hub<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/gitlabcomponent.html" class="tsd-kind-icon">Git<wbr>Lab<wbr>Component</a>
@@ -247,9 +215,6 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/imenuitem.html" class="tsd-kind-icon">IMenu<wbr>Item</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#browserwindow" class="tsd-kind-icon">Browser<wbr>Window</a>
-					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#approutes" class="tsd-kind-icon">app<wbr>Routes</a>
 					</li>
@@ -257,13 +222,10 @@
 						<a href="globals.html#approutingproviders" class="tsd-kind-icon">app<wbr>Routing<wbr>Providers</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#electron" class="tsd-kind-icon">electron</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#fs" class="tsd-kind-icon">fs</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#remote" class="tsd-kind-icon">remote</a>
+						<a href="globals.html#octonode" class="tsd-kind-icon">octonode</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#routing" class="tsd-kind-icon">routing</a>

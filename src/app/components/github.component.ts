@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 
-//import { GitHub } from "../github/github";
+import { GitHubService } from "../services/github.service";
+
 import { IAvatarComponentItem } from "../types/IAvatarComponentItem";
 
 /**
@@ -10,4 +11,14 @@ import { IAvatarComponentItem } from "../types/IAvatarComponentItem";
     selector: "github",
     templateUrl: "./github.component.html"
 })
-export class GitHubComponent {}
+export class GitHubComponent {
+    user: any;
+
+    constructor(private _githubService: GitHubService) {
+
+    }
+
+    ngOnInit() {
+        this.user = this._githubService.getUser();
+    }
+}

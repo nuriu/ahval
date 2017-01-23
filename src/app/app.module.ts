@@ -13,6 +13,8 @@ import { GitLabComponent } from "./components/gitlab.component";
 import { BitbucketComponent } from "./components/bitbucket.component";
 import { TrelloComponent } from "./components/trello.component";
 
+import { GitHubService } from "./services/github.service";
+
 import { routing, appRoutingProviders } from "./app.routing";
 
 /**
@@ -29,6 +31,7 @@ import { routing, appRoutingProviders } from "./app.routing";
                     BitbucketComponent,
                     TrelloComponent],
     bootstrap:    [ AppComponent ],
-    providers:    [ appRoutingProviders ]
+    providers:    [ appRoutingProviders,
+                    GitHubService ]
 })
 export class AppModule { }

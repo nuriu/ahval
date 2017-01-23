@@ -23,17 +23,10 @@
     <script type="text/javascript" src="../../build/vendor.js"></script>
     <script type="text/javascript" src="../../build/common.js"></script>
     <script type="text/javascript" src="../../build/app.js"></script>
-    <script type="text/javascript" src="../../build/github.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
             $("#avatarComp").popup();
-
-            window.githubClient = require("github");
-
-            window.github = new window.githubClient({
-                debug: false
-            });
         });
     </script>
 </body>

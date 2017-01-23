@@ -38,8 +38,8 @@
 ```json
 {
     "github": {
-        "client_id": "client id of your github app",
-        "secret_key": "secret key of your github app"
+        "client_id": "your github username for authentication",
+        "secret_key": "your github password for authentication"
     }
 }
 

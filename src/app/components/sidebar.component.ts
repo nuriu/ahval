@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 
-import { GitHub } from "../github/github";
+import { GitHubService } from "../services/github.service";
+
 import { IMenuItem } from "../types/IMenuItem";
 
 /**
@@ -12,12 +13,6 @@ import { IMenuItem } from "../types/IMenuItem";
 })
 
 export class SidebarComponent {
-
-    /**
-     * Github client instance.
-     */
-    github: GitHub;
-
     /**
      * Active menu item.
      */
@@ -33,25 +28,18 @@ export class SidebarComponent {
         { name: "Trello", iconClass: "big teal trello icon", avatarLink: null, routerLink: "/trello" }
     ];
 
+    constructor(private _githubService: GitHubService) {}
     /**
      * Activates selected menu item.
      * @param {string} selectedItem The selected menu item.
      */
     select(selectedItem: string) {
         console.log(selectedItem + " seçildi.");
+
         switch (selectedItem) {
             case this.items[0].name:
-                if (!this.github) this.github = GitHub.getInstance();
-
-                if (this.activeItem) {
-                    if (selectedItem != this.activeItem.name) {
-                        this.activeItem = this.items[0];
-                        this.github.activateGitHub();
-                    }
-                } else {
-                    this.activeItem = this.items[0];
-                    this.github.activateGitHub();
-                }
+                this.activeItem = this.items[0];
+                this.items[0].avatarLink = this._githubService.getUserAvatarLink();
                 break;
 
             case this.items[1].name:
@@ -71,12 +59,5 @@ export class SidebarComponent {
 
         $("#menu>.item").removeClass("active");
         $("#menu>#" + this.activeItem.name).addClass("active");
-
-        /*
-        if (this.github.user) {
-            this.items[0].avatarLink = this.github.user.avatar_url;
-        }
-        */
-
     }
 }
