@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { Http, Headers } from "@angular/http";
+import { Http, Headers, URLSearchParams } from "@angular/http";
 
 /**
  * File system.
@@ -61,6 +61,21 @@ export class GitHubService {
         return this._http.get("https://api.github.com/user", {
             headers: h
         }).map(res => res.json().avatar_url);
+    }
+
+    /**
+     * Get repos of active github user.
+     */
+    getUserRepos(sort: string, direction: string) {
+        let h = new Headers();
+        let p = new URLSearchParams();
+        p.set("sort", sort);
+        p.set("direction", direction);
+        h.set("Authorization", "Basic " + this.auth);
+        return this._http.get("https://api.github.com/user/repos", {
+            headers: h,
+            search: p
+        }).map(res => res.json());
     }
 
 }
