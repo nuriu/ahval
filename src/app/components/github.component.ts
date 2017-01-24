@@ -47,7 +47,10 @@ export class GitHubComponent implements OnInit {
     getActiveUsersRepos() {
         this._githubService.getUserRepos("pushed", "desc").subscribe(
             data => this.repos = data,
-            error => console.log(error)
+            error => console.log(error),
+            () => {
+                console.log(this.repos);
+            }
         );
     }
 }

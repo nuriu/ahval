@@ -145,7 +145,6 @@
   <thead>
     <th class="left aligned">Proje Adı</th>
     <th class="center aligned">Türü</th>
-    <th class="center aligned">Sahibi</th>
     <th class="center aligned">Yıldız Sayısı</th>
     <th class="center aligned">Açık İş Sayısı</th>
   </thead>
@@ -153,7 +152,6 @@
     <tr *ngFor="let repo of repos">
       <td class="left aligned">{{repo?.fork ? repo?.full_name : repo?.name}}</td>
       <td class="center aligned">{{repo?.fork ? "Fork" : "Kaynak"}}</td>
-      <td class="center aligned">{{repo?.owner.login}}</td>
       <td class="center aligned">{{repo?.stargazers_count}}</td>
       <td class="center aligned">{{repo?.open_issues_count}}</td>
     </tr>
