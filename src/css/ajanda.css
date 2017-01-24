@@ -1,3 +1,7 @@
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 body {
   color: white!important;
   background-color: #1B1C1D;
@@ -13,4 +17,13 @@ body {
 #icerik {
   margin-top: 2rem;
   margin-left: 5rem;
+  margin-right: 0.5rem;
+}
+
+.divider {
+    color: white!important;
+}
+
+.summary, .summary > a, .date, .extra.text, .like {
+    color: white!important;
 }
