@@ -134,32 +134,33 @@
 
       <div class="seven wide column" style="padding-right: 2.5rem;">
 
-<h2 class="ui inverted header">
-  <i class="github icon"></i>
-  <div class="content">
-    Projeler
-    <div class="sub header">GitHub üzerindeki projeleriniz aşağıda listelenmiştir.</div>
+        <h2 class="ui inverted header">
+          <i class="github icon"></i>
+          <div class="content">
+            Projeler
+            <div class="sub header">GitHub üzerindeki projeleriniz aşağıda listelenmiştir.</div>
+          </div>
+        </h2>
+
+        <table class="ui inverted right aligned table">
+          <thead>
+            <th class="left aligned">Proje Adı</th>
+            <th class="center aligned">Türü</th>
+            <th class="center aligned">Yıldız Sayısı</th>
+            <th class="center aligned">Açık İş Sayısı</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let repo of repos">
+              <td class="left aligned">{{repo?.fork ? repo?.full_name : repo?.name}}</td>
+              <td class="center aligned">{{repo?.fork ? "Fork" : "Kaynak"}}</td>
+              <td class="center aligned">{{repo?.stargazers_count}}</td>
+              <td class="center aligned">{{repo?.open_issues_count}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
   </div>
-</h2>
-<table class="ui inverted right aligned table">
-  <thead>
-    <th class="left aligned">Proje Adı</th>
-    <th class="center aligned">Türü</th>
-    <th class="center aligned">Yıldız Sayısı</th>
-    <th class="center aligned">Açık İş Sayısı</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let repo of repos">
-      <td class="left aligned">{{repo?.fork ? repo?.full_name : repo?.name}}</td>
-      <td class="center aligned">{{repo?.fork ? "Fork" : "Kaynak"}}</td>
-      <td class="center aligned">{{repo?.stargazers_count}}</td>
-      <td class="center aligned">{{repo?.open_issues_count}}</td>
-    </tr>
-  </tbody>
-</table>
-
-</div>
-
-</div>
-</div>
 </div>
