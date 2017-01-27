@@ -20,15 +20,18 @@ export class GitHubComponent implements OnInit {
      * Repos of active github user.
      */
     @Input() repos;
+    /**
+     *
+     */
+    @Input() receivedEvents = new Array<any>();
 
-    constructor(private _githubService: GitHubService) {}
+    constructor(private _githubService: GitHubService) { }
 
     /**
      * Activate all things.
      */
     ngOnInit() {
         this.getActiveUser();
-        this.getActiveUsersRepos();
     }
 
     /**
@@ -37,7 +40,11 @@ export class GitHubComponent implements OnInit {
     getActiveUser() {
         this._githubService.getUser().subscribe(
             data => this.user = data,
-            error => console.log(error)
+            error => console.log(error),
+            () => {
+                console.log(this.user);
+                this.getActiveUsersRepos();
+            }
         );
     }
 
@@ -50,7 +57,23 @@ export class GitHubComponent implements OnInit {
             error => console.log(error),
             () => {
                 console.log(this.repos);
+                this.getStreamForActiveUser();
             }
         );
+    }
+
+    /**
+     * Get stream for active user.
+     */
+    getStreamForActiveUser() {
+        for (var i = 1; i <= 10; i++) {
+            this._githubService.getUserReceivedEvents(this.user.login, i).subscribe(
+                data => this.receivedEvents = this.receivedEvents.concat(data),
+                error => console.log(error),
+                () => {
+                    console.log(this.receivedEvents);
+                }
+            );
+        }
     }
 }

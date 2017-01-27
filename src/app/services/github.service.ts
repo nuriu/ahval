@@ -78,4 +78,14 @@ export class GitHubService {
         }).map(res => res.json());
     }
 
+    /**
+     * Get stream of active github user.
+     */
+    getUserReceivedEvents(login: string, page: number) {
+        let h = new Headers();
+        h.set("Authorization", "Basic " + this.auth);
+        return this._http.get("https://api.github.com/users/" + login + "/received_events?page=" + page, {
+            headers: h
+        }).map(res => res.json());
+    }
 }
