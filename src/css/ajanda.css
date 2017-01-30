@@ -41,3 +41,7 @@ body {
 .summary, .summary > a, .date, .extra.text, .like {
     color: white!important;
 }
+
+.summary > a {
+    font-weight: 200;
+}
