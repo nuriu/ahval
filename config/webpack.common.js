@@ -1,5 +1,4 @@
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var TypedocWebpackPlugin = require("typedoc-webpack-plugin");
 var helpers = require('./helpers');
 
@@ -11,7 +10,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.ts', '.js']
+    extensions: ['.ts', '.js']
   },
 
   module: {
@@ -23,21 +22,16 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'html'
-      },
-      {
-        test: /\.css$/,
-        exclude: helpers.root('src', 'app'),
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
+        loader: 'html-loader'
       },
       {
         test: /\.css$/,
         include: helpers.root('src', 'app'),
-        loader: 'raw'
+        loader: 'raw-loader'
       },
       {
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json-loader'
       }
     ]
   },
