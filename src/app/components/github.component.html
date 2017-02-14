@@ -21,8 +21,13 @@
     </div>
     <div class="row">
 
-      <div class="nine wide column">
-
+      <div class="six wide column">
+        <h2 class="ui inverted header" style="padding-left:1rem;">
+          <i class="feed icon"></i>
+          <div class="content">
+            Akış
+          </div>
+        </h2>
         <div class="ui inverted message">
           <div class="ui inverted feed">
 
@@ -35,46 +40,81 @@
                   <a> {{ event?.actor.login }} </a>
                   <span [ngSwitch]="event?.type">
                     <span *ngSwitchCase="'CommitCommentEvent'">CommitCommentEvent</span>
-                    <span *ngSwitchCase="'CreateEvent'">CreateEvent</span>
-                    <span *ngSwitchCase="'DeleteEvent'">DeleteEvent</span>
-                    <span *ngSwitchCase="'DeploymentEvent'">DeploymentEvent</span>
-                    <span *ngSwitchCase="'DeploymentStatusEvent'">DeploymentStatusEvent</span>
-                    <span *ngSwitchCase="'DownloadEvent'">DownloadEvent</span>
-                    <span *ngSwitchCase="'FollowEvent'">FollowEvent</span>
-                    <span *ngSwitchCase="'ForkEvent'">ForkEvent</span>
-                    <span *ngSwitchCase="'ForkApplyEvent'">ForkApplyEvent</span>
-                    <span *ngSwitchCase="'GistEvent'">GistEvent</span>
-                    <span *ngSwitchCase="'GollumEvent'">GollumEvent</span>
-                    <span *ngSwitchCase="'IssueCommentEvent'">IssueCommentEvent</span>
-                    <span *ngSwitchCase="'IssuesEvent'">IssuesEvent</span>
-                    <span *ngSwitchCase="'LabelEvent'">LabelEvent</span>
-                    <span *ngSwitchCase="'MemberEvent'">MemberEvent</span>
-                    <span *ngSwitchCase="'MembershipEvent'">MembershipEvent</span>
-                    <span *ngSwitchCase="'MilestoneEvent'">MilestoneEvent</span>
-                    <span *ngSwitchCase="'OrganizationEvent'">OrganizationEvent</span>
-                    <span *ngSwitchCase="'PageBuildEvent'">PageBuildEvent</span>
-                    <span *ngSwitchCase="'ProjectCardEvent'">ProjectCardEvent</span>
-                    <span *ngSwitchCase="'ProjectColumnEvent'">ProjectColumnEvent</span>
-                    <span *ngSwitchCase="'ProjectEvent'">ProjectEvent</span>
-                    <span *ngSwitchCase="'PublicEvent'">PublicEvent</span>
-                    <span *ngSwitchCase="'PullRequestEvent'">PullRequestEvent</span>
-                    <span *ngSwitchCase="'PullRequestReviewEvent'">PullRequestReviewEvent</span>
-                    <span *ngSwitchCase="'PullRequestReviewCommentEvent'">PullRequestReviewCommentEvent</span>
-                    <span *ngSwitchCase="'PushEvent'">PushEvent</span>
-                    <span *ngSwitchCase="'ReleaseEvent'">ReleaseEvent</span>
-                    <span *ngSwitchCase="'RepositoryEvent'">RepositoryEvent</span>
-                    <span *ngSwitchCase="'StatusEvent'">StatusEvent</span>
-                    <span *ngSwitchCase="'TeamEvent'">TeamEvent</span>
-                    <span *ngSwitchCase="'TeamAddEvent'">TeamAddEvent</span>
-                    <span *ngSwitchCase="'WatchEvent'">WatchEvent</span>
-                    <span *ngSwitchDefault>{{ event?.type }}</span>
+                  <span *ngSwitchCase="'CreateEvent'">CreateEvent</span>
+                  <span *ngSwitchCase="'DeleteEvent'">DeleteEvent</span>
+                  <span *ngSwitchCase="'DeploymentEvent'">DeploymentEvent</span>
+                  <span *ngSwitchCase="'DeploymentStatusEvent'">DeploymentStatusEvent</span>
+                  <span *ngSwitchCase="'DownloadEvent'">DownloadEvent</span>
+                  <span *ngSwitchCase="'FollowEvent'">FollowEvent</span>
+                  <span *ngSwitchCase="'ForkEvent'"> bir projeyi çatalladı.</span>
+                  <span *ngSwitchCase="'ForkApplyEvent'">ForkApplyEvent</span>
+                  <span *ngSwitchCase="'GistEvent'">GistEvent</span>
+                  <span *ngSwitchCase="'GollumEvent'">GollumEvent</span>
+                  <span *ngSwitchCase="'IssueCommentEvent'">IssueCommentEvent</span>
+                  <span *ngSwitchCase="'IssuesEvent'">IssuesEvent</span>
+                  <span *ngSwitchCase="'LabelEvent'">LabelEvent</span>
+                  <span *ngSwitchCase="'MemberEvent'">MemberEvent</span>
+                  <span *ngSwitchCase="'MembershipEvent'">MembershipEvent</span>
+                  <span *ngSwitchCase="'MilestoneEvent'">MilestoneEvent</span>
+                  <span *ngSwitchCase="'OrganizationEvent'">OrganizationEvent</span>
+                  <span *ngSwitchCase="'PageBuildEvent'">PageBuildEvent</span>
+                  <span *ngSwitchCase="'ProjectCardEvent'">ProjectCardEvent</span>
+                  <span *ngSwitchCase="'ProjectColumnEvent'">ProjectColumnEvent</span>
+                  <span *ngSwitchCase="'ProjectEvent'">ProjectEvent</span>
+                  <span *ngSwitchCase="'PublicEvent'"> bir projeye erişimi herkese açtı.</span>
+                  <span *ngSwitchCase="'PullRequestEvent'">PullRequestEvent</span>
+                  <span *ngSwitchCase="'PullRequestReviewEvent'">PullRequestReviewEvent</span>
+                  <span *ngSwitchCase="'PullRequestReviewCommentEvent'">PullRequestReviewCommentEvent</span>
+                  <span *ngSwitchCase="'PushEvent'">PushEvent</span>
+                  <span *ngSwitchCase="'ReleaseEvent'">ReleaseEvent</span>
+                  <span *ngSwitchCase="'RepositoryEvent'">RepositoryEvent</span>
+                  <span *ngSwitchCase="'StatusEvent'">StatusEvent</span>
+                  <span *ngSwitchCase="'TeamEvent'">TeamEvent</span>
+                  <span *ngSwitchCase="'TeamAddEvent'">TeamAddEvent</span>
+                  <span *ngSwitchCase="'WatchEvent'"> bir projeyi yıldızladı.</span>
+                  <span *ngSwitchDefault>{{ event?.type }}</span>
                   </span>
                   <div class="date">
                     {{ event?.created_at | amTimeAgo }}
                   </div>
                 </div>
                 <div class="extra text">
-                  Ours is a life of constant reruns. We're always circling back to where we'd we started, then starting all over again.
+                  <span [ngSwitch]="event?.type">
+                    <span *ngSwitchCase="'CommitCommentEvent'">CommitCommentEvent</span>
+                  <span *ngSwitchCase="'CreateEvent'">CreateEvent</span>
+                  <span *ngSwitchCase="'DeleteEvent'">DeleteEvent</span>
+                  <span *ngSwitchCase="'DeploymentEvent'">DeploymentEvent</span>
+                  <span *ngSwitchCase="'DeploymentStatusEvent'">DeploymentStatusEvent</span>
+                  <span *ngSwitchCase="'DownloadEvent'">DownloadEvent</span>
+                  <span *ngSwitchCase="'FollowEvent'">FollowEvent</span>
+                  <a *ngSwitchCase="'ForkEvent'">{{ event?.repo.name }}</a>
+                  <span *ngSwitchCase="'ForkApplyEvent'">ForkApplyEvent</span>
+                  <span *ngSwitchCase="'GistEvent'">GistEvent</span>
+                  <span *ngSwitchCase="'GollumEvent'">GollumEvent</span>
+                  <span *ngSwitchCase="'IssueCommentEvent'">IssueCommentEvent</span>
+                  <span *ngSwitchCase="'IssuesEvent'">IssuesEvent</span>
+                  <span *ngSwitchCase="'LabelEvent'">LabelEvent</span>
+                  <span *ngSwitchCase="'MemberEvent'">MemberEvent</span>
+                  <span *ngSwitchCase="'MembershipEvent'">MembershipEvent</span>
+                  <span *ngSwitchCase="'MilestoneEvent'">MilestoneEvent</span>
+                  <span *ngSwitchCase="'OrganizationEvent'">OrganizationEvent</span>
+                  <span *ngSwitchCase="'PageBuildEvent'">PageBuildEvent</span>
+                  <span *ngSwitchCase="'ProjectCardEvent'">ProjectCardEvent</span>
+                  <span *ngSwitchCase="'ProjectColumnEvent'">ProjectColumnEvent</span>
+                  <span *ngSwitchCase="'ProjectEvent'">ProjectEvent</span>
+                  <a *ngSwitchCase="'PublicEvent'">{{ event?.repo.name }}</a>
+                  <span *ngSwitchCase="'PullRequestEvent'">PullRequestEvent</span>
+                  <span *ngSwitchCase="'PullRequestReviewEvent'">PullRequestReviewEvent</span>
+                  <span *ngSwitchCase="'PullRequestReviewCommentEvent'">PullRequestReviewCommentEvent</span>
+                  <span *ngSwitchCase="'PushEvent'">PushEvent</span>
+                  <span *ngSwitchCase="'ReleaseEvent'">ReleaseEvent</span>
+                  <span *ngSwitchCase="'RepositoryEvent'">RepositoryEvent</span>
+                  <span *ngSwitchCase="'StatusEvent'">StatusEvent</span>
+                  <span *ngSwitchCase="'TeamEvent'">TeamEvent</span>
+                  <span *ngSwitchCase="'TeamAddEvent'">TeamAddEvent</span>
+                  <a *ngSwitchCase="'WatchEvent'">{{ event?.repo.name }}</a>
+                  <span *ngSwitchDefault>{{ event?.type }}</span>
+                  </span>
                 </div>
               </div>
             </div>
@@ -84,37 +124,43 @@
 
       </div>
 
-      <div class="seven wide column" style="padding-right: 2.5rem;">
+      <div class="left floated four wide column">
 
-<h2 class="ui inverted header">
-  <i class="github icon"></i>
-  <div class="content">
-    Projeler
-    <div class="sub header">GitHub üzerindeki projeleriniz aşağıda listelenmiştir.</div>
+        <h2 class="ui inverted header">
+          <i class="github icon"></i>
+          <div class="content">
+            Projeler
+          </div>
+        </h2>
+
+        <table class="ui inverted right aligned table">
+          <thead>
+            <th class="left aligned">Proje Adı</th>
+            <th class="center aligned">Yıldız Sayısı</th>
+            <th class="center aligned">Açık İş Sayısı</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let repo of repos">
+              <td class="left aligned">{{repo?.fork ? repo?.full_name : repo?.name}}</td>
+              <td class="center aligned">{{repo?.stargazers_count}}</td>
+              <td class="center aligned">{{repo?.open_issues_count}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <div class="five wide column" style="padding-right: 2.5rem;">
+        <h2 class="ui inverted header">
+          <i class="users icon"></i>
+          <div class="content">
+            Takip Edilenler
+          </div>
+        </h2>
+      </div>
+
+    </div>
   </div>
-</h2>
-
-<table class="ui inverted right aligned table">
-  <thead>
-    <th class="left aligned">Proje Adı</th>
-    <th class="center aligned">Türü</th>
-    <th class="center aligned">Yıldız Sayısı</th>
-    <th class="center aligned">Açık İş Sayısı</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let repo of repos">
-      <td class="left aligned">{{repo?.fork ? repo?.full_name : repo?.name}}</td>
-      <td class="center aligned">{{repo?.fork ? "Fork" : "Kaynak"}}</td>
-      <td class="center aligned">{{repo?.stargazers_count}}</td>
-      <td class="center aligned">{{repo?.open_issues_count}}</td>
-    </tr>
-  </tbody>
-</table>
-
-</div>
-
-</div>
-</div>
 </div>
 
 
