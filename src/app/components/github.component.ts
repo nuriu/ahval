@@ -66,7 +66,7 @@ export class GitHubComponent implements OnInit {
      * Get stream for active user.
      */
     getStreamForActiveUser() {
-        for (var i = 1; i <= 1/*0*/; i++) {
+        for (var i = 1; i <= 3/*0*/; i++) {
             this._githubService.getUserReceivedEvents(this.user.login, i).subscribe(
                 data => this.receivedEvents = this.receivedEvents.concat(data),
                 error => console.log(error),

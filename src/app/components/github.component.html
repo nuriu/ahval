@@ -40,39 +40,43 @@
                   <a> {{ event?.actor.login }} </a>
                   <span [ngSwitch]="event?.type">
                     <span *ngSwitchCase="'CommitCommentEvent'">CommitCommentEvent</span>
-                  <span *ngSwitchCase="'CreateEvent'">CreateEvent</span>
-                  <span *ngSwitchCase="'DeleteEvent'">DeleteEvent</span>
-                  <span *ngSwitchCase="'DeploymentEvent'">DeploymentEvent</span>
-                  <span *ngSwitchCase="'DeploymentStatusEvent'">DeploymentStatusEvent</span>
-                  <span *ngSwitchCase="'DownloadEvent'">DownloadEvent</span>
-                  <span *ngSwitchCase="'FollowEvent'">FollowEvent</span>
-                  <span *ngSwitchCase="'ForkEvent'"> bir projeyi çatalladı.</span>
-                  <span *ngSwitchCase="'ForkApplyEvent'">ForkApplyEvent</span>
-                  <span *ngSwitchCase="'GistEvent'">GistEvent</span>
-                  <span *ngSwitchCase="'GollumEvent'">GollumEvent</span>
-                  <span *ngSwitchCase="'IssueCommentEvent'">IssueCommentEvent</span>
-                  <span *ngSwitchCase="'IssuesEvent'">IssuesEvent</span>
-                  <span *ngSwitchCase="'LabelEvent'">LabelEvent</span>
-                  <span *ngSwitchCase="'MemberEvent'">MemberEvent</span>
-                  <span *ngSwitchCase="'MembershipEvent'">MembershipEvent</span>
-                  <span *ngSwitchCase="'MilestoneEvent'">MilestoneEvent</span>
-                  <span *ngSwitchCase="'OrganizationEvent'">OrganizationEvent</span>
-                  <span *ngSwitchCase="'PageBuildEvent'">PageBuildEvent</span>
-                  <span *ngSwitchCase="'ProjectCardEvent'">ProjectCardEvent</span>
-                  <span *ngSwitchCase="'ProjectColumnEvent'">ProjectColumnEvent</span>
-                  <span *ngSwitchCase="'ProjectEvent'">ProjectEvent</span>
-                  <span *ngSwitchCase="'PublicEvent'"> bir projeye erişimi herkese açtı.</span>
-                  <span *ngSwitchCase="'PullRequestEvent'">PullRequestEvent</span>
-                  <span *ngSwitchCase="'PullRequestReviewEvent'">PullRequestReviewEvent</span>
-                  <span *ngSwitchCase="'PullRequestReviewCommentEvent'">PullRequestReviewCommentEvent</span>
-                  <span *ngSwitchCase="'PushEvent'">PushEvent</span>
-                  <span *ngSwitchCase="'ReleaseEvent'">ReleaseEvent</span>
-                  <span *ngSwitchCase="'RepositoryEvent'">RepositoryEvent</span>
-                  <span *ngSwitchCase="'StatusEvent'">StatusEvent</span>
-                  <span *ngSwitchCase="'TeamEvent'">TeamEvent</span>
-                  <span *ngSwitchCase="'TeamAddEvent'">TeamAddEvent</span>
-                  <span *ngSwitchCase="'WatchEvent'"> bir projeyi yıldızladı.</span>
-                  <span *ngSwitchDefault>{{ event?.type }}</span>
+                    <span *ngSwitchCase="'CreateEvent'">
+                      <span *ngIf="event?.payload.ref_type=='repository'"> bir proje oluşturdu.</span>
+                    </span>
+                    <span *ngSwitchCase="'DeleteEvent'">DeleteEvent</span>
+                    <span *ngSwitchCase="'DeploymentEvent'">DeploymentEvent</span>
+                    <span *ngSwitchCase="'DeploymentStatusEvent'">DeploymentStatusEvent</span>
+                    <span *ngSwitchCase="'DownloadEvent'">DownloadEvent</span>
+                    <span *ngSwitchCase="'FollowEvent'">FollowEvent</span>
+                    <span *ngSwitchCase="'ForkEvent'"> bir projeyi çatalladı.</span>
+                    <span *ngSwitchCase="'ForkApplyEvent'">ForkApplyEvent</span>
+                    <span *ngSwitchCase="'GistEvent'">GistEvent</span>
+                    <span *ngSwitchCase="'GollumEvent'">GollumEvent</span>
+                    <span *ngSwitchCase="'IssueCommentEvent'">IssueCommentEvent</span>
+                    <span *ngSwitchCase="'IssuesEvent'">IssuesEvent</span>
+                    <span *ngSwitchCase="'LabelEvent'">LabelEvent</span>
+                    <span *ngSwitchCase="'MemberEvent'">MemberEvent</span>
+                    <span *ngSwitchCase="'MembershipEvent'">MembershipEvent</span>
+                    <span *ngSwitchCase="'MilestoneEvent'">MilestoneEvent</span>
+                    <span *ngSwitchCase="'OrganizationEvent'">OrganizationEvent</span>
+                    <span *ngSwitchCase="'PageBuildEvent'">PageBuildEvent</span>
+                    <span *ngSwitchCase="'ProjectCardEvent'">ProjectCardEvent</span>
+                    <span *ngSwitchCase="'ProjectColumnEvent'">ProjectColumnEvent</span>
+                    <span *ngSwitchCase="'ProjectEvent'">ProjectEvent</span>
+                    <span *ngSwitchCase="'PublicEvent'"> bir projeye erişimi herkese açtı.</span>
+                    <span *ngSwitchCase="'PullRequestEvent'">PullRequestEvent</span>
+                    <span *ngSwitchCase="'PullRequestReviewEvent'">PullRequestReviewEvent</span>
+                    <span *ngSwitchCase="'PullRequestReviewCommentEvent'">PullRequestReviewCommentEvent</span>
+                    <span *ngSwitchCase="'PushEvent'">
+                      <span *ngIf="event?.payload.commits"> bir projeye katkıda bulundu:  <a href="#">{{ event?.repo.name }}</a></span>
+                    </span>
+                    <span *ngSwitchCase="'ReleaseEvent'">ReleaseEvent</span>
+                    <span *ngSwitchCase="'RepositoryEvent'">RepositoryEvent</span>
+                    <span *ngSwitchCase="'StatusEvent'">StatusEvent</span>
+                    <span *ngSwitchCase="'TeamEvent'">TeamEvent</span>
+                    <span *ngSwitchCase="'TeamAddEvent'">TeamAddEvent</span>
+                    <span *ngSwitchCase="'WatchEvent'"> bir projeyi yıldızladı.</span>
+                    <span *ngSwitchDefault>{{ event?.type }}</span>
                   </span>
                   <div class="date">
                     {{ event?.created_at | amTimeAgo }}
@@ -81,39 +85,45 @@
                 <div class="extra text">
                   <span [ngSwitch]="event?.type">
                     <span *ngSwitchCase="'CommitCommentEvent'">CommitCommentEvent</span>
-                  <span *ngSwitchCase="'CreateEvent'">CreateEvent</span>
-                  <span *ngSwitchCase="'DeleteEvent'">DeleteEvent</span>
-                  <span *ngSwitchCase="'DeploymentEvent'">DeploymentEvent</span>
-                  <span *ngSwitchCase="'DeploymentStatusEvent'">DeploymentStatusEvent</span>
-                  <span *ngSwitchCase="'DownloadEvent'">DownloadEvent</span>
-                  <span *ngSwitchCase="'FollowEvent'">FollowEvent</span>
-                  <a *ngSwitchCase="'ForkEvent'">{{ event?.repo.name }}</a>
-                  <span *ngSwitchCase="'ForkApplyEvent'">ForkApplyEvent</span>
-                  <span *ngSwitchCase="'GistEvent'">GistEvent</span>
-                  <span *ngSwitchCase="'GollumEvent'">GollumEvent</span>
-                  <span *ngSwitchCase="'IssueCommentEvent'">IssueCommentEvent</span>
-                  <span *ngSwitchCase="'IssuesEvent'">IssuesEvent</span>
-                  <span *ngSwitchCase="'LabelEvent'">LabelEvent</span>
-                  <span *ngSwitchCase="'MemberEvent'">MemberEvent</span>
-                  <span *ngSwitchCase="'MembershipEvent'">MembershipEvent</span>
-                  <span *ngSwitchCase="'MilestoneEvent'">MilestoneEvent</span>
-                  <span *ngSwitchCase="'OrganizationEvent'">OrganizationEvent</span>
-                  <span *ngSwitchCase="'PageBuildEvent'">PageBuildEvent</span>
-                  <span *ngSwitchCase="'ProjectCardEvent'">ProjectCardEvent</span>
-                  <span *ngSwitchCase="'ProjectColumnEvent'">ProjectColumnEvent</span>
-                  <span *ngSwitchCase="'ProjectEvent'">ProjectEvent</span>
-                  <a *ngSwitchCase="'PublicEvent'">{{ event?.repo.name }}</a>
-                  <span *ngSwitchCase="'PullRequestEvent'">PullRequestEvent</span>
-                  <span *ngSwitchCase="'PullRequestReviewEvent'">PullRequestReviewEvent</span>
-                  <span *ngSwitchCase="'PullRequestReviewCommentEvent'">PullRequestReviewCommentEvent</span>
-                  <span *ngSwitchCase="'PushEvent'">PushEvent</span>
-                  <span *ngSwitchCase="'ReleaseEvent'">ReleaseEvent</span>
-                  <span *ngSwitchCase="'RepositoryEvent'">RepositoryEvent</span>
-                  <span *ngSwitchCase="'StatusEvent'">StatusEvent</span>
-                  <span *ngSwitchCase="'TeamEvent'">TeamEvent</span>
-                  <span *ngSwitchCase="'TeamAddEvent'">TeamAddEvent</span>
-                  <a *ngSwitchCase="'WatchEvent'">{{ event?.repo.name }}</a>
-                  <span *ngSwitchDefault>{{ event?.type }}</span>
+                    <span *ngSwitchCase="'CreateEvent'">{{ event?.repo.name }}</span>
+                    <span *ngSwitchCase="'DeleteEvent'">DeleteEvent</span>
+                    <span *ngSwitchCase="'DeploymentEvent'">DeploymentEvent</span>
+                    <span *ngSwitchCase="'DeploymentStatusEvent'">DeploymentStatusEvent</span>
+                    <span *ngSwitchCase="'DownloadEvent'">DownloadEvent</span>
+                    <span *ngSwitchCase="'FollowEvent'">FollowEvent</span>
+                    <a *ngSwitchCase="'ForkEvent'">{{ event?.repo.name }}</a>
+                    <span *ngSwitchCase="'ForkApplyEvent'">ForkApplyEvent</span>
+                    <span *ngSwitchCase="'GistEvent'">GistEvent</span>
+                    <span *ngSwitchCase="'GollumEvent'">GollumEvent</span>
+                    <span *ngSwitchCase="'IssueCommentEvent'">IssueCommentEvent</span>
+                    <span *ngSwitchCase="'IssuesEvent'">IssuesEvent</span>
+                    <span *ngSwitchCase="'LabelEvent'">LabelEvent</span>
+                    <span *ngSwitchCase="'MemberEvent'">MemberEvent</span>
+                    <span *ngSwitchCase="'MembershipEvent'">MembershipEvent</span>
+                    <span *ngSwitchCase="'MilestoneEvent'">MilestoneEvent</span>
+                    <span *ngSwitchCase="'OrganizationEvent'">OrganizationEvent</span>
+                    <span *ngSwitchCase="'PageBuildEvent'">PageBuildEvent</span>
+                    <span *ngSwitchCase="'ProjectCardEvent'">ProjectCardEvent</span>
+                    <span *ngSwitchCase="'ProjectColumnEvent'">ProjectColumnEvent</span>
+                    <span *ngSwitchCase="'ProjectEvent'">ProjectEvent</span>
+                    <a *ngSwitchCase="'PublicEvent'">{{ event?.repo.name }}</a>
+                    <span *ngSwitchCase="'PullRequestEvent'">PullRequestEvent</span>
+                    <span *ngSwitchCase="'PullRequestReviewEvent'">PullRequestReviewEvent</span>
+                    <span *ngSwitchCase="'PullRequestReviewCommentEvent'">PullRequestReviewCommentEvent</span>
+                    <span *ngSwitchCase="'PushEvent'">
+                      <span *ngIf="event?.payload.commits"> Katkı(lar);
+                        <ul>
+                          <li *ngFor="let commit of event?.payload.commits">{{ commit.message }}</li>
+                        </ul>
+                      </span>
+                    </span>
+                    <span *ngSwitchCase="'ReleaseEvent'">ReleaseEvent</span>
+                    <span *ngSwitchCase="'RepositoryEvent'">RepositoryEvent</span>
+                    <span *ngSwitchCase="'StatusEvent'">StatusEvent</span>
+                    <span *ngSwitchCase="'TeamEvent'">TeamEvent</span>
+                    <span *ngSwitchCase="'TeamAddEvent'">TeamAddEvent</span>
+                    <a *ngSwitchCase="'WatchEvent'">{{ event?.repo.name }}</a>
+                    <span *ngSwitchDefault>{{ event?.type }}</span>
                   </span>
                 </div>
               </div>
