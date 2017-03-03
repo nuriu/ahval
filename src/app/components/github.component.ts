@@ -21,9 +21,17 @@ export class GitHubComponent implements OnInit {
      */
     @Input() repos;
     /**
-     *
+     * List of received events.
      */
     @Input() receivedEvents = new Array<any>();
+    /**
+     * List who a user is following.
+     */
+    @Input() followingUsers = new Array<any>();
+    /**
+     * List of a user's followers.
+     */
+    @Input() followers = new Array<any>();
 
     constructor(private _githubService: GitHubService) { }
 
@@ -66,14 +74,42 @@ export class GitHubComponent implements OnInit {
      * Get stream for active user.
      */
     getStreamForActiveUser() {
-        for (var i = 1; i <= 3/*0*/; i++) {
+        for (var i = 1; i <= 1/*0*/; i++) {
             this._githubService.getUserReceivedEvents(this.user.login, i).subscribe(
                 data => this.receivedEvents = this.receivedEvents.concat(data),
                 error => console.log(error),
                 () => {
                     console.log(this.receivedEvents);
+                    this.getFollowingUsers();
                 }
             );
         }
+    }
+
+    /**
+     * Get list who a user is following.
+     */
+    getFollowingUsers() {
+        this._githubService.getFollowingUsers(this.user.login).subscribe(
+            data => this.followingUsers = data,
+            error => console.log(error),
+            () => {
+                console.log(this.followingUsers);
+                this.getFollowers();
+            }
+        );
+    }
+
+    /**
+     * Get list of a user's followers.
+     */
+    getFollowers() {
+        this._githubService.getFollowers(this.user.login).subscribe(
+            data => this.followers = data,
+            error => console.log(error),
+            () => {
+                console.log(this.followers);
+            }
+        );
     }
 }

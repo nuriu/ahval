@@ -99,6 +99,8 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="githubcomponent.html#_githubservice" class="tsd-kind-icon">_github<wbr>Service</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="githubcomponent.html#followers" class="tsd-kind-icon">followers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="githubcomponent.html#followingusers" class="tsd-kind-icon">following<wbr>Users</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="githubcomponent.html#receivedevents" class="tsd-kind-icon">received<wbr>Events</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="githubcomponent.html#repos" class="tsd-kind-icon">repos</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="githubcomponent.html#user" class="tsd-kind-icon">user</a></li>
@@ -109,6 +111,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="githubcomponent.html#getactiveuser" class="tsd-kind-icon">get<wbr>Active<wbr>User</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="githubcomponent.html#getactiveusersrepos" class="tsd-kind-icon">get<wbr>Active<wbr>Users<wbr>Repos</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="githubcomponent.html#getfollowers" class="tsd-kind-icon">get<wbr>Followers</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="githubcomponent.html#getfollowingusers" class="tsd-kind-icon">get<wbr>Following<wbr>Users</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="githubcomponent.html#getstreamforactiveuser" class="tsd-kind-icon">get<wbr>Stream<wbr>For<wbr>Active<wbr>User</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="githubcomponent.html#ngoninit" class="tsd-kind-icon">ng<wbr>OnInit</a></li>
 							</ul>
@@ -128,7 +132,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/f2337c9/src/app/components/github.component.ts#L26">components/github.component.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L34">components/github.component.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -150,9 +154,39 @@
 					<div class="tsd-signature tsd-kind-icon">_github<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="githubservice.html" class="tsd-signature-type">GitHubService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/f2337c9/src/app/components/github.component.ts#L28">components/github.component.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L36">components/github.component.ts:36</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="followers" class="tsd-anchor"></a>
+					<h3>followers</h3>
+					<div class="tsd-signature tsd-kind-icon">followers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Array&lt;any&gt;()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L34">components/github.component.ts:34</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>List of a user&#39;s followers.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="followingusers" class="tsd-anchor"></a>
+					<h3>following<wbr>Users</h3>
+					<div class="tsd-signature tsd-kind-icon">following<wbr>Users<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Array&lt;any&gt;()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L30">components/github.component.ts:30</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>List who a user is following.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="receivedevents" class="tsd-anchor"></a>
@@ -160,9 +194,14 @@
 					<div class="tsd-signature tsd-kind-icon">received<wbr>Events<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Array&lt;any&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/f2337c9/src/app/components/github.component.ts#L26">components/github.component.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L26">components/github.component.ts:26</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>List of received events.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="repos" class="tsd-anchor"></a>
@@ -170,7 +209,7 @@
 					<div class="tsd-signature tsd-kind-icon">repos<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/f2337c9/src/app/components/github.component.ts#L22">components/github.component.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L22">components/github.component.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -185,7 +224,7 @@
 					<div class="tsd-signature tsd-kind-icon">user<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/f2337c9/src/app/components/github.component.ts#L18">components/github.component.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L18">components/github.component.ts:18</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -207,7 +246,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/f2337c9/src/app/components/github.component.ts#L40">components/github.component.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L48">components/github.component.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -229,12 +268,56 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/f2337c9/src/app/components/github.component.ts#L54">components/github.component.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L62">components/github.component.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Get all repos that active user involved.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getfollowers" class="tsd-anchor"></a>
+					<h3>get<wbr>Followers</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Followers<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L106">components/github.component.ts:106</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get list of a user&#39;s followers.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getfollowingusers" class="tsd-anchor"></a>
+					<h3>get<wbr>Following<wbr>Users</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Following<wbr>Users<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L92">components/github.component.ts:92</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get list who a user is following.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -251,7 +334,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/f2337c9/src/app/components/github.component.ts#L68">components/github.component.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L76">components/github.component.ts:76</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -273,7 +356,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/f2337c9/src/app/components/github.component.ts#L33">components/github.component.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/nuriu/ajanda/blob/c6c42a1/src/app/components/github.component.ts#L41">components/github.component.ts:41</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -321,6 +404,12 @@
 								<a href="githubcomponent.html#_githubservice" class="tsd-kind-icon">_github<wbr>Service</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="githubcomponent.html#followers" class="tsd-kind-icon">followers</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="githubcomponent.html#followingusers" class="tsd-kind-icon">following<wbr>Users</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="githubcomponent.html#receivedevents" class="tsd-kind-icon">received<wbr>Events</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -334,6 +423,12 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="githubcomponent.html#getactiveusersrepos" class="tsd-kind-icon">get<wbr>Active<wbr>Users<wbr>Repos</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="githubcomponent.html#getfollowers" class="tsd-kind-icon">get<wbr>Followers</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="githubcomponent.html#getfollowingusers" class="tsd-kind-icon">get<wbr>Following<wbr>Users</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="githubcomponent.html#getstreamforactiveuser" class="tsd-kind-icon">get<wbr>Stream<wbr>For<wbr>Active<wbr>User</a>

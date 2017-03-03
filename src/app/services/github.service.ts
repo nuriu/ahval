@@ -88,4 +88,26 @@ export class GitHubService {
             headers: h
         }).map(res => res.json());
     }
+
+    /**
+     * Get list who a user is following.
+     */
+    getFollowingUsers(login: string) {
+        let h = new Headers();
+        h.set("Authorization", "Basic " + this.auth);
+        return this._http.get("https://api.github.com/users/" + login + "/following", {
+            headers: h
+        }).map(res => res.json());
+    }
+
+    /**
+     * Get list of a user's followers.
+     */
+    getFollowers(login: string) {
+        let h = new Headers();
+        h.set("Authorization", "Basic " + this.auth);
+        return this._http.get("https://api.github.com/users/" + login + "/followers", {
+            headers: h
+        }).map(res => res.json());
+    }
 }
