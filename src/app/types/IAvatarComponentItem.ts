@@ -10,8 +10,4 @@ export interface IAvatarComponentItem {
      * Popup title.
      */
     name: string;
-    /**
-     * Popup description.
-     */
-    bio: string;
 }

@@ -8,13 +8,12 @@
           <span class="section">GitHub</span>
           <div class="divider"> / </div>
           <div class="section">
-            <avatar [avatarLink]="user?.avatar_url" [name]="user?.name" [bio]="user?.bio"></avatar>
+            <avatar [avatarLink]="user?.avatar_url" [name]="user?.name"></avatar>
             <span> {{ user?.name }} </span>
           </div>
           <div class="divider"> / </div>
           <span class="active section">Akış</span>
         </div>
-
 
       </div>
 
@@ -33,7 +32,7 @@
 
             <div class="event" *ngFor="let event of receivedEvents">
               <div class="label">
-                <avatar [avatarLink]="event?.actor.avatar_url" [name]="event?.actor.login"></avatar>
+                <avatar [avatarLink]="event?.actor.avatar_url" [name]="event?.actor.login" [attr.data-tooltip]="event?.actor.login"></avatar>
               </div>
               <div class="content">
                 <div class="summary">
@@ -41,7 +40,7 @@
                   <span [ngSwitch]="event?.type">
                     <span *ngSwitchCase="'CommitCommentEvent'">CommitCommentEvent</span>
                     <span *ngSwitchCase="'CreateEvent'">
-                      <span *ngIf="event?.payload.ref_type=='repository'"> bir proje oluşturdu.</span>
+                        <span *ngIf="event?.payload.ref_type=='repository'"> bir proje oluşturdu.</span>
                     </span>
                     <span *ngSwitchCase="'DeleteEvent'">DeleteEvent</span>
                     <span *ngSwitchCase="'DeploymentEvent'">DeploymentEvent</span>
@@ -68,7 +67,7 @@
                     <span *ngSwitchCase="'PullRequestReviewEvent'">PullRequestReviewEvent</span>
                     <span *ngSwitchCase="'PullRequestReviewCommentEvent'">PullRequestReviewCommentEvent</span>
                     <span *ngSwitchCase="'PushEvent'">
-                      <span *ngIf="event?.payload.commits"> bir projeye katkıda bulundu:  <a href="#">{{ event?.repo.name }}</a></span>
+                        <span *ngIf="event?.payload.commits"> bir projeye katkıda bulundu:  <a href="#">{{ event?.repo.name }}</a></span>
                     </span>
                     <span *ngSwitchCase="'ReleaseEvent'">ReleaseEvent</span>
                     <span *ngSwitchCase="'RepositoryEvent'">RepositoryEvent</span>
@@ -111,11 +110,11 @@
                     <span *ngSwitchCase="'PullRequestReviewEvent'">PullRequestReviewEvent</span>
                     <span *ngSwitchCase="'PullRequestReviewCommentEvent'">PullRequestReviewCommentEvent</span>
                     <span *ngSwitchCase="'PushEvent'">
-                      <span *ngIf="event?.payload.commits"> Katkı(lar);
-                        <ul>
-                          <li *ngFor="let commit of event?.payload.commits">{{ commit.message }}</li>
-                        </ul>
-                      </span>
+                        <span *ngIf="event?.payload.commits"> Katkı(lar);
+                          <ul>
+                            <li *ngFor="let commit of event?.payload.commits">{{ commit.message }}</li>
+                          </ul>
+                        </span>
                     </span>
                     <span *ngSwitchCase="'ReleaseEvent'">ReleaseEvent</span>
                     <span *ngSwitchCase="'RepositoryEvent'">RepositoryEvent</span>
@@ -160,19 +159,25 @@
 
       </div>
 
-      <div class="five wide column" style="padding-right: 2.5rem;">
+      <div class="five wide column" style="margin-right: 3rem;">
         <h2 class="ui inverted header">
-          <i class="users icon"></i>
           <div class="content">
             Takip Edilenler
           </div>
         </h2>
+        <avatar style="padding-left: 10px;" *ngFor="let u of followingUsers" [avatarLink]="u?.avatar_url" [name]="u?.login" [attr.data-tooltip]="u?.login"></avatar>
+
+        <h2 class="ui inverted header">
+          <div class="content">
+            Takip Edenler
+          </div>
+        </h2>
+        <avatar style="padding-left: 10px;" *ngFor="let u of followers" [avatarLink]="u?.avatar_url" [name]="u?.login" [attr.data-tooltip]="u?.login"></avatar>
       </div>
 
     </div>
   </div>
 </div>
-
 
 <!--
 <div class="meta">

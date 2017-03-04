@@ -16,8 +16,4 @@ export class AvatarComponent {
      * Popup title.
      */
     @Input() name: string;
-    /**
-     * Popup description.
-     */
-    @Input() bio: string;
 }
