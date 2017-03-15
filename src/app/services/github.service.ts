@@ -1,21 +1,12 @@
 import { Injectable } from "@angular/core";
-
 import { Http, Headers, URLSearchParams } from "@angular/http";
-
-/**
- * File system.
- */
-const fs = require("fs");
+import 'rxjs/Rx';
 
 /**
  * Services that provides github api calls.
  */
 @Injectable()
 export class GitHubService {
-    /**
-     * Status of service.
-     */
-    activated: boolean = false;
 
     /**
      * Auth string.
@@ -23,22 +14,15 @@ export class GitHubService {
     auth: string;
 
     constructor(private _http: Http) {
-        this.activate();
+        //this.activate();
     }
 
     /**
      * Activates this service.
      */
     activate() {
-        fs.readFile("keys.json", "utf8", (err, data) => {
-            if (err) {
-                console.log(err);
-                this.activated = false;
-            } else {
-                this.auth = btoa(JSON.parse(data).github.user + ":" + JSON.parse(data).github.token);
-                this.activated = true;
-            }
-        });
+        //this.auth = btoa(JSON.parse(data).github.user + ":" + JSON.parse(data).github.token);
+        // TODO: activate the service with outh.
     }
 
     /**

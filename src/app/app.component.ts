@@ -1,15 +1,8 @@
 import { Component } from "@angular/core";
 
-/**
- * App container component.
- */
 @Component({
-    selector: "app",
-    template: `
-        <sidebar></sidebar>
-        <div class="pusher" id="icerik">
-            <router-outlet></router-outlet>
-        </div>
-    `
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.css"]
 })
 export class AppComponent { }
