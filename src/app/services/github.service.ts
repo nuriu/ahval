@@ -13,16 +13,15 @@ export class GitHubService {
      */
     auth: string;
 
-    constructor(private _http: Http) {
-        //this.activate();
-    }
+    constructor(private _http: Http) {}
 
     /**
      * Activates this service.
      */
     activate() {
         //this.auth = btoa(JSON.parse(data).github.user + ":" + JSON.parse(data).github.token);
-        // TODO: activate the service with outh.
+        // TODO: activate the service with oauth.
+        return this._http.request("/githubAuth").map(res => res.json);
     }
 
     /**

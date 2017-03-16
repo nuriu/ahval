@@ -41,6 +41,7 @@
     "mongoose": "4.9.0",
     "morgan": "1.8.1",
     "rxjs": "^5.1.0",
+    "simple-oauth2": "^1.1.0",
     "tether": "1.4.0",
     "zone.js": "^0.8.1"
   },
@@ -51,6 +52,7 @@
     "@types/jasmine": "2.5.45",
     "@types/jquery": "^2.0.41",
     "@types/node": "~7.0.8",
+    "@types/simple-oauth2": "^1.0.1",
     "codelyzer": "~3.0.0-beta.3",
     "concurrently": "^3.3.0",
     "gulp": "^3.9.1",

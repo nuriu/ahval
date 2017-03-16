@@ -40,7 +40,17 @@ export class GitHubComponent implements OnInit {
      * Activate all things.
      */
     ngOnInit() {
+        window.location.href = "/githubAuth";
+        /*
+        this._githubService.activate().subscribe(
+            data => console.log(data),
+            error => console.log(error),
+            () => {
+                console.log("bittti");
+            }
+        );
         this.getActiveUser();
+        */
     }
 
     /**
