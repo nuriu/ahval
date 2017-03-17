@@ -16,5 +16,5 @@ trim_trailing_whitespace = false
 [*.{cmd, bat}]
 end_of_line = crlf
 
-[*.{html, css, js, json}]
+[*.{html, css, js, json, yml}]
 indent_size = 2
