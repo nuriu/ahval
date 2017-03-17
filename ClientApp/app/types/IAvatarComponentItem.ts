@@ -1,13 +1,4 @@
-﻿/**
- * Property types for avatar component item.
- */
-export interface IAvatarComponentItem {
-    /**
-     * Image link.
-     */
+﻿export interface IAvatarComponentItem {
     avatarLink: string;
-    /**
-     * Popup title.
-     */
     name      : string;
 }

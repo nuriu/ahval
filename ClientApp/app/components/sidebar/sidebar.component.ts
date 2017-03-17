@@ -4,9 +4,6 @@ import { GitHubService } from '../../services/github.service';
 
 import { IMenuItem } from '../../types/IMenuItem';
 
-/**
- * Class for sidebar component.
- */
 @Component({
     selector   : 'sidebar',
     templateUrl: './sidebar.component.html',
@@ -14,15 +11,8 @@ import { IMenuItem } from '../../types/IMenuItem';
 })
 
 export class SidebarComponent {
-    /**
-     * Active menu item.
-     */
-    activeItem: IMenuItem = null;
-
-    /**
-     * Sidebar menu items.
-     */
-    items: IMenuItem[] = [
+    activeItem: IMenuItem   = null;
+    items     : IMenuItem[] = [
         { name: 'GitHub', iconClass   : 'big github icon', avatarLink        : null, routerLink: '/github' },
         { name: 'GitLab', iconClass   : 'big orange gitlab icon', avatarLink : null, routerLink: '/gitlab' },
         { name: 'BitBucket', iconClass: 'big blue bitbucket icon', avatarLink: null, routerLink: '/bitbucket' },
@@ -31,10 +21,6 @@ export class SidebarComponent {
 
     constructor(private _githubService: GitHubService) { }
 
-    /**
-     * Activates selected menu item.
-     * @param {string} selectedItem The selected menu item.
-     */
     select(selectedItem: string) {
         console.log(selectedItem + ' seçildi.');
 

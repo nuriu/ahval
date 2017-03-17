@@ -4,6 +4,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Ajanda.Models
 {
+    /// <summary>
+    /// User model.
+    /// </summary>
     public class User
     {
         public ObjectId Id { get; set; }
