@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Ajanda.Models;
 
 namespace Ajanda.Controllers
 {
@@ -11,7 +6,6 @@ namespace Ajanda.Controllers
     {
         public IActionResult Index()
         {
-            DataAccess da = new DataAccess();
             return View();
         }
 
