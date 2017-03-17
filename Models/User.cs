@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using System.Collections.Generic;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Ajanda.Models
@@ -12,5 +13,8 @@ namespace Ajanda.Models
         public string Username { get; set; }
         [BsonElement("Password")]
         public string Password { get; set; }
+        [BsonElement("Components")]
+        public IEnumerable<Component> Components { get; set; }
+
     }
 }
