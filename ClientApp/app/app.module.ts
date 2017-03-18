@@ -1,5 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UniversalModule } from 'angular2-universal';
 import { MomentModule } from 'angular2-moment';
 import { AppComponent } from './components/app/app.component';
@@ -30,6 +31,8 @@ import { GitHubService } from './services/github.service';
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
+        FormsModule,
+        ReactiveFormsModule,
         MomentModule,
         RouterModule.forRoot([
             { path: '', redirectTo        : 'home', pathMatch: 'full' },

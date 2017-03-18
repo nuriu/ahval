@@ -1,9 +1,28 @@
-﻿<div class="ui inverted segment">
-    <h2 class="ui center aligned inverted icon header" style="padding-top:4em;">
-        <i class="circular left arrow icon"></i>
-        <br /> Lütfen, etkinleştirmek istediğiniz bileşeni yan menüden seçiniz.
-    </h2>
-    <h5 class="ui center aligned header">
-        s2.0.0 ile birlikte burada birleştirilmiş akışın gösterilmesi planlanmaktadır.
-    </h5>
+﻿<div class="ui inverted segment" *ngIf="isSignedIn" id="infoSegment">
+  <h2 class="ui center aligned inverted icon header">
+    <i class="circular left arrow icon"></i>
+    <br /> Lütfen, etkinleştirmek istediğiniz bileşeni yan menüden seçiniz.
+  </h2>
+  <h5 class="ui center aligned header">
+    s2.0.0 ile birlikte burada birleştirilmiş akışın gösterilmesi planlanmaktadır.
+  </h5>
+</div>
+
+<div class="ui grid">
+  <div class="seven wide column centered">
+    <div class="ui raised segment" *ngIf="!isSignedIn" id="formSegment">
+      <img class="ui centered medium image" src="../../../../wwwroot/logo.png" alt="Ajanda Logo">
+      <form class="ui form" [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="field">
+          <label>Kullanıcı Adı</label>
+          <input name="username" formControlName="username" placeholder="Kullanıcı Adınız" type="text">
+        </div>
+        <div class="field">
+          <label>Parola</label>
+          <input name="password" formControlName="password" placeholder="Parolanız" type="password">
+        </div>
+        <button class="ui teal button" type="submit">Giriş Yap</button>
+      </form>
+    </div>
+  </div>
 </div>
