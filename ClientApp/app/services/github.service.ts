@@ -6,7 +6,7 @@ import 'rxjs/Rx';
 export class GitHubService {
     h: Headers;
 
-    constructor(private _http: Http) { }
+    constructor(private http: Http) { }
 
     activate(username: string) {
         this.h = new Headers();
@@ -23,13 +23,13 @@ export class GitHubService {
     }
 
     getUser() {
-        return this._http.get('https://api.github.com/user', {
+        return this.http.get('https://api.github.com/user', {
             headers: this.h
         }).map(res => res.json());
     }
 
     getUserAvatarLink() {
-        return this._http.get('https://api.github.com/user', {
+        return this.http.get('https://api.github.com/user', {
             headers: this.h
         }).map(res => res.json().avatar_url);
     }
@@ -38,26 +38,26 @@ export class GitHubService {
         let p = new URLSearchParams();
         p.set('sort', sort);
         p.set('direction', direction);
-        return this._http.get('https://api.github.com/user/repos', {
+        return this.http.get('https://api.github.com/user/repos', {
             headers: this.h,
             search : p
         }).map(res => res.json());
     }
 
     getUserReceivedEvents(login: string, page: number) {
-        return this._http.get('https://api.github.com/users/' + login + '/received_events?page=' + page, {
+        return this.http.get('https://api.github.com/users/' + login + '/received_events?page=' + page, {
             headers: this.h
         }).map(res => res.json());
     }
 
     getFollowingUsers(login: string) {
-        return this._http.get('https://api.github.com/users/' + login + '/following', {
+        return this.http.get('https://api.github.com/users/' + login + '/following', {
             headers: this.h
         }).map(res => res.json());
     }
 
     getFollowers(login: string) {
-        return this._http.get('https://api.github.com/users/' + login + '/followers', {
+        return this.http.get('https://api.github.com/users/' + login + '/followers', {
             headers: this.h
         }).map(res => res.json());
     }

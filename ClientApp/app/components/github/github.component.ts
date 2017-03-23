@@ -16,14 +16,14 @@ export class GitHubComponent implements OnInit {
     @Input() followingUsers = new Array<any>();
     @Input() followers      = new Array<any>();
 
-    constructor(private _githubService: GitHubService) { }
+    constructor(private githubService: GitHubService) { }
 
     ngOnInit() {
 
     }
 
     getActiveUser() {
-        this._githubService.getUser().subscribe(
+        this.githubService.getUser().subscribe(
             data  => this.user = data,
             error => console.log(error),
             ()    => {
@@ -34,7 +34,7 @@ export class GitHubComponent implements OnInit {
     }
 
     getActiveUsersRepos() {
-        this._githubService.getUserRepos('pushed', 'desc').subscribe(
+        this.githubService.getUserRepos('pushed', 'desc').subscribe(
             data  => this.repos = data,
             error => console.log(error),
             ()    => {
@@ -46,7 +46,7 @@ export class GitHubComponent implements OnInit {
 
     getStreamForActiveUser() {
         for (var i = 1; i <= 1; i++) {
-            this._githubService.getUserReceivedEvents(this.user.login, i).subscribe(
+            this.githubService.getUserReceivedEvents(this.user.login, i).subscribe(
                 data  => this.receivedEvents = this.receivedEvents.concat(data),
                 error => console.log(error),
                 ()    => {
@@ -58,7 +58,7 @@ export class GitHubComponent implements OnInit {
     }
 
     getFollowingUsers() {
-        this._githubService.getFollowingUsers(this.user.login).subscribe(
+        this.githubService.getFollowingUsers(this.user.login).subscribe(
             data  => this.followingUsers = data,
             error => console.log(error),
             ()    => {
@@ -69,7 +69,7 @@ export class GitHubComponent implements OnInit {
     }
 
     getFollowers() {
-        this._githubService.getFollowers(this.user.login).subscribe(
+        this.githubService.getFollowers(this.user.login).subscribe(
             data  => this.followers = data,
             error => console.log(error),
             ()    => {

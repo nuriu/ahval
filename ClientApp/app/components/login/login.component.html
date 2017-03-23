@@ -1,0 +1,18 @@
+<div class="ui grid">
+  <div class="seven wide column centered">
+    <div class="ui raised segment" id="formSegment">
+      <img class="ui centered medium image" src="../../../../wwwroot/logo.png" alt="Ajanda Logo">
+      <form class="ui form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="field">
+          <label>Kullanıcı Adı</label>
+          <input name="username" formControlName="username" placeholder="Kullanıcı Adınız" type="text">
+        </div>
+        <div class="field">
+          <label>Parola</label>
+          <input name="password" formControlName="password" placeholder="Parolanız" type="password">
+        </div>
+        <button class="ui teal button" type="submit">Giriş Yap</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -10,7 +11,7 @@ namespace Ajanda.Controllers
     /// <summary>
     /// Class that handles user transactions.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("/api/[controller]/[action]")]
     public class UserController : Controller
     {
         /// <summary>
@@ -50,12 +51,32 @@ namespace Ajanda.Controllers
         /// </summary>
         /// <param name="username">Username that we're looking for match.</param>
         /// <param name="password">Password that we're looking for match.</param>
-        /// <returns>Match status.</returns>
-        public bool IsUserExists(string username, string password)
+        /// <returns>Id of matching user document or null.</returns>
+        public JsonResult Login(string username, string password)
         {
-            filter  = builder.Eq(u => u.Username, username) &
-                      builder.Eq(u => u.Password, password);
-            return users.FindSync(filter).Any();
+            User user = users.Find(u => u.Username == username &&
+                                        u.Password == password).FirstOrDefault();
+
+            if (user != null)
+            {
+                return Json(user.Id.ToString());
+            }
+            else
+            {
+                return Json("null");
+            }
+
+        }
+
+        /// <summary>
+        /// Register new user with given data.
+        /// </summary>
+        /// <param name="username">Username for user that will be registered.</param>
+        /// <param name="password">Password for user that will be registered.</param>
+        /// <returns>Register status.</returns>
+        public void RegisterUser(string username, string password)
+        {
+            users.InsertOne(new User{ Username = username, Password = password });
         }
     }
 }
