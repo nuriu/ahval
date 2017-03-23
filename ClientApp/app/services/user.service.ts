@@ -31,6 +31,16 @@ export class UserService {
             });
     }
 
+    register(username: string, password: string) {
+        let data = new URLSearchParams();
+        data.append('username', username);
+        data.append('password', password);
+
+        let body = data.toString();
+
+        return this.http.post('/api/User/Register', data).map(res => res.json());
+    }
+
     logout() {
         if (isBrowser)
             localStorage.removeItem('ajanda_auth_token');
@@ -39,5 +49,9 @@ export class UserService {
 
     isLoggedIn() {
         return this.loggedIn;
+    }
+
+    getAuthorizedComponents() {
+
     }
 }

@@ -32,8 +32,9 @@ export class LoginComponent implements OnInit {
 
         this.userService.login(this.loginForm.value.username,
                                this.loginForm.value.password).subscribe((res) => {
-                                   if (res == "success") {
-                                       this.router.navigate(['home']);
+                                    if (res == "success") {
+                                        this.router.navigate(['home']);
+                                        // TODO: Show success toast.
                                     } else {
                                         // TODO: Show login error toast.
                                     }

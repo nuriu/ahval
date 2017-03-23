@@ -1,5 +1,6 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 
+import { UserService } from '../../services/user.service';
 import { GitHubService } from '../../services/github.service';
 
 import { IMenuItem } from '../../types/IMenuItem';
@@ -10,8 +11,10 @@ import { IMenuItem } from '../../types/IMenuItem';
     styleUrls  : ['./sidebar.component.css']
 })
 
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
     activeItem: IMenuItem   = null;
+    //items     : IMenuItem[] = null;
+
     items     : IMenuItem[] = [
         { name: 'GitHub', iconClass   : 'big github icon', avatarLink        : null, routerLink: '/github' },
         { name: 'GitLab', iconClass   : 'big orange gitlab icon', avatarLink : null, routerLink: '/gitlab' },
@@ -19,14 +22,19 @@ export class SidebarComponent {
         { name: 'Trello', iconClass   : 'big teal trello icon', avatarLink   : null, routerLink: '/trello' }
     ];
 
-    constructor(private _githubService: GitHubService) { }
+    constructor(private userService: UserService,
+                private githubService: GitHubService) { }
+
+    ngOnInit() {
+        //throw new Error('Method not implemented.');
+    }
 
     select(selectedItem: string) {
         console.log(selectedItem + ' seçildi.');
 
         switch (selectedItem) {
             case this.items[0].name:
-                this._githubService.getUserAvatarLink().subscribe(
+                this.githubService.getUserAvatarLink().subscribe(
                     data  => this.items[0].avatarLink = data,
                     error => console.log(error)
                 );

@@ -32,11 +32,12 @@ export class RegisterComponent implements OnInit {
 
         this.userService.register(this.registerForm.value.username,
                                   this.registerForm.value.password).subscribe((res) => {
-                                   if (res == "success") {
-                                       this.router.navigate(['login']);
-                                    } else {
-                                        // TODO: Show register error toast.
-                                    }
+                                      if (res == "success") {
+                                          this.router.navigate(['login']);
+                                          // TODO: Show success toast.
+                                      } else {
+                                          // TODO: Show register error toast.
+                                      }
                                });
     }
 }

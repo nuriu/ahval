@@ -74,9 +74,10 @@ namespace Ajanda.Controllers
         /// <param name="username">Username for user that will be registered.</param>
         /// <param name="password">Password for user that will be registered.</param>
         /// <returns>Register status.</returns>
-        public void RegisterUser(string username, string password)
+        public JsonResult Register(string username, string password)
         {
             users.InsertOne(new User{ Username = username, Password = password });
+            return Json("success");
         }
     }
 }
