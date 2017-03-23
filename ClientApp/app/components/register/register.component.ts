@@ -1,16 +1,16 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { UserService } from '../../services/user.service';
 
 @Component({
-    selector   : 'login',
-    templateUrl: './login.component.html',
-    styleUrls  : ['./login.component.css']
+    selector   : 'register',
+    templateUrl: './register.component.html',
+    styleUrls  : ['./register.component.css']
 })
-export class LoginComponent implements OnInit {
-    loginForm  : FormGroup;
+export class RegisterComponent implements OnInit {
+    registerForm  : FormGroup;
     username   = new FormControl('', Validators.required);
     password   = new FormControl('', Validators.required);
 
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
                 private router: Router) {}
 
     ngOnInit() {
-        this.loginForm  = this.formBuilder.group({
+        this.registerForm  = this.formBuilder.group({
             username: this.username,
             password: this.password
         });
@@ -27,15 +27,15 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
         // TODO: DELETE LOG CODE
-        console.log("Login request with; ");
-        console.log(this.loginForm.value);
+        console.log("Register request with; ");
+        console.log(this.registerForm.value);
 
-        this.userService.login(this.loginForm.value.username,
-                               this.loginForm.value.password).subscribe((res) => {
+        this.userService.register(this.registerForm.value.username,
+                                  this.registerForm.value.password).subscribe((res) => {
                                    if (res == "success") {
-                                       this.router.navigate(['home']);
+                                       this.router.navigate(['login']);
                                     } else {
-                                        // TODO: Show login error toast.
+                                        // TODO: Show register error toast.
                                     }
                                });
     }
