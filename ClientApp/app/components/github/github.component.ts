@@ -19,7 +19,7 @@ export class GitHubComponent implements OnInit {
     constructor(private githubService: GitHubService) { }
 
     ngOnInit() {
-
+        this.githubService.activate();
     }
 
     getActiveUser() {

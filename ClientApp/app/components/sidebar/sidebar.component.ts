@@ -26,7 +26,6 @@ export class SidebarComponent implements OnInit {
                 private githubService: GitHubService) { }
 
     ngOnInit() {
-        //throw new Error('Method not implemented.');
     }
 
     select(selectedItem: string) {

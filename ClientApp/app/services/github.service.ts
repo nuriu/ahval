@@ -4,13 +4,47 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class GitHubService {
-    h: Headers;
+    h            : Headers;
+    client_id    : string;
+    client_secret: string;
+    redirect_url : string;
+    scopes       : any;
 
     constructor(private http: Http) { }
 
-    activate(username: string) {
-        this.h = new Headers();
+    activate() {
+        this.http.get('/api/Github/getClientId').map(res => res.json()).subscribe(
+            data => this.client_id = data,
+            error => console.log(error),
+            () => { // TODO: Delete log code.
+                console.log(this.client_id);
+            }
+        );
+        this.http.get('/api/Github/getClientSecret').map(res => res.json()).subscribe(
+            data => this.client_secret = data,
+            error => console.log(error),
+            () => { // TODO: Delete log code.
+                console.log(this.client_secret);
+            }
+        );
+        this.http.get('/api/Github/getRedirectUrl').map(res => res.json()).subscribe(
+            data => this.redirect_url = data,
+            error => console.log(error),
+            () => { // TODO: Delete log code.
+                console.log(this.redirect_url);
+            }
+        );
+        this.http.get('/api/Github/getScopes').map(res => res.json()).subscribe(
+            data => this.scopes = JSON.parse(data),
+            error => console.log(error),
+            () => { // TODO: Delete log code.
+                console.log(this.scopes);
+            }
+        );
+
+
         /*
+        this.h = new Headers();
         this._http.get('/githubToken/' + username, {}).subscribe(
             data => console.log(data),
             error => console.log(error),
@@ -21,6 +55,8 @@ export class GitHubService {
         */
         //this.h.set('Authorization:', 'token ' + token);
     }
+
+
 
     getUser() {
         return this.http.get('https://api.github.com/user', {
