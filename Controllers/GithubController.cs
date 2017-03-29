@@ -1,10 +1,13 @@
-using System;
+﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
 using MongoDB.Driver;
-
-using Ajanda.Models;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using System.Xml.Linq;
 
 namespace Ajanda.Controllers
 {
@@ -76,6 +79,53 @@ namespace Ajanda.Controllers
         public JsonResult getRedirectUrl()
         {
             return Json(document["redirect_uri"].ToString());
+        }
+
+        /// <summary>
+        /// Github OAuth callback.
+        /// </summary>
+        /// <param name="code">Github Oauth callback code.</param>
+        /// <returns>Redirects to github component.</returns>
+        public async Task<RedirectResult> callback(string code)
+        {
+            await postCode(code);
+            return Redirect("/github");
+        }
+
+        private async Task postCode(string code)
+        {
+            string url = "https://github.com/login/oauth/access_token";
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+                var result = await client.PostAsync("?client_id=" + document["client_id"].ToString() + "&client_secret=" + document["client_secret"].ToString() + "&code=" + code, null);
+                var resultContent = await result.Content.ReadAsStreamAsync();
+                XDocument doc = XDocument.Load(resultContent);
+                var token = doc.Root.Element("access_token").Value;
+
+                CookieOptions options = new CookieOptions();
+                options.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Append("github-token", token, options);
+            }
+        }
+
+        /// <summary>
+        /// Getter for github Oauth callback code.
+        /// </summary>
+        /// <returns>Github Oauth callback code.</returns>
+        public JsonResult getToken()
+        {
+            string token = Request.Cookies["github-token"];
+            if (token != null)
+            {
+                return Json(token);
+            }
+            else
+            {
+                return Json("null");
+            }
         }
     }
 }

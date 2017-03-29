@@ -9,56 +9,58 @@ export class GitHubService {
     client_secret: string;
     redirect_url : string;
     scopes       : any;
+    token        : string;
 
     constructor(private http: Http) { }
 
     activate() {
-        this.http.get('/api/Github/getClientId').map(res => res.json()).subscribe(
-            data => this.client_id = data,
-            error => console.log(error),
-            () => { // TODO: Delete log code.
-                console.log(this.client_id);
-            }
-        );
-        this.http.get('/api/Github/getClientSecret').map(res => res.json()).subscribe(
-            data => this.client_secret = data,
-            error => console.log(error),
-            () => { // TODO: Delete log code.
-                console.log(this.client_secret);
-            }
-        );
-        this.http.get('/api/Github/getRedirectUrl').map(res => res.json()).subscribe(
-            data => this.redirect_url = data,
-            error => console.log(error),
-            () => { // TODO: Delete log code.
-                console.log(this.redirect_url);
-            }
-        );
-        this.http.get('/api/Github/getScopes').map(res => res.json()).subscribe(
-            data => this.scopes = JSON.parse(data),
-            error => console.log(error),
-            () => { // TODO: Delete log code.
-                console.log(this.scopes);
-            }
-        );
+        this. h = new Headers();
 
-
-        /*
-        this.h = new Headers();
-        this._http.get('/githubToken/' + username, {}).subscribe(
-            data => console.log(data),
+        this.http.get('/api/Github/getToken').map(res => res.json()).subscribe(
+            data => this.token = data,
             error => console.log(error),
             () => {
-                console.log('deneme');
+                if (this.token == null || this.token == "null") {
+                    this.http.get('/api/Github/getClientId').map(res => res.json()).subscribe(
+                        data => this.client_id = data,
+                        error => console.log(error),
+                        () => {
+                            this.http.get('/api/Github/getRedirectUrl').map(res => res.json()).subscribe(
+                                data => this.redirect_url = data,
+                                error => console.log(error),
+                                () => {
+                                    this.http.get('/api/Github/getScopes').map(res => res.json()).subscribe(
+                                        data => this.scopes = JSON.parse(data),
+                                        error => console.log(error),
+                                        () => {
+                                            let url = 'https://github.com/login/oauth/authorize';
+                                            window.location.href = url + "?&client_id=" +
+                                                this.client_id + "&redirect_uri=" +
+                                                this.redirect_url + "&scope=" +
+                                                this.scopes;
+                                        }
+                                    );
+                                }
+                            );
+                        }
+                    );
+                } else {
+                    // TODO: Delete log code.
+                    console.log('Token: ' + this.token);
+                    this.h.set('Authorization', 'token ' + this.token);
+                }
             }
         );
-        */
-        //this.h.set('Authorization:', 'token ' + token);
     }
 
 
 
     getUser() {
+        if (this.h.get("Authorization") == null) {
+            this.h.set('Authorization', 'token ' + this.token);
+        }
+
+        console.log(this.h.get("Authorization"));
         return this.http.get('https://api.github.com/user', {
             headers: this.h
         }).map(res => res.json());

@@ -26,6 +26,7 @@ export class UserService {
                         localStorage.setItem('ajanda_auth_token', res);
                     return "success";
                 } else {
+                    this.loggedIn = false;
                     return res;
                 }
             });

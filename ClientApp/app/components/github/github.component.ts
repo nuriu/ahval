@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+﻿import { Component, Input, OnInit } from '@angular/core';
 
 import { GitHubService } from '../../services/github.service';
 
@@ -20,6 +20,7 @@ export class GitHubComponent implements OnInit {
 
     ngOnInit() {
         this.githubService.activate();
+        this.getActiveUser();
     }
 
     getActiveUser() {
