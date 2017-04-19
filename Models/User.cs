@@ -16,8 +16,9 @@ namespace Ajanda.Models
         public string Username { get; set; }
         [BsonElement("Password")]
         public string Password { get; set; }
+        /*
         [BsonElement("Components")]
         public IEnumerable<Component> Components { get; set; }
-
+        */
     }
 }

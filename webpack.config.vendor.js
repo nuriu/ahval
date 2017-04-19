@@ -34,6 +34,8 @@ module.exports = (env) => {
                 'jquery',
                 'zone.js',
                 'angular2-moment',
+                'toastr',
+                'toastr/build/toastr.min.css'
             ]
         },
         output: {

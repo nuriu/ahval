@@ -2,6 +2,8 @@
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import * as toastr from 'toastr';
+
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -33,10 +35,10 @@ export class LoginComponent implements OnInit {
         this.userService.login(this.loginForm.value.username,
                                this.loginForm.value.password).subscribe((res) => {
                                     if (res == "success") {
+                                        toastr.success('Sisteme başarıyla giriş yaptınız. Hoşgeldiniz!');
                                         this.router.navigate(['home']);
-                                        // TODO: Show success toast.
                                     } else {
-                                        // TODO: Show login error toast.
+                                        toastr.error('Giriş işlemi başarısız sonuçlandı. Lütfen tekrar deneyiniz.', 'Başarısız Giriş Denemesi');
                                     }
                                });
     }
