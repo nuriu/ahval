@@ -1,7 +1,14 @@
 ﻿<div class="ui left visible vertical inverted very thin sidebar icon menu" id="menu">
-    <a class="item" style="padding-left:13px;" *ngFor="let item of items" id="{{item.name}}" [routerLinkActive]="['active']" routerLink="{{item.routerLink}}"
-       (click)=select(item.name)>
+    <a class="item" *ngFor="let item of items" id="{{item.name}}" [routerLinkActive]="['active']" routerLink="{{item.routerLink}}"
+        (click)=select(item.name)>
         <i class="{{item.iconClass}}" *ngIf="!item.avatarLink"></i>
         <avatar [avatarLink]="item.avatarLink" *ngIf="item.avatarLink"></avatar>
     </a>
+    <div *ngIf="isLoggedIn" id="userSpesificMenuItems">
+        <a class="item" *ngFor="let item of userSpesificItems" id="{{item.name}}" [routerLinkActive]="['active']" routerLink="{{item.routerLink}}"
+            (click)=select(item.name)>
+            <i class="{{item.iconClass}}" *ngIf="!item.avatarLink"></i>
+            <avatar [avatarLink]="item.avatarLink" *ngIf="item.avatarLink"></avatar>
+        </a>
+    </div>
 </div>

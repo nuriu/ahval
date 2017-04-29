@@ -1,1 +1,13 @@
-﻿
+﻿#menu {
+    width: auto;
+    overflow: hidden;
+}
+
+#menu > .item {
+    padding-left: 13px;
+}
+
+#menu > #userSpesificMenuItems {
+    position: absolute;
+    bottom: 0px;
+}

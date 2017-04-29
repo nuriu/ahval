@@ -12,8 +12,8 @@ import { IMenuItem } from '../../types/IMenuItem';
 })
 
 export class SidebarComponent implements OnInit {
+    isLoggedIn: Boolean     = false;
     activeItem: IMenuItem   = null;
-    //items     : IMenuItem[] = null;
 
     items     : IMenuItem[] = [
         { name: 'GitHub', iconClass   : 'big github icon', avatarLink        : null, routerLink: '/github' },
@@ -22,10 +22,16 @@ export class SidebarComponent implements OnInit {
         { name: 'Trello', iconClass   : 'big teal trello icon', avatarLink   : null, routerLink: '/trello' }
     ];
 
-    constructor(private userService: UserService,
+    userSpesificItems: IMenuItem[] = [
+        { name: 'Settings', iconClass: 'big red setting icon', avatarLink: null, routerLink: null },
+        { name: 'Profile', iconClass : 'big olive user icon', avatarLink : null, routerLink: '/profile' }
+    ];
+
+    constructor(private userService  : UserService,
                 private githubService: GitHubService) { }
 
     ngOnInit() {
+        this.isLoggedIn = this.userService.isLoggedIn();
     }
 
     select(selectedItem: string) {
@@ -33,6 +39,7 @@ export class SidebarComponent implements OnInit {
 
         switch (selectedItem) {
             case this.items[0].name:
+                this.githubService.activate();
                 this.githubService.getUserAvatarLink().subscribe(
                     data  => this.items[0].avatarLink = data,
                     error => console.log(error)
