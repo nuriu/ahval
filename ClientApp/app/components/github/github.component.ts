@@ -28,7 +28,7 @@ export class GitHubComponent implements OnInit {
             data  => this.user = data,
             error => console.log(error),
             ()    => {
-                console.log(this.user);
+                //console.log(this.user);
                 this.getActiveUsersRepos();
             }
         );
@@ -39,7 +39,7 @@ export class GitHubComponent implements OnInit {
             data  => this.repos = data,
             error => console.log(error),
             ()    => {
-                console.log(this.repos);
+                //console.log(this.repos);
                 this.getStreamForActiveUser();
             }
         );
@@ -51,7 +51,7 @@ export class GitHubComponent implements OnInit {
                 data  => this.receivedEvents = this.receivedEvents.concat(data),
                 error => console.log(error),
                 ()    => {
-                    console.log(this.receivedEvents);
+                    //console.log(this.receivedEvents);
                     this.getFollowingUsers();
                 }
             );
@@ -63,7 +63,7 @@ export class GitHubComponent implements OnInit {
             data  => this.followingUsers = data,
             error => console.log(error),
             ()    => {
-                console.log(this.followingUsers);
+                //console.log(this.followingUsers);
                 this.getFollowers();
             }
         );
@@ -74,7 +74,7 @@ export class GitHubComponent implements OnInit {
             data  => this.followers = data,
             error => console.log(error),
             ()    => {
-                console.log(this.followers);
+                //console.log(this.followers);
             }
         );
     }

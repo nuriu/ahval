@@ -17,22 +17,22 @@ export class GitHubService {
         this. h = new Headers();
 
         this.http.get('/api/Github/getToken').map(res => res.json()).subscribe(
-            data => this.token = data,
+            data  => this.token = data,
             error => console.log(error),
-            () => {
+            ()    => {
                 if (this.token == null || this.token == "null") {
                     this.http.get('/api/Github/getClientId').map(res => res.json()).subscribe(
-                        data => this.client_id = data,
+                        data  => this.client_id = data,
                         error => console.log(error),
-                        () => {
+                        ()    => {
                             this.http.get('/api/Github/getRedirectUrl').map(res => res.json()).subscribe(
-                                data => this.redirect_url = data,
+                                data  => this.redirect_url = data,
                                 error => console.log(error),
-                                () => {
+                                ()    => {
                                     this.http.get('/api/Github/getScopes').map(res => res.json()).subscribe(
-                                        data => this.scopes = JSON.parse(data),
+                                        data  => this.scopes = JSON.parse(data),
                                         error => console.log(error),
-                                        () => {
+                                        ()    => {
                                             let url = 'https://github.com/login/oauth/authorize';
                                             window.location.href = url + "?&client_id=" +
                                                 this.client_id + "&redirect_uri=" +

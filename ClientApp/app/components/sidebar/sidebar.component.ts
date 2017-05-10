@@ -39,11 +39,11 @@ export class SidebarComponent implements OnInit {
 
         switch (selectedItem) {
             case this.items[0].name:
-                this.githubService.activate();
-                this.githubService.getUserAvatarLink().subscribe(
-                    data  => this.items[0].avatarLink = data,
-                    error => console.log(error)
-                );
+                // this.githubService.activate();
+                // this.githubService.getUserAvatarLink().subscribe(
+                //     data  => this.items[0].avatarLink = data,
+                //     error => console.log(error)
+                // );
                 this.activeItem = this.items[0];
                 break;
 
