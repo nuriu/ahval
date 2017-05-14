@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    color: white !important;
+    background-color: #1B1C1D;
+    width: 100%;
+    height: 98%;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+
+#menu {
+    border-right: 0.25px solid rgba(255, 255, 255, .1);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+}
+
+#icerik {
+    margin-top: 2rem;
+    margin-left: 5rem;
+    margin-right: 0.5rem;
+}
