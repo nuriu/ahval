@@ -45,16 +45,16 @@ import { UserService } from './services/user.service';
         HttpModule,
         MomentModule,
         RouterModule.forRoot([
-            { path: '', component         : LoginComponent, pathMatch      : 'full' },
-            { path: 'login', component    : LoginComponent },
-            { path: 'register', component : RegisterComponent },
-            { path: 'home', component     : HomeComponent, canActivate     : [UserGuard] },
-            { path: 'profile', component  : ProfileComponent, canActivate  : [UserGuard] },
-            { path: "github", component   : GitHubComponent, canActivate   : [UserGuard] },
-            { path: "gitlab", component   : GitLabComponent, canActivate   : [UserGuard] },
-            { path: "bitbucket", component: BitbucketComponent, canActivate: [UserGuard] },
-            { path: "trello", component   : TrelloComponent, canActivate   : [UserGuard] },
-            { path: '**', redirectTo      : 'home' }
+            { path: '', component               : LoginComponent, pathMatch      : 'full' },
+            { path: 'login', component          : LoginComponent },
+            { path: 'register', component       : RegisterComponent },
+            { path: 'home', component           : HomeComponent, canActivate     : [UserGuard] },
+            { path: 'profile', component        : ProfileComponent, canActivate  : [UserGuard] },
+            { path: "github", component         : GitHubComponent, canActivate   : [UserGuard] },
+            { path: "gitlab", component         : GitLabComponent, canActivate   : [UserGuard] },
+            { path: "bitbucket", component      : BitbucketComponent, canActivate: [UserGuard] },
+            { path: "trello", component         : TrelloComponent, canActivate   : [UserGuard] },
+            { path: '**', redirectTo            : 'home' }
         ])
     ],
     providers: [

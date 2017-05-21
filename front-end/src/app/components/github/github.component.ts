@@ -1,4 +1,5 @@
 ﻿import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { GitHubService } from '../../services/github.service';
 
@@ -16,11 +17,19 @@ export class GitHubComponent implements OnInit {
     @Input() followingUsers = new Array<any>();
     @Input() followers      = new Array<any>();
 
-    constructor(private githubService: GitHubService) { }
+    constructor(private githubService: GitHubService,
+                private route: ActivatedRoute) { }
 
     ngOnInit() {
-        this.githubService.activate();
-        this.getActiveUser();
+        this.route.queryParams.subscribe((params: Params) => {
+            if (!params['code']) {
+                this.githubService.activate();
+            } else {
+                this.githubService.activate(params['code']).then(() => {
+                    //this.getActiveUser();
+                });
+            }
+        });
     }
 
     getActiveUser() {

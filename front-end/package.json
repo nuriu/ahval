@@ -27,6 +27,7 @@
     "rxjs": "^5.1.0",
     "semantic-ui-css": "^2.2.10",
     "toastr": "^2.1.2",
+    "web-animations-js": "^2.2.5",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

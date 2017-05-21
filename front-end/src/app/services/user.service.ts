@@ -15,8 +15,6 @@ export class UserService {
         data.append('username', username);
         data.append('password', password);
 
-        let body = data.toString();
-
         return this.http.post(this.APIUrl + '/api/User/Login', data).map(res => res.json())
             .map((res) => {
                 if (res != 'null') {
@@ -34,8 +32,6 @@ export class UserService {
         let data = new URLSearchParams();
         data.append('username', username);
         data.append('password', password);
-
-        let body = data.toString();
 
         return this.http.post('this.APIUrl + /api/User/Register', data).map(res => res.json());
     }

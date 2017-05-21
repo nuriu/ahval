@@ -80,54 +80,5 @@ namespace Ajanda.Controllers
         {
             return Json(document["redirect_uri"].ToString());
         }
-
-        /// <summary>
-        /// Getter for github Oauth token.
-        /// </summary>
-        /// <returns>Github Oauth token.</returns>
-        public JsonResult getToken()
-        {
-            string token = Request.Cookies["github-token"];
-            if (token != null)
-            {
-                return Json(token);
-            }
-            else
-            {
-                return Json("null");
-            }
-        }
-
-        private async Task postCode(string code)
-        {
-            string url = "https://github.com/login/oauth/access_token";
-
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(url);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
-                var result = await client.PostAsync("?client_id=" + document["client_id"].ToString() + "&client_secret=" + document["client_secret"].ToString() + "&code=" + code, null);
-                var resultContent = await result.Content.ReadAsStreamAsync();
-                XDocument doc = XDocument.Load(resultContent);
-                var token = doc.Root.Element("access_token").Value;
-
-                CookieOptions options = new CookieOptions();
-                options.Expires = DateTime.Now.AddDays(1);
-                Response.Cookies.Append("github-token", token, options);
-            }
-        }
-
-        /// <summary>
-        /// Github OAuth callback.
-        /// </summary>
-        /// <param name="code">Github Oauth callback code.</param>
-        /// <returns>Redirects to github component.</returns>
-        public async Task<RedirectResult> callback(string code)
-        {
-            await postCode(code);
-            return Redirect("http://localhost:4200/github");
-        }
-
-
     }
 }

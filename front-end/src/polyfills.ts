@@ -46,7 +46,7 @@ import 'core-js/es7/reflect';
 
 
 /** ALL Firefox browsers require the following to support `@angular/animation`. **/
-// import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
 
 
@@ -71,6 +71,7 @@ import 'intl';
  */
 import 'intl/locale-data/jsonp/en';
 /**
- * Semantic UI
+ * jQuery & Semantic UI
  */
+import 'jquery'
 import 'semantic-ui-css'
