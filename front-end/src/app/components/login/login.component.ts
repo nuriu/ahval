@@ -1,8 +1,8 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import * as toastr from 'toastr';
+import * as UIkit from 'uikit';
 
 import { UserService } from '../../services/user.service';
 
@@ -35,10 +35,16 @@ export class LoginComponent implements OnInit {
         this.userService.login(this.loginForm.value.username,
                                this.loginForm.value.password).subscribe((res) => {
                                     if (res == "success") {
-                                        toastr.success('Sisteme başarıyla giriş yaptınız. Hoşgeldiniz!');
+                                        UIkit.notification('<span uk-icon="icon: check"></span> Hoşgeldiniz!', {
+                                            status : 'success',
+                                            pos    : 'bottom-right'
+                                        });
                                         this.router.navigate(['home']);
                                     } else {
-                                        toastr.error('Giriş işlemi başarısız sonuçlandı. Lütfen tekrar deneyiniz.', 'Başarısız Giriş Denemesi');
+                                        UIkit.notification('Giriş işlemi başarısız sonuçlandı. Lütfen tekrar deneyiniz.', {
+                                            status : 'danger',
+                                            pos    : 'bottom-right'
+                                        });
                                     }
                                });
     }

@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Params } from '@angular/router';
 import 'rxjs/Rx';
@@ -7,6 +7,7 @@ import 'rxjs/Rx';
 export class GitHubService {
     private APIUrl = 'http://localhost:5000';
 
+    client       : any;
     h            : Headers = new Headers();
     client_id    : string;
     client_secret: string;
@@ -16,55 +17,14 @@ export class GitHubService {
 
     constructor(private http: Http) { }
 
-    async activate(code?: string) {
-        if (this.token == null || this.token === 'null') {
-            this.http.get(this.APIUrl + '/api/Github/getClientId').map(res => res.json()).subscribe(
-                data  => this.client_id = data,
-                error => console.log(error),
-                ()    => {
-                    this.http.get(this.APIUrl + '/api/Github/getRedirectUrl').map(res => res.json()).subscribe(
-                        data  => this.redirect_url = data,
-                        error => console.log(error),
-                        ()    => {
-                            this.http.get(this.APIUrl + '/api/Github/getScopes').map(res => res.json()).subscribe(
-                                data  => this.scopes = JSON.parse(data),
-                                error => console.log(error),
-                                ()    => {
-                                    if (code) {
-                                        console.log(code);
-                                        this.http.get(this.APIUrl + '/api/Github/getClientSecret').map(res => res.json()).subscribe(
-                                            data  => this.client_secret = data,
-                                            error => console.log(error),
-                                            ()    => {
-                                                let url = 'https://github.com/login/oauth/access_token';
-                                                let data = new URLSearchParams();
-                                                data.append('client_id', this.client_id);
-                                                data.append('client_secret', this.client_secret);
-                                                data.append('code', code);
-                                                // TODO: Resolve CORS error and handle with token.
-                                                this.http.post(url, data, { headers: this.h }).subscribe(
-                                                    data  => console.log(data),
-                                                    error => console.log(error)
-                                                );
-                                            });
-                                    } else {
-                                        let url = 'https://github.com/login/oauth/authorize';
-                                        window.location.href = url + '?&client_id=' +
-                                            this.client_id + '&redirect_uri=' +
-                                            this.redirect_url + '&scope=' +
-                                            this.scopes;
-                                    }
-                                }
-                            );
-                        }
-                    );
-                }
-            );
-        } else {
-            // TODO: Delete log code.
-            console.log('Token: ' + this.token);
-            this.h.set('Authorization', 'token ' + this.token);
-        }
+    async activate() {
+        this.token = '2ab4bc0b14234d4d5cc39d1735f502621df794bc';
+        /*
+        this.client = github.client('2ab4bc0b14234d4d5cc39d1735f502621df794bc');
+        this.client.get('/user', {}, function (err, status, body, headers) {
+            console.log("body:",body);
+        });
+        */
     }
 
     setToken(token: string) {

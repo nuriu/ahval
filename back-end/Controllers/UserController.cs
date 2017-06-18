@@ -81,5 +81,21 @@ namespace Ajanda.Controllers
             users.InsertOne(new User{ Username = username, Password = password });
             return Json("success");
         }
+
+        [HttpGet]
+        public JsonResult GetGHToken(string username, string password)
+        {
+            User user = users.Find(u => u.Username == username &&
+                                        u.Password == password).FirstOrDefault();
+                                                    
+            if (user != null)
+            {
+                return Json(user.GH_TOKEN.ToString());
+            }
+            else
+            {
+                return Json("null");
+            }
+        }
     }
 }
