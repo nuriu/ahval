@@ -1,18 +1,17 @@
-<div class="ui grid">
-  <div class="seven wide column centered">
-    <div class="ui raised segment" id="formSegment">
-      <img class="ui centered medium image" src="../../../../wwwroot/logo.png" alt="Ajanda Logo">
-      <form class="ui form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="field">
-          <label>Kullanıcı Adı</label>
-          <input name="username" formControlName="username" placeholder="Kullanıcı Adınız" type="text">
-        </div>
-        <div class="field">
-          <label>Parola</label>
-          <input name="password" formControlName="password" placeholder="Parolanız" type="password">
-        </div>
-        <button class="ui teal button" type="submit">Kayıt Ol</button>
-      </form>
+<div class="uk-position-center uk-overlay uk-overlay-default">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+    <img src="/assets/logo.png">
+
+    <div class="uk-margin">
+      <input class="uk-input" name="username" formControlName="username" type="text" placeholder="Kullanıcı Adı">
     </div>
-  </div>
+
+    <div class="uk-margin">
+      <input class="uk-input" name="password" formControlName="password" type="password" type="password" placeholder="Parola">
+    </div>
+
+    <button class="uk-button uk-button-primary" type="submit">KAYIT OL</button>
+
+  </form>
 </div>

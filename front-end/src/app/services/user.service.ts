@@ -3,7 +3,7 @@ import { Http, Headers, URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class UserService {
-    private APIUrl = 'http://localhost:5000';
+    private APIUrl = 'http://localhost:8080';
     private loggedIn = false;
 
     constructor(private http: Http) {
@@ -15,11 +15,11 @@ export class UserService {
         data.append('username', username);
         data.append('password', password);
 
-        return this.http.post(this.APIUrl + '/api/User/Login', data).map(res => res.json())
+        return this.http.post(this.APIUrl + '/api/authenticate', data).map(res => res.json())
             .map((res) => {
-                if (res != 'null') {
+                if (res.success) {
                     this.loggedIn = true;
-                    localStorage.setItem('ajanda_auth_token', res);
+                    localStorage.setItem('ajanda_auth_token', res.token);
                     return "success";
                 } else {
                     this.loggedIn = false;
@@ -33,7 +33,7 @@ export class UserService {
         data.append('username', username);
         data.append('password', password);
 
-        return this.http.post('this.APIUrl + /api/User/Register', data).map(res => res.json());
+        return this.http.post(this.APIUrl + '/api/register', data).map(res => res.json());
     }
 
     logout() {
@@ -43,9 +43,5 @@ export class UserService {
 
     isLoggedIn() {
         return this.loggedIn;
-    }
-
-    getAuthorizedComponents() {
-
     }
 }

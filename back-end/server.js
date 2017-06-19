@@ -18,6 +18,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 var apiRoutes = express.Router();
 
 apiRoutes.get('/', function(req, res) {
@@ -47,6 +53,23 @@ apiRoutes.post('/authenticate', function(req, res) {
         });
       }
     }
+  });
+});
+
+apiRoutes.post('/register', function(req, res) {
+  var user = new User({
+    username: req.body.username,
+    password: req.body.password,
+    admin: false,
+    gh_token: ''
+  });
+
+  user.save(function(err) {
+    if (err) throw err;
+
+    console.log('User [' + user.username + ':' + user.password + '] saved successfully.');
+
+    res.json({ success: true });
   });
 });
 
