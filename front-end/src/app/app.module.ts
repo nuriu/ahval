@@ -15,9 +15,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { GitHubComponent } from './components/github/github.component';
-import { GitLabComponent } from './components/gitlab/gitlab.component';
-import { BitbucketComponent } from './components/bitbucket/bitbucket.component';
-import { TrelloComponent } from './components/trello/trello.component';
 
 import { UserGuard } from './guards/user.guard';
 
@@ -34,9 +31,6 @@ import { UserService } from './services/user.service';
         SidebarComponent,
         AvatarComponent,
         GitHubComponent,
-        GitLabComponent,
-        BitbucketComponent,
-        TrelloComponent
     ],
     imports: [
         BrowserModule,
@@ -51,9 +45,6 @@ import { UserService } from './services/user.service';
             { path: 'home', component           : HomeComponent, canActivate     : [UserGuard] },
             { path: 'profile', component        : ProfileComponent, canActivate  : [UserGuard] },
             { path: "github", component         : GitHubComponent, canActivate   : [UserGuard] },
-            { path: "gitlab", component         : GitLabComponent, canActivate   : [UserGuard] },
-            { path: "bitbucket", component      : BitbucketComponent, canActivate: [UserGuard] },
-            { path: "trello", component         : TrelloComponent, canActivate   : [UserGuard] },
             { path: '**', redirectTo            : 'home' }
         ])
     ],
