@@ -19,12 +19,10 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/semantic-ui-css/semantic.min.css",
         "../node_modules/uikit/dist/css/uikit.min.css",
         "styles.css"
       ],
       "scripts": [
-        "../node_modules/semantic-ui-css/semantic.min.js",
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/uikit/dist/js/uikit.min.js",
         "../node_modules/uikit/dist/js/uikit-icons.min.js"

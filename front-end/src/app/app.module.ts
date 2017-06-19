@@ -13,7 +13,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { AvatarComponent } from './components/avatar/avatar.component';
 import { GitHubComponent } from './components/github/github.component';
 
 import { UserGuard } from './guards/user.guard';
@@ -29,7 +28,6 @@ import { UserService } from './services/user.service';
         RegisterComponent,
         ProfileComponent,
         SidebarComponent,
-        AvatarComponent,
         GitHubComponent,
     ],
     imports: [
@@ -39,13 +37,13 @@ import { UserService } from './services/user.service';
         HttpModule,
         MomentModule,
         RouterModule.forRoot([
-            { path: '', component               : LoginComponent, pathMatch      : 'full' },
-            { path: 'login', component          : LoginComponent },
-            { path: 'register', component       : RegisterComponent },
-            { path: 'home', component           : HomeComponent, canActivate     : [UserGuard] },
-            { path: 'profile', component        : ProfileComponent, canActivate  : [UserGuard] },
-            { path: "github", component         : GitHubComponent, canActivate   : [UserGuard] },
-            { path: '**', redirectTo            : 'home' }
+            { path: '', component         : LoginComponent, pathMatch      : 'full' },
+            { path: 'login', component    : LoginComponent },
+            { path: 'register', component : RegisterComponent },
+            { path: 'home', component     : HomeComponent, canActivate    : [UserGuard] },
+            { path: 'profile', component  : ProfileComponent, canActivate : [UserGuard] },
+            { path: "github", component   : GitHubComponent, canActivate  : [UserGuard] },
+            { path: '**', redirectTo      : 'home' }
         ])
     ],
     providers: [
