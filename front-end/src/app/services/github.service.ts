@@ -3,26 +3,24 @@ import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Params } from '@angular/router';
 import 'rxjs/Rx';
 
+
 @Injectable()
 export class GitHubService {
     private APIUrl = 'http://localhost:5000';
-
+    private h    : Headers = new Headers();
+    private token;
+    /*
     client       : any;
-    h            : Headers = new Headers();
     client_id    : string;
     client_secret: string;
     redirect_url : string;
     scopes       : any;
-    token        : string;
+    */
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {}
 
-    async activate() {
-        this.token = '2ab4bc0b14234d4d5cc39d1735f502621df794bc';
-
-        if (this.h.get('Authorization') == null) {
-            this.h.set('Authorization', 'token ' + this.token);
-        }
+    activate() {
+        this.h.set('Authorization', 'token ' + this.token);
 
         console.log(this.h.get("Authorization"));
     }

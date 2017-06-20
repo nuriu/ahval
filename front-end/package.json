@@ -33,10 +33,10 @@
     "@angular/cli": "^1.1.2",
     "@angular/compiler-cli": "^4.2.3",
     "@types/jasmine": "2.5.52",
-    "@types/jquery": "^3.2.2",
+    "@types/jquery": "^3.2.3",
     "@types/node": "~8.0.0",
     "autoprefixer": "^7.1.1",
-    "codelyzer": "~3.0.1",
+    "codelyzer": "~3.1.0",
     "css-loader": "^0.28.4",
     "cssnano": "^3.10.0",
     "ember-cli-cors": "0.0.2",
@@ -67,6 +67,6 @@
     "typescript": "~2.3.4",
     "url-loader": "^0.5.9",
     "webpack": "~3.0.0",
-    "webpack-dev-server": "~2.4.5"
+    "webpack-dev-server": "~2.5.0"
   }
 }

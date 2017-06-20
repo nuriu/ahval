@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { UserService } from '../../services/user.service';
 import { GitHubService } from '../../services/github.service';
+
 
 import { IAvatarComponentItem } from '../../types/IAvatarComponentItem';
 
@@ -16,11 +18,19 @@ export class GitHubComponent implements OnInit {
     @Input() followingUsers = new Array<any>();
     @Input() followers      = new Array<any>();
 
-    constructor(private githubService: GitHubService) {}
+    constructor(private githubService: GitHubService,
+                private userService: UserService) {}
 
     ngOnInit() {
-        this.githubService.activate();
-        this.getActiveUser();
+        this.userService.getGitHubToken().subscribe((res) => {
+            if (res) {
+                this.githubService.setToken(res);
+                this.githubService.activate();
+                this.getActiveUser();
+            } else {
+                console.log('Error: Could not get github access token of user.');
+            }
+        });
     }
 
     getActiveUser() {

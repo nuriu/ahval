@@ -21,6 +21,7 @@ app.use(morgan('dev'));
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   next();
 });
 
@@ -43,7 +44,7 @@ apiRoutes.post('/authenticate', function(req, res) {
         res.json({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
         var token = jwt.sign(user, app.get('secret_key'), {
-          expiresIn: 60*60 // 1hr
+          expiresIn: '1h'
         });
 
         res.json({
