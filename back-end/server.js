@@ -43,7 +43,7 @@ apiRoutes.post('/authenticate', function(req, res) {
         res.json({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
         var token = jwt.sign(user, app.get('secret_key'), {
-          expiresIn: 60*60*24
+          expiresIn: 60*60 // 1hr
         });
 
         res.json({
@@ -96,6 +96,30 @@ apiRoutes.get('/users', function(req, res) {
   User.find({}, function(err, users) {
     res.json(users);
   });
+});
+
+apiRoutes.get('/me', function(req, res) {
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if (token) {
+    jwt.verify(token, app.get('secret_key'), function(err, decoded) {
+      if (!err) {
+        res.json(decoded._doc);
+      }
+    });
+  }
+});
+
+apiRoutes.get('/me/getGitHubToken', function(req, res) {
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if (token) {
+    jwt.verify(token, app.get('secret_key'), function(err, decoded) {
+      if (!err) {
+        res.json(decoded._doc.gh_token);
+      }
+    });
+  }
 });
 
 app.use('/api', apiRoutes);
