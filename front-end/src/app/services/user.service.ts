@@ -33,7 +33,14 @@ export class UserService {
         data.append('username', username);
         data.append('password', password);
 
-        return this.http.post(this.APIUrl + '/api/register', data).map(res => res.json());
+        return this.http.post(this.APIUrl + '/api/register', data).map(res => res.json())
+            .map((res) => {
+                if (res.success) {
+                    return "success";
+                } else {
+                    return res;
+                }
+            });
     }
 
     logout() {

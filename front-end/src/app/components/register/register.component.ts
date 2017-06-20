@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import * as UIkit from 'uikit';
+
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -26,18 +28,35 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
-        // TODO: DELETE LOG CODE
-        console.log("Register request with; ");
-        console.log(this.registerForm.value);
-
-        this.userService.register(this.registerForm.value.username,
-                                  this.registerForm.value.password).subscribe((res) => {
-                                      if (res == "success") {
-                                          this.router.navigate(['login']);
-                                          // TODO: Show success toast.
-                                      } else {
-                                          // TODO: Show register error toast.
-                                      }
-                               });
+        if (this.registerForm.value.username && this.registerForm.value.password) {
+            this.userService.register(this.registerForm.value.username,
+                                      this.registerForm.value.password).subscribe((res) => {
+                                          if (res == "success") {
+                                              UIkit.notification('<span uk-icon="icon: check"></span> Kayıt işlemi başarılı sonuçlandı!', {
+                                                  status : 'success',
+                                                  pos    : 'bottom-right'
+                                              });
+                                              this.router.navigate(['login']);
+                                          } else {
+                                              UIkit.notification('Kayıt işlemi başarısız sonuçlandı. Lütfen tekrar deneyiniz.', {
+                                                  status : 'danger',
+                                                  pos    : 'bottom-right'
+                                              });
+                                          }
+                                      });
+        } else {
+            if (!this.registerForm.value.username) {
+                UIkit.notification('Kullanıcı adı alanı boş bırakılamaz!', {
+                    status : 'danger',
+                    pos    : 'bottom-right'
+                });
+            }
+            if (!this.registerForm.value.password) {
+                UIkit.notification('Parola alanı boş bırakılamaz!', {
+                    status : 'danger',
+                    pos    : 'bottom-right'
+                });
+            }
+        }
     }
 }

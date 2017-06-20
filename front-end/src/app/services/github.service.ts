@@ -19,16 +19,12 @@ export class GitHubService {
 
     async activate() {
         this.token = '2ab4bc0b14234d4d5cc39d1735f502621df794bc';
+
         if (this.h.get('Authorization') == null) {
             this.h.set('Authorization', 'token ' + this.token);
         }
+
         console.log(this.h.get("Authorization"));
-        /*
-        this.client = github.client('2ab4bc0b14234d4d5cc39d1735f502621df794bc');
-        this.client.get('/user', {}, function (err, status, body, headers) {
-            console.log("body:",body);
-        });
-        */
     }
 
     setToken(token: string) {

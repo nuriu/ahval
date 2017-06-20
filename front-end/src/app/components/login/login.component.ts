@@ -28,24 +28,35 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        // TODO: DELETE LOG CODE
-        console.log("Login request with; ");
-        console.log(this.loginForm.value);
-
-        this.userService.login(this.loginForm.value.username,
-                               this.loginForm.value.password).subscribe((res) => {
-                                    if (res == "success") {
-                                        UIkit.notification('<span uk-icon="icon: check"></span> Hoşgeldiniz!', {
-                                            status : 'success',
-                                            pos    : 'bottom-right'
-                                        });
-                                        this.router.navigate(['home']);
-                                    } else {
-                                        UIkit.notification('Giriş işlemi başarısız sonuçlandı. Lütfen tekrar deneyiniz.', {
-                                            status : 'danger',
-                                            pos    : 'bottom-right'
-                                        });
-                                    }
-                               });
+        if (this.loginForm.value.username && this.loginForm.value.password) {
+            this.userService.login(this.loginForm.value.username,
+                                   this.loginForm.value.password).subscribe((res) => {
+                                        if (res == "success") {
+                                            UIkit.notification('<span uk-icon="icon: check"></span> Hoşgeldiniz!', {
+                                                status : 'success',
+                                                pos    : 'bottom-right'
+                                            });
+                                            this.router.navigate(['home']);
+                                        } else {
+                                            UIkit.notification('Giriş işlemi başarısız sonuçlandı. Lütfen tekrar deneyiniz.', {
+                                                status : 'danger',
+                                                pos    : 'bottom-right'
+                                            });
+                                        }
+                                   });
+        } else {
+            if (!this.loginForm.value.username) {
+                UIkit.notification('Kullanıcı adı alanı boş bırakılamaz!', {
+                    status : 'danger',
+                    pos    : 'bottom-right'
+                });
+            }
+            if (!this.loginForm.value.password) {
+                UIkit.notification('Parola alanı boş bırakılamaz!', {
+                    status : 'danger',
+                    pos    : 'bottom-right'
+                });
+            }
+        }
     }
 }

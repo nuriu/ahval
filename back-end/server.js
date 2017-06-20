@@ -50,6 +50,7 @@ apiRoutes.post('/authenticate', function(req, res) {
           success: true,
           message: 'Enjoy your api token!',
           token: token
+          // TODO: return user id or something similar to identify user further requests. (try jwt way first)
         });
       }
     }
@@ -57,6 +58,7 @@ apiRoutes.post('/authenticate', function(req, res) {
 });
 
 apiRoutes.post('/register', function(req, res) {
+  // TODO: check if ther is existing user with the same username.
   var user = new User({
     username: req.body.username,
     password: req.body.password,
