@@ -20,15 +20,27 @@
 
               <dl class="uk-description-list uk-description-list-divider">
                 <dt>KULLANICI ADINIZ</dt>
-                <dd><div uk-spinner></div> Yükleniyor...</dd>
+                <dd>
+                  <div *ngIf="!(user?.username)"> <div uk-spinner></div> Yükleniyor... </div>
+                  <span *ngIf="user?.username">{{ user?.username }}</span>
+                </dd>
                 <dt>PAROLANIZ</dt>
                 <dd>********</dd>
                 <dt>GITHUB ERİŞİM ANAHTARINIZ</dt>
-                <dd><div uk-spinner></div> Yükleniyor...</dd>
+                <dd>
+                  <div *ngIf="!(user?.gh_token)"> <div uk-spinner></div> Yükleniyor... </div>
+                  <span *ngIf="user?.gh_token">{{ user?.gh_token }}</span>
+                </dd>
                 <dt>KAYIT OLMA TARİHİNİZ</dt>
-                <dd><div uk-spinner></div> Yükleniyor...</dd>
+                <dd>
+                  <div *ngIf="!(user?.registered_at)"> <div uk-spinner></div> Yükleniyor... </div>
+                  <span *ngIf="user?.registered_at">{{ user?.registered_at }}</span>
+                </dd>
                 <dt>SON GİRİŞ TARİHİNİZ</dt>
-                <dd><div uk-spinner></div> Yükleniyor...</dd>
+                <dd>
+                  <div *ngIf="!(user?.loggedin_at)"> <div uk-spinner></div> Yükleniyor... </div>
+                  <span *ngIf="user?.loggedin_at">{{ user?.loggedin_at }}</span>
+                </dd>
               </dl>
             </div>
 
