@@ -50,8 +50,7 @@ apiRoutes.post('/authenticate', function(req, res) {
         res.json({
           success: true,
           message: 'Enjoy your api token!',
-          token: token
-          // TODO: return user id or something similar to identify user further requests. (try jwt way first)
+          token  : token
         });
       }
     }
@@ -59,20 +58,29 @@ apiRoutes.post('/authenticate', function(req, res) {
 });
 
 apiRoutes.post('/register', function(req, res) {
-  // TODO: check if ther is existing user with the same username.
-  var user = new User({
-    username: req.body.username,
-    password: req.body.password,
-    admin: false,
-    gh_token: ''
-  });
-
-  user.save(function(err) {
+  User.findOne({
+    username: req.body.username
+  }, function(err, user) {
     if (err) throw err;
 
-    console.log('User [' + user.username + ':' + user.password + '] saved successfully.');
+    if (!user) {
+      var user = new User({
+        username: req.body.username,
+        password: req.body.password,
+        admin   : false,
+        gh_token: ''
+      });
 
-    res.json({ success: true });
+      user.save(function(err) {
+        if (err) throw err;
+
+        console.log('User [' + user.username + ':' + user.password + '] saved successfully.');
+
+        res.json({ success: true });
+      });
+    } else if (user) {
+      res.json({ success: false, message: 'Registration failed. User with same username exists.' });
+    }
   });
 });
 
