@@ -26,6 +26,7 @@ app.use(function(req, res, next) {
 });
 
 var apiRoutes = express.Router();
+var dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
 
 apiRoutes.get('/', function(req, res) {
   res.json({ message: 'Welcome to Ajanda API!' });
@@ -43,6 +44,13 @@ apiRoutes.post('/authenticate', function(req, res) {
       if (user.password != req.body.password) {
         res.json({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
+        var d = new Date(Date.now());
+        user.loggedin_at = d.toLocaleDateString('tr', dateOptions);
+
+        user.save(function(err) {
+          if (err) throw err;
+        });
+
         var token = jwt.sign(user, app.get('secret_key'), {
           expiresIn: '1h'
         });
@@ -64,11 +72,16 @@ apiRoutes.post('/register', function(req, res) {
     if (err) throw err;
 
     if (!user) {
+      var d = new Date(Date.now());
+      var dt = d.toLocaleDateString('tr', dateOptions);
+
       var user = new User({
         username: req.body.username,
         password: req.body.password,
         admin   : false,
-        gh_token: ''
+        gh_token: '',
+        registered_at: dt,
+        loggedin_at: ''
       });
 
       user.save(function(err) {
