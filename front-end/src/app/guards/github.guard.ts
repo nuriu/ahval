@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanLoad } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Injectable()
-export class UserGuard implements CanActivate {
+export class GitHubGuard implements CanLoad {
     constructor(private userService: UserService) {}
 
-    canActivate() {
+    canLoad() {
         return this.userService.isLoggedIn();
     }
 }

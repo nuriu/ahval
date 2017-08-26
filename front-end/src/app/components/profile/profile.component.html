@@ -1,101 +1,95 @@
-<div uk-grid>
-  <sidebar></sidebar>
-  <div class="uk-width-expand@m">
-    <div class="uk-tile uk-tile-default">
+<div class="uk-tile uk-tile-default">
 
-      <ul class="uk-breadcrumb">
-        <li><a href="#" routerLink="/home">Ajanda</a></li>
-        <li><span href="#">Profilim</span></li>
-      </ul>
-      <hr class="uk-divider-icon">
+  <ul class="uk-breadcrumb">
+    <li><a href="#" routerLink="/home">Ajanda</a></li>
+    <li><span href="#">Profilim</span></li>
+  </ul>
+  <hr class="uk-divider-icon">
 
-      <div class="uk-section uk-section uk-section-muted">
-        <div class="uk-padding">
+  <div class="uk-section uk-section uk-section-muted">
+    <div class="uk-padding">
 
 
-          <div class="uk-grid-match uk-child-width-1-2@l" uk-grid>
+      <div class="uk-grid-match uk-child-width-1-2@l" uk-grid>
 
-            <div>
-              <h3>Mevcut Profil Bilgileriniz</h3>
+        <div>
+          <h3>Mevcut Profil Bilgileriniz</h3>
 
-              <dl class="uk-description-list uk-description-list-divider">
-                <dt>KULLANICI ADINIZ</dt>
-                <dd>
-                  <div *ngIf="!(user?.username)"> <div uk-spinner></div> Yükleniyor... </div>
-                  <span *ngIf="user?.username">{{ user?.username }}</span>
-                </dd>
-                <dt>PAROLANIZ</dt>
-                <dd>********</dd>
-                <dt>GITHUB ERİŞİM ANAHTARINIZ</dt>
-                <dd>
-                  <div *ngIf="!(user?.gh_token)"> <div uk-spinner></div> Yükleniyor... </div>
-                  <span *ngIf="user?.gh_token">{{ user?.gh_token }}</span>
-                </dd>
-                <dt>KAYIT OLMA TARİHİNİZ</dt>
-                <dd>
-                  <div *ngIf="!(user?.registered_at)"> <div uk-spinner></div> Yükleniyor... </div>
-                  <span *ngIf="user?.registered_at">{{ user?.registered_at }}</span>
-                </dd>
-                <dt>SON GİRİŞ TARİHİNİZ</dt>
-                <dd>
-                  <div *ngIf="!(user?.loggedin_at)"> <div uk-spinner></div> Yükleniyor... </div>
-                  <span *ngIf="user?.loggedin_at">{{ user?.loggedin_at }}</span>
-                </dd>
-              </dl>
-            </div>
-
-            <div>
-              <h3>Profil Bilgileri Düzenle</h3>
-
-              <form class="uk-form-stacked">
-
-                <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">KULLANICI ADINIZ</label>
-                  <div class="uk-form-controls">
-                    <input class="uk-input" id="form-stacked-text" type="text" placeholder="Yükleniyor...">
-                  </div>
-                </div>
-
-                <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">PAROLANIZ</label>
-                  <div class="uk-form-controls">
-                    <input class="uk-input" id="form-stacked-text" type="text" placeholder="********">
-                  </div>
-                </div>
-
-                <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">GITHUB ERİŞİM ANAHTARINIZ</label>
-                  <div class="uk-form-controls">
-                    <input class="uk-input" id="form-stacked-text" type="text" placeholder="Yükleniyor...">
-                  </div>
-                </div>
-
-                <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">MEVCUT PAROLANIZ</label>
-                  <div class="uk-form-controls">
-                    <input class="uk-input" id="form-stacked-text" type="text" placeholder="********">
-                  </div>
-                </div>
-
-                <div class="uk-margin">
-                  <button class="uk-button uk-button-danger">İPTAL</button>
-                  <button class="uk-button uk-button-primary" type="submit">KAYDET</button>
-                </div>
-
-                <div class="uk-margin">
-                  <a class="uk-link-text" href="">Üyeliğinizi silmek için tıklayın.</a>
-                </div>
-
-              </form>
-
-            </div>
-
-          </div>
-
+          <dl class="uk-description-list uk-description-list-divider">
+            <dt>KULLANICI ADINIZ</dt>
+            <dd>
+              <div *ngIf="!(user?.username)"> <div uk-spinner></div> Yükleniyor... </div>
+              <span *ngIf="user?.username">{{ user?.username }}</span>
+            </dd>
+            <dt>PAROLANIZ</dt>
+            <dd>********</dd>
+            <dt>GITHUB ERİŞİM ANAHTARINIZ</dt>
+            <dd>
+              <div *ngIf="!(user?.gh_token)"> <div uk-spinner></div> Yükleniyor... </div>
+              <span *ngIf="user?.gh_token">{{ user?.gh_token }}</span>
+            </dd>
+            <dt>KAYIT OLMA TARİHİNİZ</dt>
+            <dd>
+              <div *ngIf="!(user?.registered_at)"> <div uk-spinner></div> Yükleniyor... </div>
+              <span *ngIf="user?.registered_at">{{ user?.registered_at }}</span>
+            </dd>
+            <dt>SON GİRİŞ TARİHİNİZ</dt>
+            <dd>
+              <div *ngIf="!(user?.loggedin_at)"> <div uk-spinner></div> Yükleniyor... </div>
+              <span *ngIf="user?.loggedin_at">{{ user?.loggedin_at }}</span>
+            </dd>
+          </dl>
         </div>
+
+        <div>
+          <h3>Profil Bilgileri Düzenle</h3>
+          <div class="uk-margin">
+            <form class="uk-form-stacked">
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">KULLANICI ADINIZ</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input" id="form-stacked-text" type="text" placeholder="Yükleniyor...">
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">PAROLANIZ</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input" id="form-stacked-text" type="text" placeholder="********">
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">GITHUB ERİŞİM ANAHTARINIZ</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input" id="form-stacked-text" type="text" placeholder="Yükleniyor...">
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">MEVCUT PAROLANIZ</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input" id="form-stacked-text" type="text" placeholder="********">
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <button class="uk-button uk-button-danger">İPTAL</button>
+                <button class="uk-button uk-button-primary" type="submit">KAYDET</button>
+              </div>
+
+              <div class="uk-margin">
+                <a class="uk-link-text" href="">Üyeliğinizi silmek için tıklayın.</a>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
       </div>
 
     </div>
   </div>
-</div>
 
+</div>
