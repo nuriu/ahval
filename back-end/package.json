@@ -6,9 +6,9 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
-    "express": "^4.15.3",
-    "jsonwebtoken": "^7.4.1",
-    "mongoose": "^4.10.7",
+    "express": "^4.15.4",
+    "jsonwebtoken": "^7.4.3",
+    "mongoose": "^4.11.8",
     "morgan": "^1.8.2"
   }
 }
