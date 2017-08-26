@@ -10,7 +10,7 @@ var User       = require('./app/models/user');
 
 var port = process.env.PORT || 8080;
 
-mongoose.connect(config.database);
+mongoose.connect(config.database, { useMongoClient: true });
 
 app.set('secret_key', config.secret);
 
