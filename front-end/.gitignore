@@ -41,3 +41,6 @@ Thumbs.db
 
 # Yarn
 yarn.lock
+
+# NPM
+package-lock.json
