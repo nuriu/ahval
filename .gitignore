@@ -1,1 +1,4 @@
+.*/
 diagrams/
+docs/
+*-lock.json
