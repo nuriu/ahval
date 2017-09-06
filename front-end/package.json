@@ -1,6 +1,7 @@
 {
   "name": "ajanda",
   "version": "0.0.1",
+  "author": "Nuri Uzunoğlu",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
