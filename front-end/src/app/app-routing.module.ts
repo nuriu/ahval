@@ -12,20 +12,20 @@ import { UserGuard } from './guards/user.guard';
 import { GitHubGuard } from './guards/github.guard';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch     : 'full' },
-  { path: 'login', component    : LoginComponent },
-  { path: 'register', component : RegisterComponent },
-  { path: 'home', component     : HomeComponent, canActivate    : [UserGuard] },
-  { path: 'profile', component  : ProfileComponent, canActivate : [UserGuard] },
-  { path: 'github', loadChildren: './github/github.module#GitHubModule', canLoad: [GitHubGuard] }
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login',    component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'home',     component: HomeComponent, canActivate: [UserGuard] },
+    { path: 'profile',  component: ProfileComponent, canActivate: [UserGuard] },
+    { path: 'github', loadChildren: './github/github.module#GitHubModule', canLoad: [GitHubGuard] }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(appRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+    imports: [
+        RouterModule.forRoot(appRoutes)
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class AppRoutingModule { }

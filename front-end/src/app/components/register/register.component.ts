@@ -28,10 +28,10 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.registerForm.value.username && this.registerForm.value.password) {
+        if (this.registerForm.value.username.trim() && this.registerForm.value.password.trim()) {
             this.userService.register(this.registerForm.value.username, this.registerForm.value.password)
             .subscribe((res) => {
-                if (res == 'success') {
+                if (res) {
                     UIkit.notification('<span uk-icon="icon: check"></span> Kayıt işlemi başarılı sonuçlandı!', {
                         status: 'success',
                         pos   : 'bottom-right'

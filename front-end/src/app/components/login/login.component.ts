@@ -28,16 +28,18 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.loginForm.value.username && this.loginForm.value.password) {
+        if (this.loginForm.value.username.trim() && this.loginForm.value.password.trim()) {
             this.userService.login(this.loginForm.value.username, this.loginForm.value.password)
             .subscribe((res) => {
-                if (res == "success") {
+                if (res) {
                     UIkit.notification('<span uk-icon="icon: check"></span> Hoşgeldiniz!', {
                         status: 'success',
                         pos   : 'bottom-right'
                     });
                     this.router.navigate(['home']);
-                } else {
+                }
+            }, (err) => {
+                if (err.status = 400) {
                     UIkit.notification('Giriş işlemi başarısız sonuçlandı. Lütfen tekrar deneyiniz.', {
                         status: 'danger',
                         pos   : 'bottom-right'

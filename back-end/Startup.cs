@@ -53,11 +53,7 @@ namespace Ajanda
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("DisneyUser", policy =>
-                    policy.RequireClaim("DisneyCharacter", "IAmMickey"));
-            });
+            services.AddAuthorization();
 
             var jwtSettings = Configuration.GetSection(nameof(JwtTokenOptions));
 
@@ -104,6 +100,8 @@ namespace Ajanda
                 app.UseDeveloperExceptionPage();
                 loggerFactory.AddDebug();
             }
+            
+            app.UseCors("AllowAll");
 
             app.UseAuthentication();
 

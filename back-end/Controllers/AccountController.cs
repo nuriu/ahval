@@ -29,6 +29,7 @@ namespace Ajanda.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [Route("api/register")]
         public async Task<IActionResult> Register([FromBody] User user)
         {
             var userWithSameUsername = await db.Users.FirstOrDefaultAsync(u => u.Username == user.Username);

@@ -41,7 +41,7 @@ namespace Ajanda.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("api/authenticate")]
-        public async Task<IActionResult> Get([FromForm] User user)
+        public async Task<IActionResult> Get([FromBody]User user)
         {
             var identity = await GetClaimsIdentity(user);
 

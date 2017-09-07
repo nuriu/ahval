@@ -1,54 +1,53 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
+import { Observable } from "rxjs/Observable";
 import 'rxjs/Rx';
 
 @Injectable()
 export class UserService {
-    private APIUrl = 'http://localhost:8080';
-    private loggedIn = false;
-    // private h : Headers = new Headers();
+    private APIUrl     = 'http://localhost:5000';
+    private loggedIn   = false;
+    private h: Headers = new Headers();
 
     constructor(private http: Http) {
         this.loggedIn = !!localStorage.getItem('ajanda_auth_token');
+        this.h.append('Content-Type', 'application/json');
     }
 
     login(username: string, password: string) {
-        let data = new URLSearchParams();
-        data.append('username', username);
-        data.append('password', password);
+        let data = {
+            'Username': username,
+            'Password': password
+        };
 
-        return this.http.post(this.APIUrl + '/api/authenticate', data).map(res => res.json())
-            .map((res) => {
-                if (res.success) {
-                    this.loggedIn = true;
-                    localStorage.setItem('ajanda_auth_token', res.token);
-                    // this.h.set('x-access-token', localStorage.getItem('ajanda_auth_token'));
-                    return "success";
-                } else {
-                    this.loggedIn = false;
-                    return res;
-                }
-            });
+        return this.http.post(this.APIUrl + '/api/authenticate', data, {
+            headers: this.h
+        }).map(res => res.json()).map((res) => {
+            console.log(res);
+            if (res.access_token != null) {
+                this.loggedIn = true;
+                localStorage.setItem('ajanda_auth_token', res.access_token);
+            } else {
+                this.loggedIn = false;
+            }
+            return this.loggedIn;
+        });
     }
 
     register(username: string, password: string) {
-        let data = new URLSearchParams();
-        data.append('username', username);
-        data.append('password', password);
+        let data = {
+            'Username': username,
+            'Password': password
+        };
 
         return this.http.post(this.APIUrl + '/api/register', data).map(res => res.json())
             .map((res) => {
-                if (res.success) {
-                    return "success";
-                } else {
-                    return res;
-                }
+                return res.success;
             });
     }
 
     logout() {
         localStorage.removeItem('ajanda_auth_token');
-        // this.h.delete('x-access-token');
         this.loggedIn = false;
     }
 

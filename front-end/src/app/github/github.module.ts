@@ -9,16 +9,16 @@ import { GitHubComponent } from './github/github.component';
 import { GitHubService } from './services/github.service';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    HttpModule,
-    GitHubRoutingModule
-  ],
-  declarations: [
-    GitHubComponent
-  ],
-  providers: [
-    GitHubService
-  ]
+    imports: [
+        CommonModule,
+        HttpModule,
+        GitHubRoutingModule
+    ],
+    declarations: [
+        GitHubComponent
+    ],
+    providers: [
+        GitHubService
+    ]
 })
 export class GitHubModule { }
