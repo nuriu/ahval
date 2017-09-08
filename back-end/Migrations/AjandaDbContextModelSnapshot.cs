@@ -69,9 +69,14 @@ namespace backend.Migrations
                     b.Property<DateTime>("LastLoggedInAt");
 
                     b.Property<string>("Password")
-                        .HasMaxLength(64);
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<DateTime>("RegisteredAt");
+
+                    b.Property<byte[]>("Salt")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<Guid?>("StateId");
 

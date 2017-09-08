@@ -11,8 +11,8 @@ using System;
 namespace backend.Migrations
 {
     [DbContext(typeof(AjandaDbContext))]
-    [Migration("20170906205434_AddAccessTokenToUserComponent")]
-    partial class AddAccessTokenToUserComponent
+    [Migration("20170908221642_ModelsUpdated")]
+    partial class ModelsUpdated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,9 +70,14 @@ namespace backend.Migrations
                     b.Property<DateTime>("LastLoggedInAt");
 
                     b.Property<string>("Password")
-                        .HasMaxLength(64);
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<DateTime>("RegisteredAt");
+
+                    b.Property<byte[]>("Salt")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<Guid?>("StateId");
 
