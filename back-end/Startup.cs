@@ -41,7 +41,7 @@ namespace Ajanda
             });
 
             services.AddDbContext<AjandaDbContext>(options =>
-                options.UseNpgsql(Configuration["ConnectionStrings:AjandaPSQL"])
+                options.UseNpgsql(Configuration.GetConnectionString("AjandaPSQL"))
             );
 
             services.AddMvc(config =>

@@ -1,6 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
-import { Observable } from "rxjs/Observable";
 import 'rxjs/Rx';
 
 @Injectable()
@@ -15,7 +14,7 @@ export class UserService {
     }
 
     login(username: string, password: string) {
-        let data = {
+        const data = {
             'Username': username,
             'Password': password
         };
@@ -35,11 +34,10 @@ export class UserService {
     }
 
     register(username: string, password: string) {
-        let data = {
+        const data = {
             'Username': username,
             'Password': password
         };
-
         return this.http.post(this.APIUrl + '/api/register', data).map(res => res.json())
             .map((res) => {
                 return res.success;
@@ -57,8 +55,9 @@ export class UserService {
 
     // TODO: resolve cors error with 'OPTIONS' type request
     getProfileInfo() {
-        if (this.h.get('Authorization') == null)
+        if (this.h.get('Authorization') == null) {
             this.h.append('Authorization', 'bearer ' + localStorage.getItem('ajanda_auth_token'));
+        }
 
         return this.http.get(this.APIUrl + '/api/account/me', { headers: this.h })
             .map(res => res.json());
