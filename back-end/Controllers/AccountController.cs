@@ -21,7 +21,7 @@ namespace Ajanda.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetMe()
+        public IActionResult Me()
         {
             var user = db.Users.Include("State").Include("UserComponents").FirstOrDefault(u => u.Username == User.Identity.Name);
             return Ok(user);
