@@ -23,20 +23,15 @@
             </dd>
             <dt>PAROLANIZ</dt>
             <dd>********</dd>
-            <dt>GITHUB ERİŞİM ANAHTARINIZ</dt>
-            <dd>
-              <div *ngIf="!(user?.gh_token)"> <div uk-spinner></div> Yükleniyor... </div>
-              <span *ngIf="user?.gh_token">{{ user?.gh_token }}</span>
-            </dd>
             <dt>KAYIT OLMA TARİHİNİZ</dt>
             <dd>
-              <div *ngIf="!(user?.registered_at)"> <div uk-spinner></div> Yükleniyor... </div>
-              <span *ngIf="user?.registered_at">{{ user?.registered_at }}</span>
+              <div *ngIf="!(user?.registeredAt)"> <div uk-spinner></div> Yükleniyor... </div>
+              <span *ngIf="user?.registeredAt">{{ user?.registeredAt }}</span>
             </dd>
             <dt>SON GİRİŞ TARİHİNİZ</dt>
             <dd>
-              <div *ngIf="!(user?.loggedin_at)"> <div uk-spinner></div> Yükleniyor... </div>
-              <span *ngIf="user?.loggedin_at">{{ user?.loggedin_at }}</span>
+              <div *ngIf="!(user?.lastLoggedInAt)"> <div uk-spinner></div> Yükleniyor... </div>
+              <span *ngIf="user?.lastLoggedInAt">{{ user?.lastLoggedInAt }}</span>
             </dd>
           </dl>
         </div>
@@ -57,13 +52,6 @@
                 <label class="uk-form-label" for="form-stacked-text">PAROLANIZ</label>
                 <div class="uk-form-controls">
                   <input class="uk-input" id="form-stacked-text" type="text" placeholder="********">
-                </div>
-              </div>
-
-              <div class="uk-margin">
-                <label class="uk-form-label" for="form-stacked-text">GITHUB ERİŞİM ANAHTARINIZ</label>
-                <div class="uk-form-controls">
-                  <input class="uk-input" id="form-stacked-text" type="text" placeholder="Yükleniyor...">
                 </div>
               </div>
 

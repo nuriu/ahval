@@ -14,8 +14,9 @@ export class ProfileComponent {
     ngOnInit() {
         this.userService.getProfileInfo().subscribe((res) => {
             if (res) {
-                console.log(res);
                 this.user = res;
+                this.user.registeredAt = new Date(res.registeredAt + 'Z').toLocaleString();
+                this.user.lastLoggedInAt = new Date(res.lastLoggedInAt + 'Z').toLocaleString();
             } else {
                 // TODO: show error message.
             }

@@ -23,10 +23,10 @@ export class UserService {
         return this.http.post(this.APIUrl + '/api/authenticate', data, {
             headers: this.h
         }).map(res => res.json()).map((res) => {
-            console.log(res);
             if (res.access_token != null) {
                 this.loggedIn = true;
                 localStorage.setItem('ajanda_auth_token', res.access_token);
+                this.h.append('Authorization', 'bearer ' + res.access_token);
             } else {
                 this.loggedIn = false;
             }
@@ -57,12 +57,15 @@ export class UserService {
 
     // TODO: resolve cors error with 'OPTIONS' type request
     getProfileInfo() {
-        return this.http.get(this.APIUrl + '/api/me?token=' + localStorage.getItem('ajanda_auth_token'))
+        if (this.h.get('Authorization') == null)
+            this.h.append('Authorization', 'bearer ' + localStorage.getItem('ajanda_auth_token'));
+
+        return this.http.get(this.APIUrl + '/api/account/me', { headers: this.h })
             .map(res => res.json());
     }
 
     getGitHubToken() {
-        return this.http.get(this.APIUrl + '/api/me/getGitHubToken?token=' + localStorage.getItem('ajanda_auth_token'))
+        return this.http.get(this.APIUrl + '/api/me/getGitHubToken', { headers: this.h })
             .map(res => res.json());
     }
 }
