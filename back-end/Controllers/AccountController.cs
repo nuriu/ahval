@@ -77,10 +77,9 @@ namespace Ajanda.Controllers
         /// </summary>
         /// <returns>Information of signed in user.</returns>
         [HttpGet]
-        public IActionResult Me()
+        public async Task<IActionResult> Me()
         {
-            var user = db.Users.Include("State").Include("UserComponents").FirstOrDefault(u => u.Username == User.Identity.Name);
-            return Ok(user);
+            return Ok(await db.Users.Include("State").Include("UserComponents").FirstOrDefaultAsync(u => u.Username == User.Identity.Name));
         }
 
         /// <summary>
@@ -109,6 +108,26 @@ namespace Ajanda.Controllers
             {
                 return Ok(new {success = false});
             }
+        }
+
+        /// <summary>
+        /// Retrieves component list that user has access rights.
+        /// </summary>
+        /// <returns>Minimal user info with component list.</returns>
+        [HttpGet]
+        public async Task<IActionResult> GetUserComponents()
+        {
+            var components = await db.Users.Include("State").Include("UserComponents.Component")
+            .Where((u => u.Username == User.Identity.Name)).Select(u => new {
+                u.Id,
+                State = u.State.Name,
+                UserComponents = u.UserComponents.Select(uc => new {
+                    Component = uc.Component.Name,
+                    uc.AccessToken
+                }).ToList()
+            }).FirstOrDefaultAsync();
+
+            return Ok(components);
         }
     }
 }
