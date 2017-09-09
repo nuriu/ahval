@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using Ajanda.Authentication;
+using Ajanda.Helpers;
 using Ajanda.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,9 @@ namespace Ajanda.Controllers
         private readonly ILogger logger;
         private readonly JsonSerializerSettings serializerSettings;
 
-        public JwtTokenController(IOptions<JwtTokenOptions> tokenOptions, ILoggerFactory loggerFactory, AjandaDbContext databaseContext)
+        public JwtTokenController(IOptions<JwtTokenOptions> tokenOptions,
+                                  ILoggerFactory loggerFactory,
+                                  AjandaDbContext databaseContext)
         {
             jwtTokenOptions = tokenOptions.Value;
             ThrowIfInvalidOptions(jwtTokenOptions);
@@ -110,7 +113,7 @@ namespace Ajanda.Controllers
 
             if (dbUser != null)
             {
-                if (dbUser.Password == user.Password)
+                if (CryptoHelper.VerifyHashedPassword(dbUser.Password, user.Password))
                 {
                     dbUser.LastLoggedInAt = DateTime.UtcNow;
 

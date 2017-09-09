@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ajanda.Helpers;
 using Ajanda.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 namespace Ajanda.Controllers
 {
@@ -39,7 +38,7 @@ namespace Ajanda.Controllers
                 User userModel = new User
                 {
                     Username = user.Username,
-                    Password = user.Password,
+                    Password = CryptoHelper.HashPassword(user.Password),
                     EmailAddress = user.EmailAddress,
                     RegisteredAt = DateTime.UtcNow,
                     State = db.States.FirstOrDefault(s => s.Name == "ACTIVE")
