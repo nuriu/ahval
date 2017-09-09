@@ -7,7 +7,7 @@ import * as UIkit from 'uikit';
 import { UserService } from '../../services/user.service';
 
 @Component({
-    selector   : 'login',
+    selector   : 'app-login',
     templateUrl: './login.component.html',
     styleUrls  : ['./login.component.css']
 })

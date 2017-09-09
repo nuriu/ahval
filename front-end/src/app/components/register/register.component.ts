@@ -7,7 +7,7 @@ import * as UIkit from 'uikit';
 import { UserService } from '../../services/user.service';
 
 @Component({
-    selector   : 'register',
+    selector   : 'app-register',
     templateUrl: './register.component.html',
     styleUrls  : ['./register.component.css']
 })
