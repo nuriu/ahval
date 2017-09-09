@@ -38,6 +38,7 @@ export class UserService {
             'Username': username,
             'Password': password
         };
+
         return this.http.post(this.APIUrl + '/api/register', data).map(res => res.json())
             .map((res) => {
                 return res.success;
@@ -47,6 +48,18 @@ export class UserService {
     logout() {
         localStorage.removeItem('ajanda_auth_token');
         this.loggedIn = false;
+    }
+
+    update(currentPassword: string, newPassword: string, newEmailAddress: string) {
+        const data = {
+            'OldPassword': currentPassword,
+            'NewPassword': newPassword,
+            'NewEmailAddress': newEmailAddress
+        }
+
+        return this.http.put(this.APIUrl + '/api/account/update', data, {
+            headers: this.h
+        }).map(res => res.json());
     }
 
     isLoggedIn() {

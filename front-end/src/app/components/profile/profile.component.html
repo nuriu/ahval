@@ -14,12 +14,16 @@
 
         <div>
           <h3>Mevcut Profil Bilgileriniz</h3>
-
           <dl class="uk-description-list uk-description-list-divider">
             <dt>KULLANICI ADINIZ</dt>
             <dd>
               <div *ngIf="!(user?.username)"> <div uk-spinner></div> Yükleniyor... </div>
               <span *ngIf="user?.username">{{ user?.username }}</span>
+            </dd>
+            <dt>E-POSTA ADRESİNİZ</dt>
+            <dd>
+              <div *ngIf="!(user?.emailAddress)"> <div uk-spinner></div> Yükleniyor... </div>
+              <span *ngIf="user?.emailAddress">{{ user?.emailAddress }}</span>
             </dd>
             <dt>PAROLANIZ</dt>
             <dd>********</dd>
@@ -39,26 +43,26 @@
         <div>
           <h3>Profil Bilgileri Düzenle</h3>
           <div class="uk-margin">
-            <form class="uk-form-stacked">
+            <form class="uk-form-stacked" [formGroup]="updateForm" (ngSubmit)="update()">
 
               <div class="uk-margin">
-                <label class="uk-form-label" for="form-stacked-text">KULLANICI ADINIZ</label>
+                <label class="uk-form-label" for="form-stacked-text">E-POSTA ADRESİNİZ</label>
                 <div class="uk-form-controls">
-                  <input class="uk-input" id="form-stacked-text" type="text" placeholder="Yükleniyor...">
+                  <input class="uk-input" type="text" name="newEmailAddress" formControlName="newEmailAddress" placeholder="Yükleniyor...">
                 </div>
               </div>
 
               <div class="uk-margin">
                 <label class="uk-form-label" for="form-stacked-text">PAROLANIZ</label>
                 <div class="uk-form-controls">
-                  <input class="uk-input" id="form-stacked-text" type="text" placeholder="********">
+                  <input class="uk-input" type="password" name="newPassword" formControlName="newPassword" placeholder="********">
                 </div>
               </div>
 
               <div class="uk-margin">
                 <label class="uk-form-label" for="form-stacked-text">MEVCUT PAROLANIZ</label>
                 <div class="uk-form-controls">
-                  <input class="uk-input" id="form-stacked-text" type="text" placeholder="********">
+                  <input class="uk-input" type="password" name="oldPassword" formControlName="oldPassword" placeholder="********">
                 </div>
               </div>
 

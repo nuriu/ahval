@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
                     });
                     this.router.navigate(['login']);
                 } else {
-                    if (res.message == 'Registration failed. User with same username exists.') {
+                    if (res.message === 'Registration failed. User with same username exists.') {
                         UIkit.notification('Sistemde aynı kullanıcı ismine sahip bir kullanıcı mevcut.<br/>\
                         <br/>Lütfen farklı bir kullanıcı ismiyle tekrar deneyiniz.', {
                             status: 'danger',
