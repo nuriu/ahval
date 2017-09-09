@@ -3,17 +3,23 @@
 import { UserService } from '../../services/user.service';
 
 @Component({
-    selector   : 'sidebar',
     selector   : 'app-sidebar',
     templateUrl: './sidebar.component.html',
     styleUrls  : ['./sidebar.component.css']
 })
+export class SidebarComponent implements OnInit {
 
-export class SidebarComponent {
-    constructor(private userService  : UserService) { }
+    constructor(private userService: UserService) { }
+
+    ngOnInit() {
+        if (this.userService.isLoggedIn()) {
+            this.userService.getComponentList().subscribe((res) => {
+                console.log(res);
+            });
+        }
+    }
 
     signout() {
-        console.log(this.userService.isLoggedIn());
         this.userService.logout();
     }
 }
