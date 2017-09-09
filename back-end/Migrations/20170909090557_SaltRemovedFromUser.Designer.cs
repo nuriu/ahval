@@ -11,9 +11,10 @@ using System;
 namespace backend.Migrations
 {
     [DbContext(typeof(AjandaDbContext))]
-    partial class AjandaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170909090557_SaltRemovedFromUser")]
+    partial class SaltRemovedFromUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

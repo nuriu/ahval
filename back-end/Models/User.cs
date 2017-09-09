@@ -21,8 +21,5 @@ namespace Ajanda.Models
         public DateTime LastLoggedInAt { get; set; }
         public virtual ICollection<UserComponent> UserComponents { get; set; }
         public virtual State State { get; set; }
-        [Required]
-        [MaxLength(255)]
-        public byte[] Salt { get; set; }
     }
 }

@@ -10,7 +10,9 @@ namespace Ajanda.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Component> Components { get; set; }
 
-        public AjandaDbContext(DbContextOptions<AjandaDbContext> options) : base(options) { }
+        public AjandaDbContext(DbContextOptions<AjandaDbContext> options) : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -37,7 +39,6 @@ namespace Ajanda.Models
 
             return base.SaveChanges();
         }
-
         private void updateUpdatedProperty<T>() where T : class
         {
             var modifiedSourceInfo = ChangeTracker.Entries<T>()
