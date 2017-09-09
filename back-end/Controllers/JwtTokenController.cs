@@ -109,14 +109,17 @@ namespace Ajanda.Controllers
 
         private Task<ClaimsIdentity> GetClaimsIdentity(User user)
         {
+            // check for user
             var dbUser = db.Users.FirstOrDefault(u => u.Username == user.Username);
-
+            // if user exists
             if (dbUser != null)
-            {
+            {   
+                // if right password entered
                 if (CryptoHelper.VerifyHashedPassword(dbUser.Password, user.Password))
                 {
+                    // update last logged in time
                     dbUser.LastLoggedInAt = DateTime.UtcNow;
-
+                    // save changes
                     db.Entry(dbUser).State = EntityState.Modified;
                     db.SaveChangesAsync();
 
