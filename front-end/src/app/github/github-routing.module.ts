@@ -4,15 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { GitHubComponent } from './github/github.component';
 
 const githubRoutes: Routes = [
-	{ path: 'home', component: GitHubComponent }
+    { path: 'home', component: GitHubComponent }
 ];
 
 @NgModule({
-	imports: [
-		RouterModule.forChild(githubRoutes)
-	],
-	exports: [
-		RouterModule
-	]
+    imports: [
+        RouterModule.forChild(githubRoutes)
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class GitHubRoutingModule { }

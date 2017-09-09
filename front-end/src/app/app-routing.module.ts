@@ -13,11 +13,13 @@ import { GitHubGuard } from './guards/github.guard';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '#', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login',    component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'home',     component: HomeComponent, canActivate: [UserGuard] },
     { path: 'profile',  component: ProfileComponent, canActivate: [UserGuard] },
-    { path: 'github', loadChildren: './github/github.module#GitHubModule', canLoad: [GitHubGuard] }
+    { path: 'github', loadChildren: './github/github.module#GitHubModule', canLoad: [GitHubGuard] },
+    { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
