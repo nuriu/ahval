@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ajanda.Helpers;
 using Ajanda.Models;
+using Ajanda.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -56,6 +57,27 @@ namespace Ajanda.Controllers
                     success = false,
                     message = "Registration failed. User with same username exists."
                 });
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateUserViewModel user)
+        {
+            var dbUser = await db.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+
+            if (CryptoHelper.VerifyHashedPassword(dbUser.Password, user.OldPassword))
+            {
+                dbUser.Password = CryptoHelper.HashPassword(user.NewPassword);
+                dbUser.EmailAddress = user.newEmailAddress;
+
+                db.Entry(dbUser).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+
+                return Ok(new {success = true});
+            }
+            else
+            {
+                return Ok(new {success = false});
             }
         }
     }
