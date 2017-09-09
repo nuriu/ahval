@@ -45,10 +45,13 @@ export class UserService {
 
     logout() {
         localStorage.removeItem('ajanda_auth_token');
-        this.loggedIn = false;
     }
 
     update(currentPassword: string, newPassword: string, newEmailAddress: string) {
+        if (this.h.get('Authorization') == null) {
+            this.setAuthorizationHeader();
+        }
+
         const data = {
             'OldPassword': currentPassword,
             'NewPassword': newPassword,
@@ -61,22 +64,38 @@ export class UserService {
     }
 
     isLoggedIn() {
-        return this.loggedIn;
         return !!localStorage.getItem('ajanda_auth_token');
     }
 
     // TODO: resolve cors error with 'OPTIONS' type request
     getProfileInfo() {
         if (this.h.get('Authorization') == null) {
-            this.h.append('Authorization', 'bearer ' + localStorage.getItem('ajanda_auth_token'));
+            this.setAuthorizationHeader();
         }
 
         return this.http.get(this.APIUrl + '/api/account/me', { headers: this.h })
             .map(res => res.json());
     }
 
+    getComponentList() {
+        if (this.h.get('Authorization') == null) {
+            this.setAuthorizationHeader();
+        }
+
+        return this.http.get(this.APIUrl + '/api/account/getusercomponents', { headers: this.h })
+        .map(res => res.json());
+    }
+
     getGitHubToken() {
+        if (this.h.get('Authorization') == null) {
+            this.setAuthorizationHeader();
+        }
+
         return this.http.get(this.APIUrl + '/api/me/getGitHubToken', { headers: this.h })
             .map(res => res.json());
+    }
+
+    private setAuthorizationHeader() {
+        this.h.append('Authorization', 'bearer ' + localStorage.getItem('ajanda_auth_token'));
     }
 }
