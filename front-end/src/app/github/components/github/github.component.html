@@ -1,0 +1,31 @@
+<div class="uk-tile uk-tile-default">
+
+  <ul class="uk-breadcrumb">
+    <li><a href="#" routerLink="/home">Ajanda</a></li>
+    <li><a href="#" routerLink="/github/home">GitHub</a></li>
+    <li><span href="#">Akış</span></li>
+  </ul>
+
+  <hr class="uk-divider-icon">
+
+  <div class="uk-section uk-section-default">
+    <div class="uk-container">
+      <div class="uk-grid-match uk-child-width-1-2@m" uk-grid>
+        <div>
+          <ul class="uk-list">
+            <li>
+              <app-github-flowitemcard [image]="'https://getuikit.com/docs/images/avatar.jpg'"
+                                       [title]="'deneme'"
+                                       [content]="'içerik'">
+              </app-github-flowitemcard>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

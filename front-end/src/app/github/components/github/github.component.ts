@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { UserService } from '../../services/user.service';
-import { GitHubService } from '../services/github.service';
+import { UserService } from '../../../services/user.service';
+import { GitHubService } from '../../services/github.service';
 
 @Component({
     selector   : 'github',
