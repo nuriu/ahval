@@ -17,11 +17,50 @@
       <div class="uk-grid-match uk-child-width-1-2@m" uk-grid>
         <div>
           <ul class="uk-list">
-            <li>
-              <app-github-flowitemcard [image]="'https://getuikit.com/docs/images/avatar.jpg'"
-                                       [title]="'deneme'"
-                                       [content]="'içerik'">
+            <li *ngFor="let item of receivedEvents; let i = index" [ngSwitch]="item.type">
+
+              <app-github-flowitemcard *ngSwitchCase="'WatchEvent'"
+                                      [image]="item?.actor.avatar_url"
+                                      [title]="'#' + i + ' - ' + item?.actor.login"
+                                      [date]="item?.created_at"
+                                      [content]="item?.repo.name + ' adresindeki projeyi favorilerine ekledi.'">
               </app-github-flowitemcard>
+
+              <app-github-flowitemcard *ngSwitchCase="'ForkEvent'"
+                                      [image]="item?.actor.avatar_url"
+                                      [title]="'#' + i + ' - ' + item?.actor.login"
+                                      [date]="item?.created_at"
+                                      [content]="item?.repo.name + ' adresindeki projeyi çatalladı.'">
+              </app-github-flowitemcard>
+
+              <app-github-flowitemcard *ngSwitchCase="'CreateEvent'"
+                                      [image]="item?.actor.avatar_url"
+                                      [title]="'#' + i + ' - ' + item?.actor.login"
+                                      [date]="item?.created_at"
+                                      [content]="item?.repo.name + ' adresinde bir proje oluşturdu.'">
+              </app-github-flowitemcard>
+
+              <app-github-flowitemcard *ngSwitchCase="'PublicEvent'"
+                                      [image]="item?.actor.avatar_url"
+                                      [title]="'#' + i + ' - ' + item?.actor.login"
+                                      [date]="item?.created_at"
+                                      [content]="item?.repo.name + ' adresindeki projeyi herkese açık hale getirdi.'">
+              </app-github-flowitemcard>
+
+              <app-github-flowitemcard *ngSwitchCase="'MemberEvent'"
+                                      [image]="item?.actor.avatar_url"
+                                      [title]="'#' + i + ' - ' + item?.actor.login"
+                                      [date]="item?.created_at"
+                                      [content]="item?.payload.member.login + ' adlı kullanıcıyı ' + item?.repo.name + ' adresindeki proje ekibine ekledi.'">
+              </app-github-flowitemcard>
+
+              <app-github-flowitemcard *ngSwitchDefault
+                                      [image]="item?.actor.avatar_url"
+                                      [title]="'#' + i + ' - ' + item?.actor.login"
+                                      [date]="item?.created_at"
+                                      [content]="item?.type + ' isimli olay türü için henüz içerik metni yazılmadı.'">
+              </app-github-flowitemcard>
+
             </li>
           </ul>
         </div>

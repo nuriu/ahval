@@ -16,6 +16,6 @@ export class FlowItemCardComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        this.date = new Date('2017-09-09 10:13:37.053120Z').toLocaleString();
+        this.date = new Date(this.date);
     }
 }

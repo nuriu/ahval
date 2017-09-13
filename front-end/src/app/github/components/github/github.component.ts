@@ -53,13 +53,15 @@ export class GitHubComponent implements OnInit {
     }
 
     getStreamForActiveUser() {
-        for (let i = 1; i <= 1; i++) {
+        for (let i = 1; i <= 10; i++) {
             this.githubService.getUserReceivedEvents(this.user.login, i).subscribe(
                 data  => this.receivedEvents = this.receivedEvents.concat(data),
                 error => console.log(error),
                 ()    => {
-                    console.log(this.receivedEvents);
-                    this.getFollowingUsers();
+                    if (i === 10) {
+                        console.log(this.receivedEvents);
+                        this.getFollowingUsers();
+                    }
                 }
             );
         }
