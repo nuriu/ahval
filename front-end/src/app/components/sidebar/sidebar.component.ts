@@ -8,13 +8,16 @@ import { UserService } from '../../services/user.service';
     styleUrls  : ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
+    items: Array<string> = new Array<string>();
 
     constructor(private userService: UserService) { }
 
     ngOnInit() {
         if (this.userService.isLoggedIn()) {
-            this.userService.getComponentList().subscribe((res) => {
-                console.log(res);
+            this.userService.getComponentList().subscribe(c => {
+                c.userComponents.forEach(element => {
+                    this.items.push(element.component);
+                });
             });
         }
     }
