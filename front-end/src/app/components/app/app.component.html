@@ -1,5 +1,5 @@
 <div uk-grid>
-  <app-sidebar></app-sidebar>
+  <app-sidebar *ngIf="isLoggedIn()"></app-sidebar>
   <div class="uk-width-expand@m">
     <router-outlet></router-outlet>
   </div>

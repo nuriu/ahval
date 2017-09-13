@@ -12,4 +12,8 @@ export class AppComponent {
     constructor() {
         UIkit.use(Icons);
     }
+
+    isLoggedIn() {
+        return !!localStorage.getItem('ajanda_auth_token');
+    }
 }
