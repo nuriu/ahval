@@ -67,7 +67,6 @@ export class UserService {
         return !!localStorage.getItem('ajanda_auth_token');
     }
 
-    // TODO: resolve cors error with 'OPTIONS' type request
     getProfileInfo() {
         if (this.h.get('Authorization') == null) {
             this.setAuthorizationHeader();
