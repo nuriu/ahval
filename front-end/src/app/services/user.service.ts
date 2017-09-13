@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
@@ -23,7 +24,6 @@ export class UserService {
             if (res.access_token != null) {
                 localStorage.setItem('ajanda_auth_token', res.access_token);
                 this.h.append('Authorization', 'bearer ' + res.access_token);
-
                 return true;
             }
 
@@ -83,6 +83,16 @@ export class UserService {
 
         return this.http.get(this.APIUrl + '/api/account/getusercomponents', { headers: this.h })
         .map(res => res.json());
+    }
+
+    hasComponent(component: string) {
+        const data = new URLSearchParams();
+        data.append('componentName', component);
+
+        return this.http.get(this.APIUrl + '/api/account/hascomponent',
+        { headers: this.h, search: data }).map(res => res.json()).map(res => {
+            return res;
+        });
     }
 
     getGitHubToken() {

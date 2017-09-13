@@ -129,5 +129,21 @@ namespace Ajanda.Controllers
 
             return Ok(components);
         }
+
+        /// <summary>
+        /// Checks whether user has the specified component.
+        /// </summary>
+        /// <param name="componentName">Name of the component.</param>
+        /// <returns>Availability status of the component.</returns>
+        [HttpGet]
+        public async Task<Boolean> HasComponent(string componentName)
+        {
+            componentName = componentName.ToUpper();
+
+            var user = await db.Users.Include("UserComponents.Component")
+            .FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+
+            return user.UserComponents.Any(uc => uc.Component.Name == componentName);
+        }
     }
 }

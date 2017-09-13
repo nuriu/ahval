@@ -4,9 +4,9 @@ import { UserService } from '../services/user.service';
 
 @Injectable()
 export class GitHubGuard implements CanLoad {
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService) { }
 
     canLoad() {
-        return this.userService.isLoggedIn();
+        return this.userService.hasComponent('GITHUB');
     }
 }
