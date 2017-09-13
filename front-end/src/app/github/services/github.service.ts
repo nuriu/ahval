@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
-import { Params } from '@angular/router';
-import 'rxjs/Rx';
+
 
 
 @Injectable()
 export class GitHubService {
     private APIUrl = 'http://localhost:5000';
     private h    : Headers = new Headers();
-    private token;
+    private token: string;
     /*
     client       : any;
     client_id    : string;
@@ -21,8 +20,6 @@ export class GitHubService {
 
     activate() {
         this.h.set('Authorization', 'token ' + this.token);
-
-        console.log(this.h.get("Authorization"));
     }
 
     setToken(token: string) {
@@ -42,7 +39,7 @@ export class GitHubService {
     }
 
     getUserRepos(sort: string, direction: string) {
-        let p = new URLSearchParams();
+        const p = new URLSearchParams();
         p.set('sort', sort);
         p.set('direction', direction);
         return this.http.get('https://api.github.com/user/repos', {

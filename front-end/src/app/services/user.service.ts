@@ -86,6 +86,10 @@ export class UserService {
     }
 
     hasComponent(component: string) {
+        if (this.h.get('Authorization') == null) {
+            this.setAuthorizationHeader();
+        }
+
         const data = new URLSearchParams();
         data.append('componentName', component);
 
@@ -95,13 +99,18 @@ export class UserService {
         });
     }
 
-    getGitHubToken() {
+    getToken(component: string) {
         if (this.h.get('Authorization') == null) {
             this.setAuthorizationHeader();
         }
 
-        return this.http.get(this.APIUrl + '/api/me/getGitHubToken', { headers: this.h })
-            .map(res => res.json());
+        const data = new URLSearchParams();
+        data.append('componentName', component);
+
+        return this.http.get(this.APIUrl + '/api/account/gettokenforcomponent',
+        { headers: this.h, search: data }).map(res => res.json()).map(res => {
+            return res;
+        });
     }
 
     private setAuthorizationHeader() {

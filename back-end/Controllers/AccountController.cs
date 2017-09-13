@@ -145,5 +145,21 @@ namespace Ajanda.Controllers
 
             return user.UserComponents.Any(uc => uc.Component.Name == componentName);
         }
+
+        /// <summary>
+        /// Retrieves access token for the specified component.
+        /// </summary>
+        /// <param name="componentName">Name of the component.</param>
+        /// <returns>Access token for the component.</returns>
+        [HttpGet]
+        public async Task<IActionResult> GetTokenForComponent(string componentName)
+        {
+            componentName = componentName.ToUpper();
+
+            var user = await db.Users.Include("UserComponents.Component")
+            .FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+
+            return Ok(new { token = user.UserComponents.FirstOrDefault(uc => uc.Component.Name == componentName).AccessToken });
+        }
     }
 }

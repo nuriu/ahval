@@ -19,9 +19,9 @@ export class GitHubComponent implements OnInit {
                 private userService: UserService) {}
 
     ngOnInit() {
-        this.userService.getGitHubToken().subscribe((res) => {
-            if (res) {
-                this.githubService.setToken(res);
+        this.userService.getToken('GITHUB').subscribe((res) => {
+            if (res.token) {
+                this.githubService.setToken(res.token);
                 this.githubService.activate();
                 this.getActiveUser();
             } else {
@@ -35,7 +35,7 @@ export class GitHubComponent implements OnInit {
             data  => this.user = data,
             error => console.log(error),
             ()    => {
-                //console.log(this.user);
+                console.log(this.user);
                 this.getActiveUsersRepos();
             }
         );
@@ -46,19 +46,19 @@ export class GitHubComponent implements OnInit {
             data  => this.repos = data,
             error => console.log(error),
             ()    => {
-                //console.log(this.repos);
+                console.log(this.repos);
                 this.getStreamForActiveUser();
             }
         );
     }
 
     getStreamForActiveUser() {
-        for (var i = 1; i <= 1; i++) {
+        for (let i = 1; i <= 1; i++) {
             this.githubService.getUserReceivedEvents(this.user.login, i).subscribe(
                 data  => this.receivedEvents = this.receivedEvents.concat(data),
                 error => console.log(error),
                 ()    => {
-                    //console.log(this.receivedEvents);
+                    console.log(this.receivedEvents);
                     this.getFollowingUsers();
                 }
             );
@@ -70,7 +70,7 @@ export class GitHubComponent implements OnInit {
             data  => this.followingUsers = data,
             error => console.log(error),
             ()    => {
-                //console.log(this.followingUsers);
+                console.log(this.followingUsers);
                 this.getFollowers();
             }
         );
@@ -81,7 +81,7 @@ export class GitHubComponent implements OnInit {
             data  => this.followers = data,
             error => console.log(error),
             ()    => {
-                //console.log(this.followers);
+                console.log(this.followers);
             }
         );
     }
