@@ -4,7 +4,7 @@ import { UserService } from '../../../services/user.service';
 import { GitHubService } from '../../services/github.service';
 
 @Component({
-    selector   : 'github',
+    selector   : 'app-github',
     templateUrl: './github.component.html',
     styleUrls  : ['./github.component.css']
 })
@@ -59,7 +59,7 @@ export class GitHubComponent implements OnInit {
                 error => console.log(error),
                 ()    => {
                     if (i === 10) {
-                        console.log(this.receivedEvents);
+                        // console.log(this.receivedEvents);
                         this.getFollowingUsers();
                     }
                 }
