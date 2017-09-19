@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class FlowItemCardComponent implements OnInit {
     @Input() image;
+    @Input() tooltip;
     @Input() title;
     @Input() date;
     @Input() content;

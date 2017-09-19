@@ -2,7 +2,8 @@
   <div class="uk-card-header">
     <div class="uk-grid-small uk-flex-middle" uk-grid>
       <div class="uk-width-auto" *ngIf="image">
-        <img class="uk-border-circle" width="50" height="50" [src]=[image]>
+        <img class="uk-border-circle" width="50" height="50" [src]=[image]
+        [title]=[tooltip] uk-tooltip>
       </div>
       <div class="uk-width-expand">
         <h5 class="uk-card-title uk-margin-remove-bottom">{{ title }}</h5>

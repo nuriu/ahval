@@ -21,6 +21,7 @@
 
               <app-github-flowitemcard *ngSwitchCase="'WatchEvent'"
                                       [image]="item?.actor.avatar_url"
+                                      [tooltip]="item?.actor.login"
                                       [title]="'#' + i + ' - ' + item?.actor.login"
                                       [date]="item?.created_at"
                                       [content]="item?.repo.name + ' adresindeki projeyi favorilerine ekledi.'">
@@ -28,6 +29,7 @@
 
               <app-github-flowitemcard *ngSwitchCase="'ForkEvent'"
                                       [image]="item?.actor.avatar_url"
+                                      [tooltip]="item?.actor.login"
                                       [title]="'#' + i + ' - ' + item?.actor.login"
                                       [date]="item?.created_at"
                                       [content]="item?.repo.name + ' adresindeki projeyi çatalladı.'">
@@ -35,6 +37,7 @@
 
               <app-github-flowitemcard *ngSwitchCase="'CreateEvent'"
                                       [image]="item?.actor.avatar_url"
+                                      [tooltip]="item?.actor.login"
                                       [title]="'#' + i + ' - ' + item?.actor.login"
                                       [date]="item?.created_at"
                                       [content]="item?.repo.name + ' adresinde bir proje oluşturdu.'">
@@ -42,6 +45,7 @@
 
               <app-github-flowitemcard *ngSwitchCase="'PublicEvent'"
                                       [image]="item?.actor.avatar_url"
+                                      [tooltip]="item?.actor.login"
                                       [title]="'#' + i + ' - ' + item?.actor.login"
                                       [date]="item?.created_at"
                                       [content]="item?.repo.name + ' adresindeki projeyi herkese açık hale getirdi.'">
@@ -49,6 +53,7 @@
 
               <app-github-flowitemcard *ngSwitchCase="'MemberEvent'"
                                       [image]="item?.actor.avatar_url"
+                                      [tooltip]="item?.actor.login"
                                       [title]="'#' + i + ' - ' + item?.actor.login"
                                       [date]="item?.created_at"
                                       [content]="item?.payload.member.login + ' adlı kullanıcıyı ' + item?.repo.name + ' adresindeki proje ekibine ekledi.'">
@@ -56,6 +61,7 @@
 
               <app-github-flowitemcard *ngSwitchDefault
                                       [image]="item?.actor.avatar_url"
+                                      [tooltip]="item?.actor.login"
                                       [title]="'#' + i + ' - ' + item?.actor.login"
                                       [date]="item?.created_at"
                                       [content]="item?.type + ' isimli olay türü için henüz içerik metni yazılmadı.'">
