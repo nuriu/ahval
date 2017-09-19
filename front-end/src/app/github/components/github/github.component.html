@@ -64,8 +64,27 @@
             </li>
           </ul>
         </div>
+
         <div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+          <div class="uk-panel">
+            <h2>Takip Eden Kişiler <span class="uk-badge">{{ followers?.length }}</span></h2>
+            <img class="uk-border-circle uk-margin-right uk-margin-bottom" width="50" height="50"
+                *ngFor="let fu of followers" src="{{ fu?.avatar_url }}"
+                title="{{ fu?.login }}" uk-tooltip>
+            <br />
+            <h2>Takip Edilen Kişiler <span class="uk-badge">{{ followingUsers?.length }}</span></h2>
+            <img class="uk-border-circle uk-margin-right uk-margin-bottom" width="50" height="50"
+                *ngFor="let fu of followingUsers" src="{{ fu?.avatar_url }}"
+                title="{{ fu?.login }}" uk-tooltip>
+            <br />
+            <h2>Projeler <span class="uk-badge">{{ repos?.length }}</span></h2>
+            <ul class="uk-list">
+              <li *ngFor="let item of repos">
+                <span class="uk-margin-small-right" uk-icon="icon: github"></span>
+                {{ item?.full_name }} <span class="uk-badge">{{ item?.language }}</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
