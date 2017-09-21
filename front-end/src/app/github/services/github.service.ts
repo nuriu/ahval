@@ -71,4 +71,10 @@ export class GitHubService {
             headers: this.h
         }).map(res => res.json());
     }
+
+    getRepoInfo(owner: string, name: string) {
+        return this.http.get('https://api.github.com/repos/' + owner + '/' + name, {
+            headers: this.h
+        }).map(res => res.json());
+    }
 }
