@@ -6,6 +6,7 @@ import { GitHubRoutingModule } from './github-routing.module';
 
 import { GitHubComponent } from './components/github/github.component';
 import { FlowItemCardComponent } from './components/flowItemCard/flowItemCard.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 import { GitHubService } from './services/github.service';
 
@@ -17,7 +18,8 @@ import { GitHubService } from './services/github.service';
     ],
     declarations: [
         GitHubComponent,
-        FlowItemCardComponent
+        FlowItemCardComponent,
+        ProfileComponent
     ],
     providers: [
         GitHubService
