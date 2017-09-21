@@ -65,4 +65,10 @@ export class GitHubService {
             headers: this.h
         }).map(res => res.json());
     }
+
+    getUserInfo(login: string) {
+        return this.http.get('https://api.github.com/users/' + login, {
+            headers: this.h
+        }).map(res => res.json());
+    }
 }

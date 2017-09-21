@@ -6,7 +6,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 
 const githubRoutes: Routes = [
     { path: 'home', component: GitHubComponent },
-    { path: 'profile', component: ProfileComponent }
+    { path: 'profile/:login', component: ProfileComponent }
 ];
 
 @NgModule({

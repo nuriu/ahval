@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../../../services/user.service';
 import { GitHubService } from '../../services/github.service';
@@ -16,17 +17,27 @@ export class ProfileComponent implements OnInit {
     @Input() followers      = new Array<any>();
 
     constructor(private githubService: GitHubService,
-                private userService: UserService) { }
+                private userService: UserService,
+                private route: ActivatedRoute) { }
 
     ngOnInit() {
-        this.userService.getToken('GITHUB').subscribe((res) => {
-            if (res.token) {
-                this.githubService.setToken(res.token);
-                this.githubService.activate();
-                this.getActiveUser();
-            } else {
-                console.log('Error: Could not get github access token of user.');
-            }
+        this.route.params.subscribe(params => {
+            this.userService.getToken('GITHUB').subscribe((res) => {
+                if (res.token) {
+                    this.githubService.setToken(res.token);
+                    this.githubService.activate();
+
+                    if (params.login != null) {
+                        this.githubService.getUserInfo(params.login).subscribe((data) => {
+                            this.user = data;
+                        });
+                    } else {
+                        this.getActiveUser();
+                    }
+                } else {
+                    console.log('Error: Could not get github access token of user.');
+                }
+            });
         });
     }
 

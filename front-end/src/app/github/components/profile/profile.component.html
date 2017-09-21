@@ -9,7 +9,7 @@
   </ul>
 
   <div class="uk-position-right uk-margin uk-margin-right" style="padding-top: 1rem; padding-right: 1rem;">
-    <a href="#" routerLink="/github/profile">
+    <a href="#" [routerLink]="['/github/profile/' + user?.login]">
       <img class="uk-border-circle" width="30" height="30" [src]=[user?.avatar_url]>
     </a>
   </div>
