@@ -41,6 +41,13 @@ export class ProfileComponent implements OnInit {
             this.githubService.getUserInfo(login).subscribe((data) => {
                 this.user = data;
                 // console.log(this.user);
+
+                const pattern = /^((http|https):\/\/)/;
+
+                if (!pattern.test(this.user.blog)) {
+                    this.user.blog = 'http://' + this.user.blog;
+                }
+
                 this.getUsersRepos();
             });
         } else {
@@ -52,6 +59,7 @@ export class ProfileComponent implements OnInit {
                 }
             );
         }
+
     }
 
     getUsersRepos() {
