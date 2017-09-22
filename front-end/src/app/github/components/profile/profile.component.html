@@ -37,7 +37,7 @@
             <dd *ngIf="user?.email">{{ user?.email }}</dd>
 
             <dt *ngIf="user?.blog">WEB ADRESİ:</dt>
-            <dd *ngIf="user?.blog"><a href="{{ user?.blog }}">{{ user?.blog }}</a></dd>
+            <dd *ngIf="user?.blog"><a href="{{ user?.blog }}" rel="external" target="_blank">{{ user?.blog }}</a></dd>
 
             <dt *ngIf="user?.company">ŞİRKET:</dt>
             <dd *ngIf="user?.company">{{ user?.company }}</dd>
@@ -45,15 +45,43 @@
         </div>
 
         <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="orgs?.length > 0">
-            <dl class="uk-description-list">
-              <dt>ORGANİZASYONLAR: <span class="uk-badge">{{ orgs?.length }}</span></dt>
-              <dd><br /></dd>
-              <dd *ngFor="let org of orgs">
-                <img class="uk-border-circle" width="30" height="30" [src]=[org?.avatar_url]>
-                &emsp;{{ org?.login }}
-              </dd>
-            </dl>
-          </div>
+          <dl class="uk-description-list">
+            <dt>ORGANİZASYONLAR: <span class="uk-badge">{{ orgs?.length }}</span></dt>
+            <dd><br /></dd>
+            <dd *ngFor="let org of orgs">
+              <img class="uk-border-circle" width="30" height="30" [src]=[org?.avatar_url]>
+              &emsp;{{ org?.login }}
+            </dd>
+          </dl>
+        </div>
+
+        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="followingUsers?.length > 0">
+          <dl class="uk-description-list">
+            <dt>TAKİP ETTİKLERİ: <span class="uk-badge">{{ followingUsers?.length }}</span></dt>
+            <dd><br /></dd>
+            <dd>
+              <span *ngFor="let fu of followingUsers" [routerLink]="['/github/profile/' + fu?.login]">
+                <a href="#" [routerLink]="['/github/profile/' + fu?.login]">
+                  <img class="uk-border-rounded uk-margin-right uk-margin-bottom" width="50" height="50" [src]=[fu?.avatar_url] title="{{ fu?.login }}" uk-tooltip>
+                </a>
+              </span>
+            </dd>
+          </dl>
+        </div>
+
+        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="followers?.length > 0">
+          <dl class="uk-description-list">
+            <dt>TAKİP EDENLER: <span class="uk-badge">{{ followers?.length }}</span></dt>
+            <dd><br /></dd>
+            <dd>
+              <span *ngFor="let fu of followers">
+                <a href="#" [routerLink]="['/github/profile/' + fu?.login]">
+                  <img class="uk-border-rounded uk-margin-right uk-margin-bottom" width="50" height="50" [src]=[fu?.avatar_url] title="{{ fu?.login }}" uk-tooltip>
+                </a>
+              </span>
+            </dd>
+          </dl>
+        </div>
       </div>
 
       <div class="uk-margin-remove-top" *ngIf="repos?.length > 0">

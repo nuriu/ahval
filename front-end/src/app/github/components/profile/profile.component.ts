@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
             data  => this.repos = data,
             error => console.log(error),
             ()    => {
-                console.log(this.repos);
+                // console.log(this.repos);
                 this.getFollowingUsers();
             }
         );
@@ -70,7 +70,7 @@ export class ProfileComponent implements OnInit {
             data  => this.followingUsers = data,
             error => console.log(error),
             ()    => {
-                // console.log(this.followingUsers);
+                console.log(this.followingUsers);
                 this.getFollowers();
             }
         );
