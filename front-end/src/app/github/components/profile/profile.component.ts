@@ -12,6 +12,7 @@ import { GitHubService } from '../../services/github.service';
 export class ProfileComponent implements OnInit {
     @Input() user;
     @Input() repos;
+    @Input() orgs;
     @Input() receivedEvents = new Array<any>();
     @Input() followingUsers = new Array<any>();
     @Input() followers      = new Array<any>();
@@ -27,14 +28,7 @@ export class ProfileComponent implements OnInit {
                     this.githubService.setToken(res.token);
                     this.githubService.activate();
 
-                    if (params.login != null) {
-                        this.githubService.getUserInfo(params.login).subscribe((data) => {
-                            this.user = data;
-                            console.log(this.user);
-                        });
-                    } else {
-                        this.getActiveUser();
-                    }
+                    this.getUser(params.login);
                 } else {
                     console.log('Error: Could not get github access token of user.');
                 }
@@ -42,22 +36,29 @@ export class ProfileComponent implements OnInit {
         });
     }
 
-    getActiveUser() {
-        this.githubService.getUser().subscribe(
-            data  => this.user = data,
-            error => console.log(error),
-            ()    => {
-                this.getActiveUsersRepos();
-            }
-        );
+    getUser(login?: string) {
+        if (login != null) {
+            this.githubService.getUserInfo(login).subscribe((data) => {
+                this.user = data;
+                console.log(this.user);
+            });
+        } else {
+            this.githubService.getUser().subscribe(
+                data  => this.user = data,
+                error => console.log(error),
+                ()    => {
+                    this.getUsersRepos();
+                }
+            );
+        }
     }
 
-    getActiveUsersRepos() {
-        this.githubService.getUserRepos('pushed', 'desc').subscribe(
+    getUsersRepos() {
+        this.githubService.getUserRepos(this.user.login, 'updated', 'desc').subscribe(
             data  => this.repos = data,
             error => console.log(error),
             ()    => {
-                // console.log(this.repos);
+                console.log(this.repos);
                 this.getFollowingUsers();
             }
         );
@@ -80,6 +81,17 @@ export class ProfileComponent implements OnInit {
             error => console.log(error),
             ()    => {
                 // console.log(this.followers);
+                this.getOrgs();
+            }
+        );
+    }
+
+    getOrgs() {
+        this.githubService.getUserOrgs(this.user.login).subscribe(
+            data  => this.orgs = data,
+            error => console.log(error),
+            ()    => {
+                console.log(this.orgs);
             }
         );
     }
