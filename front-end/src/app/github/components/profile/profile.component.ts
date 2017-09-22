@@ -41,6 +41,7 @@ export class ProfileComponent implements OnInit {
             this.githubService.getUserInfo(login).subscribe((data) => {
                 this.user = data;
                 console.log(this.user);
+                this.getUsersRepos();
             });
         } else {
             this.githubService.getUser().subscribe(
@@ -91,7 +92,7 @@ export class ProfileComponent implements OnInit {
             data  => this.orgs = data,
             error => console.log(error),
             ()    => {
-                console.log(this.orgs);
+                // console.log(this.orgs);
             }
         );
     }

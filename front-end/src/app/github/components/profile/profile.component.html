@@ -43,6 +43,18 @@
           </dl>
         </div>
       </div>
+      <div *ngIf="orgs?.length > 0">
+          <div class="uk-tile uk-tile-default">
+            <dl class="uk-description-list">
+              <dt>ORGANİZASYONLAR:</dt>
+              <dd><br /></dd>
+              <dd *ngFor="let org of orgs">
+                <img class="uk-border-circle" width="30" height="30" [src]=[org?.avatar_url]>
+                &emsp;{{ org?.login }}
+              </dd>
+            </dl>
+          </div>
+        </div>
     </div>
   </div>
 </div>
