@@ -17,9 +17,32 @@
   <hr class="uk-divider-icon">
 
   <div class="uk-section uk-section-default">
-    <div class="uk-grid-match uk-child-width-1-2@m" uk-grid>
-      <div></div>
-      <div></div>
+    <h1 class="uk-heading-primary">
+      <img class="uk-border-rounded" width="75" height="75" [src]=[user?.avatar_url]>
+      <span>{{ user?.name }}</span>
+      <small *ngIf="user?.login">({{ user?.login }})</small>
+    </h1>
+    <div class="uk-child-width-1-2@m" uk-grid>
+      <div>
+        <div class="uk-tile uk-tile-default">
+          <dl class="uk-description-list">
+            <dt *ngIf="user?.bio">BİYOGRAFİ:</dt>
+            <dd *ngIf="user?.bio">{{ user?.bio }}</dd>
+
+            <dt *ngIf="user?.location">KONUM:</dt>
+            <dd *ngIf="user?.location">{{ user?.location }}</dd>
+
+            <dt *ngIf="user?.email">E-POSTA ADRESİ:</dt>
+            <dd *ngIf="user?.email">{{ user?.email }}</dd>
+
+            <dt *ngIf="user?.blog">WEB ADRESİ:</dt>
+            <dd *ngIf="user?.blog"><a href="{{ user?.blog }}">{{ user?.blog }}</a></dd>
+
+            <dt *ngIf="user?.company">ŞİRKET:</dt>
+            <dd *ngIf="user?.company">{{ user?.company }}</dd>
+          </dl>
+        </div>
+      </div>
     </div>
   </div>
 </div>
