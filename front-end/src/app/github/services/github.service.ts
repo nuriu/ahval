@@ -77,4 +77,10 @@ export class GitHubService {
             headers: this.h
         }).map(res => res.json());
     }
+
+    getUserOrgs(login: string) {
+        return this.http.get('https://api.github.com/users/' + login + '/orgs', {
+            headers: this.h
+        }).map(res => res.json());
+    }
 }
