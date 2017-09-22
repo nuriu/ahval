@@ -22,7 +22,7 @@
       <span>{{ user?.name }}</span>
       <small *ngIf="user?.login">({{ user?.login }})</small>
     </h1>
-    <div class="uk-child-width-1-2@m uk-child-width-1-1@s" uk-grid>
+    <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
 
       <div class="uk-margin-remove-top">
         <div class="uk-tile uk-tile-default uk-padding-small">
@@ -43,19 +43,17 @@
             <dd *ngIf="user?.company">{{ user?.company }}</dd>
           </dl>
         </div>
-      </div>
 
-      <div class="uk-margin-remove-top" *ngIf="orgs?.length > 0">
-        <div class="uk-tile uk-tile-default uk-padding-small">
-          <dl class="uk-description-list">
-            <dt>ORGANİZASYONLAR: <span class="uk-badge">{{ orgs?.length }}</span></dt>
-            <dd><br /></dd>
-            <dd *ngFor="let org of orgs">
-              <img class="uk-border-circle" width="30" height="30" [src]=[org?.avatar_url]>
-              &emsp;{{ org?.login }}
-            </dd>
-          </dl>
-        </div>
+        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="orgs?.length > 0">
+            <dl class="uk-description-list">
+              <dt>ORGANİZASYONLAR: <span class="uk-badge">{{ orgs?.length }}</span></dt>
+              <dd><br /></dd>
+              <dd *ngFor="let org of orgs">
+                <img class="uk-border-circle" width="30" height="30" [src]=[org?.avatar_url]>
+                &emsp;{{ org?.login }}
+              </dd>
+            </dl>
+          </div>
       </div>
 
       <div class="uk-margin-remove-top" *ngIf="repos?.length > 0">
