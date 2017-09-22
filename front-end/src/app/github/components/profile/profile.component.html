@@ -22,9 +22,10 @@
       <span>{{ user?.name }}</span>
       <small *ngIf="user?.login">({{ user?.login }})</small>
     </h1>
-    <div class="uk-child-width-1-2@m" uk-grid>
-      <div>
-        <div class="uk-tile uk-tile-default">
+    <div class="uk-child-width-1-2@m uk-child-width-1-1@s" uk-grid>
+
+      <div class="uk-margin-remove-top">
+        <div class="uk-tile uk-tile-default uk-padding-small">
           <dl class="uk-description-list">
             <dt *ngIf="user?.bio">BİYOGRAFİ:</dt>
             <dd *ngIf="user?.bio">{{ user?.bio }}</dd>
@@ -43,18 +44,33 @@
           </dl>
         </div>
       </div>
-      <div *ngIf="orgs?.length > 0">
-          <div class="uk-tile uk-tile-default">
-            <dl class="uk-description-list">
-              <dt>ORGANİZASYONLAR:</dt>
-              <dd><br /></dd>
-              <dd *ngFor="let org of orgs">
-                <img class="uk-border-circle" width="30" height="30" [src]=[org?.avatar_url]>
-                &emsp;{{ org?.login }}
-              </dd>
-            </dl>
-          </div>
+
+      <div class="uk-margin-remove-top" *ngIf="orgs?.length > 0">
+        <div class="uk-tile uk-tile-default uk-padding-small">
+          <dl class="uk-description-list">
+            <dt>ORGANİZASYONLAR: <span class="uk-badge">{{ orgs?.length }}</span></dt>
+            <dd><br /></dd>
+            <dd *ngFor="let org of orgs">
+              <img class="uk-border-circle" width="30" height="30" [src]=[org?.avatar_url]>
+              &emsp;{{ org?.login }}
+            </dd>
+          </dl>
         </div>
+      </div>
+
+      <div class="uk-margin-remove-top" *ngIf="repos?.length > 0">
+        <div class="uk-tile uk-tile-default uk-padding-small">
+          <dl class="uk-description-list">
+            <dt>PROJELER: <span class="uk-badge">{{ repos?.length }}</span></dt>
+            <dd *ngFor="let repo of repos">
+              <a [routerLink]="['/github/repository/' + repo?.full_name]">
+                {{ repo?.name }}
+              </a>
+            </dd>
+          </dl>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

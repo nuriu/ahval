@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
         if (login != null) {
             this.githubService.getUserInfo(login).subscribe((data) => {
                 this.user = data;
-                console.log(this.user);
+                // console.log(this.user);
                 this.getUsersRepos();
             });
         } else {
