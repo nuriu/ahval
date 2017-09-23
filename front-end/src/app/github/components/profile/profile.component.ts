@@ -80,7 +80,7 @@ export class ProfileComponent implements OnInit {
             data  => this.followingUsers = data,
             error => console.log(error),
             ()    => {
-                console.log(this.followingUsers);
+                // console.log(this.followingUsers);
                 this.getFollowers();
             }
         );

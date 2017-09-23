@@ -20,7 +20,7 @@
     <h1 class="uk-heading-primary">
       <img class="uk-border-rounded" width="75" height="75" [src]=[user?.avatar_url]>
       <span>{{ user?.name }}</span>
-      <small *ngIf="user?.login">({{ user?.login }})</small>
+      <small *ngIf="user?.login"> ({{ user?.login }})</small>
     </h1>
     <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
 
@@ -60,7 +60,7 @@
             <dt>TAKİP ETTİKLERİ: <span class="uk-badge">{{ followingUsers?.length }}</span></dt>
             <dd><br /></dd>
             <dd>
-              <span *ngFor="let fu of followingUsers" [routerLink]="['/github/profile/' + fu?.login]">
+              <span *ngFor="let fu of followingUsers">
                 <a href="#" [routerLink]="['/github/profile/' + fu?.login]">
                   <img class="uk-border-rounded uk-margin-right uk-margin-bottom" width="50" height="50" [src]=[fu?.avatar_url] title="{{ fu?.login }}" uk-tooltip>
                 </a>
