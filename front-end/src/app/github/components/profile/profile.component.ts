@@ -42,10 +42,12 @@ export class ProfileComponent implements OnInit {
                 this.user = data;
                 // console.log(this.user);
 
-                const pattern = /^((http|https):\/\/)/;
+                if (this.user.blog !== '' && this.user.blog != null) {
+                    const pattern = /^((http|https):\/\/)/;
 
-                if (!pattern.test(this.user.blog)) {
-                    this.user.blog = 'http://' + this.user.blog;
+                    if (!pattern.test(this.user.blog)) {
+                        this.user.blog = 'http://' + this.user.blog;
+                    }
                 }
 
                 this.getUsersRepos();
