@@ -27,6 +27,7 @@ export class RepositoryComponent implements OnInit {
                         this.githubService.getRepoInfo(params.owner, params.name)
                         .subscribe((data) => {
                             this.repo = data;
+                            console.log(this.repo);
                         });
                     }
                 } else {
