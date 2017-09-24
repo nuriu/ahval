@@ -16,14 +16,24 @@
       <span *ngIf="repo?.private" uk-icon="icon: lock; ratio: 2"></span>
       <span *ngIf="!repo?.private" uk-icon="icon: unlock; ratio: 2"></span>
       <span>{{ repo?.name }}</span>
-      <small> ({{ repo?.git_url }})</small>
+      <small *ngIf="repo?.owner">
+        (<img class="uk-border-rounded" width="35" height="35" [src]=[repo?.owner.avatar_url]>
+        <a href="#" class="uk-link-muted" [routerLink]="['/github/profile/' + repo?.owner.login]"> {{ repo?.owner.login }}</a>)
+      </small>
     </h2>
     <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
 
       <div class="uk-margin-remove-top">
         <div class="uk-tile uk-tile-default uk-padding-small">
+          <dl class="uk-description-list">
+            <dt>OLUŞTURULMA TARİHİ</dt>
+            <dd>{{ repo?.created_at }}</dd>
+            <dt>GÜNCELLENME TARİHİ</dt>
+            <dd>{{ repo?.updated_at }}</dd>
+            <dt *ngIf="repo?.homepage">WEB ADRESİ</dt>
+            <dd *ngIf="repo?.homepage">{{ repo?.homepage }}</dd>,
+          </dl>
         </div>
-
       </div>
     </div>
   </div>
