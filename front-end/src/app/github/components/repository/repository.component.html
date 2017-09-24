@@ -1,28 +1,28 @@
 <div class="uk-tile uk-tile-default">
 
-    <ul class="uk-breadcrumb">
-      <li><a href="#" routerLink="/home">Ajanda</a></li>
-      <li><a href="#" routerLink="/github/home">GitHub</a></li>
-      <li><a href="#" [routerLink]="['/github/profile/' + repo?.owner.login]">{{ repo?.owner.login }}</a></li>
-      <li>
-        <span href="#">{{ repo?.name }}</span>
-      </li>
-    </ul>
+  <ul class="uk-breadcrumb">
+    <li><a href="#" routerLink="/home">Ajanda</a></li>
+    <li><a href="#" routerLink="/github/home">GitHub</a></li>
+    <li><a href="#" [routerLink]="['/github/profile/' + repo?.owner.login]">{{ repo?.owner.login }}</a></li>
+    <li>
+      <span href="#">{{ repo?.name }}</span>
+    </li>
+  </ul>
 
-    <hr class="uk-divider-icon">
+  <hr class="uk-divider-icon">
 
-    <div class="uk-section uk-section-default">
-      <h2 class="uk-heading-primary">
-        <span *ngIf="repo?.private" uk-icon="icon: lock; ratio: 2"></span>
-        <span *ngIf="!repo?.private" uk-icon="icon: unlock; ratio: 2"></span>
-        <span>{{ repo?.name }}</span>
-        <small> ({{ repo?.git_url }})</small>
-      </h2>
-      <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
+  <div class="uk-section uk-section-default">
+    <h2 class="uk-heading-primary">
+      <span *ngIf="repo?.private" uk-icon="icon: lock; ratio: 2"></span>
+      <span *ngIf="!repo?.private" uk-icon="icon: unlock; ratio: 2"></span>
+      <span>{{ repo?.name }}</span>
+      <small> ({{ repo?.git_url }})</small>
+    </h2>
+    <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
 
-        <div class="uk-margin-remove-top">
-          <div class="uk-tile uk-tile-default uk-padding-small">
-          </div>
+      <div class="uk-margin-remove-top">
+        <div class="uk-tile uk-tile-default uk-padding-small">
+        </div>
 
       </div>
     </div>
