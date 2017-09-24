@@ -25,15 +25,42 @@
 
       <div class="uk-margin-remove-top">
         <div class="uk-tile uk-tile-default uk-padding-small">
+
+          <article class="uk-comment uk-margin-bottom" *ngFor="let c of commits">
+            <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+              <div class="uk-width-auto">
+                <img class="uk-comment-avatar" [src]=[c?.committer.avatar_url] width="45" height="45" alt="">
+              </div>
+              <div class="uk-width-expand">
+                <h4 class="uk-comment-title uk-margin-remove">
+                  <a class="uk-link-reset" href="#">{{ c?.commit.author.name }}</a>
+                  <small> ({{ c?.commit.author.email }})</small>
+                </h4>
+                <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                  <li><a href="#">{{ c?.commit.author.date }}</a></li>
+                </ul>
+              </div>
+            </header>
+            <div class="uk-comment-body">
+              <p>{{ c?.commit.message }}</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="uk-margin-remove-top">
+        <div class="uk-tile uk-tile-default uk-padding-small">
           <dl class="uk-description-list">
             <dt>OLUŞTURULMA TARİHİ</dt>
             <dd>{{ repo?.created_at }}</dd>
             <dt>GÜNCELLENME TARİHİ</dt>
             <dd>{{ repo?.updated_at }}</dd>
             <dt *ngIf="repo?.homepage">WEB ADRESİ</dt>
-            <dd *ngIf="repo?.homepage">{{ repo?.homepage }}</dd>,
+            <dd *ngIf="repo?.homepage">{{ repo?.homepage }}</dd>
           </dl>
         </div>
       </div>
+
     </div>
   </div>
