@@ -85,4 +85,10 @@ export class GitHubService {
             headers: this.h
         }).map(res => res.json());
     }
+
+    getCommits(owner: string, name: string) {
+        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/commits', {
+            headers: this.h
+        }).map(res => res.json());
+    }
 }

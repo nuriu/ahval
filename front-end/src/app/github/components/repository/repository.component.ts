@@ -11,6 +11,7 @@ import { GitHubService } from '../../services/github.service';
 })
 export class RepositoryComponent implements OnInit {
     @Input() repo;
+    @Input() commits;
 
     constructor(private githubService: GitHubService,
                 private userService: UserService,
@@ -28,12 +29,21 @@ export class RepositoryComponent implements OnInit {
                         .subscribe((data) => {
                             this.repo = data;
                             console.log(this.repo);
+                            this.getCommits();
                         });
                     }
                 } else {
                     console.log('Error: Could not get github access token of user.');
                 }
             });
+        });
+    }
+
+    getCommits() {
+        this.githubService.getCommits(this.repo.owner.login, this.repo.name)
+        .subscribe((data) => {
+            this.commits = data;
+            console.log(this.commits);
         });
     }
 }
