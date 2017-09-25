@@ -12,6 +12,7 @@ import { GitHubService } from '../../services/github.service';
 export class RepositoryComponent implements OnInit {
     @Input() repo;
     @Input() commits;
+    @Input() issues;
 
     constructor(private githubService: GitHubService,
                 private userService: UserService,
@@ -31,8 +32,9 @@ export class RepositoryComponent implements OnInit {
                             this.repo.created_at = new Date(this.repo.created_at);
                             this.repo.updated_at = new Date(this.repo.updated_at);
 
-                            console.log(this.repo);
                             this.getCommits();
+
+                            // console.log(this.repo);
                         });
                     }
                 } else {
@@ -49,7 +51,18 @@ export class RepositoryComponent implements OnInit {
             this.commits.forEach(c => {
                 c.commit.author.date = new Date(c.commit.author.date);
             });
-            console.log(this.commits);
+
+            this.getIssues();
+
+            // console.log(this.commits);
+        });
+    }
+
+    getIssues() {
+        this.githubService.getIssues(this.repo.owner.login, this.repo.name)
+        .subscribe((data) => {
+            this.issues = data;
+            console.log(this.issues);
         });
     }
 }

@@ -52,6 +52,7 @@
 
       <div class="uk-margin-remove-top">
         <div class="uk-tile uk-tile-default uk-padding-small">
+
           <dl class="uk-description-list">
             <dt>OLUŞTURULMA TARİHİ</dt>
             <dd>{{ repo?.created_at.toLocaleString() }}</dd>
@@ -60,6 +61,19 @@
             <dt *ngIf="repo?.homepage">WEB ADRESİ</dt>
             <dd *ngIf="repo?.homepage">{{ repo?.homepage }}</dd>
           </dl>
+          <hr>
+          <h4>İŞLER</h4>
+          <dl class="uk-description-list uk-description-list-divider">
+              <dt *ngFor="let issue of issues">
+                (#{{ issue?.number }})&nbsp;
+                {{ issue?.title | uppercase }} <br />
+                <h5 class="uk-badge uk-padding-small uk-margin-small-bottom uk-margin-small-right" *ngFor="let label of issue?.labels"
+                [style.background-color]="['#' + label?.color]">
+                  {{ label?.name }}
+                </h5>
+              </dt>
+          </dl>
+
         </div>
       </div>
 
