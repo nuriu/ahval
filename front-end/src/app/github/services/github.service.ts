@@ -91,4 +91,16 @@ export class GitHubService {
             headers: this.h
         }).map(res => res.json());
     }
+
+    getIssues(owner: string, name: string) {
+        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues', {
+            headers: this.h
+        }).map(res => res.json());
+    }
+
+    getIssueEvents(owner: string, name: string) {
+        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues/events', {
+            headers: this.h
+        }).map(res => res.json());
+    }
 }
