@@ -21,7 +21,7 @@
 
       <!-- SOL BÖLÜM -->
       <div>
-        <ul class="uk-list">
+        <ul class="uk-list uk-list-divider">
           <li *ngFor="let item of receivedEvents; let i = index" [ngSwitch]="item.type">
 
             <app-github-flowitemcard *ngSwitchCase="'WatchEvent'"
