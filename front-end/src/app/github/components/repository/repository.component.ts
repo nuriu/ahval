@@ -28,6 +28,9 @@ export class RepositoryComponent implements OnInit {
                         this.githubService.getRepoInfo(params.owner, params.name)
                         .subscribe((data) => {
                             this.repo = data;
+                            this.repo.created_at = new Date(this.repo.created_at);
+                            this.repo.updated_at = new Date(this.repo.updated_at);
+
                             console.log(this.repo);
                             this.getCommits();
                         });
@@ -43,6 +46,9 @@ export class RepositoryComponent implements OnInit {
         this.githubService.getCommits(this.repo.owner.login, this.repo.name)
         .subscribe((data) => {
             this.commits = data;
+            this.commits.forEach(c => {
+                c.commit.author.date = new Date(c.commit.author.date);
+            });
             console.log(this.commits);
         });
     }

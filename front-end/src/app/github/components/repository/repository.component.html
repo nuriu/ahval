@@ -37,7 +37,7 @@
                   <small> ({{ c?.commit.author.email }})</small>
                 </h4>
                 <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                  <li><a href="#">{{ c?.commit.author.date }}</a></li>
+                  <li><a href="#">{{ c?.commit.author.date.toLocaleString() }}</a></li>
                 </ul>
               </div>
             </header>
@@ -53,9 +53,9 @@
         <div class="uk-tile uk-tile-default uk-padding-small">
           <dl class="uk-description-list">
             <dt>OLUŞTURULMA TARİHİ</dt>
-            <dd>{{ repo?.created_at }}</dd>
+            <dd>{{ repo?.created_at.toLocaleString() }}</dd>
             <dt>GÜNCELLENME TARİHİ</dt>
-            <dd>{{ repo?.updated_at }}</dd>
+            <dd>{{ repo?.updated_at.toLocaleString() }}</dd>
             <dt *ngIf="repo?.homepage">WEB ADRESİ</dt>
             <dd *ngIf="repo?.homepage">{{ repo?.homepage }}</dd>
           </dl>
