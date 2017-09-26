@@ -56,10 +56,18 @@ export class GitHubService {
         }).map(res => res.json());
     }
 
-    getFollowingUsers(login: string) {
+    getFollowingUsers(login: string, page?: number, perPage?: number) {
         const p = new URLSearchParams();
 
-        p.set('per_page', '100');
+        if (perPage) {
+            p.set('per_page', perPage.toString());
+        } else {
+            p.set('per_page', '100');
+        }
+
+        if (page) {
+            p.set('page', page.toString());
+        }
 
         return this.http.get('https://api.github.com/users/' + login + '/following', {
             headers: this.h,
@@ -67,10 +75,18 @@ export class GitHubService {
         }).map(res => res.json());
     }
 
-    getFollowers(login: string) {
+    getFollowers(login: string, page?: number, perPage?: number) {
         const p = new URLSearchParams();
 
-        p.set('per_page', '100');
+        if (perPage) {
+            p.set('per_page', perPage.toString());
+        } else {
+            p.set('per_page', '100');
+        }
+
+        if (page) {
+            p.set('page', page.toString());
+        }
 
         return this.http.get('https://api.github.com/users/' + login + '/followers', {
             headers: this.h,

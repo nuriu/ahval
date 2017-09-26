@@ -11,15 +11,15 @@ import { GitHubService } from '../../services/github.service';
 })
 export class ProfileComponent implements OnInit {
     @Input() user;
-    @Input() repos;
-    @Input() orgs;
+    @Input() repos          = new Array<any>();
+    @Input() orgs           = new Array<any>();
     @Input() receivedEvents = new Array<any>();
     @Input() followingUsers = new Array<any>();
     @Input() followers      = new Array<any>();
 
     constructor(private githubService: GitHubService,
-                private userService: UserService,
-                private route: ActivatedRoute) { }
+                private userService  : UserService,
+                private route        : ActivatedRoute) { }
 
     ngOnInit() {
         this.route.params.subscribe(params => {
@@ -76,25 +76,37 @@ export class ProfileComponent implements OnInit {
     }
 
     getFollowingUsers() {
-        this.githubService.getFollowingUsers(this.user.login).subscribe(
-            data  => this.followingUsers = data,
-            error => console.log(error),
-            ()    => {
-                // console.log(this.followingUsers);
-                this.getFollowers();
-            }
-        );
+        for (let i = 1; i < 30; i++) {
+            this.githubService.getFollowingUsers(this.user.login, i).subscribe(
+                data => {
+                    if (data.length < 1) {
+                        return;
+                    }
+
+                    this.followingUsers = this.followingUsers.concat(data);
+                },
+                error => console.log(error)
+            );
+        }
+
+        this.getFollowers();
     }
 
     getFollowers() {
-        this.githubService.getFollowers(this.user.login).subscribe(
-            data  => this.followers = data,
-            error => console.log(error),
-            ()    => {
-                // console.log(this.followers);
-                this.getOrgs();
-            }
-        );
+        for (let i = 1; i < 30; i++) {
+            this.githubService.getFollowers(this.user.login, i).subscribe(
+                data => {
+                    if (data.length < 1) {
+                        return;
+                    }
+
+                    this.followers = this.followers.concat(data);
+                },
+                error => console.log(error)
+            );
+        }
+
+        this.getOrgs();
     }
 
     getOrgs() {
