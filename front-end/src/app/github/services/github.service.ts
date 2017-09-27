@@ -38,11 +38,21 @@ export class GitHubService {
         }).map(res => res.json().avatar_url);
     }
 
-    getUserRepos(login: string, sort: string, direction: string) {
+    getUserRepos(login: string, sort: string, direction: string, page?: number, perPage?: number) {
         const p = new URLSearchParams();
 
         p.set('sort', sort);
         p.set('direction', direction);
+
+        if (perPage) {
+            p.set('per_page', perPage.toString());
+        } else {
+            p.set('per_page', '100');
+        }
+
+        if (page) {
+            p.set('page', page.toString());
+        }
 
         return this.http.get('https://api.github.com/users/' + login + '/repos', {
             headers: this.h,
