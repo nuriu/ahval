@@ -44,7 +44,7 @@
           </dl>
         </div>
 
-        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="orgs?.length > 0">
+        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="orgs?.length > 0 && user.type != 'Organization'">
           <dl class="uk-description-list">
             <dt>ORGANİZASYONLAR: <span class="uk-badge">{{ orgs?.length }}</span></dt>
             <dd><br /></dd>

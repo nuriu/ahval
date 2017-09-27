@@ -122,6 +122,12 @@ export class GitHubService {
         }).map(res => res.json());
     }
 
+    getOrgMembers(name: string) {
+        return this.http.get('https://api.github.com/orgs/' + name + '/members', {
+            headers: this.h
+        }).map(res => res.json());
+    }
+
     getUserOrgs(login: string) {
         return this.http.get('https://api.github.com/users/' + login + '/orgs', {
             headers: this.h
