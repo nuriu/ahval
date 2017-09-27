@@ -122,9 +122,21 @@ export class GitHubService {
         }).map(res => res.json());
     }
 
-    getOrgMembers(name: string) {
+    getOrgMembers(name: string, page?: number, perPage?: number) {
+        const p = new URLSearchParams();
+
+        if (perPage) {
+            p.set('per_page', perPage.toString());
+        } else {
+            p.set('per_page', '100');
+        }
+
+        if (page) {
+            p.set('page', page.toString());
+        }
         return this.http.get('https://api.github.com/orgs/' + name + '/members', {
-            headers: this.h
+            headers: this.h,
+            search: p
         }).map(res => res.json());
     }
 
