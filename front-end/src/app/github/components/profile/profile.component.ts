@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
         if (login != null) {
             this.githubService.getUserInfo(login).subscribe((data) => {
                 this.user = data;
-                console.log(this.user);
+                // console.log(this.user);
 
                 if (this.user.blog !== '' && this.user.blog != null) {
                     const pattern = /^((http|https):\/\/)/;
@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
             data => this.orgMembers = data,
             error => console.log(error),
             () => {
-                console.log(this.orgMembers);
+                // console.log(this.orgMembers);
             }
         );
     }
