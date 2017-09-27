@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
         if (login != null) {
             this.githubService.getUserInfo(login).subscribe((data) => {
                 this.user = data;
-                // console.log(this.user);
+                console.log(this.user);
 
                 if (this.user.blog !== '' && this.user.blog != null) {
                     const pattern = /^((http|https):\/\/)/;
@@ -65,14 +65,20 @@ export class ProfileComponent implements OnInit {
     }
 
     getUsersRepos() {
-        this.githubService.getUserRepos(this.user.login, 'updated', 'desc').subscribe(
-            data  => this.repos = data,
-            error => console.log(error),
-            ()    => {
-                // console.log(this.repos);
-                this.getFollowingUsers();
-            }
-        );
+        for (let i = 1; i < 30; i++) {
+            this.githubService.getUserRepos(this.user.login, 'updated', 'desc', i).subscribe(
+                data => {
+                    if (data.length < 1) {
+                        return;
+                    }
+
+                    this.repos = this.repos.concat(data);
+                },
+                error => console.log(error)
+            );
+        }
+
+        this.getFollowingUsers();
     }
 
     getFollowingUsers() {
