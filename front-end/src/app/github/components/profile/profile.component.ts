@@ -11,6 +11,7 @@ import { GitHubService } from '../../services/github.service';
 })
 export class ProfileComponent implements OnInit {
     @Input() user;
+    @Input() orgMembers     = new Array<any>();
     @Input() repos          = new Array<any>();
     @Input() orgs           = new Array<any>();
     @Input() receivedEvents = new Array<any>();
@@ -50,6 +51,10 @@ export class ProfileComponent implements OnInit {
                     }
                 }
 
+                if (this.user.type === 'Organization') {
+                    this.getOrganizationMembers(this.user.login);
+                }
+
                 this.getUsersRepos();
             });
         } else {
@@ -62,6 +67,16 @@ export class ProfileComponent implements OnInit {
             );
         }
 
+    }
+
+    getOrganizationMembers(name: string) {
+        this.githubService.getOrgMembers(name).subscribe(
+            data => this.orgMembers = data,
+            error => console.log(error),
+            () => {
+                console.log(this.orgMembers);
+            }
+        );
     }
 
     getUsersRepos() {

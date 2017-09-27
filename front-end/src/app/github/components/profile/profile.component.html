@@ -44,6 +44,20 @@
           </dl>
         </div>
 
+        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="orgMembers?.length > 0 && user.type == 'Organization'">
+          <dl class="uk-description-list">
+            <dt>ÜYELER: <span class="uk-badge">{{ orgMembers?.length }}</span></dt>
+            <dd><br /></dd>
+            <dd>
+              <span *ngFor="let om of orgMembers">
+                <a href="#" [routerLink]="['/github/profile/' + om?.login]">
+                  <img class="uk-border-rounded uk-margin-right uk-margin-bottom" width="50" height="50" [src]=[om?.avatar_url] title="{{ om?.login }}" uk-tooltip>
+                </a>
+              </span>
+            </dd>
+          </dl>
+        </div>
+
         <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="orgs?.length > 0 && user.type != 'Organization'">
           <dl class="uk-description-list">
             <dt>ORGANİZASYONLAR: <span class="uk-badge">{{ orgs?.length }}</span></dt>
