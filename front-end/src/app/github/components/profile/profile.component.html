@@ -55,7 +55,7 @@
           </dl>
         </div>
 
-        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="followingUsers?.length > 0">
+        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="followingUsers?.length > 0 && user.type != 'Organization'">
           <dl class="uk-description-list">
             <dt>TAKİP ETTİKLERİ: <span class="uk-badge">{{ followingUsers?.length }}</span></dt>
             <dd><br /></dd>
@@ -69,7 +69,7 @@
           </dl>
         </div>
 
-        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="followers?.length > 0">
+        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="followers?.length > 0 && user.type != 'Organization'">
           <dl class="uk-description-list">
             <dt>TAKİP EDENLER: <span class="uk-badge">{{ followers?.length }}</span></dt>
             <dd><br /></dd>
