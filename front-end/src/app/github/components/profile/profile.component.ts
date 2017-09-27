@@ -70,13 +70,18 @@ export class ProfileComponent implements OnInit {
     }
 
     getOrganizationMembers(name: string) {
-        this.githubService.getOrgMembers(name).subscribe(
-            data => this.orgMembers = data,
-            error => console.log(error),
-            () => {
-                // console.log(this.orgMembers);
-            }
-        );
+        for (let i = 1; i < 30; i++) {
+            this.githubService.getOrgMembers(name, i).subscribe(
+                data => {
+                    if (data.length < 1) {
+                        return;
+                    }
+
+                    this.orgMembers = this.orgMembers.concat(data);
+                },
+                error => console.log(error)
+            );
+        }
     }
 
     getUsersRepos() {
