@@ -25,51 +25,51 @@
           <li *ngFor="let item of receivedEvents; let i = index" [ngSwitch]="item.type">
 
             <app-github-flowitemcard *ngSwitchCase="'WatchEvent'"
-                                    [image]="item?.actor.avatar_url"
-                                    [tooltip]="item?.actor.login"
-                                    [title]="'#' + i + ' - ' + item?.actor.login"
-                                    [date]="item?.created_at"
-                                    [content]="item?.repo.name + ' adresindeki projeyi favorilerine ekledi.'">
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.repo.name + ' adresindeki projeyi favorilerine ekledi.'">
             </app-github-flowitemcard>
 
             <app-github-flowitemcard *ngSwitchCase="'ForkEvent'"
-                                    [image]="item?.actor.avatar_url"
-                                    [tooltip]="item?.actor.login"
-                                    [title]="'#' + i + ' - ' + item?.actor.login"
-                                    [date]="item?.created_at"
-                                    [content]="item?.repo.name + ' adresindeki projeyi çatalladı.'">
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.repo.name + ' adresindeki projeyi çatalladı.'">
             </app-github-flowitemcard>
 
             <app-github-flowitemcard *ngSwitchCase="'CreateEvent'"
-                                    [image]="item?.actor.avatar_url"
-                                    [tooltip]="item?.actor.login"
-                                    [title]="'#' + i + ' - ' + item?.actor.login"
-                                    [date]="item?.created_at"
-                                    [content]="item?.repo.name + ' adresinde bir proje oluşturdu.'">
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.repo.name + ' adresinde bir proje oluşturdu.'">
             </app-github-flowitemcard>
 
             <app-github-flowitemcard *ngSwitchCase="'PublicEvent'"
-                                    [image]="item?.actor.avatar_url"
-                                    [tooltip]="item?.actor.login"
-                                    [title]="'#' + i + ' - ' + item?.actor.login"
-                                    [date]="item?.created_at"
-                                    [content]="item?.repo.name + ' adresindeki projeyi herkese açık hale getirdi.'">
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.repo.name + ' adresindeki projeyi herkese açık hale getirdi.'">
             </app-github-flowitemcard>
 
             <app-github-flowitemcard *ngSwitchCase="'MemberEvent'"
-                                    [image]="item?.actor.avatar_url"
-                                    [tooltip]="item?.actor.login"
-                                    [title]="'#' + i + ' - ' + item?.actor.login"
-                                    [date]="item?.created_at"
-                                    [content]="item?.payload.member.login + ' adlı kullanıcıyı ' + item?.repo.name + ' adresindeki proje ekibine ekledi.'">
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.payload.member.login + ' adlı kullanıcıyı ' + item?.repo.name + ' adresindeki proje ekibine ekledi.'">
             </app-github-flowitemcard>
 
             <app-github-flowitemcard *ngSwitchDefault
-                                    [image]="item?.actor.avatar_url"
-                                    [tooltip]="item?.actor.login"
-                                    [title]="'#' + i + ' - ' + item?.actor.login"
-                                    [date]="item?.created_at"
-                                    [content]="item?.type + ' isimli olay türü için henüz içerik metni yazılmadı.'">
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.type + ' isimli olay türü için henüz içerik metni yazılmadı.'">
             </app-github-flowitemcard>
 
           </li>
@@ -80,16 +80,8 @@
       <!-- SAĞ BÖLÜM -->
       <div>
         <div class="uk-tile uk-tile-secondary uk-padding-small">
-          <h4>Takip Eden Kişiler <span class="uk-badge">{{ followers?.length }}</span></h4>
-          <a href="#" *ngFor="let fu of followers" [routerLink]="['/github/profile/' + fu?.login]">
-            <img class="uk-border-circle uk-margin-right uk-margin-bottom" width="40" height="40"
-                src="{{ fu?.avatar_url }}" title="{{ fu?.login }}" uk-tooltip>
-          </a>
-          <h4>Takip Edilen Kişiler <span class="uk-badge">{{ followingUsers?.length }}</span></h4>
-          <a href="#" *ngFor="let fu of followingUsers" [routerLink]="['/github/profile/' + fu?.login]">
-            <img class="uk-border-circle uk-margin-right uk-margin-bottom" width="40" height="40"
-                src="{{ fu?.avatar_url }}" title="{{ fu?.login }}" uk-tooltip>
-          </a>
+
+          <!-- PROJE LİSTESİ -->
           <h4>Projeler <span class="uk-badge">{{ repos?.length }}</span></h4>
           <ul class="uk-list">
             <li *ngFor="let item of repos">
@@ -99,6 +91,16 @@
               </a>
             </li>
           </ul>
+          <!--/PROJE LİSTESİ -->
+
+          <!-- TAKİP EDİLENLER -->
+          <h4>Takip Edilen Kişiler <span class="uk-badge">{{ followingUsers?.length }}</span></h4>
+          <a href="#" *ngFor="let fu of followingUsers" [routerLink]="['/github/profile/' + fu?.login]">
+            <img class="uk-border-circle uk-margin-right uk-margin-bottom" width="40" height="40"
+                src="{{ fu?.avatar_url }}" title="{{ fu?.login }}" uk-tooltip>
+          </a>
+          <!--/TAKİP EDİLENLER -->
+
         </div>
       </div>
       <!--/SAĞ BÖLÜM -->

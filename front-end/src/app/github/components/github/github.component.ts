@@ -13,7 +13,6 @@ export class GitHubComponent implements OnInit {
     @Input() repos;
     @Input() receivedEvents = new Array<any>();
     @Input() followingUsers = new Array<any>();
-    @Input() followers      = new Array<any>();
 
     constructor(private githubService: GitHubService,
                 private userService: UserService) {}
@@ -73,17 +72,6 @@ export class GitHubComponent implements OnInit {
             error => console.log(error),
             ()    => {
                 // console.log(this.followingUsers);
-                this.getFollowers();
-            }
-        );
-    }
-
-    getFollowers() {
-        this.githubService.getFollowers(this.user.login).subscribe(
-            data  => this.followers = data,
-            error => console.log(error),
-            ()    => {
-                // console.log(this.followers);
             }
         );
     }
