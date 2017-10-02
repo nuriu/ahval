@@ -3,10 +3,10 @@ import { Component, Input, OnInit } from '@angular/core';
 
 
 @Component({
-    selector: 'app-github-flowitemcard',
-    templateUrl: 'flowItemCard.component.html'
+    selector: 'app-github-flowitem',
+    templateUrl: 'flowItem.component.html'
 })
-export class FlowItemCardComponent implements OnInit {
+export class FlowItemComponent implements OnInit {
     @Input() image;
     @Input() tooltip;
     @Input() title;

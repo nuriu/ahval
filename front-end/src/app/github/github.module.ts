@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { GitHubRoutingModule } from './github-routing.module';
 
 import { GitHubComponent } from './components/github/github.component';
-import { FlowItemCardComponent } from './components/flowItemCard/flowItemCard.component';
+import { FlowItemComponent } from './components/flowItem/flowItem.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RepositoryComponent } from './components/repository/repository.component';
 
@@ -19,7 +19,7 @@ import { GitHubService } from './services/github.service';
     ],
     declarations: [
         GitHubComponent,
-        FlowItemCardComponent,
+        FlowItemComponent,
         ProfileComponent,
         RepositoryComponent
     ],

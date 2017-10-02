@@ -21,56 +21,56 @@
 
       <!-- SOL BÖLÜM -->
       <div>
-        <ul class="uk-list uk-list-divider">
+        <ul class="uk-list">
           <li *ngFor="let item of receivedEvents; let i = index" [ngSwitch]="item.type">
 
-            <app-github-flowitemcard *ngSwitchCase="'WatchEvent'"
+            <app-github-flowitem *ngSwitchCase="'WatchEvent'"
               [image]="item?.actor.avatar_url"
               [tooltip]="item?.actor.login"
               [title]="'#' + i + ' - ' + item?.actor.login"
               [date]="item?.created_at"
               [content]="item?.repo.name + ' adresindeki projeyi favorilerine ekledi.'">
-            </app-github-flowitemcard>
+            </app-github-flowitem>
 
-            <app-github-flowitemcard *ngSwitchCase="'ForkEvent'"
+            <app-github-flowitem *ngSwitchCase="'ForkEvent'"
               [image]="item?.actor.avatar_url"
               [tooltip]="item?.actor.login"
               [title]="'#' + i + ' - ' + item?.actor.login"
               [date]="item?.created_at"
               [content]="item?.repo.name + ' adresindeki projeyi çatalladı.'">
-            </app-github-flowitemcard>
+            </app-github-flowitem>
 
-            <app-github-flowitemcard *ngSwitchCase="'CreateEvent'"
+            <app-github-flowitem *ngSwitchCase="'CreateEvent'"
               [image]="item?.actor.avatar_url"
               [tooltip]="item?.actor.login"
               [title]="'#' + i + ' - ' + item?.actor.login"
               [date]="item?.created_at"
               [content]="item?.repo.name + ' adresinde bir proje oluşturdu.'">
-            </app-github-flowitemcard>
+            </app-github-flowitem>
 
-            <app-github-flowitemcard *ngSwitchCase="'PublicEvent'"
+            <app-github-flowitem *ngSwitchCase="'PublicEvent'"
               [image]="item?.actor.avatar_url"
               [tooltip]="item?.actor.login"
               [title]="'#' + i + ' - ' + item?.actor.login"
               [date]="item?.created_at"
               [content]="item?.repo.name + ' adresindeki projeyi herkese açık hale getirdi.'">
-            </app-github-flowitemcard>
+            </app-github-flowitem>
 
-            <app-github-flowitemcard *ngSwitchCase="'MemberEvent'"
+            <app-github-flowitem *ngSwitchCase="'MemberEvent'"
               [image]="item?.actor.avatar_url"
               [tooltip]="item?.actor.login"
               [title]="'#' + i + ' - ' + item?.actor.login"
               [date]="item?.created_at"
               [content]="item?.payload.member.login + ' adlı kullanıcıyı ' + item?.repo.name + ' adresindeki proje ekibine ekledi.'">
-            </app-github-flowitemcard>
+            </app-github-flowitem>
 
-            <app-github-flowitemcard *ngSwitchDefault
+            <app-github-flowitem *ngSwitchDefault
               [image]="item?.actor.avatar_url"
               [tooltip]="item?.actor.login"
               [title]="'#' + i + ' - ' + item?.actor.login"
               [date]="item?.created_at"
               [content]="item?.type + ' isimli olay türü için henüz içerik metni yazılmadı.'">
-            </app-github-flowitemcard>
+            </app-github-flowitem>
 
           </li>
         </ul>
