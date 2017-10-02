@@ -4,7 +4,8 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-github-flowitem',
-    templateUrl: 'flowItem.component.html'
+    templateUrl: 'flowItem.component.html',
+    styleUrls: ['flowItem.component.css']
 })
 export class FlowItemComponent implements OnInit {
     @Input() image;
