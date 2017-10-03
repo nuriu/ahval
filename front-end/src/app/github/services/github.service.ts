@@ -169,4 +169,16 @@ export class GitHubService {
             headers: this.h
         }).map(res => res.json());
     }
+
+    getMarkdown(text: string, repo: string) {
+        const data = {
+            'text': text,
+            'mode': 'gfm',
+            'context': repo
+        };
+
+        return this.http.post('https://api.github.com/markdown', data, {
+            headers: this.h
+        }).map(res => res.text());
+    }
 }
