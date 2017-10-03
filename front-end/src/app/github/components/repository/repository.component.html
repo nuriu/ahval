@@ -66,8 +66,8 @@
           <dl class="uk-description-list uk-description-list-divider">
               <dt *ngFor="let issue of issues">
                 (#{{ issue?.number }})&nbsp;
-                {{ issue?.title | uppercase }} <br />
-                <h5 class="uk-badge uk-padding-small uk-margin-small-bottom uk-margin-small-right" *ngFor="let label of issue?.labels"
+                {{ issue?.title | uppercase }} <br /><br />
+                <h5 class="uk-badge uk-padding-small uk-margin-remove-top uk-margin-small-bottom uk-margin-small-right" *ngFor="let label of issue?.labels"
                 [style.background-color]="['#' + label?.color]">
                   {{ label?.name }}
                 </h5>
