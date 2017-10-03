@@ -123,7 +123,7 @@ export class GitHubService {
     }
 
     getIssueInfo(owner: string, repo: string, no: number) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues/' + no, {
+        return this.http.get('https://api.github.com/repos/' + owner + '/' + repo + '/issues/' + no, {
             headers: this.h
         }).map(res => res.json());
     }
