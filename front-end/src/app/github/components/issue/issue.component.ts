@@ -30,6 +30,9 @@ export class IssueComponent implements OnInit {
                         this.githubService.getIssueInfo(params.owner, params.name, params.number)
                         .subscribe((data) => {
                             this.issue = data;
+
+                            this.issue.created_at = new Date(this.issue.created_at);
+                            this.issue.updated_at = new Date(this.issue.updated_at);
                             console.log(this.issue);
                         });
                     }
