@@ -23,60 +23,52 @@
     </h2>
     <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
 
-      <div class="uk-margin-remove-top">
-        <div class="uk-tile uk-tile-default uk-padding-small">
-
-          <article class="uk-comment uk-margin-bottom" *ngFor="let c of commits">
-            <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
-              <div class="uk-width-auto">
-                <img class="uk-comment-avatar" [src]=[c?.committer.avatar_url] width="45" height="45" alt="">
-              </div>
-              <div class="uk-width-expand">
-                <h4 class="uk-comment-title uk-margin-remove">
-                  <a class="uk-link-reset" href="#">{{ c?.commit.author.name }}</a>
-                  <small> ({{ c?.commit.author.email }})</small>
-                </h4>
-                <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                  <li><a href="#">{{ c?.commit.author.date.toLocaleString() }}</a></li>
-                </ul>
-              </div>
-            </header>
-            <div class="uk-comment-body">
-              <p>{{ c?.commit.message }}</p>
+      <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
+        <article class="uk-comment uk-margin-bottom" *ngFor="let c of commits">
+          <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+            <div class="uk-width-auto">
+              <img class="uk-comment-avatar" [src]=[c?.committer.avatar_url] width="45" height="45" alt="">
             </div>
-            <hr>
-          </article>
-
-        </div>
+            <div class="uk-width-expand">
+              <h4 class="uk-comment-title uk-margin-remove">
+                <a class="uk-link-reset" href="#">{{ c?.commit.author.name }}</a>
+                <small> ({{ c?.commit.author.email }})</small>
+              </h4>
+              <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                <li><a href="#">{{ c?.commit.author.date.toLocaleString() }}</a></li>
+              </ul>
+            </div>
+          </header>
+          <div class="uk-comment-body">
+            <p>{{ c?.commit.message }}</p>
+          </div>
+          <hr>
+        </article>
       </div>
 
-      <div class="uk-margin-remove-top">
-        <div class="uk-tile uk-tile-default uk-padding-small">
-
-          <dl class="uk-description-list">
-            <dt>OLUŞTURULMA TARİHİ</dt>
-            <dd>{{ repo?.created_at.toLocaleString() }}</dd>
-            <dt>GÜNCELLENME TARİHİ</dt>
-            <dd>{{ repo?.updated_at.toLocaleString() }}</dd>
-            <dt *ngIf="repo?.homepage">WEB ADRESİ</dt>
-            <dd *ngIf="repo?.homepage">{{ repo?.homepage }}</dd>
-          </dl>
-          <hr>
-          <h4>İŞLER</h4>
-          <dl class="uk-description-list uk-description-list-divider">
-              <dt *ngFor="let issue of issues">
-                <a class="uk-link-muted" [routerLink]="['/github/issue/' + repo?.full_name + '/' + issue?.number]">
+      <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
+        <dl class="uk-description-list">
+          <dt>OLUŞTURULMA TARİHİ</dt>
+          <dd>{{ repo?.created_at.toLocaleString() }}</dd>
+          <dt>GÜNCELLENME TARİHİ</dt>
+          <dd>{{ repo?.updated_at.toLocaleString() }}</dd>
+          <dt *ngIf="repo?.homepage">WEB ADRESİ</dt>
+          <dd *ngIf="repo?.homepage">{{ repo?.homepage }}</dd>
+        </dl>
+        <hr>
+        <h4>İŞLER</h4>
+        <dl class="uk-description-list uk-description-list-divider">
+          <dt *ngFor="let issue of issues">
+            <a class="uk-link-muted" [routerLink]="['/github/issue/' + repo?.full_name + '/' + issue?.number]">
                   (#{{ issue?.number}})&nbsp; {{ issue?.title | uppercase }}
                 </a>
-                <br /><br />
-                <h5 class="uk-badge uk-padding-small uk-margin-remove-top uk-margin-small-bottom uk-margin-small-right" *ngFor="let label of issue?.labels"
-                [style.background-color]="['#' + label?.color]">
-                  {{ label?.name }}
-                </h5>
-              </dt>
-          </dl>
-
-        </div>
+            <br /><br />
+            <h5 class="uk-badge uk-padding-small uk-margin-remove-top uk-margin-small-bottom uk-margin-small-right" *ngFor="let label of issue?.labels"
+              [style.background-color]="['#' + label?.color]">
+              {{ label?.name }}
+            </h5>
+          </dt>
+        </dl>
       </div>
 
     </div>
