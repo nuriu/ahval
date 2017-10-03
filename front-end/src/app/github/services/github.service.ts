@@ -110,14 +110,20 @@ export class GitHubService {
         }).map(res => res.json());
     }
 
+    getOrgInfo(name: string) {
+        return this.http.get('https://api.github.com/orgs/' + name, {
+            headers: this.h
+        }).map(res => res.json());
+    }
+
     getRepoInfo(owner: string, name: string) {
         return this.http.get('https://api.github.com/repos/' + owner + '/' + name, {
             headers: this.h
         }).map(res => res.json());
     }
 
-    getOrgInfo(name: string) {
-        return this.http.get('https://api.github.com/orgs/' + name, {
+    getIssueInfo(owner: string, repo: string, no: number) {
+        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues/' + no, {
             headers: this.h
         }).map(res => res.json());
     }
