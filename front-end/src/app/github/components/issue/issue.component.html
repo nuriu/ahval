@@ -1,1 +1,24 @@
-app-github-issue
+<div class="uk-tile uk-tile-default">
+
+  <ul class="uk-breadcrumb">
+    <li><a href="#" routerLink="/home">Ajanda</a></li>
+    <li><a href="#" routerLink="/github/home">GitHub</a></li>
+    <li><a href="#" [routerLink]="['/github/profile/' + issue?.user.login]">
+      <img class="uk-border-rounded" [src]="[issue?.user.avatar_url]" width="25" height="25"> {{ issue?.user.login }}
+    </a></li>
+    <li><a href="#" [routerLink]="['/github/repository/' + issue?.user.login + '/' + repoName]">{{ repoName }}</a></li>
+    <li>
+      <span>{{ issue?.number }}</span>
+    </li>
+  </ul>
+
+  <hr class="uk-divider-icon">
+
+  <div class="uk-section uk-section-default">
+    <h2 class="uk-heading-primary">
+
+    </h2>
+    <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
+
+    </div>
+  </div>
