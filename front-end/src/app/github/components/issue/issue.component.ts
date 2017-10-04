@@ -10,8 +10,11 @@ import { GitHubService } from '../../services/github.service';
     styleUrls: ['issue.component.css']
 })
 export class IssueComponent implements OnInit {
+    @Input() repoOwner;
     @Input() repoName;
     @Input() issue;
+    @Input() events;
+    @Input() comments;
 
     constructor(private githubService: GitHubService,
                 private userService: UserService,
@@ -26,6 +29,7 @@ export class IssueComponent implements OnInit {
 
                     if (params.owner != null && params.name != null && params.number != null) {
                         this.repoName = params.name;
+                        this.repoOwner = params.owner;
 
                         this.githubService.getIssueInfo(params.owner, params.name, params.number)
                         .subscribe((data) => {
@@ -34,9 +38,11 @@ export class IssueComponent implements OnInit {
                             this.issue.created_at = new Date(this.issue.created_at);
                             this.issue.updated_at = new Date(this.issue.updated_at);
 
-                            console.log(this.issue);
+                            // console.log(this.issue);
 
                             this.renderBody();
+                            this.getEvents();
+                            this.getComments();
                         });
                     }
                 } else {
@@ -46,11 +52,26 @@ export class IssueComponent implements OnInit {
         });
     }
 
+    getEvents() {
+        this.githubService.getIssueEvents(this.repoOwner, this.repoName, this.issue.number)
+        .subscribe((data) => {
+            this.events = data;
+            console.log(this.events);
+        });
+    }
+
+    getComments() {
+        this.githubService.getIssueComments(this.repoOwner, this.repoName, this.issue.number)
+        .subscribe((data) => {
+            this.comments = data;
+            console.log(this.comments);
+        });
+    }
+
     renderBody() {
-        this.githubService.getMarkdown(this.issue.body, this.issue.user.login + '/' + this.repoName)
+        this.githubService.getMarkdown(this.issue.body, this.repoOwner + '/' + this.repoName)
         .subscribe((data) => {
             this.issue.body = data;
-            console.log(this.issue.body);
         });
     }
 }
