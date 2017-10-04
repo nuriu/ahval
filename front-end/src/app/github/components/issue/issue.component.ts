@@ -38,9 +38,8 @@ export class IssueComponent implements OnInit {
                             this.issue.created_at = new Date(this.issue.created_at);
                             this.issue.updated_at = new Date(this.issue.updated_at);
 
-                            // console.log(this.issue);
+                            console.log(this.issue);
 
-                            this.renderBody();
                             this.getEvents();
                             this.getComments();
                         });
@@ -56,7 +55,7 @@ export class IssueComponent implements OnInit {
         this.githubService.getIssueEvents(this.repoOwner, this.repoName, this.issue.number)
         .subscribe((data) => {
             this.events = data;
-            console.log(this.events);
+            // console.log(this.events);
         });
     }
 
@@ -65,13 +64,6 @@ export class IssueComponent implements OnInit {
         .subscribe((data) => {
             this.comments = data;
             console.log(this.comments);
-        });
-    }
-
-    renderBody() {
-        this.githubService.getMarkdown(this.issue.body, this.repoOwner + '/' + this.repoName)
-        .subscribe((data) => {
-            this.issue.body = data;
         });
     }
 }

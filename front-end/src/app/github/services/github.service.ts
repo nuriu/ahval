@@ -123,8 +123,11 @@ export class GitHubService {
     }
 
     getIssueInfo(owner: string, repo: string, no: number) {
+        const h2 = this.h;
+        h2.set('Accept', 'application/vnd.github.VERSION.html+json');
+
         return this.http.get('https://api.github.com/repos/' + owner + '/' + repo + '/issues/' + no, {
-            headers: this.h
+            headers: h2
         }).map(res => res.json());
     }
 
@@ -177,20 +180,11 @@ export class GitHubService {
     }
 
     getIssueComments(owner: string, repo: string, number: number) {
+        const h2 = this.h;
+        h2.set('Accept', 'application/vnd.github.VERSION.html+json');
+
         return this.http.get('https://api.github.com/repos/' + owner + '/' + repo + '/issues/' + number + '/comments', {
-            headers: this.h
+            headers: h2
         }).map(res => res.json());
-    }
-
-    getMarkdown(text: string, repo: string) {
-        const data = {
-            'text': text,
-            'mode': 'gfm',
-            'context': repo
-        };
-
-        return this.http.post('https://api.github.com/markdown', data, {
-            headers: this.h
-        }).map(res => res.text());
     }
 }
