@@ -25,22 +25,21 @@
     <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
 
       <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
-        <!-- <article class="uk-comment">
+        <article class="uk-comment" *ngFor="let comment of comments">
           <header class="uk-comment-header uk-grid-medium uk-flex-middle uk-margin-remove-bottom" uk-grid>
             <div class="uk-width-auto">
-              <img class="uk-comment-avatar" width="60" height="60" [src]=[image] [title]=[tooltip] uk-tooltip>
+              <img class="uk-comment-avatar" width="60" height="60" [src]=[comment?.user.avatar_url] [title]="[comment?.user.login]" uk-tooltip>
             </div>
             <div class="uk-width-expand">
               <h4 class="uk-comment-title uk-margin-top uk-margin-remove-bottom">
-                <a class="uk-link-reset" [routerLink]="['/github/profile/' + tooltip]">{{ title }}</a>&nbsp;
-                <small>{{ date.toLocaleString() }}</small>
+                <a class="uk-link-reset" [routerLink]="['/github/profile/' + comment?.user.login]">{{ comment?.user.login }}</a>&nbsp;
+                <small>{{ comment?.created_at.toLocaleString() }}</small>
               </h4>
-              <div class="uk-comment-meta uk-margin-remove-top uk-padding-remove-left">
-                <p>{{ content }}</p>
+              <div class="uk-comment-meta uk-margin-remove-top uk-padding-remove-left" [innerHTML]="[comment?.body_html]">
               </div>
             </div>
           </header>
-        </article> -->
+        </article>
       </div>
 
       <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
