@@ -164,8 +164,20 @@ export class GitHubService {
         }).map(res => res.json());
     }
 
-    getIssueEvents(owner: string, name: string) {
+    getIssuesEvents(owner: string, name: string) {
         return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues/events', {
+            headers: this.h
+        }).map(res => res.json());
+    }
+
+    getIssueEvents(owner: string, name: string, number) {
+        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues/' + number + '/events', {
+            headers: this.h
+        }).map(res => res.json());
+    }
+
+    getIssueComments(owner: string, repo: string, number: number) {
+        return this.http.get('https://api.github.com/repos/' + owner + '/' + repo + '/issues/' + number + '/comments', {
             headers: this.h
         }).map(res => res.json());
     }
