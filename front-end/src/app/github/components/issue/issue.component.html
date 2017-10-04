@@ -28,6 +28,8 @@
 
       <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
         <dl class="uk-description-list">
+          <dt *ngIf="issue?.body">AÇIKLAMA</dt>
+          <dd *ngIf="issue?.body" [innerHTML]="[issue?.body]"></dd>
           <dt *ngIf="issue?.assignees.length == 1">SORUMLU KİŞİ</dt>
           <dt *ngIf="issue?.assignees.length > 1">SORUMLU KİŞİLER</dt>
           <dd *ngFor="let assignee of issue?.assignees" class="uk-margin-small-top">

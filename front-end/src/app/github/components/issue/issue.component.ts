@@ -33,13 +33,24 @@ export class IssueComponent implements OnInit {
 
                             this.issue.created_at = new Date(this.issue.created_at);
                             this.issue.updated_at = new Date(this.issue.updated_at);
+
                             console.log(this.issue);
+
+                            this.renderBody();
                         });
                     }
                 } else {
                     console.log('Error: Could not get github access token of user.');
                 }
             });
+        });
+    }
+
+    renderBody() {
+        this.githubService.getMarkdown(this.issue.body, this.issue.user.login + '/' + this.repoName)
+        .subscribe((data) => {
+            this.issue.body = data;
+            console.log(this.issue.body);
         });
     }
 }
