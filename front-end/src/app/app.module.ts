@@ -4,9 +4,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-// TODO: Search alternatives.
-import { MomentModule } from 'angular2-moment';
-
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './components/app/app.component';
@@ -36,7 +33,6 @@ import { UserService } from './services/user.service';
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
-        MomentModule,
         AppRoutingModule
     ],
     providers: [
