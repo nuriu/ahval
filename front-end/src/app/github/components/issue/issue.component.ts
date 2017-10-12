@@ -58,7 +58,7 @@ export class IssueComponent implements OnInit {
     }
 
     getEvents() {
-        this.githubService.getIssueEvents(this.repoOwner, this.repoName, this.issue.number)
+        this.githubService.getIssueEvents(this.repoOwner.login, this.repoName, this.issue.number)
         .subscribe((data) => {
             this.events = data;
             this.events.forEach(event => {
@@ -69,7 +69,7 @@ export class IssueComponent implements OnInit {
     }
 
     getComments() {
-        this.githubService.getIssueComments(this.repoOwner, this.repoName, this.issue.number)
+        this.githubService.getIssueComments(this.repoOwner.login, this.repoName, this.issue.number)
         .subscribe((data) => {
             this.comments = data;
             this.comments.forEach(comment => {
