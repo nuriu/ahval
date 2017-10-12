@@ -1,12 +1,20 @@
 <div class="uk-tile uk-tile-default">
 
   <ul class="uk-breadcrumb">
-    <li><a href="#" routerLink="/home">Ajanda</a></li>
-    <li><a href="#" routerLink="/github/home">GitHub</a></li>
-    <li><a href="#" [routerLink]="['/github/profile/' + repoOwner?.login]">
-      <img class="uk-border-rounded" [src]="[repoOwner?.avatar_url]" width="25" height="25"> {{ repoOwner?.login }}
-    </a></li>
-    <li><a href="#" [routerLink]="['/github/repository/' + issue?.user.login + '/' + repoName]">{{ repoName }}</a></li>
+    <li>
+      <a href="#" routerLink="/home">Ajanda</a>
+    </li>
+    <li>
+      <a href="#" routerLink="/github/home">GitHub</a>
+    </li>
+    <li>
+      <a href="#" [routerLink]="['/github/profile/' + repoOwner?.login]">
+        <img class="uk-border-rounded" [src]="[repoOwner?.avatar_url]" width="25" height="25"> {{ repoOwner?.login }}
+      </a>
+    </li>
+    <li>
+      <a href="#" [routerLink]="['/github/repository/' + issue?.user.login + '/' + repoName]">{{ repoName }}</a>
+    </li>
     <li>
       <span>{{ issue?.number }}</span>
     </li>
@@ -25,6 +33,32 @@
     <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
 
       <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
+        <dl class="uk-description-list">
+          <dt *ngIf="issue?.body_html">AÇIKLAMA</dt>
+          <dd *ngIf="issue?.body_html" [innerHTML]="[issue?.body_html]"></dd>
+        </dl>
+        <div uk-grid>
+          <div class="uk-description-list">
+            <dt *ngIf="issue?.assignees.length == 1">SORUMLU KİŞİ</dt>
+            <dt *ngIf="issue?.assignees.length > 1">SORUMLU KİŞİLER</dt>
+            <dd *ngFor="let assignee of issue?.assignees" class="uk-margin-small-top">
+              <img class="uk-border-rounded" [src]="[assignee.avatar_url]" width="30" height="30">
+              <a class="uk-link-muted" [routerLink]="['/github/profile/' + assignee.login]">
+                {{ assignee.login }}
+              </a>
+            </dd>
+          </div>
+          <div class="uk-description-list">
+            <dt>OLUŞTURULMA TARİHİ</dt>
+            <dd>{{ issue?.created_at.toLocaleString() }}</dd>
+          </div>
+          <div class="uk-description-list">
+            <dt>GÜNCELLENME TARİHİ</dt>
+            <dd>{{ issue?.updated_at.toLocaleString() }}</dd>
+          </div>
+        </div>
+        <hr />
+        <h4 class="uk-margin-remove">Yorumlar</h4>
         <article class="uk-comment" *ngFor="let comment of comments">
           <header class="uk-comment-header uk-grid-medium uk-flex-middle uk-margin-remove-bottom" uk-grid>
             <div class="uk-width-auto">
@@ -43,23 +77,6 @@
       </div>
 
       <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
-        <dl class="uk-description-list">
-          <dt *ngIf="issue?.body_html">AÇIKLAMA</dt>
-          <dd *ngIf="issue?.body_html" [innerHTML]="[issue?.body_html]"></dd>
-          <dt *ngIf="issue?.assignees.length == 1">SORUMLU KİŞİ</dt>
-          <dt *ngIf="issue?.assignees.length > 1">SORUMLU KİŞİLER</dt>
-          <dd *ngFor="let assignee of issue?.assignees" class="uk-margin-small-top">
-            <img class="uk-border-rounded" [src]="[assignee.avatar_url]" width="30" height="30">
-            <a class="uk-link-muted" [routerLink]="['/github/profile/' + assignee.login]">
-              {{ assignee.login }}
-            </a>
-          </dd>
-          <dt>OLUŞTURULMA TARİHİ</dt>
-          <dd>{{ issue?.created_at.toLocaleString() }}</dd>
-          <dt>GÜNCELLENME TARİHİ</dt>
-          <dd>{{ issue?.updated_at.toLocaleString() }}</dd>
-        </dl>
-        <hr>
         <h4>ETİKETLER</h4>
         <dl class="uk-description-list">
           <dt *ngFor="let label of issue?.labels" class="uk-margin-small">
