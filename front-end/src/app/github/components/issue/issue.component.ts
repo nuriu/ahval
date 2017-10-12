@@ -29,7 +29,7 @@ export class IssueComponent implements OnInit {
 
                     if (params.owner != null && params.name != null && params.number != null) {
                         this.repoName = params.name;
-                        this.repoOwner = params.owner;
+                        this.getOwnerInfo(params.owner);
 
                         this.githubService.getIssueInfo(params.owner, params.name, params.number)
                         .subscribe((data) => {
@@ -48,6 +48,12 @@ export class IssueComponent implements OnInit {
                     console.log('Error: Could not get github access token of user.');
                 }
             });
+        });
+    }
+
+    getOwnerInfo(login: string) {
+        this.githubService.getUserInfo(login).subscribe((data) => {
+            this.repoOwner = data;
         });
     }
 
