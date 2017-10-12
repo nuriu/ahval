@@ -29,7 +29,6 @@ export class IssueComponent implements OnInit {
 
                     if (params.owner != null && params.name != null && params.number != null) {
                         this.repoName = params.name;
-                        this.getOwnerInfo(params.owner);
 
                         this.githubService.getIssueInfo(params.owner, params.name, params.number)
                         .subscribe((data) => {
@@ -40,8 +39,7 @@ export class IssueComponent implements OnInit {
 
                             console.log(this.issue);
 
-                            this.getEvents();
-                            this.getComments();
+                            this.getOwnerInfo(params.owner);
                         });
                     }
                 } else {
@@ -54,6 +52,9 @@ export class IssueComponent implements OnInit {
     getOwnerInfo(login: string) {
         this.githubService.getUserInfo(login).subscribe((data) => {
             this.repoOwner = data;
+
+            this.getEvents();
+            this.getComments();
         });
     }
 
