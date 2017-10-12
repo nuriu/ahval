@@ -1,0 +1,8 @@
+<div uk-grid>
+  <div class="uk-width-auto@s">
+    <app-sidebar *ngIf="isLoggedIn()"></app-sidebar>
+  </div>
+  <div class="uk-width-expand@s">
+    <router-outlet></router-outlet>
+  </div>
+</div>

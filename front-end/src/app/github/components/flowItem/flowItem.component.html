@@ -1,0 +1,16 @@
+<article class="uk-comment">
+  <header class="uk-comment-header uk-grid-medium uk-flex-middle uk-margin-remove-bottom" uk-grid>
+    <div class="uk-width-auto">
+      <img class="uk-comment-avatar" width="60" height="60" [src]=[image] [title]=[tooltip] uk-tooltip>
+    </div>
+    <div class="uk-width-expand">
+      <h4 class="uk-comment-title uk-margin-top uk-margin-remove-bottom">
+        <a class="uk-link-reset" [routerLink]="['/github/profile/' + tooltip]">{{ title }}</a>&nbsp;
+        <small>{{ date.toLocaleString() }}</small>
+      </h4>
+      <div class="uk-comment-meta uk-margin-remove-top uk-padding-remove-left">
+        <p>{{ content }}</p>
+      </div>
+    </div>
+  </header>
+</article>

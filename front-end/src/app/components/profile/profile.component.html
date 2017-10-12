@@ -1,0 +1,86 @@
+<div class="uk-tile uk-tile-default">
+
+  <ul class="uk-breadcrumb">
+    <li><a href="#" routerLink="/home">Ajanda</a></li>
+    <li><span href="#">Profilim</span></li>
+  </ul>
+  <hr class="uk-divider-icon">
+
+  <div class="uk-section uk-section-default">
+    <div class="uk-grid-match uk-child-width-1-2@l" uk-grid>
+
+      <div>
+        <h3>Mevcut Profil Bilgileriniz</h3>
+        <dl class="uk-description-list uk-description-list-divider">
+          <dt>KULLANICI ADINIZ</dt>
+          <dd>
+            <div *ngIf="!(user?.username)">
+              <div uk-spinner></div> Yükleniyor... </div>
+            <span *ngIf="user?.username">{{ user?.username }}</span>
+          </dd>
+          <dt>E-POSTA ADRESİNİZ</dt>
+          <dd>
+            <div *ngIf="!(user?.emailAddress)">
+              <div uk-spinner></div> Yükleniyor... </div>
+            <span *ngIf="user?.emailAddress">{{ user?.emailAddress }}</span>
+          </dd>
+          <dt>PAROLANIZ</dt>
+          <dd>********</dd>
+          <dt>KAYIT OLMA TARİHİNİZ</dt>
+          <dd>
+            <div *ngIf="!(user?.registeredAt)">
+              <div uk-spinner></div> Yükleniyor... </div>
+            <span *ngIf="user?.registeredAt">{{ user?.registeredAt }}</span>
+          </dd>
+          <dt>SON GİRİŞ TARİHİNİZ</dt>
+          <dd>
+            <div *ngIf="!(user?.lastLoggedInAt)">
+              <div uk-spinner></div> Yükleniyor... </div>
+            <span *ngIf="user?.lastLoggedInAt">{{ user?.lastLoggedInAt }}</span>
+          </dd>
+        </dl>
+      </div>
+
+      <div>
+        <h3>Profil Bilgileri Düzenle</h3>
+        <div class="uk-margin">
+          <form class="uk-form-stacked" [formGroup]="updateForm" (ngSubmit)="update()">
+
+            <div class="uk-margin">
+              <label class="uk-form-label" for="form-stacked-text">E-POSTA ADRESİNİZ</label>
+              <div class="uk-form-controls">
+                <input class="uk-input" type="text" name="newEmailAddress" formControlName="newEmailAddress" placeholder="Yükleniyor...">
+              </div>
+            </div>
+
+            <div class="uk-margin">
+              <label class="uk-form-label" for="form-stacked-text">PAROLANIZ</label>
+              <div class="uk-form-controls">
+                <input class="uk-input" type="password" name="newPassword" formControlName="newPassword" placeholder="********">
+              </div>
+            </div>
+
+            <div class="uk-margin">
+              <label class="uk-form-label" for="form-stacked-text">MEVCUT PAROLANIZ</label>
+              <div class="uk-form-controls">
+                <input class="uk-input" type="password" name="oldPassword" formControlName="oldPassword" placeholder="********">
+              </div>
+            </div>
+
+            <div class="uk-margin">
+              <button class="uk-button uk-button-danger">İPTAL</button>
+              <button class="uk-button uk-button-primary" type="submit">KAYDET</button>
+            </div>
+
+            <div class="uk-margin">
+              <a class="uk-link-text" href="">Üyeliğinizi silmek için tıklayın.</a>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,20 @@
+<div class="uk-position-center uk-overlay uk-overlay-default">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <img src="/assets/logo.png">
+
+    <div class="uk-margin">
+      <input class="uk-input" name="username" formControlName="username" type="text" placeholder="Kullanıcı Adınız" required>
+    </div>
+
+    <div class="uk-margin">
+      <input class="uk-input" name="password" formControlName="password" type="password" placeholder="Parolanız" required>
+    </div>
+
+    <div class="uk-margin">
+      <button class="uk-button uk-button-primary" type="submit">GİRİŞ YAP</button>
+      <button class="uk-button uk-button-default" routerLink="/register">KAYIT OL</button>
+    </div>
+
+  </form>
+</div>

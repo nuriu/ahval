@@ -1,9 +1,4 @@
-node_modules/
-typings/
-semantic/
-build/
-.vscode/
-*.DB
-*.DB-wal
-*.DB-shm
-keys.json
+.*/
+diagrams/
+docs/
+*-lock.json

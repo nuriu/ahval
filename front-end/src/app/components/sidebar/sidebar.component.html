@@ -1,0 +1,12 @@
+﻿<div class="uk-width-auto@m">
+  <div class="uk-padding">
+    <ul class="uk-iconnav uk-iconnav-vertical">
+      <li><a routerLink="/home" routerLinkActive="active uk-box-shadow-medium uk-border-rounded" uk-icon="icon: home; ratio: 2.5"></a></li>
+      <li *ngFor="let component of items" [ngSwitch]="component">
+        <a *ngSwitchCase="'GITHUB'" [routerLink]="[component.toLowerCase() + '/home']" routerLinkActive="active uk-box-shadow-medium" uk-icon="icon: github; ratio: 2.5"></a>
+      </li>
+      <li><a routerLink="/profile" routerLinkActive="active uk-box-shadow-medium" uk-icon="icon: user; ratio: 2.5"></a></li>
+      <li><a href="#" uk-icon="icon: sign-out; ratio: 2.5" (click)="signout()"></a></li>
+    </ul>
+  </div>
+</div>

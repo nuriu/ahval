@@ -1,0 +1,111 @@
+<div class="uk-tile uk-tile-default">
+
+  <ul class="uk-breadcrumb">
+    <li><a href="#" routerLink="/home">Ajanda</a></li>
+    <li><a href="#" routerLink="/github/home">GitHub</a></li>
+    <li>
+      <span href="#">Akış</span>
+    </li>
+  </ul>
+
+  <div class="uk-position-right uk-margin uk-margin-right" style="padding-top: 1rem; padding-right: 1rem;">
+    <a href="#" [routerLink]="['/github/profile/' + user?.login]">
+      <img class="uk-border-circle" width="30" height="30" [src]=[user?.avatar_url]>
+    </a>
+  </div>
+
+  <hr class="uk-divider-icon">
+
+  <div class="uk-section uk-section-default">
+    <div class="uk-child-width-1-2@m" uk-grid>
+
+      <!-- SOL BÖLÜM -->
+      <div>
+        <ul class="uk-list">
+          <li *ngFor="let item of receivedEvents; let i = index" [ngSwitch]="item.type">
+
+            <app-github-flowitem *ngSwitchCase="'WatchEvent'"
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.repo.name + ' adresindeki projeyi favorilerine ekledi.'">
+            </app-github-flowitem>
+
+            <app-github-flowitem *ngSwitchCase="'ForkEvent'"
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.repo.name + ' adresindeki projeyi çatalladı.'">
+            </app-github-flowitem>
+
+            <app-github-flowitem *ngSwitchCase="'CreateEvent'"
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.repo.name + ' adresinde bir proje oluşturdu.'">
+            </app-github-flowitem>
+
+            <app-github-flowitem *ngSwitchCase="'PublicEvent'"
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.repo.name + ' adresindeki projeyi herkese açık hale getirdi.'">
+            </app-github-flowitem>
+
+            <app-github-flowitem *ngSwitchCase="'MemberEvent'"
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.payload.member.login + ' adlı kullanıcıyı ' + item?.repo.name + ' adresindeki proje ekibine ekledi.'">
+            </app-github-flowitem>
+
+            <app-github-flowitem *ngSwitchDefault
+              [image]="item?.actor.avatar_url"
+              [tooltip]="item?.actor.login"
+              [title]="'#' + i + ' - ' + item?.actor.login"
+              [date]="item?.created_at"
+              [content]="item?.type + ' isimli olay türü için henüz içerik metni yazılmadı.'">
+            </app-github-flowitem>
+
+          </li>
+        </ul>
+      </div>
+      <!--/SOL BÖLÜM -->
+
+      <!-- SAĞ BÖLÜM -->
+      <div>
+        <div class="uk-tile uk-tile-secondary uk-padding-small">
+
+          <!-- PROJE LİSTESİ -->
+          <h4>Projeler <span class="uk-badge">{{ repos?.length }}</span></h4>
+          <ul class="uk-list">
+            <li *ngFor="let item of repos">
+              <a [routerLink]="['/github/repository/' + item?.full_name]">
+                <span class="uk-margin-small-right" uk-icon="icon: github"></span>
+                {{ item?.full_name }} <span class="uk-badge">{{ item?.language }}</span>
+              </a>
+            </li>
+          </ul>
+          <!--/PROJE LİSTESİ -->
+
+          <!-- TAKİP EDİLENLER -->
+          <h4>Takip Edilen Kişiler <span class="uk-badge">{{ followingUsers?.length }}</span></h4>
+          <a href="#" *ngFor="let fu of followingUsers" [routerLink]="['/github/profile/' + fu?.login]">
+            <img class="uk-border-circle uk-margin-right uk-margin-bottom" width="40" height="40"
+                src="{{ fu?.avatar_url }}" title="{{ fu?.login }}" uk-tooltip>
+          </a>
+          <!--/TAKİP EDİLENLER -->
+
+        </div>
+      </div>
+      <!--/SAĞ BÖLÜM -->
+
+    </div>
+  </div>
+
+</div>

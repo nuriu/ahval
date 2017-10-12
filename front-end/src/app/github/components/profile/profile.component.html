@@ -1,0 +1,118 @@
+<div class="uk-tile uk-tile-default">
+
+  <ul class="uk-breadcrumb">
+    <li><a href="#" routerLink="/home">Ajanda</a></li>
+    <li><a href="#" routerLink="/github/home">GitHub</a></li>
+    <li>
+      <span href="#">Profil</span>
+    </li>
+  </ul>
+
+  <div class="uk-position-right uk-margin uk-margin-right" style="padding-top: 1rem; padding-right: 1rem;">
+    <a href="#" [routerLink]="['/github/profile/' + user?.login]">
+      <img class="uk-border-circle" width="30" height="30" [src]=[user?.avatar_url]>
+    </a>
+  </div>
+
+  <hr class="uk-divider-icon">
+
+  <div class="uk-section uk-section-default">
+    <h1 class="uk-heading-primary">
+      <img class="uk-border-rounded" width="75" height="75" [src]=[user?.avatar_url]>
+      <span>{{ user?.name }}</span>
+      <small *ngIf="user?.login"> ({{ user?.login }})</small>
+    </h1>
+    <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
+
+      <div class="uk-margin-remove-top">
+        <div class="uk-tile uk-tile-default uk-padding-small">
+          <dl class="uk-description-list">
+            <dt *ngIf="user?.bio">BİYOGRAFİ:</dt>
+            <dd *ngIf="user?.bio">{{ user?.bio }}</dd>
+
+            <dt *ngIf="user?.location">KONUM:</dt>
+            <dd *ngIf="user?.location">{{ user?.location }}</dd>
+
+            <dt *ngIf="user?.email">E-POSTA ADRESİ:</dt>
+            <dd *ngIf="user?.email">{{ user?.email }}</dd>
+
+            <dt *ngIf="user?.blog">WEB ADRESİ:</dt>
+            <dd *ngIf="user?.blog"><a href="{{ user?.blog }}" rel="external" target="_blank">{{ user?.blog }}</a></dd>
+
+            <dt *ngIf="user?.company">ŞİRKET:</dt>
+            <dd *ngIf="user?.company">{{ user?.company }}</dd>
+          </dl>
+        </div>
+
+        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="orgMembers?.length > 0 && user.type == 'Organization'">
+          <dl class="uk-description-list">
+            <dt>ÜYELER: <span class="uk-badge">{{ orgMembers?.length }}</span></dt>
+            <dd><br /></dd>
+            <dd>
+              <span *ngFor="let om of orgMembers">
+                <a href="#" [routerLink]="['/github/profile/' + om?.login]">
+                  <img class="uk-border-rounded uk-margin-right uk-margin-bottom" width="50" height="50" [src]=[om?.avatar_url] title="{{ om?.login }}" uk-tooltip>
+                </a>
+              </span>
+            </dd>
+          </dl>
+        </div>
+
+        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="orgs?.length > 0 && user.type != 'Organization'">
+          <dl class="uk-description-list">
+            <dt>ORGANİZASYONLAR: <span class="uk-badge">{{ orgs?.length }}</span></dt>
+            <dd><br /></dd>
+            <dd *ngFor="let org of orgs">
+              <img class="uk-border-circle" width="30" height="30" [src]=[org?.avatar_url]>&emsp;
+              <a href="#" class="uk-link-muted" [routerLink]="['/github/profile/' + org?.login]">
+                {{ org?.login }}
+              </a>
+            </dd>
+          </dl>
+        </div>
+
+        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="followingUsers?.length > 0 && user.type != 'Organization'">
+          <dl class="uk-description-list">
+            <dt>TAKİP ETTİKLERİ: <span class="uk-badge">{{ followingUsers?.length }}</span></dt>
+            <dd><br /></dd>
+            <dd>
+              <span *ngFor="let fu of followingUsers">
+                <a href="#" [routerLink]="['/github/profile/' + fu?.login]">
+                  <img class="uk-border-rounded uk-margin-right uk-margin-bottom" width="50" height="50" [src]=[fu?.avatar_url] title="{{ fu?.login }}" uk-tooltip>
+                </a>
+              </span>
+            </dd>
+          </dl>
+        </div>
+
+        <div class="uk-tile uk-tile-default uk-padding-small" *ngIf="followers?.length > 0 && user.type != 'Organization'">
+          <dl class="uk-description-list">
+            <dt>TAKİP EDENLER: <span class="uk-badge">{{ followers?.length }}</span></dt>
+            <dd><br /></dd>
+            <dd>
+              <span *ngFor="let fu of followers">
+                <a href="#" [routerLink]="['/github/profile/' + fu?.login]">
+                  <img class="uk-border-rounded uk-margin-right uk-margin-bottom" width="50" height="50" [src]=[fu?.avatar_url] title="{{ fu?.login }}" uk-tooltip>
+                </a>
+              </span>
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="uk-margin-remove-top" *ngIf="repos?.length > 0">
+        <div class="uk-tile uk-tile-default uk-padding-small">
+          <dl class="uk-description-list">
+            <dt>PROJELER: <span class="uk-badge">{{ repos?.length }}</span></dt>
+            <dd *ngFor="let repo of repos">
+              <a [routerLink]="['/github/repository/' + repo?.full_name]">
+                {{ repo?.name }}
+              </a>
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
