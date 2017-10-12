@@ -38,6 +38,12 @@ export class GitHubService {
         }).map(res => res.json().avatar_url);
     }
 
+    getRepos() {
+        return this.http.get('https://api.github.com/user/repos', {
+            headers: this.h
+        }).map(res => res.json());
+    }
+
     getUserRepos(login: string, sort: string, direction: string, page?: number, perPage?: number) {
         const p = new URLSearchParams();
 
