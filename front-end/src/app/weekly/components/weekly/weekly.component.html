@@ -7,9 +7,6 @@
     <li>
       <a href="#" routerLink="/weekly/home">Haftalık</a>
     </li>
-    <li>
-      <span href="#">Bu Hafta</span>
-    </li>
   </ul>
 
   <hr class="uk-divider-icon">
@@ -17,8 +14,8 @@
   <div class="uk-section uk-section-default">
 
     <div style="width: 100%">
-      <a class="uk-link-muted uk-text-meta"><< Önceki Hafta</a>
-      <a class="uk-link-muted uk-text-meta" style="float: right;text-align: right;">Sonraki Hafta >></a>
+      <a class="uk-link-muted uk-text-meta" (click)="decrementWeek()"><< Önceki Hafta</a>
+      <a class="uk-link-muted uk-text-meta" style="float: right;text-align: right;" (click)="incrementWeek()">Sonraki Hafta >></a>
 
       <div class="uk-text-center">
           <span class="uk-link-muted uk-text-lead">

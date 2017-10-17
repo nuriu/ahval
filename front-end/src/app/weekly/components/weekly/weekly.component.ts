@@ -26,12 +26,21 @@ export class WeeklyComponent implements OnInit {
         monday.setDate(date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1));
 
         this.dates.push(monday);
-        this.dates.push(new Date(date.setDate(monday.getDate() + 1)));
-        this.dates.push(new Date(date.setDate(monday.getDate() + 2)));
-        this.dates.push(new Date(date.setDate(monday.getDate() + 3)));
-        this.dates.push(new Date(date.setDate(monday.getDate() + 4)));
-        this.dates.push(new Date(date.setDate(monday.getDate() + 5)));
-        this.dates.push(new Date(date.setDate(monday.getDate() + 6)));
 
+        for (let i = 0; i < 6; i++) {
+            this.dates.push(new Date(date.setDate(monday.getDate() + i + 1)));
+        }
+    }
+
+    incrementWeek() {
+        for (let i = 0; i < this.dates.length; i++) {
+            this.dates[i].setDate(this.dates[i].getDate() + 7);
+        }
+    }
+
+    decrementWeek() {
+        for (let i = 0; i < this.dates.length; i++) {
+            this.dates[i].setDate(this.dates[i].getDate() - 7);
+        }
     }
 }
