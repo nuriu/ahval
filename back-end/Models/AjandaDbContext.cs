@@ -9,6 +9,10 @@ namespace Ajanda.Models
         public DbSet<State> States { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Component> Components { get; set; }
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<Issue> Issues { get; set; }
+        public DbSet<WeeklyItemType> WeeklyItemTypes { get; set; }
+        public DbSet<UserWeeklyItem> UserWeeklyItems { get; set; }
 
         public AjandaDbContext(DbContextOptions<AjandaDbContext> options) : base(options)
         {
@@ -16,12 +20,13 @@ namespace Ajanda.Models
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<UserComponent>().HasKey(uc => new { uc.User_Id, uc.Component_Id });
-            builder.Entity<UserComponent>().HasOne(uc => uc.User).WithMany(u => u.UserComponents).HasForeignKey(uc => uc.User_Id);
-            builder.Entity<UserComponent>().HasOne(uc => uc.Component).WithMany(c => c.ComponentUsers).HasForeignKey(uc => uc.Component_Id);
+            builder.Entity<UserComponents>().HasKey(uc => new { uc.User_Id, uc.Component_Id });
+            builder.Entity<UserComponents>().HasOne(uc => uc.User).WithMany(u => u.UserComponents).HasForeignKey(uc => uc.User_Id);
+            builder.Entity<UserComponents>().HasOne(uc => uc.Component).WithMany(c => c.ComponentUsers).HasForeignKey(uc => uc.Component_Id);
 
             builder.Entity<User>().Property<DateTime>("UpdatedAt");
             builder.Entity<Component>().Property<DateTime>("UpdatedAt");
+            builder.Entity<UserWeeklyItem>().Property<DateTime>("UpdatedAt");
 
             builder.Entity<User>().HasAlternateKey(u => u.Username);
             builder.Entity<Component>().HasAlternateKey(c => c.Name);
@@ -36,6 +41,7 @@ namespace Ajanda.Models
 
             updateUpdatedProperty<User>();
             updateUpdatedProperty<Component>();
+            updateUpdatedProperty<UserWeeklyItem>();
 
             return base.SaveChanges();
         }

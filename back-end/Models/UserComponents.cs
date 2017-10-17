@@ -2,7 +2,7 @@ using System;
 
 namespace Ajanda.Models
 {
-    public class UserComponent
+    public class UserComponents
     {
         public Guid User_Id { get; set; }
         public virtual User User { get; set; }

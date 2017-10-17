@@ -1,18 +1,20 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Ajanda.Models
 {
-    public class Component
+    public class Issue
     {
         [Key]
         public Guid Id { get; set; }
         [Required]
-        [MaxLength(50)]
+        [MaxLength(25)]
         public string Name { get; set; }
-        public virtual ICollection<UserComponents> ComponentUsers { get; set; }
         [Required]
-        public virtual State State { get; set; }
+        public Component Component { get; set; }
+        [Required]
+        public string RepoIdentifier { get; set; }
+        [Required]
+        public int Number { get; set; }
     }
 }
