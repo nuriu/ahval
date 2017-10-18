@@ -35,11 +35,11 @@ export class WeeklyService {
         }).map(res => res.json());
     }
 
-    getUserNotesForDate(date: Date) {
+    getUserNotesForWeek(mondayDate: Date) {
         const s: URLSearchParams = new URLSearchParams();
-        s.set('date', this.processDate(date));
-        console.log(s);
-        return this.http.get(this.APIUrl + '/api/notes/getnotesfordate', {
+        s.set('monday', this.processDate(mondayDate));
+
+        return this.http.get(this.APIUrl + '/api/notes/getnotesforweek', {
             headers: this.h,
             search : s
         }).map(res => res.json());

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ajanda.Helpers;
@@ -95,15 +96,23 @@ namespace Ajanda.Controllers
         /// <param name="date">Assigned date.</param>
         /// <returns>Note list.</returns>
         [HttpGet]
-        public async Task<IActionResult> GetNotesForDate(string date)
+        public async Task<IActionResult> GetNotesForWeek(string monday)
         {
+            List<string> dateRange = new List<string>();
+            var d = Convert.ToDateTime(monday);
+            
+            for (int i = 0; i < 7; ++i)
+            {
+                dateRange.Add(d.AddDays(i).ToShortDateString());
+            }
+
             // find signed in user
             var user = await db.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
             // find item type
             var itemType = await db.WeeklyItemTypes.FirstOrDefaultAsync(wit => wit.Name == "NOTE");
             // find item ids
             var itemIds = db.UserWeeklyItems.Include("User")
-                                            .Where(uwi => uwi.User == user && uwi.Type == itemType && uwi.Date == date)
+                                            .Where(uwi => uwi.User == user && uwi.Type == itemType && dateRange.Contains(uwi.Date))
                                             .Select(uwi => uwi.Item_Id);
             // select notes with corresponding item ids
             var notes = db.Notes.Where(n => itemIds.Contains(n.Id));
