@@ -148,7 +148,9 @@ namespace backend.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Date");
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasMaxLength(10);
 
                     b.Property<Guid>("Item_Id");
 

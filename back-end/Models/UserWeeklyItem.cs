@@ -14,6 +14,7 @@ namespace Ajanda.Models
         [Required]
         public Guid Item_Id { get; set; }
         [Required]
-        public DateTime Date { get; set; }
+        [MaxLength(10)]
+        public string Date { get; set; }
     }
 }
