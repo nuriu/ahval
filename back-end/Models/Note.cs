@@ -10,5 +10,8 @@ namespace Ajanda.Models
         [Required]
         [MaxLength(250)]
         public string Body { get; set; }
+        [Required]
+        [MaxLength(10)]
+        public string Date { get; set; }
     }
 }

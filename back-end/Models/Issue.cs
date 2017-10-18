@@ -16,5 +16,8 @@ namespace Ajanda.Models
         public string RepoIdentifier { get; set; }
         [Required]
         public int Number { get; set; }
+        [Required]
+        [MaxLength(10)]
+        public string Date { get; set; }
     }
 }

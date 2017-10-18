@@ -71,14 +71,14 @@ namespace Ajanda.Controllers
             var itemType = await db.WeeklyItemTypes.FirstOrDefaultAsync(wit => wit.Name == "NOTE");
 
             Note n = new Note {
-                Body = nvm.Body
+                Body = nvm.Body,
+                Date = nvm.Date
             };
 
             await db.Notes.AddAsync(n);
 
             UserWeeklyItem item = new UserWeeklyItem {
                 Type = itemType,
-                Date = nvm.Date,
                 Item_Id = n.Id,
                 User = user
             };
@@ -100,7 +100,7 @@ namespace Ajanda.Controllers
         {
             List<string> dateRange = new List<string>();
             var d = Convert.ToDateTime(monday);
-            
+
             for (int i = 0; i < 7; ++i)
             {
                 dateRange.Add(d.AddDays(i).ToShortDateString());
@@ -108,14 +108,17 @@ namespace Ajanda.Controllers
 
             // find signed in user
             var user = await db.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+            
             // find item type
             var itemType = await db.WeeklyItemTypes.FirstOrDefaultAsync(wit => wit.Name == "NOTE");
+            
             // find item ids
             var itemIds = db.UserWeeklyItems.Include("User")
-                                            .Where(uwi => uwi.User == user && uwi.Type == itemType && dateRange.Contains(uwi.Date))
+                                            .Where(uwi => uwi.User == user && uwi.Type == itemType)
                                             .Select(uwi => uwi.Item_Id);
+            
             // select notes with corresponding item ids
-            var notes = db.Notes.Where(n => itemIds.Contains(n.Id));
+            var notes = db.Notes.Where(n => itemIds.Contains(n.Id) && dateRange.Contains(n.Date));
 
             return Ok(notes);
         }
