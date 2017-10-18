@@ -17,6 +17,7 @@ export class WeeklyComponent implements OnInit {
                 private userService: UserService) {}
 
     ngOnInit() {
+        this.weeklyService.activate();
         this.dates = new Array<Date>();
         this.fillDates(new Date());
     }
