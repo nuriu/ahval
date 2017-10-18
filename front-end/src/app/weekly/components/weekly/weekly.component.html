@@ -27,10 +27,10 @@
 
     <div class="uk-child-width-1-5@m uk-grid-collapse uk-grid-match" uk-grid>
 
-      <!-- PAZARTESİ -->
-      <div>
-        <div class="uk-tile uk-tile-primary">
-          <p class="uk-h4">{{ dates[0].toLocaleDateString('tr', { weekday: 'long' }) }} <small>({{ dates[0].toLocaleDateString() }})</small></p>
+      <div *ngFor="let item of dates; let i = index">
+        <div class="uk-tile uk-padding-small" [class.uk-tile-primary]="i%2==0" [class.uk-tile-secondary]="i%2!=0">
+          <p class="uk-h4">{{ dates[i].toLocaleDateString('tr', { weekday: 'long' }) }} <small>({{ dates[i].toLocaleDateString() }})</small></p>
+          <hr />
           <ul class="uk-list">
               <li>List item 1</li>
               <li>List item 2</li>
@@ -38,85 +38,6 @@
           </ul>
         </div>
       </div>
-      <!--/PAZARTESİ -->
-
-      <!-- SALI -->
-      <div>
-        <div class="uk-tile uk-tile-secondary">
-          <p class="uk-h4">{{ dates[1].toLocaleDateString('tr', { weekday: 'long' }) }} <small>({{ dates[1].toLocaleDateString() }})</small></p>
-          <ul class="uk-list">
-              <li>List item 1</li>
-              <li>List item 2</li>
-              <li>List item 3</li>
-          </ul>
-        </div>
-      </div>
-      <!--/SALI -->
-
-      <!-- ÇARŞAMBA -->
-      <div>
-        <div class="uk-tile uk-tile-primary">
-          <p class="uk-h4">{{ dates[2].toLocaleDateString('tr', { weekday: 'long' }) }} <small>({{ dates[2].toLocaleDateString() }})</small></p>
-          <ul class="uk-list">
-              <li>List item 1</li>
-              <li>List item 2</li>
-              <li>List item 3</li>
-              <li>List item 4</li>
-              <li>List item 5</li>
-          </ul>
-        </div>
-      </div>
-      <!--/ÇARŞAMBA -->
-
-      <!-- PERŞEMBE -->
-      <div>
-        <div class="uk-tile uk-tile-secondary">
-          <p class="uk-h4">{{ dates[3].toLocaleDateString('tr', { weekday: 'long' }) }} <small>({{ dates[3].toLocaleDateString() }})</small></p>
-          <ul class="uk-list">
-              <li>List item 1</li>
-              <li>List item 2</li>
-              <li>List item 3</li>
-          </ul>
-        </div>
-      </div>
-      <!--/PERŞEMBE -->
-
-      <!-- CUMA -->
-      <div>
-        <div class="uk-tile uk-tile-primary">
-          <p class="uk-h4">{{ dates[4].toLocaleDateString('tr', { weekday: 'long' }) }} <small>({{ dates[4].toLocaleDateString() }})</small></p>
-          <ul class="uk-list">
-              <li>List item 1</li>
-              <li>List item 2</li>
-              <li>List item 3</li>
-          </ul>
-        </div>
-      </div>
-      <!--/CUMA -->
-
-      <!-- CUMARTESİ -->
-      <div>
-        <div class="uk-tile uk-tile-secondary">
-          <p class="uk-h4">{{ dates[5].toLocaleDateString('tr', { weekday: 'long' }) }} <small>({{ dates[5].toLocaleDateString() }})</small></p>
-          <ul class="uk-list">
-              <li>List item 1</li>
-              <li>List item 2</li>
-              <li>List item 3</li>
-          </ul>
-        </div>
-      </div>
-      <!--/CUMARTESİ -->
-
-      <!-- PAZAR -->
-      <div>
-        <div class="uk-tile uk-tile-primary">
-          <p class="uk-h4">{{ dates[6].toLocaleDateString('tr', { weekday: 'long' }) }} <small>({{ dates[6].toLocaleDateString() }})</small></p>
-          <ul class="uk-list">
-              <li>List item 1</li>
-          </ul>
-        </div>
-      </div>
-      <!--/PAZAR -->
 
     </div>
   </div>
