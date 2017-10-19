@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
                 if (res) {
                     UIkit.notification('<span uk-icon="icon: check"></span> Kayıt işlemi başarılı sonuçlandı!', {
                         status: 'success',
-                        pos   : 'bottom-right'
+                        pos   : 'top-center'
                     });
                     this.router.navigate(['login']);
                 } else {
@@ -42,12 +42,12 @@ export class RegisterComponent implements OnInit {
                         UIkit.notification('Sistemde aynı kullanıcı ismine sahip bir kullanıcı mevcut.<br/>\
                         <br/>Lütfen farklı bir kullanıcı ismiyle tekrar deneyiniz.', {
                             status: 'danger',
-                            pos   : 'bottom-right'
+                            pos   : 'top-center'
                         });
                     } else {
                         UIkit.notification('Kayıt işlemi başarısız sonuçlandı. Lütfen tekrar deneyiniz.', {
                             status: 'danger',
-                            pos   : 'bottom-right'
+                            pos   : 'top-center'
                         });
                     }
 
