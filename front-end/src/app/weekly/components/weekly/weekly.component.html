@@ -15,13 +15,13 @@
 
     <div style="width: 100%">
       <a class="uk-link-muted uk-text-meta" (click)="decrementWeek()"><< Önceki Hafta</a>
-      <a class="uk-link-muted uk-text-meta" style="float: right;text-align: right;" (click)="incrementWeek()">Sonraki Hafta >></a>
+          <a class="uk-link-muted uk-text-meta" style="float: right; text-align: right;" (click)="incrementWeek()">Sonraki Hafta >></a>
 
-      <div class="uk-text-center">
-          <span class="uk-link-muted uk-text-lead">
-            {{ this.itemsPerDate[0].date.toLocaleDateString() }} - {{ this.itemsPerDate[6].date.toLocaleDateString() }}
-          </span>
-      </div>
+          <div class="uk-text-center">
+            <span class="uk-link-muted uk-text-lead">
+              {{ this.itemsPerDate[0].date.toLocaleDateString() }} - {{ this.itemsPerDate[6].date.toLocaleDateString() }}
+            </span>
+          </div>
     </div>
     <br />
 
@@ -29,13 +29,27 @@
 
       <div *ngFor="let ipd of itemsPerDate; let i = index">
         <div class="uk-tile uk-padding-small" [class.uk-tile-primary]="i%2==0" [class.uk-tile-secondary]="i%2!=0">
-          <p class="uk-h4">{{ ipd.date.toLocaleDateString('tr', { weekday: 'long' }) }} <small>({{ ipd.date.toLocaleDateString() }})</small></p>
+          <p class="uk-h4">{{ ipd.date.toLocaleDateString('tr', { weekday: 'long' }) }}
+            <small>({{ ipd.date.toLocaleDateString() }})</small>
+            <button [id]="'addNoteButton' + i" (click)="toggleNoteForm(i)" type="button" uk-icon="icon: plus" style="float: right;">
+            </button>
+          </p>
+
           <hr />
+
+          <div [id]="'noteForm' + i" class="uk-inline" style="display: none;">
+            <a class="uk-form-icon uk-form-icon-flip" (click)="addNote(i)" uk-icon="icon: plus"></a>
+            <textarea class="uk-textarea" rows="3" style="resize: none;" placeholder="Notunuz..."></textarea>
+          </div>
+
           <ul class="uk-list">
             <li *ngFor="let item of ipd.items">
-              <p *ngIf="item.body">{{ item.body }}</p>
+              <p *ngIf="item.body">{{ item.body }}
+                <a href="" uk-icon="icon: trash" style="float: right;"></a>
+              </p>
             </li>
           </ul>
+
         </div>
       </div>
 

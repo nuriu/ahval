@@ -87,7 +87,7 @@ namespace Ajanda.Controllers
 
             await db.SaveChangesAsync();
 
-            return Ok(item);
+            return Ok(n);
         }
 
         /// <summary>

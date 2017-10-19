@@ -3,6 +3,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { WeeklyService } from '../../services/weekly.service';
 
+import * as $ from 'jquery';
+import * as UIkit from 'uikit';
+
+
+
 interface DateItemViewModel {
     date: Date;
     items: Array<Object>;
@@ -72,5 +77,39 @@ export class WeeklyComponent implements OnInit {
 
         this.fillDates(this.itemsPerDate[0].date);
         this.fillNotes();
+    }
+
+    addNote(index: string) {
+        if ($('#noteForm' + index + '>textarea').val() != null &&
+            $('#noteForm' + index + '>textarea').val().toString().trim() !== '') {
+            this.weeklyService.addNote($('#noteForm' + index + '>textarea').val().toString(),
+                                       this.itemsPerDate[index].date).subscribe(res => {
+                if (res != null) {
+                    this.itemsPerDate[index].items.push(res);
+
+                    UIkit.notification('<span uk-icon="icon: check"></span> Notunuz başarıyla eklendi!', {
+                        status: 'success',
+                        pos: 'top-center'
+                    });
+
+                    $('#noteForm' + index).toggle();
+                    $('#noteForm' + index + '>textarea').val('');
+                } else {
+                    UIkit.notification('Not ekleme işlemi başarısızlıkla sonuçlandı!', {
+                        status: 'danger',
+                        pos: 'top-center'
+                    });
+                }
+            });
+        } else {
+            UIkit.notification('Boş not eklenemez!', {
+                status: 'danger',
+                pos: 'top-center'
+            });
+        }
+    }
+
+    toggleNoteForm(index: string) {
+        $('#noteForm' + index).toggle();
     }
 }
