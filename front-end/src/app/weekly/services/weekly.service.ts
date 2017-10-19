@@ -29,6 +29,16 @@ export class WeeklyService {
         }).map(res => res.json());
     }
 
+    removeNote(id: string) {
+        const data = {
+            'Id': id
+        };
+
+        return this.http.post(this.APIUrl + '/api/notes/removenote', data, {
+            headers: this.h
+        });
+    }
+
     getUserNotes() {
         return this.http.get(this.APIUrl + '/api/notes/getmynotes', {
             headers: this.h

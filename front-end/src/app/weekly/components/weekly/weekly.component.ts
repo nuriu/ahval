@@ -109,6 +109,29 @@ export class WeeklyComponent implements OnInit {
         }
     }
 
+    removeNote(item: any, index: number) {
+        if (item !== null && item.id.trim() !== '') {
+            this.weeklyService.removeNote(item.id).subscribe(res => {
+                if (res.ok === true) {
+                    const i = this.itemsPerDate[index].items.indexOf(item, 0);
+                    if (i > -1) {
+                        this.itemsPerDate[index].items.splice(i, 1);
+                    }
+
+                    UIkit.notification('<span uk-icon="icon: check"></span> Notunuz başarıyla silindi!', {
+                        status: 'success',
+                        pos: 'top-center'
+                    });
+                } else {
+                    UIkit.notification('Not silme işlemi başarısızlıkla sonuçlandı!', {
+                        status: 'danger',
+                        pos: 'top-center'
+                    });
+                }
+            });
+        }
+    }
+
     toggleNoteForm(index: string) {
         $('#noteForm' + index).toggle();
     }

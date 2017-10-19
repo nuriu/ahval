@@ -45,7 +45,7 @@
           <ul class="uk-list">
             <li *ngFor="let item of ipd.items">
               <p *ngIf="item.body">{{ item.body }}
-                <a href="" uk-icon="icon: trash" style="float: right;"></a>
+                <a (click)="removeNote(item, i)" uk-icon="icon: trash" style="float: right;"></a>
               </p>
             </li>
           </ul>

@@ -91,6 +91,50 @@ namespace Ajanda.Controllers
         }
 
         /// <summary>
+        /// Removes note that has given info from the database.
+        /// </summary>
+        /// <param name="nvm">Note info.</param>
+        /// <returns>Status.</returns>
+        [HttpPost]
+        public async Task<IActionResult> RemoveNote([FromBody] Note n)
+        {
+            if (n == null)
+            {
+                return NotFound("Id must be given.");
+            }
+
+            var note = await db.Notes.FindAsync(n.Id);
+
+            if (note == null)
+            {
+                return BadRequest("Note does not exists.");
+            }
+
+            var item = await db.UserWeeklyItems.FirstOrDefaultAsync(uwi => uwi.Item_Id == note.Id);
+
+            if (item == null)
+            {
+                return BadRequest("Item does not exists.");
+            }
+
+            var user = await db.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+
+            if (item.User == user)
+            {
+                db.Notes.Remove(note);
+                db.UserWeeklyItems.Remove(item);
+                
+                await db.SaveChangesAsync();
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Retrieves note list that user has assigned to specified date.
         /// </summary>
         /// <param name="date">Assigned date.</param>
