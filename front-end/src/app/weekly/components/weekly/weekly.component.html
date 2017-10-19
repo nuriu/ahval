@@ -19,7 +19,7 @@
 
       <div class="uk-text-center">
           <span class="uk-link-muted uk-text-lead">
-            {{ dates[0].toLocaleDateString() }} - {{ dates[6].toLocaleDateString() }}
+            {{ this.itemsPerDate[0].date.toLocaleDateString() }} - {{ this.itemsPerDate[6].date.toLocaleDateString() }}
           </span>
       </div>
     </div>
@@ -27,14 +27,14 @@
 
     <div class="uk-child-width-1-5@m uk-grid-collapse uk-grid-match" uk-grid>
 
-      <div *ngFor="let item of dates; let i = index">
+      <div *ngFor="let ipd of itemsPerDate; let i = index">
         <div class="uk-tile uk-padding-small" [class.uk-tile-primary]="i%2==0" [class.uk-tile-secondary]="i%2!=0">
-          <p class="uk-h4">{{ dates[i].toLocaleDateString('tr', { weekday: 'long' }) }} <small>({{ dates[i].toLocaleDateString() }})</small></p>
+          <p class="uk-h4">{{ ipd.date.toLocaleDateString('tr', { weekday: 'long' }) }} <small>({{ ipd.date.toLocaleDateString() }})</small></p>
           <hr />
           <ul class="uk-list">
-              <li>List item 1</li>
-              <li>List item 2</li>
-              <li>List item 3</li>
+            <li *ngFor="let item of ipd.items">
+              <p *ngIf="item.body">{{ item.body }}</p>
+            </li>
           </ul>
         </div>
       </div>
