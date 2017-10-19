@@ -40,6 +40,17 @@ namespace Ajanda.Controllers
         [Route("api/register")]
         public async Task<IActionResult> Register([FromBody] User user)
         {
+            if (user.Username == null || user.Password == null ||
+                user.Username == "" || user.Password == "")
+            {
+                return BadRequest();
+            }
+            else if (user.Username.Any(c => Char.IsWhiteSpace(c)) ||
+                     user.Password.Any(c => Char.IsWhiteSpace(c)))
+            {
+                return BadRequest();
+            }
+
             // find user with same username
             var userWithSameUsername = await db.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
             // if user doesn't exists
