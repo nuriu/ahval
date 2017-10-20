@@ -196,10 +196,9 @@ export class GitHubService {
 
     addIssueComment(owner: string, repo: string, number: number, comment: string) {
         const data = {
-            'Body': comment
+            'body': comment
         };
-
-        return this.http.post('https://api.github.com/repos/' + owner + '/' + '/' + repo + '/issues/' + number + '/comments', data, {
+        return this.http.post('https://api.github.com/repos/' + owner + '/' + repo + '/issues/' + number + '/comments', data, {
             headers: this.h
         }).map(res => res.json());
     }

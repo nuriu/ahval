@@ -15,6 +15,7 @@ import * as UIkit from 'uikit';
     styleUrls: ['issue.component.css']
 })
 export class IssueComponent implements OnInit {
+    @Input() user;
     @Input() repoOwner;
     @Input() repoName;
     @Input() issue;
@@ -44,6 +45,7 @@ export class IssueComponent implements OnInit {
 
                             console.log(this.issue);
 
+                            this.getUserInfo();
                             this.getOwnerInfo(params.owner);
                         });
                     }
@@ -54,8 +56,14 @@ export class IssueComponent implements OnInit {
         });
     }
 
+    getUserInfo() {
+        this.githubService.getUser().subscribe(data => {
+            this.user = data;
+        });
+    }
+
     getOwnerInfo(login: string) {
-        this.githubService.getUserInfo(login).subscribe((data) => {
+        this.githubService.getUserInfo(login).subscribe(data => {
             this.repoOwner = data;
 
             this.getEvents();
@@ -65,7 +73,7 @@ export class IssueComponent implements OnInit {
 
     getEvents() {
         this.githubService.getIssueEvents(this.repoOwner.login, this.repoName, this.issue.number)
-        .subscribe((data) => {
+        .subscribe(data => {
             this.events = data;
             this.events.forEach(event => {
                 event.created_at = new Date(event.created_at);
@@ -76,7 +84,7 @@ export class IssueComponent implements OnInit {
 
     getComments() {
         this.githubService.getIssueComments(this.repoOwner.login, this.repoName, this.issue.number)
-        .subscribe((data) => {
+        .subscribe(data => {
             this.comments = data;
             this.comments.forEach(comment => {
                 comment.created_at = new Date(comment.created_at);
@@ -89,10 +97,11 @@ export class IssueComponent implements OnInit {
     addComment() {
         if ($('#commentForm>textarea').val() != null &&
             $('#commentForm>textarea').val().toString().trim() !== '') {
-            // this.githubService.addIssueComment(this.repoOwner.login, this.repoName, this.issue.number,
-            //                                    $('#commentForm>textarea').val()).subscribe(res => {
-            //     console.log(res);
-            // });
+            this.githubService.addIssueComment(this.repoOwner.login, this.repoName, this.issue.number,
+                                               $('#commentForm>textarea').val().toString())
+            .subscribe(res => {
+                console.log(res);
+            });
         } else {
             UIkit.notification('Boş yorum eklenemez!', {
                 status: 'danger',
