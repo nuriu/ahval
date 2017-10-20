@@ -13,5 +13,10 @@ namespace Ajanda.Models
         public WeeklyItemType Type { get; set; }
         [Required]
         public Guid Item_Id { get; set; }
+        [Required]
+        public int RowNumber { get; set; }
+        [Required]
+        [MaxLength(10)]
+        public string Date { get; set; }
     }
 }

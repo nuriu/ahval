@@ -11,9 +11,10 @@ using System;
 namespace backend.Migrations
 {
     [DbContext(typeof(AjandaDbContext))]
-    partial class AjandaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171020114813_NormalizationForUserWeeklyItems")]
+    partial class NormalizationForUserWeeklyItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -71,8 +71,7 @@ namespace Ajanda.Controllers
             var itemType = await db.WeeklyItemTypes.FirstOrDefaultAsync(wit => wit.Name == "NOTE");
 
             Note n = new Note {
-                Body = nvm.Body,
-                Date = nvm.Date
+                Body = nvm.Body
             };
 
             await db.Notes.AddAsync(n);
@@ -80,7 +79,9 @@ namespace Ajanda.Controllers
             UserWeeklyItem item = new UserWeeklyItem {
                 Type = itemType,
                 Item_Id = n.Id,
-                User = user
+                User = user,
+                RowNumber = nvm.RowNumber,
+                Date = nvm.Date
             };
 
             await db.UserWeeklyItems.AddAsync(item);
@@ -158,11 +159,12 @@ namespace Ajanda.Controllers
             
             // find item ids
             var itemIds = db.UserWeeklyItems.Include("User")
-                                            .Where(uwi => uwi.User == user && uwi.Type == itemType)
+                                            .Where(uwi => uwi.User == user && uwi.Type == itemType && dateRange.Contains(uwi.Date))
+                                            .OrderBy(uwi => uwi.RowNumber)
                                             .Select(uwi => uwi.Item_Id);
             
             // select notes with corresponding item ids
-            var notes = db.Notes.Where(n => itemIds.Contains(n.Id) && dateRange.Contains(n.Date));
+            var notes = db.Notes.Where(n => itemIds.Contains(n.Id));
 
             return Ok(notes);
         }
