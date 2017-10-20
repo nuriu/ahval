@@ -4,6 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { GitHubService } from '../../services/github.service';
 
+import * as $ from 'jquery';
+import * as UIkit from 'uikit';
+
+
+
 @Component({
     selector: 'app-github-issue',
     templateUrl: 'issue.component.html',
@@ -79,5 +84,20 @@ export class IssueComponent implements OnInit {
             });
             console.log(this.comments);
         });
+    }
+
+    addComment() {
+        if ($('#commentForm>textarea').val() != null &&
+            $('#commentForm>textarea').val().toString().trim() !== '') {
+            // this.githubService.addIssueComment(this.repoOwner.login, this.repoName, this.issue.number,
+            //                                    $('#commentForm>textarea').val()).subscribe(res => {
+            //     console.log(res);
+            // });
+        } else {
+            UIkit.notification('Boş yorum eklenemez!', {
+                status: 'danger',
+                pos: 'top-center'
+            });
+        }
     }
 }
