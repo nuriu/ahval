@@ -77,11 +77,11 @@
 
         <!-- PAGINATION -->
         <ul class="uk-pagination uk-flex-center" uk-margin>
-          <li><a (click)="previousPage()" uk-scroll><span uk-pagination-previous></span></a></li>
+          <li *ngIf="activePage != 1"><a (click)="previousPage()" uk-scroll><span uk-pagination-previous></span></a></li>
           <li name="paginationItem" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]; let i = index" [id]="i+1" (click)="setPage(i + 1)" uk-scroll>
             <a>{{ i+1 }}</a>
           </li>
-          <li><a (click)="nextPage()" uk-scroll><span uk-pagination-next></span></a></li>
+          <li *ngIf="activePage != 10"><a (click)="nextPage()" uk-scroll><span uk-pagination-next></span></a></li>
         </ul>
         <!--/PAGINATION -->
 
