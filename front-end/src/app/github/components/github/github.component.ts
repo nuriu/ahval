@@ -15,6 +15,7 @@ export class GitHubComponent implements OnInit {
     @Input() repos;
     @Input() receivedEvents = new Array<any>();
     @Input() followingUsers = new Array<any>();
+    @Input() activePage     = 1;
 
     constructor(private githubService: GitHubService,
                 private userService: UserService) {}
@@ -54,18 +55,14 @@ export class GitHubComponent implements OnInit {
     }
 
     getStreamForActiveUser() {
-        for (let i = 1; i <= 10; i++) {
-            this.githubService.getUserReceivedEvents(this.user.login, i).subscribe(
-                data  => this.receivedEvents = this.receivedEvents.concat(data),
-                error => console.log(error),
-                ()    => {
-                    if (i === 10) {
-                        // console.log(this.receivedEvents);
-                        this.getFollowingUsers();
-                    }
-                }
-            );
-        }
+        this.githubService.getUserReceivedEvents(this.user.login, this.activePage).subscribe(
+            data  => this.receivedEvents = data,
+            error => console.log(error),
+            ()    => {
+                // console.log(this.receivedEvents);
+                this.getFollowingUsers();
+            }
+        );
     }
 
     getFollowingUsers() {
@@ -76,5 +73,34 @@ export class GitHubComponent implements OnInit {
                 // console.log(this.followingUsers);
             }
         );
+    }
+
+    setPage(page: number) {
+        if (this.activePage !== page) {
+            this.highlightActivePageNumber(this.activePage, page);
+            this.activePage = page;
+            this.getStreamForActiveUser();
+        }
+    }
+
+    nextPage() {
+        if (this.activePage < 10) {
+            this.highlightActivePageNumber(this.activePage, this.activePage + 1);
+            this.activePage++;
+            this.getStreamForActiveUser();
+        }
+    }
+
+    previousPage() {
+        if (this.activePage > 1) {
+            this.highlightActivePageNumber(this.activePage, this.activePage - 1);
+            this.activePage--;
+            this.getStreamForActiveUser();
+        }
+    }
+
+    highlightActivePageNumber(oldPage: number, newPage: number) {
+        document.getElementsByName('paginationItem').item(oldPage - 1).className = '';
+        document.getElementsByName('paginationItem').item(newPage - 1).className = 'uk-active';
     }
 }
