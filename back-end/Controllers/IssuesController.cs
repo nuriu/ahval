@@ -47,7 +47,7 @@ namespace Ajanda.Controllers
                                             .Where(uwi => uwi.User == user && uwi.Type == itemType)
                                             .Select(uwi => uwi.Item_Id);
 
-            var issues = db.Issues.Where(n => itemIds.Contains(n.Id));
+            var issues = db.Issues.Include("Component").Where(n => itemIds.Contains(n.Id));
 
             return Ok(issues);
         }
