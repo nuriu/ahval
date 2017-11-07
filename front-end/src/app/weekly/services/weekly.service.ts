@@ -60,7 +60,11 @@ export class WeeklyService {
         const month = date.getMonth() + 1;
         const year = date.getFullYear();
 
-        return day + '.' + month + '.' + year;
+        if (month < 10) {
+            return day + '.0' + month + '.' + year;
+        } else {
+            return day + '.' + month + '.' + year;
+        }
     }
 
     private setAuthorizationHeader() {

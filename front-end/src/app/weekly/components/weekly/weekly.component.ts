@@ -64,18 +64,18 @@ export class WeeklyComponent implements OnInit {
     incrementWeek() {
         for (let i = 0; i < this.itemsPerDate.length; i++) {
             this.itemsPerDate[i].date.setDate(this.itemsPerDate[i].date.getDate() + 7);
+            this.itemsPerDate[i].items = new Array<Object>();
         }
 
-        this.fillDates(this.itemsPerDate[0].date);
         this.fillNotes();
     }
 
     decrementWeek() {
         for (let i = 0; i < this.itemsPerDate.length; i++) {
             this.itemsPerDate[i].date.setDate(this.itemsPerDate[i].date.getDate() - 7);
+            this.itemsPerDate[i].items = new Array<Object>();
         }
 
-        this.fillDates(this.itemsPerDate[0].date);
         this.fillNotes();
     }
 
