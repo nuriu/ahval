@@ -12,10 +12,10 @@ using Microsoft.EntityFrameworkCore;
 namespace Ajanda.Controllers
 {
     /// <summary>
-    /// Defines and handles operations involving weekly note items.
+    /// Defines and handles operations involving weekly issue items.
     /// </summary>
     [Authorize]
-    public class NotesController : Controller
+    public class IssuesController : Controller
     {
         /// <summary>
         /// Database context.
@@ -26,41 +26,41 @@ namespace Ajanda.Controllers
         /// Constructs class and defines database context.
         /// </summary>
         /// <param name="databaseContext">Database context.</param>
-        public NotesController(AjandaDbContext databaseContext)
+        public IssuesController(AjandaDbContext databaseContext)
         {
             db = databaseContext;
         }
 
         /// <summary>
-        /// Retrieves note items of the user that signed in.
+        /// Retrieves issue items of the user that signed in.
         /// </summary>
-        /// <returns>Note items of the signed in user.</returns>
+        /// <returns>Issue items of the signed in user.</returns>
         [HttpGet]
-        public async Task<IActionResult> GetMyNotes()
+        public async Task<IActionResult> GetMyIssues()
         {
             // find signed in user
             var user = await db.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
             // find item type
-            var itemType = await db.WeeklyItemTypes.FirstOrDefaultAsync(wit => wit.Name == "NOTE");
+            var itemType = await db.WeeklyItemTypes.FirstOrDefaultAsync(wit => wit.Name == "ISSUE");
 
             var itemIds = db.UserWeeklyItems.Include("User")
                                             .Where(uwi => uwi.User == user && uwi.Type == itemType)
                                             .Select(uwi => uwi.Item_Id);
 
-            var notes = db.Notes.Where(n => itemIds.Contains(n.Id));
+            var issues = db.Issues.Where(n => itemIds.Contains(n.Id));
 
-            return Ok(notes);
+            return Ok(issues);
         }
 
         /// <summary>
-        /// Adds new note for the user with given info.
+        /// Adds new issue for the user with given info.
         /// </summary>
-        /// <param name="nvm">Note info.</param>
+        /// <param name="ivm">Issue info.</param>
         /// <returns>Status.</returns>
         [HttpPost]
-        public async Task<IActionResult> AddNote([FromBody] AddNoteViewModel nvm)
+        public async Task<IActionResult> AddIssue([FromBody] AddIssueViewModel ivm)
         {
-            if (nvm == null)
+            if (ivm == null)
             {
                 return BadRequest();
             }
@@ -68,50 +68,54 @@ namespace Ajanda.Controllers
             // find signed in user
             var user = await db.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
             // find item type
-            var itemType = await db.WeeklyItemTypes.FirstOrDefaultAsync(wit => wit.Name == "NOTE");
+            var itemType = await db.WeeklyItemTypes.FirstOrDefaultAsync(wit => wit.Name == "ISSUE");
+            // find component
+            var component = await db.Components.FirstOrDefaultAsync(c => c.Name == ivm.ComponentName);
 
-            Note n = new Note {
-                Body = nvm.Body
+            Issue i = new Issue {
+                Component = component,
+                RepoIdentifier = ivm.RepoIdentifier,
+                Number = ivm.IssueNumber
             };
 
-            await db.Notes.AddAsync(n);
+            await db.Issues.AddAsync(i);
 
             UserWeeklyItem item = new UserWeeklyItem {
                 Type = itemType,
-                Item_Id = n.Id,
+                Item_Id = i.Id,
                 User = user,
-                RowNumber = nvm.RowNumber,
-                Date = nvm.Date
+                RowNumber = ivm.RowNumber,
+                Date = ivm.Date
             };
 
             await db.UserWeeklyItems.AddAsync(item);
 
             await db.SaveChangesAsync();
 
-            return Ok(n);
+            return Ok(i);
         }
 
         /// <summary>
-        /// Removes note that has given info from the database.
+        /// Removes issue that has given info from the database.
         /// </summary>
-        /// <param name="n">Note info.</param>
+        /// <param name="i">Issue info.</param>
         /// <returns>Status.</returns>
         [HttpPost]
-        public async Task<IActionResult> RemoveNote([FromBody] Note n)
+        public async Task<IActionResult> RemoveIssue([FromBody] Issue i)
         {
-            if (n == null)
+            if (i == null)
             {
                 return NotFound("Id must be given.");
             }
 
-            var note = await db.Notes.FindAsync(n.Id);
+            var issue = await db.Issues.FindAsync(i.Id);
 
-            if (note == null)
+            if (issue == null)
             {
-                return BadRequest("Note does not exists.");
+                return BadRequest("Issue does not exists.");
             }
 
-            var item = await db.UserWeeklyItems.FirstOrDefaultAsync(uwi => uwi.Item_Id == note.Id);
+            var item = await db.UserWeeklyItems.FirstOrDefaultAsync(uwi => uwi.Item_Id == issue.Id);
 
             if (item == null)
             {
@@ -122,7 +126,7 @@ namespace Ajanda.Controllers
 
             if (item.User == user)
             {
-                db.Notes.Remove(note);
+                db.Issues.Remove(issue);
                 db.UserWeeklyItems.Remove(item);
                 
                 await db.SaveChangesAsync();
@@ -136,12 +140,12 @@ namespace Ajanda.Controllers
         }
 
         /// <summary>
-        /// Retrieves note list that user has assigned to specified date.
+        /// Retrieves issue list that user has assigned to specified date.
         /// </summary>
         /// <param name="monday">First day of assignation week.</param>
-        /// <returns>Note list.</returns>
+        /// <returns>Issue list.</returns>
         [HttpGet]
-        public async Task<IActionResult> GetNotesForWeek(string monday)
+        public async Task<IActionResult> GetIssuesForWeek(string monday)
         {
             List<string> dateRange = new List<string>();
             var d = Convert.ToDateTime(monday);
@@ -155,20 +159,20 @@ namespace Ajanda.Controllers
             var user = await db.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
             
             // find item type
-            var itemType = await db.WeeklyItemTypes.FirstOrDefaultAsync(wit => wit.Name == "NOTE");
+            var itemType = await db.WeeklyItemTypes.FirstOrDefaultAsync(wit => wit.Name == "ISSUE");
             
-            // select notes ordered by row number
-            var notes = db.UserWeeklyItems.Include("User")
+            // select issues ordered by row number
+            var issues = db.UserWeeklyItems.Include("User")
                                             .Where(uwi => uwi.User == user && uwi.Type == itemType && dateRange.Contains(uwi.Date))
                                             .OrderBy(uwi => uwi.RowNumber)
                                             .Select(uwi => new {
                                                 id = uwi.Item_Id,
                                                 date = uwi.Date,
                                                 row = uwi.RowNumber,
-                                                body = db.Notes.FirstOrDefault(n => n.Id == uwi.Item_Id).Body
+                                                issue = db.Issues.FirstOrDefault(n => n.Id == uwi.Item_Id)
                                             });
 
-            return Ok(notes);
+            return Ok(issues);
         }
     }
 }
