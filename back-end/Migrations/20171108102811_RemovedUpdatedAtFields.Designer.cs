@@ -11,9 +11,10 @@ using System;
 namespace backend.Migrations
 {
     [DbContext(typeof(AjandaDbContext))]
-    partial class AjandaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171108102811_RemovedUpdatedAtFields")]
+    partial class RemovedUpdatedAtFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
