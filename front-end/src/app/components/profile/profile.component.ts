@@ -68,5 +68,6 @@ export class ProfileComponent implements OnInit {
 
     remove() {
         this.userService.remove();
+        this.userService.logout();
     }
 }
