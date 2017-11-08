@@ -133,14 +133,6 @@ namespace Ajanda.Controllers
                 }
             }
 
-            if (user.Username == "admin2" &&
-                user.Password == "admin2")
-            {
-                return Task.FromResult(new ClaimsIdentity(
-                  new GenericIdentity(user.Username, "Token"),
-                  new Claim[] { }));
-            }
-
             return Task.FromResult<ClaimsIdentity>(null);
         }
     }
