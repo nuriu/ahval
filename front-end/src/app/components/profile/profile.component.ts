@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
             newEmailAddress: this.newEmailAddress
         });
 
-        this.userService.getProfileInfo().subscribe((res) => {
+        this.userService.getProfileInfo().subscribe(res => {
             if (res) {
                 this.user = res;
                 this.user.registeredAt = new Date(res.registeredAt + 'Z').toLocaleString();
@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit {
             this.userService.update(this.updateForm.value.oldPassword,
                                     this.updateForm.value.newPassword,
                                     this.updateForm.value.newEmailAddress)
-            .subscribe((res) => {
+            .subscribe(res => {
                 if (res.success) {
                     UIkit.notification('<span uk-icon="icon: check"></span> Güncelleme işlemi başarılı sonuçlandı!', {
                         status: 'success',
@@ -64,5 +64,9 @@ export class ProfileComponent implements OnInit {
                 }
             });
         }
+    }
+
+    remove() {
+        this.userService.remove();
     }
 }

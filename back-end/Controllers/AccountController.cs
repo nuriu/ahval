@@ -172,5 +172,56 @@ namespace Ajanda.Controllers
 
             return Ok(new { token = user.UserComponents.FirstOrDefault(uc => uc.Component.Name == componentName).AccessToken });
         }
+
+        /// <summary>
+        /// Removes all user data from the database.
+        /// </summary>
+        /// <returns>Result.</returns>
+        [HttpDelete]
+        public async Task<IActionResult> RemoveAccount()
+        {
+            try
+            {
+                // main user data
+                var user = await db.Users.Include("State").Include("UserComponents").FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+
+                // weekly item data that user created
+                var weeklyItems = db.UserWeeklyItems.Where(uwi => uwi.User == user);
+
+                if (weeklyItems != null)
+                {
+                    // weekly item ids
+                    var weeklyItemIds = db.UserWeeklyItems.Include("User")
+                                                          .Where(uwi => uwi.User == user)
+                                                          .Select(uwi => uwi.Item_Id);
+
+                    // weekly items
+                    var weeklyNotes = await db.Notes.Where(n => weeklyItemIds.Contains(n.Id)).ToListAsync();
+                    var weeklyIssues = await db.Issues.Where(i => weeklyItemIds.Contains(i.Id)).ToListAsync();
+
+                    if (weeklyNotes != null && weeklyNotes.Count > 0)
+                    {
+                        db.RemoveRange(weeklyNotes);
+                    }
+                    if (weeklyIssues != null && weeklyIssues.Count > 0)
+                    {
+                        db.RemoveRange(weeklyIssues);
+                    }
+
+
+                    db.RemoveRange(weeklyItems);
+                }
+                
+                db.Remove(user);
+
+                await db.SaveChangesAsync();
+            }
+            catch (System.Exception)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
     }
 }

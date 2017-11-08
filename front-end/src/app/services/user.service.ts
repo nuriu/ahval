@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
-    private APIUrl     = 'http://localhost:5000';
+    private APIUrl     = 'http://localhost:5000/api';
     private h: Headers = new Headers();
 
     constructor(private http: Http) {
@@ -18,7 +18,7 @@ export class UserService {
             'Password': password
         };
 
-        return this.http.post(this.APIUrl + '/api/authenticate', data, {
+        return this.http.post(this.APIUrl + '/authenticate', data, {
             headers: this.h
         }).map(res => res.json()).map((res) => {
             if (res.access_token != null) {
@@ -37,10 +37,16 @@ export class UserService {
             'Password': password
         };
 
-        return this.http.post(this.APIUrl + '/api/register', data).map(res => res.json())
+        return this.http.post(this.APIUrl + '/register', data).map(res => res.json())
             .map((res) => {
                 return res.success;
             });
+    }
+
+    remove() {
+        return this.http.delete(this.APIUrl + '/account/removeaccount', {
+            headers: this.h
+        }).map(res => res.json());
     }
 
     logout() {
@@ -58,7 +64,7 @@ export class UserService {
             'NewEmailAddress': newEmailAddress
         }
 
-        return this.http.put(this.APIUrl + '/api/account/update', data, {
+        return this.http.put(this.APIUrl + '/account/update', data, {
             headers: this.h
         }).map(res => res.json());
     }
@@ -72,7 +78,7 @@ export class UserService {
             this.setAuthorizationHeader();
         }
 
-        return this.http.get(this.APIUrl + '/api/account/me', { headers: this.h })
+        return this.http.get(this.APIUrl + '/account/me', { headers: this.h })
             .map(res => res.json());
     }
 
@@ -81,7 +87,7 @@ export class UserService {
             this.setAuthorizationHeader();
         }
 
-        return this.http.get(this.APIUrl + '/api/account/getusercomponents', { headers: this.h })
+        return this.http.get(this.APIUrl + '/account/getusercomponents', { headers: this.h })
         .map(res => res.json());
     }
 
@@ -93,7 +99,7 @@ export class UserService {
         const data = new URLSearchParams();
         data.append('componentName', component);
 
-        return this.http.get(this.APIUrl + '/api/account/hascomponent',
+        return this.http.get(this.APIUrl + '/account/hascomponent',
         { headers: this.h, search: data }).map(res => res.json()).map(res => {
             return res;
         });
@@ -107,7 +113,7 @@ export class UserService {
         const data = new URLSearchParams();
         data.append('componentName', component);
 
-        return this.http.get(this.APIUrl + '/api/account/gettokenforcomponent',
+        return this.http.get(this.APIUrl + '/account/gettokenforcomponent',
         { headers: this.h, search: data }).map(res => res.json()).map(res => {
             return res;
         });
