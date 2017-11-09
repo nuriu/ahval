@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
-using Ajanda.Authentication;
-using Ajanda.Models;
+using Ahval.Authentication;
+using Ahval.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -13,11 +13,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Ajanda
+namespace Ahval
 {
     public class Startup
     {
-        private static string secretKey = "AJanda_Core_API_1.0.0";
+        private static string secretKey = "Ahval_Core_API_1.0.0";
         private static SymmetricSecurityKey signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
 
         public Startup(IConfiguration configuration)
@@ -40,8 +40,8 @@ namespace Ajanda
                 );
             });
 
-            services.AddDbContext<AjandaDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("AjandaPSQL"))
+            services.AddDbContext<AhvalDbContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("AhvalPSQL"))
             );
 
             services.AddMvc(config =>

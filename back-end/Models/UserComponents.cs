@@ -1,6 +1,6 @@
 using System;
 
-namespace Ajanda.Models
+namespace Ahval.Models
 {
     public class UserComponents
     {

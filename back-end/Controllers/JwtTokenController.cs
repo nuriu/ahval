@@ -4,9 +4,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
-using Ajanda.Authentication;
-using Ajanda.Helpers;
-using Ajanda.Models;
+using Ahval.Authentication;
+using Ahval.Helpers;
+using Ahval.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +14,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace Ajanda.Controllers
+namespace Ahval.Controllers
 {
     public class JwtTokenController : Controller
     {
-        private AjandaDbContext db;
+        private AhvalDbContext db;
 
         private readonly JwtTokenOptions jwtTokenOptions;
         private readonly ILogger logger;
@@ -26,7 +26,7 @@ namespace Ajanda.Controllers
 
         public JwtTokenController(IOptions<JwtTokenOptions> tokenOptions,
                                   ILoggerFactory loggerFactory,
-                                  AjandaDbContext databaseContext)
+                                  AhvalDbContext databaseContext)
         {
             jwtTokenOptions = tokenOptions.Value;
             ThrowIfInvalidOptions(jwtTokenOptions);

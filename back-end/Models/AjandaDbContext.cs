@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ajanda.Models
+namespace Ahval.Models
 {
-    public class AjandaDbContext : DbContext
+    public class AhvalDbContext : DbContext
     {
         public DbSet<State> States { get; set; }
         public DbSet<User> Users { get; set; }
@@ -14,7 +14,7 @@ namespace Ajanda.Models
         public DbSet<WeeklyItemType> WeeklyItemTypes { get; set; }
         public DbSet<UserWeeklyItem> UserWeeklyItems { get; set; }
 
-        public AjandaDbContext(DbContextOptions<AjandaDbContext> options) : base(options)
+        public AhvalDbContext(DbContextOptions<AhvalDbContext> options) : base(options)
         {
         }
 

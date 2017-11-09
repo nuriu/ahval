@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Ajanda.Models
+namespace Ahval.Models
 {
     public class Note
     {

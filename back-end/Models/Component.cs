@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Ajanda.Models
+namespace Ahval.Models
 {
     public class Component
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Ajanda.ViewModels
+namespace Ahval.ViewModels
 {
     public class AddIssueViewModel
     {

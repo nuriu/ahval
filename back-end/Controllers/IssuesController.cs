@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Ajanda.Helpers;
-using Ajanda.Models;
-using Ajanda.ViewModels;
+using Ahval.Helpers;
+using Ahval.Models;
+using Ahval.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ajanda.Controllers
+namespace Ahval.Controllers
 {
     /// <summary>
     /// Defines and handles operations involving weekly issue items.
@@ -20,13 +20,13 @@ namespace Ajanda.Controllers
         /// <summary>
         /// Database context.
         /// </summary>
-        private AjandaDbContext db;
+        private AhvalDbContext db;
         
         /// <summary>
         /// Constructs class and defines database context.
         /// </summary>
         /// <param name="databaseContext">Database context.</param>
-        public IssuesController(AjandaDbContext databaseContext)
+        public IssuesController(AhvalDbContext databaseContext)
         {
             db = databaseContext;
         }
