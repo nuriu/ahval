@@ -31,8 +31,8 @@ export class ProfileComponent implements OnInit {
         this.userService.getProfileInfo().subscribe(res => {
             if (res) {
                 this.user = res;
-                this.user.registeredAt = new Date(res.registeredAt + 'Z').toLocaleString();
-                this.user.lastLoggedInAt = new Date(res.lastLoggedInAt + 'Z').toLocaleString();
+                this.user.registeredAt = new Date(res['registeredAt'] + 'Z').toLocaleString();
+                this.user.lastLoggedInAt = new Date(res['lastLoggedInAt'] + 'Z').toLocaleString();
             } else {
                 // TODO: show error message.
             }
@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
                                     this.updateForm.value.newPassword,
                                     this.updateForm.value.newEmailAddress)
             .subscribe(res => {
-                if (res.success) {
+                if (res['success']) {
                     UIkit.notification('<span uk-icon="icon: check"></span> Güncelleme işlemi başarılı sonuçlandı!', {
                         status: 'success',
                         pos   : 'bottom-right'

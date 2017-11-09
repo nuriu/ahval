@@ -18,13 +18,12 @@ export class GitHubComponent implements OnInit {
     @Input() activePage     = 1;
 
     constructor(private githubService: GitHubService,
-                private userService: UserService) {}
+                private userService: UserService) { }
 
     ngOnInit() {
-        this.userService.getToken('GITHUB').subscribe((res) => {
-            if (res.token) {
-                this.githubService.setToken(res.token);
-                this.githubService.activate();
+        this.userService.getToken('GITHUB').subscribe(res => {
+            if (res['token']) {
+                this.githubService.setToken(res['token']);
                 this.getActiveUser();
             } else {
                 console.log('Error: Could not get github access token of user.');
@@ -56,7 +55,7 @@ export class GitHubComponent implements OnInit {
 
     getStreamForActiveUser() {
         this.githubService.getUserReceivedEvents(this.user.login, this.activePage).subscribe(
-            data  => this.receivedEvents = data,
+            data  => this.receivedEvents = <Array<Object>>data,
             error => console.log(error),
             ()    => {
                 // console.log(this.receivedEvents);
@@ -67,7 +66,7 @@ export class GitHubComponent implements OnInit {
 
     getFollowingUsers() {
         this.githubService.getFollowingUsers(this.user.login).subscribe(
-            data  => this.followingUsers = data,
+            data  => this.followingUsers = <Array<Object>>data,
             error => console.log(error),
             ()    => {
                 // console.log(this.followingUsers);

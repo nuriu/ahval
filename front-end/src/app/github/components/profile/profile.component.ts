@@ -11,12 +11,12 @@ import { GitHubService } from '../../services/github.service';
 })
 export class ProfileComponent implements OnInit {
     @Input() user;
-    @Input() orgMembers     = new Array<any>();
-    @Input() repos          = new Array<any>();
-    @Input() orgs           = new Array<any>();
-    @Input() receivedEvents = new Array<any>();
-    @Input() followingUsers = new Array<any>();
-    @Input() followers      = new Array<any>();
+    @Input() orgMembers     = new Array<Object>();
+    @Input() repos          = new Array<Object>();
+    @Input() orgs           = new Array<Object>();
+    @Input() receivedEvents = new Array<Object>();
+    @Input() followingUsers = new Array<Object>();
+    @Input() followers      = new Array<Object>();
 
     constructor(private githubService: GitHubService,
                 private userService  : UserService,
@@ -24,10 +24,9 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            this.userService.getToken('GITHUB').subscribe((res) => {
-                if (res.token) {
-                    this.githubService.setToken(res.token);
-                    this.githubService.activate();
+            this.userService.getToken('GITHUB').subscribe(res => {
+                if (res['token']) {
+                    this.githubService.setToken(res['token']);
 
                     this.getUser(params.login);
                 } else {
@@ -73,7 +72,7 @@ export class ProfileComponent implements OnInit {
         for (let i = 1; i < 30; i++) {
             this.githubService.getOrgMembers(name, i).subscribe(
                 data => {
-                    if (data.length < 1) {
+                    if (data['length'] < 1) {
                         return;
                     }
 
@@ -88,7 +87,7 @@ export class ProfileComponent implements OnInit {
         for (let i = 1; i < 30; i++) {
             this.githubService.getUserRepos(this.user.login, 'updated', 'desc', i).subscribe(
                 data => {
-                    if (data.length < 1) {
+                    if (data['length'] < 1) {
                         return;
                     }
 
@@ -105,7 +104,7 @@ export class ProfileComponent implements OnInit {
         for (let i = 1; i < 30; i++) {
             this.githubService.getFollowingUsers(this.user.login, i).subscribe(
                 data => {
-                    if (data.length < 1) {
+                    if (data['length'] < 1) {
                         return;
                     }
 
@@ -122,7 +121,7 @@ export class ProfileComponent implements OnInit {
         for (let i = 1; i < 30; i++) {
             this.githubService.getFollowers(this.user.login, i).subscribe(
                 data => {
-                    if (data.length < 1) {
+                    if (data['length'] < 1) {
                         return;
                     }
 
@@ -137,7 +136,7 @@ export class ProfileComponent implements OnInit {
 
     getOrgs() {
         this.githubService.getUserOrgs(this.user.login).subscribe(
-            data  => this.orgs = data,
+            data  => this.orgs.push(data),
             error => console.log(error),
             ()    => {
                 // console.log(this.orgs);

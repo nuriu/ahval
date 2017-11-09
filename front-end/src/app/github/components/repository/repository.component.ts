@@ -21,9 +21,8 @@ export class RepositoryComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.userService.getToken('GITHUB').subscribe((res) => {
-                if (res.token) {
-                    this.githubService.setToken(res.token);
-                    this.githubService.activate();
+                if (res['token']) {
+                    this.githubService.setToken(res['token']);
 
                     if (params.owner != null && params.name != null) {
                         this.githubService.getRepoInfo(params.owner, params.name)
@@ -62,7 +61,7 @@ export class RepositoryComponent implements OnInit {
         this.githubService.getIssues(this.repo.owner.login, this.repo.name)
         .subscribe((data) => {
             this.issues = data;
-            console.log(this.issues);
+            // console.log(this.issues);
         });
     }
 }

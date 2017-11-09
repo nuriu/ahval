@@ -132,7 +132,7 @@ namespace Ajanda.Controllers
                 return BadRequest();
             }
 
-            return Ok();
+            return Ok(true);
         }
 
         /// <summary>

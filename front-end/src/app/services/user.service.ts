@@ -1,16 +1,13 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
-    private APIUrl     = 'http://localhost:5000/api';
-    private h: Headers = new Headers();
+    private APIUrl         = 'http://localhost:5000/api';
 
-    constructor(private http: Http) {
-        this.h.append('Content-Type', 'application/json');
-    }
+    constructor(private http: HttpClient) { }
 
     login(username: string, password: string) {
         const data = {
@@ -19,11 +16,12 @@ export class UserService {
         };
 
         return this.http.post(this.APIUrl + '/authenticate', data, {
-            headers: this.h
-        }).map(res => res.json()).map((res) => {
-            if (res.access_token != null) {
-                localStorage.setItem('ajanda_auth_token', res.access_token);
-                this.h.append('Authorization', 'bearer ' + res.access_token);
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        }).map(res => {
+            if (res['access_token'] != null) {
+                localStorage.setItem('ajanda_auth_token', res['access_token']);
                 return true;
             }
 
@@ -37,16 +35,19 @@ export class UserService {
             'Password': password
         };
 
-        return this.http.post(this.APIUrl + '/register', data).map(res => res.json())
-            .map((res) => {
-                return res.success;
+        return this.http.post(this.APIUrl + '/register', data)
+            .map(res => {
+                return res['success'];
             });
     }
 
     remove() {
         return this.http.delete(this.APIUrl + '/account/removeaccount', {
-            headers: this.h
-        }).map(res => res.json());
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            })
+        });
     }
 
     logout() {
@@ -54,19 +55,16 @@ export class UserService {
     }
 
     update(currentPassword: string, newPassword: string, newEmailAddress: string) {
-        if (this.h.get('Authorization') == null) {
-            this.setAuthorizationHeader();
-        }
-
-        const data = {
+        return this.http.put(this.APIUrl + '/account/update', {
             'OldPassword': currentPassword,
             'NewPassword': newPassword,
             'NewEmailAddress': newEmailAddress
-        }
-
-        return this.http.put(this.APIUrl + '/account/update', data, {
-            headers: this.h
-        }).map(res => res.json());
+        }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            })
+        });
     }
 
     isLoggedIn() {
@@ -74,52 +72,42 @@ export class UserService {
     }
 
     getProfileInfo() {
-        if (this.h.get('Authorization') == null) {
-            this.setAuthorizationHeader();
-        }
-
-        return this.http.get(this.APIUrl + '/account/me', { headers: this.h })
-            .map(res => res.json());
+        return this.http.get(this.APIUrl + '/account/me', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            })
+        });
     }
 
     getComponentList() {
-        if (this.h.get('Authorization') == null) {
-            this.setAuthorizationHeader();
-        }
-
-        return this.http.get(this.APIUrl + '/account/getusercomponents', { headers: this.h })
-        .map(res => res.json());
+        return this.http.get(this.APIUrl + '/account/getusercomponents', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            })
+        });
     }
 
     hasComponent(component: string) {
-        if (this.h.get('Authorization') == null) {
-            this.setAuthorizationHeader();
-        }
-
-        const data = new URLSearchParams();
-        data.append('componentName', component);
-
         return this.http.get(this.APIUrl + '/account/hascomponent',
-        { headers: this.h, search: data }).map(res => res.json()).map(res => {
-            return res;
+        {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            }),
+            params: new HttpParams().set('componentName', component)
         });
     }
 
     getToken(component: string) {
-        if (this.h.get('Authorization') == null) {
-            this.setAuthorizationHeader();
-        }
-
-        const data = new URLSearchParams();
-        data.append('componentName', component);
-
         return this.http.get(this.APIUrl + '/account/gettokenforcomponent',
-        { headers: this.h, search: data }).map(res => res.json()).map(res => {
-            return res;
+        {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            }),
+            params: new HttpParams().set('componentName', component)
         });
-    }
-
-    private setAuthorizationHeader() {
-        this.h.append('Authorization', 'bearer ' + localStorage.getItem('ajanda_auth_token'));
     }
 }

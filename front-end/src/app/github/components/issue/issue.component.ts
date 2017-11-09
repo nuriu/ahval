@@ -28,10 +28,9 @@ export class IssueComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            this.userService.getToken('GITHUB').subscribe((res) => {
-                if (res.token) {
-                    this.githubService.setToken(res.token);
-                    this.githubService.activate();
+            this.userService.getToken('GITHUB').subscribe(res => {
+                if (res['token']) {
+                    this.githubService.setToken(res['token']);
 
                     if (params.owner != null && params.name != null && params.number != null) {
                         this.repoName = params.name;
@@ -43,7 +42,7 @@ export class IssueComponent implements OnInit {
                             this.issue.created_at = new Date(this.issue.created_at);
                             this.issue.updated_at = new Date(this.issue.updated_at);
 
-                            console.log(this.issue);
+                            // console.log(this.issue);
 
                             this.getUserInfo();
                             this.getOwnerInfo(params.owner);
@@ -78,7 +77,7 @@ export class IssueComponent implements OnInit {
             this.events.forEach(event => {
                 event.created_at = new Date(event.created_at);
             });
-            console.log(this.events);
+            // console.log(this.events);
         });
     }
 
@@ -90,7 +89,7 @@ export class IssueComponent implements OnInit {
                 comment.created_at = new Date(comment.created_at);
                 comment.updated_at = new Date(comment.updated_at);
             });
-            console.log(this.comments);
+            // console.log(this.comments);
         });
     }
 
@@ -100,7 +99,7 @@ export class IssueComponent implements OnInit {
             this.githubService.addIssueComment(this.repoOwner.login, this.repoName, this.issue.number,
                                                $('#commentForm>textarea').val().toString())
             .subscribe(res => {
-                console.log(res);
+                // console.log(res);
             });
         } else {
             UIkit.notification('Boş yorum eklenemez!', {

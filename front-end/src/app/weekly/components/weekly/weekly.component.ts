@@ -25,8 +25,6 @@ export class WeeklyComponent implements OnInit {
                 private userService: UserService) {}
 
     ngOnInit() {
-        this.weeklyService.activate();
-
         this.fillDates(new Date());
         this.fillNotes();
     }
@@ -50,7 +48,7 @@ export class WeeklyComponent implements OnInit {
     }
 
     fillNotes() {
-        this.weeklyService.getUserNotesForWeek(this.itemsPerDate[0].date).subscribe(res => {
+        this.weeklyService.getUserNotesForWeek(this.itemsPerDate[0].date).subscribe((res: any) => {
             res.forEach(note => {
                 this.itemsPerDate.forEach(element => {
                     if (note.date === this.weeklyService.processDate(element.date)) {
@@ -112,7 +110,7 @@ export class WeeklyComponent implements OnInit {
     removeNote(item: any, index: number) {
         if (item !== null && item.id.trim() !== '') {
             this.weeklyService.removeNote(item.id).subscribe(res => {
-                if (res.ok === true) {
+                if (res === true) {
                     const i = this.itemsPerDate[index].items.indexOf(item, 0);
                     if (i > -1) {
                         this.itemsPerDate[index].items.splice(i, 1);

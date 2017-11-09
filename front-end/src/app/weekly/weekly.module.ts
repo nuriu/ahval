@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { WeeklyRoutingModule } from './weekly-routing.module';
 
@@ -13,7 +13,7 @@ import { WeeklyService } from './services/weekly.service';
 @NgModule({
     imports: [
         CommonModule,
-        HttpModule,
+        HttpClientModule,
         WeeklyRoutingModule
     ],
     declarations: [

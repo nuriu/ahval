@@ -1,22 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 
 
 @Injectable()
 export class WeeklyService {
-    private APIUrl = 'http://localhost:5000';
-    private h    : Headers = new Headers();
+    private APIUrl = 'http://localhost:5000/api';
 
-    constructor(private http: Http) {
-        this.h.append('Content-Type', 'application/json');
-    }
-
-    activate() {
-        if (this.h.get('Authorization') == null) {
-            this.setAuthorizationHeader();
-        }
-    }
+    constructor(private http: HttpClient) { }
 
     addNote(body: string, date: Date) {
         const data = {
@@ -24,35 +15,42 @@ export class WeeklyService {
             'Date': this.processDate(date)
         };
 
-        return this.http.post(this.APIUrl + '/api/notes/addnote', data, {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.post(this.APIUrl + '/notes/addnote', data, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            })
+        });
     }
 
     removeNote(id: string) {
-        const data = {
+        return this.http.post(this.APIUrl + '/notes/removenote', {
             'Id': id
-        };
-
-        return this.http.post(this.APIUrl + '/api/notes/removenote', data, {
-            headers: this.h
+        }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            })
         });
     }
 
     getUserNotes() {
-        return this.http.get(this.APIUrl + '/api/notes/getmynotes', {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/notes/getmynotes', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            })
+        });
     }
 
     getUserNotesForWeek(mondayDate: Date) {
-        const s: URLSearchParams = new URLSearchParams();
-        s.set('monday', this.processDate(mondayDate));
-
-        return this.http.get(this.APIUrl + '/api/notes/getnotesforweek', {
-            headers: this.h,
-            search : s
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/notes/getnotesforweek', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            }),
+            params : new HttpParams().set('monday', this.processDate(mondayDate))
+        });
     }
 
     processDate(date: Date): string {
@@ -65,9 +63,5 @@ export class WeeklyService {
         } else {
             return day + '.' + month + '.' + year;
         }
-    }
-
-    private setAuthorizationHeader() {
-        this.h.append('Authorization', 'bearer ' + localStorage.getItem('ajanda_auth_token'));
     }
 }
