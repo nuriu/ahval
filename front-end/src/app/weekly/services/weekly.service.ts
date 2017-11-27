@@ -23,6 +23,23 @@ export class WeeklyService {
         });
     }
 
+    addIssue(component: string, repoIdentifier: string, id: number, date: Date) {
+        const data = {
+            'ComponentName': component,
+            'RepoIdentifier': repoIdentifier,
+            'IssueNumber': id,
+            'Date': this.processDate(date),
+            'RowNumber': 0
+        };
+
+        return this.http.post(this.APIUrl + '/issues/addissue', data, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            })
+        });
+    }
+
     removeNote(id: string) {
         return this.http.post(this.APIUrl + '/notes/removenote', {
             'Id': id

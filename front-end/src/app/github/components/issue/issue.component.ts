@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../../../services/user.service';
 import { GitHubService } from '../../services/github.service';
+import { WeeklyService } from '../../../weekly/services/weekly.service';
 
 import * as $ from 'jquery';
 import * as UIkit from 'uikit';
@@ -24,6 +25,7 @@ export class IssueComponent implements OnInit {
 
     constructor(private githubService: GitHubService,
                 private userService: UserService,
+                private weeklyService: WeeklyService,
                 private route: ActivatedRoute) { }
 
     ngOnInit() {
@@ -103,6 +105,23 @@ export class IssueComponent implements OnInit {
             });
         } else {
             UIkit.notification('Boş yorum eklenemez!', {
+                status: 'danger',
+                pos: 'top-center'
+            });
+        }
+    }
+
+    addIssueAsWeeklyItem() {
+
+        if ($('#assignationDate').val() != null &&
+            $('#assignationDate').val().toString().trim() !== '') {
+            const date = new Date($('#assignationDate').val().toString());
+            this.weeklyService.addIssue('GITHUB', this.repoOwner.login + '/' + this.repoName,
+                                        this.issue.number, date).subscribe(res => {
+                                            console.log(res);
+                                        });
+        } else {
+            UIkit.notification('Tarihi seçmediniz!', {
                 status: 'danger',
                 pos: 'top-center'
             });

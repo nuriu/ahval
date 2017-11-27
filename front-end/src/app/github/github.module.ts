@@ -11,6 +11,7 @@ import { RepositoryComponent } from './components/repository/repository.componen
 import { IssueComponent } from './components/issue/issue.component';
 
 import { GitHubService } from './services/github.service';
+import { WeeklyService } from '../weekly/services/weekly.service';
 
 
 
@@ -28,7 +29,8 @@ import { GitHubService } from './services/github.service';
         IssueComponent
     ],
     providers: [
-        GitHubService
+        GitHubService,
+        WeeklyService
     ]
 })
 export class GitHubModule { }

@@ -81,13 +81,16 @@
           </div>
           <div class="uk-width-expand">
             <textarea class="uk-textarea" rows="5" placeholder="Yorumunuz..."></textarea>
-            <p class="uk-margin-small uk-align-right">
-              <button class="uk-button uk-button-primary" (click)="addComment()">Ekle</button>
-            </p>
+            <div class="uk-margin-small">
+              <input type="date" id="assignationDate" class="uk-input uk-width-auto">
+              <button class="uk-button uk-button-primary" (click)="addIssueAsWeeklyItem()">Haftalığa Ekle</button>
+              <p class="uk-align-right">
+                <button class="uk-button uk-button-primary" (click)="addComment()">Yorumu Kaydet</button>
+              </p>
+            </div>
           </div>
         </div>
         <!--/COMMENT FORM -->
-
       </div>
 
       <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
