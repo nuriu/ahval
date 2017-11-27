@@ -112,14 +112,21 @@ export class IssueComponent implements OnInit {
     }
 
     addIssueAsWeeklyItem() {
-
         if ($('#assignationDate').val() != null &&
             $('#assignationDate').val().toString().trim() !== '') {
             const date = new Date($('#assignationDate').val().toString());
             this.weeklyService.addIssue('GITHUB', this.repoOwner.login + '/' + this.repoName,
-                                        this.issue.number, date).subscribe(res => {
-                                            console.log(res);
-                                        });
+                                        this.issue.number, date)
+            .subscribe(res => {
+                if (res) {
+                    // console.log(res);
+                } else {
+                    UIkit.notification('Bir hata oluştu!', {
+                        status: 'danger',
+                        pos: 'top-center'
+                    });
+                }
+            });
         } else {
             UIkit.notification('Tarihi seçmediniz!', {
                 status: 'danger',

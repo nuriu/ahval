@@ -51,6 +51,20 @@ export class WeeklyService {
         });
     }
 
+    removeIssue(component: string, repoIdentifier: string, id: number) {
+        const data = {
+            'ComponentName': component,
+            'RepoIdentifier': repoIdentifier,
+            'IssueNumber': id
+        };
+        return this.http.post(this.APIUrl + '/issues/removeissue', data, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            })
+        });
+    }
+
     getUserNotes() {
         return this.http.get(this.APIUrl + '/notes/getmynotes', {
             headers: new HttpHeaders({
@@ -62,6 +76,16 @@ export class WeeklyService {
 
     getUserNotesForWeek(mondayDate: Date) {
         return this.http.get(this.APIUrl + '/notes/getnotesforweek', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
+            }),
+            params : new HttpParams().set('monday', this.processDate(mondayDate))
+        });
+    }
+
+    getIssuesForWeek(mondayDate: Date) {
+        return this.http.get(this.APIUrl + '/issues/getissuesforweek', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
