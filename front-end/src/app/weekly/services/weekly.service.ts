@@ -51,11 +51,9 @@ export class WeeklyService {
         });
     }
 
-    removeIssue(component: string, repoIdentifier: string, id: number) {
+    removeIssue(id: string) {
         const data = {
-            'ComponentName': component,
-            'RepoIdentifier': repoIdentifier,
-            'IssueNumber': id
+            'Id': id
         };
         return this.http.post(this.APIUrl + '/issues/removeissue', data, {
             headers: new HttpHeaders({

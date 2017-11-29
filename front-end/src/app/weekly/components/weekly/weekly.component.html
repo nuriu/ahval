@@ -52,6 +52,7 @@
               <p *ngIf="item.issue">
                 <span uk-icon="icon: github; ratio: 1.5"></span>
                 <a [href]="'/github/repository/' + item.issue.repoIdentifier">{{ item.issue.repoIdentifier }}</a> > <a  [href]="'github/issue/' + item.issue.repoIdentifier + '/' + item.issue.number">#{{ item.issue.number }}</a>
+                <a (click)="removeIssue(item, i)" uk-icon="icon: trash" style="float: right;"></a>
               </p>
             </li>
           </ul>

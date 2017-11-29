@@ -144,6 +144,7 @@ export class WeeklyComponent implements OnInit {
             this.weeklyService.removeNote(item.id).subscribe(res => {
                 if (res === true) {
                     const i = this.notesPerDate[index].items.indexOf(item, 0);
+
                     if (i > -1) {
                         this.notesPerDate[index].items.splice(i, 1);
                     }
@@ -154,6 +155,30 @@ export class WeeklyComponent implements OnInit {
                     });
                 } else {
                     UIkit.notification('Not silme işlemi başarısızlıkla sonuçlandı!', {
+                        status: 'danger',
+                        pos: 'top-center'
+                    });
+                }
+            });
+        }
+    }
+
+    removeIssue(item: any, index: number) {
+        if (item !== null && item.id.trim() !== '') {
+            this.weeklyService.removeIssue(item.id).subscribe(res => {
+                if (res === true) {
+                    const i = this.ghIssuesPerDate[index].items.indexOf(item, 0);
+
+                    if (i > -1) {
+                        this.ghIssuesPerDate[index].items.splice(i, 1);
+                    }
+
+                    UIkit.notification('<span uk-icon="icon: check"></span> İş kaydınız başarıyla silindi!', {
+                        status: 'success',
+                        pos: 'top-center'
+                    });
+                } else {
+                    UIkit.notification('İş kaydı silme işlemi başarısızlıkla sonuçlandı!', {
                         status: 'danger',
                         pos: 'top-center'
                     });
