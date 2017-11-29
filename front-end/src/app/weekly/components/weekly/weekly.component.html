@@ -15,22 +15,22 @@
 
     <div style="width: 100%">
       <a class="uk-link-muted uk-text-meta" (click)="decrementWeek()"><< Önceki Hafta</a>
-          <a class="uk-link-muted uk-text-meta" style="float: right; text-align: right;" (click)="incrementWeek()">Sonraki Hafta >></a>
+        <a class="uk-link-muted uk-text-meta" style="float: right; text-align: right;" (click)="incrementWeek()">Sonraki Hafta >></a>
 
-          <div class="uk-text-center">
-            <span class="uk-link-muted uk-text-lead">
-              {{ this.itemsPerDate[0].date.toLocaleDateString() }} - {{ this.itemsPerDate[6].date.toLocaleDateString() }}
-            </span>
-          </div>
+        <div class="uk-text-center">
+          <span class="uk-link-muted uk-text-lead">
+            {{ this.notesPerDate[0].date.toLocaleDateString() }} - {{ this.notesPerDate[6].date.toLocaleDateString() }}
+          </span>
+        </div>
     </div>
     <br />
 
     <div class="uk-child-width-1-5@m uk-grid-collapse uk-grid-match" uk-grid>
 
-      <div *ngFor="let ipd of itemsPerDate; let i = index">
+      <div *ngFor="let npd of notesPerDate; let i = index">
         <div class="uk-tile uk-padding-small" [class.uk-tile-primary]="i%2==0" [class.uk-tile-secondary]="i%2!=0">
-          <p class="uk-h4">{{ ipd.date.toLocaleDateString('tr', { weekday: 'long' }) }}
-            <small>({{ ipd.date.toLocaleDateString() }})</small>
+          <p class="uk-h4">{{ npd.date.toLocaleDateString('tr', { weekday: 'long' }) }}
+            <small>({{ npd.date.toLocaleDateString() }})</small>
             <button [id]="'addNoteButton' + i" (click)="toggleNoteForm(i)" type="button" uk-icon="icon: plus" style="float: right;">
             </button>
           </p>
@@ -43,9 +43,15 @@
           </div>
 
           <ul class="uk-list">
-            <li *ngFor="let item of ipd.items">
+            <li *ngFor="let item of npd.items">
               <p *ngIf="item.body">{{ item.body }}
                 <a (click)="removeNote(item, i)" uk-icon="icon: trash" style="float: right;"></a>
+              </p>
+            </li>
+            <li *ngFor="let item of ghIssuesPerDate[i].items">
+              <p *ngIf="item.issue">
+                <span uk-icon="icon: github; ratio: 1.5"></span>
+                <a [href]="'/github/repository/' + item.issue.repoIdentifier">{{ item.issue.repoIdentifier }}</a> > <a  [href]="'github/issue/' + item.issue.repoIdentifier + '/' + item.issue.number">#{{ item.issue.number }}</a>
               </p>
             </li>
           </ul>

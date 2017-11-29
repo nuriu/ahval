@@ -19,7 +19,8 @@ interface DateItemViewModel {
     styleUrls  : ['./weekly.component.css']
 })
 export class WeeklyComponent implements OnInit {
-    @Input() itemsPerDate: Array<DateItemViewModel>;
+    @Input() notesPerDate: Array<DateItemViewModel>;
+    @Input() ghIssuesPerDate: Array<DateItemViewModel>;
 
     constructor(private weeklyService: WeeklyService,
                 private userService: UserService) {}
@@ -27,20 +28,32 @@ export class WeeklyComponent implements OnInit {
     ngOnInit() {
         this.fillDates(new Date());
         this.fillNotes();
+        this.fillGitHubIssues();
     }
 
     fillDates(date: Date) {
-        this.itemsPerDate = new Array<DateItemViewModel>();
+        this.notesPerDate = new Array<DateItemViewModel>();
+        this.ghIssuesPerDate = new Array<DateItemViewModel>();
+
         const monday = new Date();
         monday.setDate(date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1));
 
-        this.itemsPerDate.push({
+        this.notesPerDate.push({
+            date : monday,
+            items: new Array<Object>()
+        });
+
+        this.ghIssuesPerDate.push({
             date : monday,
             items: new Array<Object>()
         });
 
         for (let i = 0; i < 6; i++) {
-            this.itemsPerDate.push({
+            this.notesPerDate.push({
+                date : new Date(date.setDate(monday.getDate() + i + 1)),
+                items: new Array<Object>()
+            });
+            this.ghIssuesPerDate.push({
                 date : new Date(date.setDate(monday.getDate() + i + 1)),
                 items: new Array<Object>()
             });
@@ -48,9 +61,9 @@ export class WeeklyComponent implements OnInit {
     }
 
     fillNotes() {
-        this.weeklyService.getUserNotesForWeek(this.itemsPerDate[0].date).subscribe((res: any) => {
+        this.weeklyService.getUserNotesForWeek(this.notesPerDate[0].date).subscribe((res: any) => {
             res.forEach(note => {
-                this.itemsPerDate.forEach(element => {
+                this.notesPerDate.forEach(element => {
                     if (note.date === this.weeklyService.processDate(element.date)) {
                         element.items.push(note);
                     }
@@ -59,31 +72,50 @@ export class WeeklyComponent implements OnInit {
         });
     }
 
+    fillGitHubIssues() {
+        this.weeklyService.getIssuesForWeek(this.ghIssuesPerDate[0].date).subscribe((res: any) => {
+            res.forEach(issue => {
+                console.log(issue);
+                this.ghIssuesPerDate.forEach(element => {
+                    if (issue.date === this.weeklyService.processDate(element.date)) {
+                        element.items.push(issue);
+                    }
+                });
+            });
+        });
+    }
+
     incrementWeek() {
-        for (let i = 0; i < this.itemsPerDate.length; i++) {
-            this.itemsPerDate[i].date.setDate(this.itemsPerDate[i].date.getDate() + 7);
-            this.itemsPerDate[i].items = new Array<Object>();
+        for (let i = 0; i < this.notesPerDate.length; i++) {
+            this.notesPerDate[i].date.setDate(this.notesPerDate[i].date.getDate() + 7);
+            this.notesPerDate[i].items = new Array<Object>();
+            this.ghIssuesPerDate[i].date.setDate(this.ghIssuesPerDate[i].date.getDate() + 7);
+            this.ghIssuesPerDate[i].items = new Array<Object>();
         }
 
         this.fillNotes();
+        this.fillGitHubIssues();
     }
 
     decrementWeek() {
-        for (let i = 0; i < this.itemsPerDate.length; i++) {
-            this.itemsPerDate[i].date.setDate(this.itemsPerDate[i].date.getDate() - 7);
-            this.itemsPerDate[i].items = new Array<Object>();
+        for (let i = 0; i < this.notesPerDate.length; i++) {
+            this.notesPerDate[i].date.setDate(this.notesPerDate[i].date.getDate() - 7);
+            this.notesPerDate[i].items = new Array<Object>();
+            this.ghIssuesPerDate[i].date.setDate(this.ghIssuesPerDate[i].date.getDate() - 7);
+            this.ghIssuesPerDate[i].items = new Array<Object>();
         }
 
         this.fillNotes();
+        this.fillGitHubIssues();
     }
 
     addNote(index: string) {
         if ($('#noteForm' + index + '>textarea').val() != null &&
             $('#noteForm' + index + '>textarea').val().toString().trim() !== '') {
             this.weeklyService.addNote($('#noteForm' + index + '>textarea').val().toString(),
-                                       this.itemsPerDate[index].date).subscribe(res => {
+                                       this.notesPerDate[index].date).subscribe(res => {
                 if (res != null) {
-                    this.itemsPerDate[index].items.push(res);
+                    this.notesPerDate[index].items.push(res);
 
                     UIkit.notification('<span uk-icon="icon: check"></span> Notunuz başarıyla eklendi!', {
                         status: 'success',
@@ -111,9 +143,9 @@ export class WeeklyComponent implements OnInit {
         if (item !== null && item.id.trim() !== '') {
             this.weeklyService.removeNote(item.id).subscribe(res => {
                 if (res === true) {
-                    const i = this.itemsPerDate[index].items.indexOf(item, 0);
+                    const i = this.notesPerDate[index].items.indexOf(item, 0);
                     if (i > -1) {
-                        this.itemsPerDate[index].items.splice(i, 1);
+                        this.notesPerDate[index].items.splice(i, 1);
                     }
 
                     UIkit.notification('<span uk-icon="icon: check"></span> Notunuz başarıyla silindi!', {
