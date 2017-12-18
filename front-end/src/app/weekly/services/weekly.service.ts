@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
+import * as moment from 'moment';
+
 
 
 @Injectable()
@@ -9,10 +11,10 @@ export class WeeklyService {
 
     constructor(private http: HttpClient) { }
 
-    addNote(body: string, date: Date) {
+    addNote(body: string, date: moment.Moment) {
         const data = {
             'Body': body,
-            'Date': this.processDate(date)
+            'Date': date.format('DD.MM.Y')
         };
 
         return this.http.post(this.APIUrl + '/notes/addnote', data, {
@@ -23,12 +25,12 @@ export class WeeklyService {
         });
     }
 
-    addIssue(component: string, repoIdentifier: string, id: number, date: Date) {
+    addIssue(component: string, repoIdentifier: string, id: number, date: moment.Moment) {
         const data = {
             'ComponentName': component,
             'RepoIdentifier': repoIdentifier,
             'IssueNumber': id,
-            'Date': this.processDate(date),
+            'Date': date.format('DD.MM.Y'),
             'RowNumber': 0
         };
 
@@ -72,35 +74,23 @@ export class WeeklyService {
         });
     }
 
-    getUserNotesForWeek(mondayDate: Date) {
+    getUserNotesForWeek(date: moment.Moment) {
         return this.http.get(this.APIUrl + '/notes/getnotesforweek', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
             }),
-            params : new HttpParams().set('monday', this.processDate(mondayDate))
+            params : new HttpParams().set('monday', date.startOf('isoWeek').format('DD.MM.Y'))
         });
     }
 
-    getIssuesForWeek(mondayDate: Date) {
+    getIssuesForWeek(date: moment.Moment) {
         return this.http.get(this.APIUrl + '/issues/getissuesforweek', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'bearer ' + localStorage.getItem('ajanda_auth_token')
             }),
-            params : new HttpParams().set('monday', this.processDate(mondayDate))
+            params : new HttpParams().set('monday', date.startOf('isoWeek').format('DD.MM.Y'))
         });
-    }
-
-    processDate(date: Date): string {
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-
-        if (month < 10) {
-            return day + '.0' + month + '.' + year;
-        } else {
-            return day + '.' + month + '.' + year;
-        }
     }
 }

@@ -7,6 +7,7 @@ import { WeeklyService } from '../../../weekly/services/weekly.service';
 
 import * as $ from 'jquery';
 import * as UIkit from 'uikit';
+import * as moment from 'moment';
 
 
 
@@ -114,7 +115,7 @@ export class IssueComponent implements OnInit {
     addIssueAsWeeklyItem() {
         if ($('#assignationDate').val() != null &&
             $('#assignationDate').val().toString().trim() !== '') {
-            const date = new Date($('#assignationDate').val().toString());
+            const date = moment($('#assignationDate').val().toString());
             this.weeklyService.addIssue('GITHUB', this.repoOwner.login + '/' + this.repoName,
                                         this.issue.number, date)
             .subscribe(res => {

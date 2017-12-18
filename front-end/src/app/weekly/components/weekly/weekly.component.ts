@@ -5,11 +5,12 @@ import { WeeklyService } from '../../services/weekly.service';
 
 import * as $ from 'jquery';
 import * as UIkit from 'uikit';
+import * as moment from 'moment';
 
 
 
 interface DateItemViewModel {
-    date: Date;
+    date: moment.Moment;
     items: Array<Object>;
 }
 
@@ -26,35 +27,24 @@ export class WeeklyComponent implements OnInit {
                 private userService: UserService) {}
 
     ngOnInit() {
-        this.fillDates(new Date());
+        moment.locale('tr');
+        this.fillDates();
         this.fillNotes();
         this.fillGitHubIssues();
     }
 
-    fillDates(date: Date) {
+    fillDates() {
         this.notesPerDate = new Array<DateItemViewModel>();
         this.ghIssuesPerDate = new Array<DateItemViewModel>();
 
-        const monday = new Date();
-        monday.setDate(date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1));
-
-        this.notesPerDate.push({
-            date : monday,
-            items: new Array<Object>()
-        });
-
-        this.ghIssuesPerDate.push({
-            date : monday,
-            items: new Array<Object>()
-        });
-
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 7; i++) {
             this.notesPerDate.push({
-                date : new Date(date.setDate(monday.getDate() + i + 1)),
+                date : moment().startOf('isoWeek').add(i, 'days'),
                 items: new Array<Object>()
             });
+
             this.ghIssuesPerDate.push({
-                date : new Date(date.setDate(monday.getDate() + i + 1)),
+                date : moment().startOf('isoWeek').add(i, 'days'),
                 items: new Array<Object>()
             });
         }
@@ -64,7 +54,7 @@ export class WeeklyComponent implements OnInit {
         this.weeklyService.getUserNotesForWeek(this.notesPerDate[0].date).subscribe((res: any) => {
             res.forEach(note => {
                 this.notesPerDate.forEach(element => {
-                    if (note.date === this.weeklyService.processDate(element.date)) {
+                    if (note.date === element.date.format('DD.MM.Y')) {
                         element.items.push(note);
                     }
                 });
@@ -77,7 +67,7 @@ export class WeeklyComponent implements OnInit {
             res.forEach(issue => {
                 console.log(issue);
                 this.ghIssuesPerDate.forEach(element => {
-                    if (issue.date === this.weeklyService.processDate(element.date)) {
+                    if (issue.date === element.date.format('DD.MM.Y')) {
                         element.items.push(issue);
                     }
                 });
@@ -87,9 +77,10 @@ export class WeeklyComponent implements OnInit {
 
     incrementWeek() {
         for (let i = 0; i < this.notesPerDate.length; i++) {
-            this.notesPerDate[i].date.setDate(this.notesPerDate[i].date.getDate() + 7);
+            this.notesPerDate[i].date.add(7, 'days');
             this.notesPerDate[i].items = new Array<Object>();
-            this.ghIssuesPerDate[i].date.setDate(this.ghIssuesPerDate[i].date.getDate() + 7);
+
+            this.ghIssuesPerDate[i].date.add(7, 'days');
             this.ghIssuesPerDate[i].items = new Array<Object>();
         }
 
@@ -99,9 +90,10 @@ export class WeeklyComponent implements OnInit {
 
     decrementWeek() {
         for (let i = 0; i < this.notesPerDate.length; i++) {
-            this.notesPerDate[i].date.setDate(this.notesPerDate[i].date.getDate() - 7);
+            this.notesPerDate[i].date.subtract(7, 'days');
             this.notesPerDate[i].items = new Array<Object>();
-            this.ghIssuesPerDate[i].date.setDate(this.ghIssuesPerDate[i].date.getDate() - 7);
+
+            this.ghIssuesPerDate[i].date.subtract(7, 'days');
             this.ghIssuesPerDate[i].items = new Array<Object>();
         }
 

@@ -19,7 +19,7 @@
 
         <div class="uk-text-center">
           <span class="uk-link-muted uk-text-lead">
-            {{ this.notesPerDate[0].date.toLocaleDateString() }} - {{ this.notesPerDate[6].date.toLocaleDateString() }}
+            {{ this.notesPerDate[0].date.format('DD.MM.Y') }} - {{ this.notesPerDate[6].date.format('DD.MM.Y') }}
           </span>
         </div>
     </div>
@@ -29,8 +29,8 @@
 
       <div *ngFor="let npd of notesPerDate; let i = index">
         <div class="uk-tile uk-padding-small" [class.uk-tile-primary]="i%2==0" [class.uk-tile-secondary]="i%2!=0">
-          <p class="uk-h4">{{ npd.date.toLocaleDateString('tr', { weekday: 'long' }) }}
-            <small>({{ npd.date.toLocaleDateString() }})</small>
+          <p class="uk-h4">{{ npd.date.format('dddd') }}
+            <small>({{ npd.date.format('DD.MM.Y') }})</small>
             <button [id]="'addNoteButton' + i" (click)="toggleNoteForm(i)" type="button" uk-icon="icon: plus" style="float: right;">
             </button>
           </p>
