@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 @Injectable()
 export class GitHubService {
     private token: string;
+    private APIUrl = 'https://api.github.com';
 
     constructor(private http: HttpClient) { }
 
@@ -14,7 +15,7 @@ export class GitHubService {
     }
 
     getUser() {
-        return this.http.get('https://api.github.com/user', {
+        return this.http.get(this.APIUrl + '/user', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -23,7 +24,7 @@ export class GitHubService {
     }
 
     getUserAvatarLink() {
-        return this.http.get('https://api.github.com/user', {
+        return this.http.get(this.APIUrl + '/user', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -32,7 +33,7 @@ export class GitHubService {
     }
 
     getRepos() {
-        return this.http.get('https://api.github.com/user/repos', {
+        return this.http.get(this.APIUrl + '/user/repos', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -56,7 +57,7 @@ export class GitHubService {
             p.set('page', page.toString());
         }
 
-        return this.http.get('https://api.github.com/users/' + login + '/repos', {
+        return this.http.get(this.APIUrl + '/users/' + login + '/repos', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -66,7 +67,7 @@ export class GitHubService {
     }
 
     getUserReceivedEvents(login: string, page: number) {
-        return this.http.get('https://api.github.com/users/' + login + '/received_events?page=' + page, {
+        return this.http.get(this.APIUrl + '/users/' + login + '/received_events?page=' + page, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -87,7 +88,7 @@ export class GitHubService {
             p.set('page', page.toString());
         }
 
-        return this.http.get('https://api.github.com/users/' + login + '/following', {
+        return this.http.get(this.APIUrl + '/users/' + login + '/following', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -109,7 +110,7 @@ export class GitHubService {
             p.set('page', page.toString());
         }
 
-        return this.http.get('https://api.github.com/users/' + login + '/followers', {
+        return this.http.get(this.APIUrl + '/users/' + login + '/followers', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -119,7 +120,7 @@ export class GitHubService {
     }
 
     getUserInfo(login: string) {
-        return this.http.get('https://api.github.com/users/' + login, {
+        return this.http.get(this.APIUrl + '/users/' + login, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -128,7 +129,7 @@ export class GitHubService {
     }
 
     getOrgInfo(name: string) {
-        return this.http.get('https://api.github.com/orgs/' + name, {
+        return this.http.get(this.APIUrl + '/orgs/' + name, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -137,7 +138,7 @@ export class GitHubService {
     }
 
     getRepoInfo(owner: string, name: string) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + name, {
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + name, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -147,7 +148,7 @@ export class GitHubService {
 
     getIssueInfo(owner: string, repo: string, no: number) {
 
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + repo + '/issues/' + no, {
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + repo + '/issues/' + no, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Accept': 'application/vnd.github.VERSION.html+json',
@@ -168,7 +169,7 @@ export class GitHubService {
         if (page) {
             p.set('page', page.toString());
         }
-        return this.http.get('https://api.github.com/orgs/' + name + '/members', {
+        return this.http.get(this.APIUrl + '/orgs/' + name + '/members', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -178,7 +179,7 @@ export class GitHubService {
     }
 
     getUserOrgs(login: string) {
-        return this.http.get('https://api.github.com/users/' + login + '/orgs', {
+        return this.http.get(this.APIUrl + '/users/' + login + '/orgs', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -187,7 +188,7 @@ export class GitHubService {
     }
 
     getCommits(owner: string, name: string) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/commits', {
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + name + '/commits', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -196,7 +197,7 @@ export class GitHubService {
     }
 
     getIssues(owner: string, name: string) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues', {
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + name + '/issues', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -205,7 +206,7 @@ export class GitHubService {
     }
 
     getIssuesEvents(owner: string, name: string) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues/events', {
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + name + '/issues/events', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -214,7 +215,7 @@ export class GitHubService {
     }
 
     getIssueEvents(owner: string, name: string, number) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues/' + number + '/events', {
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + name + '/issues/' + number + '/events', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'token ' + this.token
@@ -223,7 +224,7 @@ export class GitHubService {
     }
 
     getIssueComments(owner: string, repo: string, number: number) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + repo + '/issues/' + number + '/comments', {
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + repo + '/issues/' + number + '/comments', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Accept': 'application/vnd.github.VERSION.html+json',
@@ -233,7 +234,7 @@ export class GitHubService {
     }
 
     addIssueComment(owner: string, repo: string, number: number, comment: string) {
-        return this.http.post('https://api.github.com/repos/' + owner + '/' + repo + '/issues/' + number + '/comments', {
+        return this.http.post(this.APIUrl + '/repos/' + owner + '/' + repo + '/issues/' + number + '/comments', {
             'body': comment
         }, {
             headers: new HttpHeaders({
