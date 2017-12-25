@@ -1,4 +1,4 @@
-﻿<div class="uk-padding">
+﻿<!-- <div class="uk-padding">
   <ul class="uk-iconnav uk-iconnav-vertical">
     <li>
       <a routerLink="/home" routerLinkActive="active uk-box-shadow-medium uk-border-rounded" uk-icon="icon: home; ratio: 2.5">
@@ -24,6 +24,24 @@
       <a href="#" uk-icon="icon: sign-out; ratio: 2.5" (click)="signout()">
         <span class="uk-text-large uk-margin-xlarge-right uk-hidden@m" style="float: right;">Çıkış Yap</span>
       </a>
+    </li>
+  </ul>
+</div> -->
+
+<div class="uk-padding">
+  <ul class="uk-tab-left" uk-tab>
+    <li>
+      <a routerLink="/home" routerLinkActive="active" uk-icon="icon: home; ratio: 2.5"></a>
+    </li>
+    <li *ngFor="let component of items" [ngSwitch]="component">
+      <a *ngSwitchCase="'GITHUB'" [routerLink]="[component.toLowerCase() + '/home']" routerLinkActive="active" uk-icon="icon: github; ratio: 2.5"></a>
+      <a *ngSwitchCase="'WEEKLY'" [routerLink]="[component.toLowerCase() + '/home']" routerLinkActive="active" uk-icon="icon: grid; ratio: 2.5"></a>
+    </li>
+    <li>
+      <a routerLink="/profile" routerLinkActive="active" uk-icon="icon: user; ratio: 2.5"></a>
+    </li>
+    <li>
+      <a href="#" uk-icon="icon: sign-out; ratio: 2.5" (click)="signout()"></a>
     </li>
   </ul>
 </div>
