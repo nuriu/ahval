@@ -1,11 +1,12 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import 'rxjs/Rx';
-import { Observable } from 'rxjs/Observable';
+
+
 
 @Injectable()
 export class UserService {
-    private APIUrl         = 'http://localhost:5000/api';
+    private APIUrl = 'http://localhost:5000/api';
 
     constructor(private http: HttpClient) { }
 

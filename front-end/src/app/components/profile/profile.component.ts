@@ -5,6 +5,8 @@ import * as UIkit from 'uikit';
 
 import { UserService } from '../../services/user.service';
 
+
+
 @Component({
     selector   : 'app-profile',
     templateUrl: './profile.component.html',

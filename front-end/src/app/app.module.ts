@@ -17,7 +17,7 @@ import { UserGuard } from './guards/user.guard';
 import { GitHubGuard } from './guards/github.guard';
 
 import { UserService } from './services/user.service';
-
+import { HackerNewsService } from './services/hackernews.service';
 
 
 @NgModule({
@@ -38,6 +38,7 @@ import { UserService } from './services/user.service';
     ],
     providers: [
         UserService,
+        HackerNewsService,
         UserGuard,
         GitHubGuard
     ],
