@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Ajanda.Models
+namespace Ahval.Models
 {
     public class Component
     {
@@ -11,7 +11,8 @@ namespace Ajanda.Models
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
-        public virtual ICollection<UserComponent> ComponentUsers { get; set; }
+        public virtual ICollection<UserComponents> ComponentUsers { get; set; }
+        [Required]
         public virtual State State { get; set; }
     }
 }

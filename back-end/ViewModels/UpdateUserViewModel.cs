@@ -1,4 +1,4 @@
-namespace Ajanda.ViewModels
+namespace Ahval.ViewModels
 {
     public class UpdateUserViewModel
     {

@@ -1,9 +1,33 @@
-<div class="uk-tile uk-tile-default uk-position-center">
-  <img src="/assets/logo.png" class="uk-align-center">
-
-  <div class="uk-text-center">
-    <p class="uk-h2">Lütfen, etkinleştirmek istediğiniz bileşeni yan menüden seçiniz.</p>
-    <p class="uk-h5">s2.0.0 ile birlikte burada birleştirilmiş akışın gösterilmesi planlanmaktadır.</p>
+<div class="uk-tile uk-tile-default">
+  <p class="uk-text-lead uk-position-top-center">Lütfen, etkinleştirmek istediğiniz bileşeni yan menüden seçiniz.</p>
+  <div class="uk-child-width-1-2@s uk-grid-collapse" uk-grid>
+    <div>
+      <div class="uk-tile uk-tile-secondary">
+        <p class="uk-h4">HackerNews</p>
+        <ul class="uk-flex-center" uk-tab>
+          <li class="uk-active"><a href="#" (click)="switchNewsTo('top')">Top</a></li>
+          <li><a href="#" (click)="switchNewsTo('best')">Best</a></li>
+          <li><a href="#" (click)="switchNewsTo('new')">New</a></li>
+          <li><a href="#" (click)="switchNewsTo('ask')">Ask</a></li>
+          <li><a href="#" (click)="switchNewsTo('show')">Show</a></li>
+          <li><a href="#" (click)="switchNewsTo('job')">Job</a></li>
+        </ul>
+        <ul class="uk-list uk-list-bullet uk-list-large">
+          <li *ngFor="let item of news">
+            <a *ngIf="item?.url" [href]="item?.url">
+              {{ item?.title }}
+            </a>
+            <p *ngIf="!item?.url">
+              {{ item?.title }}
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="uk-tile uk-tile-primary">
+        <p class="uk-h4">Secondary</p>
+      </div>
+    </div>
   </div>
-
 </div>

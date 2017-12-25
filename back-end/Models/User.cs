@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Ajanda.Models
+namespace Ahval.Models
 {
     public class User
     {
@@ -19,7 +19,9 @@ namespace Ajanda.Models
         [Required]
         public DateTime RegisteredAt { get; set; }
         public DateTime LastLoggedInAt { get; set; }
-        public virtual ICollection<UserComponent> UserComponents { get; set; }
+        public virtual ICollection<UserComponents> UserComponents { get; set; }
+        public virtual ICollection<UserWeeklyItem> WeeklyItems { get; set; }
+        [Required]
         public virtual State State { get; set; }
     }
 }

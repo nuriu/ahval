@@ -19,6 +19,7 @@ const appRoutes: Routes = [
     { path: 'home',     component: HomeComponent, canActivate: [UserGuard] },
     { path: 'profile',  component: ProfileComponent, canActivate: [UserGuard] },
     { path: 'github', loadChildren: './github/github.module#GitHubModule', canLoad: [GitHubGuard] },
+    { path: 'weekly', loadChildren: './weekly/weekly.module#WeeklyModule' },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

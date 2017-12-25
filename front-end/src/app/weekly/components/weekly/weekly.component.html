@@ -1,0 +1,66 @@
+<div class="uk-tile uk-tile-default">
+
+  <ul class="uk-breadcrumb">
+    <li>
+      <a href="#" routerLink="/home">Ajanda</a>
+    </li>
+    <li>
+      <a href="#" routerLink="/weekly/home">Haftalık</a>
+    </li>
+  </ul>
+
+  <hr class="uk-divider-icon">
+
+  <div class="uk-section uk-section-default">
+
+    <div style="width: 100%">
+      <a class="uk-link-muted uk-text-meta" (click)="decrementWeek()"><< Önceki Hafta</a>
+        <a class="uk-link-muted uk-text-meta" style="float: right; text-align: right;" (click)="incrementWeek()">Sonraki Hafta >></a>
+
+        <div class="uk-text-center">
+          <span class="uk-link-muted uk-text-lead">
+            {{ this.notesPerDate[0].date.format('DD.MM.Y') }} - {{ this.notesPerDate[6].date.format('DD.MM.Y') }}
+          </span>
+        </div>
+    </div>
+    <br />
+
+    <div class="uk-child-width-1-5@m uk-grid-collapse uk-grid-match" uk-grid>
+
+      <div *ngFor="let npd of notesPerDate; let i = index">
+        <div class="uk-tile uk-padding-small" [class.uk-tile-primary]="i%2==0" [class.uk-tile-secondary]="i%2!=0">
+          <p class="uk-h4">{{ npd.date.format('dddd') }}
+            <small>({{ npd.date.format('DD.MM.Y') }})</small>
+            <button [id]="'addNoteButton' + i" (click)="toggleNoteForm(i)" type="button" uk-icon="icon: plus" style="float: right;">
+            </button>
+          </p>
+
+          <hr />
+
+          <div [id]="'noteForm' + i" class="uk-inline" style="display: none;">
+            <a class="uk-form-icon uk-form-icon-flip" (click)="addNote(i)" uk-icon="icon: plus"></a>
+            <textarea class="uk-textarea" rows="3" style="resize: none;" placeholder="Notunuz..."></textarea>
+          </div>
+
+          <ul class="uk-list">
+            <li *ngFor="let item of npd.items">
+              <p *ngIf="item.body">{{ item.body }}
+                <a (click)="removeNote(item, i)" uk-icon="icon: trash" style="float: right;"></a>
+              </p>
+            </li>
+            <li *ngFor="let item of ghIssuesPerDate[i].items">
+              <p *ngIf="item.issue">
+                <span uk-icon="icon: github; ratio: 1.5"></span>
+                <a [href]="'/github/repository/' + item.issue.repoIdentifier">{{ item.issue.repoIdentifier }}</a> > <a  [href]="'github/issue/' + item.issue.repoIdentifier + '/' + item.issue.number">#{{ item.issue.number }}</a>
+                <a (click)="removeIssue(item, i)" uk-icon="icon: trash" style="float: right;"></a>
+              </p>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

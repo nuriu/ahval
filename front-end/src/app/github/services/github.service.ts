@@ -1,51 +1,48 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 
 
 @Injectable()
 export class GitHubService {
-    private APIUrl = 'http://localhost:5000';
-    private h    : Headers = new Headers();
     private token: string;
-    /*
-    client       : any;
-    client_id    : string;
-    client_secret: string;
-    redirect_url : string;
-    scopes       : any;
-    */
+    private APIUrl = 'https://api.github.com';
 
-    constructor(private http: Http) {}
-
-    activate() {
-        this.h.set('Authorization', 'token ' + this.token);
-    }
+    constructor(private http: HttpClient) { }
 
     setToken(token: string) {
         this.token = token;
     }
 
     getUser() {
-        return this.http.get('https://api.github.com/user', {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/user', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getUserAvatarLink() {
-        return this.http.get('https://api.github.com/user', {
-            headers: this.h
-        }).map(res => res.json().avatar_url);
+        return this.http.get(this.APIUrl + '/user', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getRepos() {
-        return this.http.get('https://api.github.com/user/repos', {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/user/repos', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getUserRepos(login: string, sort: string, direction: string, page?: number, perPage?: number) {
-        const p = new URLSearchParams();
+        const p = new HttpParams();
 
         p.set('sort', sort);
         p.set('direction', direction);
@@ -60,20 +57,26 @@ export class GitHubService {
             p.set('page', page.toString());
         }
 
-        return this.http.get('https://api.github.com/users/' + login + '/repos', {
-            headers: this.h,
-            search : p
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/users/' + login + '/repos', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            }),
+            params : p
+        });
     }
 
     getUserReceivedEvents(login: string, page: number) {
-        return this.http.get('https://api.github.com/users/' + login + '/received_events?page=' + page, {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/users/' + login + '/received_events?page=' + page, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getFollowingUsers(login: string, page?: number, perPage?: number) {
-        const p = new URLSearchParams();
+        const p = new HttpParams();
 
         if (perPage) {
             p.set('per_page', perPage.toString());
@@ -85,14 +88,17 @@ export class GitHubService {
             p.set('page', page.toString());
         }
 
-        return this.http.get('https://api.github.com/users/' + login + '/following', {
-            headers: this.h,
-            search: p
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/users/' + login + '/following', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            }),
+            params: p
+        });
     }
 
     getFollowers(login: string, page?: number, perPage?: number) {
-        const p = new URLSearchParams();
+        const p = new HttpParams();
 
         if (perPage) {
             p.set('per_page', perPage.toString());
@@ -104,41 +110,55 @@ export class GitHubService {
             p.set('page', page.toString());
         }
 
-        return this.http.get('https://api.github.com/users/' + login + '/followers', {
-            headers: this.h,
-            search: p
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/users/' + login + '/followers', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            }),
+            params: p
+        });
     }
 
     getUserInfo(login: string) {
-        return this.http.get('https://api.github.com/users/' + login, {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/users/' + login, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getOrgInfo(name: string) {
-        return this.http.get('https://api.github.com/orgs/' + name, {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/orgs/' + name, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getRepoInfo(owner: string, name: string) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + name, {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + name, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getIssueInfo(owner: string, repo: string, no: number) {
-        const h2 = this.h;
-        h2.set('Accept', 'application/vnd.github.VERSION.html+json');
 
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + repo + '/issues/' + no, {
-            headers: h2
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + repo + '/issues/' + no, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Accept': 'application/vnd.github.VERSION.html+json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getOrgMembers(name: string, page?: number, perPage?: number) {
-        const p = new URLSearchParams();
+        const p = new HttpParams();
 
         if (perPage) {
             p.set('per_page', perPage.toString());
@@ -149,48 +169,94 @@ export class GitHubService {
         if (page) {
             p.set('page', page.toString());
         }
-        return this.http.get('https://api.github.com/orgs/' + name + '/members', {
-            headers: this.h,
-            search: p
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/orgs/' + name + '/members', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            }),
+            params: p
+        });
     }
 
     getUserOrgs(login: string) {
-        return this.http.get('https://api.github.com/users/' + login + '/orgs', {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/users/' + login + '/orgs', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getCommits(owner: string, name: string) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/commits', {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + name + '/commits', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getIssues(owner: string, name: string) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues', {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + name + '/issues', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getIssuesEvents(owner: string, name: string) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues/events', {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + name + '/issues/events', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getIssueEvents(owner: string, name: string, number) {
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + name + '/issues/' + number + '/events', {
-            headers: this.h
-        }).map(res => res.json());
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + name + '/issues/' + number + '/events', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 
     getIssueComments(owner: string, repo: string, number: number) {
-        const h2 = this.h;
-        h2.set('Accept', 'application/vnd.github.VERSION.html+json');
+        return this.http.get(this.APIUrl + '/repos/' + owner + '/' + repo + '/issues/' + number + '/comments', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Accept': 'application/vnd.github.VERSION.html+json',
+                'Authorization': 'token ' + this.token
+            })
+        });
+    }
 
-        return this.http.get('https://api.github.com/repos/' + owner + '/' + repo + '/issues/' + number + '/comments', {
-            headers: h2
-        }).map(res => res.json());
+    createIssue(owner: string, repo: string, title: string, body?: string,
+                milestone?: number, labels?: Array<string>, assignees?: Array<string>) {
+        return this.http.post(this.APIUrl + '/repos/' + owner + '/' + repo + '/issues', {
+            title    : title,
+            body     : body,
+            milestone: milestone,
+            labels   : labels,
+            assignees: assignees
+        }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
+    }
+
+    addIssueComment(owner: string, repo: string, number: number, comment: string) {
+        return this.http.post(this.APIUrl + '/repos/' + owner + '/' + repo + '/issues/' + number + '/comments', {
+            'body': comment
+        }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
     }
 }

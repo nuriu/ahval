@@ -28,13 +28,24 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.registerForm.value.username.trim() && this.registerForm.value.password.trim()) {
+        if (/\s/.test(this.registerForm.value.username)) {
+            UIkit.notification('Kullanıcı adı değeri boşluk içeremez!', {
+                status: 'danger',
+                pos: 'top-center'
+            });
+        } else if (/\s/.test(this.registerForm.value.password)) {
+            UIkit.notification('Kullanıcı parolası değeri boşluk içeremez!', {
+                status: 'danger',
+                pos: 'top-center'
+            });
+        } else if (this.registerForm.value.username.trim() !== '' &&
+                   this.registerForm.value.password.trim() !== '') {
             this.userService.register(this.registerForm.value.username, this.registerForm.value.password)
             .subscribe((res) => {
                 if (res) {
                     UIkit.notification('<span uk-icon="icon: check"></span> Kayıt işlemi başarılı sonuçlandı!', {
                         status: 'success',
-                        pos   : 'bottom-right'
+                        pos   : 'top-center'
                     });
                     this.router.navigate(['login']);
                 } else {
@@ -42,12 +53,12 @@ export class RegisterComponent implements OnInit {
                         UIkit.notification('Sistemde aynı kullanıcı ismine sahip bir kullanıcı mevcut.<br/>\
                         <br/>Lütfen farklı bir kullanıcı ismiyle tekrar deneyiniz.', {
                             status: 'danger',
-                            pos   : 'bottom-right'
+                            pos   : 'top-center'
                         });
                     } else {
                         UIkit.notification('Kayıt işlemi başarısız sonuçlandı. Lütfen tekrar deneyiniz.', {
                             status: 'danger',
-                            pos   : 'bottom-right'
+                            pos   : 'top-center'
                         });
                     }
 
@@ -57,13 +68,13 @@ export class RegisterComponent implements OnInit {
             if (!this.registerForm.value.username) {
                 UIkit.notification('Kullanıcı adı alanı boş bırakılamaz!', {
                     status: 'danger',
-                    pos: 'bottom-right'
+                    pos: 'top-center'
                 });
             }
             if (!this.registerForm.value.password) {
                 UIkit.notification('Parola alanı boş bırakılamaz!', {
                     status: 'danger',
-                    pos: 'bottom-right'
+                    pos: 'top-center'
                 });
             }
         }

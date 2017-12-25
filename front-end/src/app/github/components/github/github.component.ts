@@ -3,6 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { GitHubService } from '../../services/github.service';
 
+
+
 @Component({
     selector   : 'app-github',
     templateUrl: './github.component.html',
@@ -13,15 +15,15 @@ export class GitHubComponent implements OnInit {
     @Input() repos;
     @Input() receivedEvents = new Array<any>();
     @Input() followingUsers = new Array<any>();
+    @Input() activePage     = 1;
 
     constructor(private githubService: GitHubService,
-                private userService: UserService) {}
+                private userService: UserService) { }
 
     ngOnInit() {
-        this.userService.getToken('GITHUB').subscribe((res) => {
-            if (res.token) {
-                this.githubService.setToken(res.token);
-                this.githubService.activate();
+        this.userService.getToken('GITHUB').subscribe(res => {
+            if (res['token']) {
+                this.githubService.setToken(res['token']);
                 this.getActiveUser();
             } else {
                 console.log('Error: Could not get github access token of user.');
@@ -52,27 +54,52 @@ export class GitHubComponent implements OnInit {
     }
 
     getStreamForActiveUser() {
-        for (let i = 1; i <= 10; i++) {
-            this.githubService.getUserReceivedEvents(this.user.login, i).subscribe(
-                data  => this.receivedEvents = this.receivedEvents.concat(data),
-                error => console.log(error),
-                ()    => {
-                    if (i === 10) {
-                        // console.log(this.receivedEvents);
-                        this.getFollowingUsers();
-                    }
-                }
-            );
-        }
+        this.githubService.getUserReceivedEvents(this.user.login, this.activePage).subscribe(
+            data  => this.receivedEvents = <Array<Object>>data,
+            error => console.log(error),
+            ()    => {
+                // console.log(this.receivedEvents);
+                this.getFollowingUsers();
+            }
+        );
     }
 
     getFollowingUsers() {
         this.githubService.getFollowingUsers(this.user.login).subscribe(
-            data  => this.followingUsers = data,
+            data  => this.followingUsers = <Array<Object>>data,
             error => console.log(error),
             ()    => {
                 // console.log(this.followingUsers);
             }
         );
+    }
+
+    setPage(page: number) {
+        if (this.activePage !== page) {
+            this.highlightActivePageNumber(this.activePage, page);
+            this.activePage = page;
+            this.getStreamForActiveUser();
+        }
+    }
+
+    nextPage() {
+        if (this.activePage < 10) {
+            this.highlightActivePageNumber(this.activePage, this.activePage + 1);
+            this.activePage++;
+            this.getStreamForActiveUser();
+        }
+    }
+
+    previousPage() {
+        if (this.activePage > 1) {
+            this.highlightActivePageNumber(this.activePage, this.activePage - 1);
+            this.activePage--;
+            this.getStreamForActiveUser();
+        }
+    }
+
+    highlightActivePageNumber(oldPage: number, newPage: number) {
+        document.getElementsByName('paginationItem').item(oldPage - 1).className = '';
+        document.getElementsByName('paginationItem').item(newPage - 1).className = 'uk-active';
     }
 }

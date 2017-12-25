@@ -4,6 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { GitHubService } from '../../services/github.service';
 
+import * as $ from 'jquery';
+import * as UIkit from 'uikit';
+
+
+
 @Component({
     selector: 'app-github-repository',
     templateUrl: './repository.component.html',
@@ -21,9 +26,8 @@ export class RepositoryComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.userService.getToken('GITHUB').subscribe((res) => {
-                if (res.token) {
-                    this.githubService.setToken(res.token);
-                    this.githubService.activate();
+                if (res['token']) {
+                    this.githubService.setToken(res['token']);
 
                     if (params.owner != null && params.name != null) {
                         this.githubService.getRepoInfo(params.owner, params.name)
@@ -62,7 +66,26 @@ export class RepositoryComponent implements OnInit {
         this.githubService.getIssues(this.repo.owner.login, this.repo.name)
         .subscribe((data) => {
             this.issues = data;
-            console.log(this.issues);
+            // console.log(this.issues);
         });
+    }
+
+    createIssue() {
+        const title = $('#issueForm #issueTitle');
+        const body = $('#issueForm #issueBody');
+
+        if (title.val().toString().trim() !== '') {
+            this.githubService.createIssue(this.repo.owner.login, this.repo.name, title.val().toString(), body.val().toString())
+            .subscribe((data) => {
+                if (data != null) {
+                    window.location.reload();
+                }
+            });
+        } else {
+            UIkit.notification('Başlıksız iş oluşturulamaz!', {
+                status: 'danger',
+                pos: 'top-center'
+            });
+        }
     }
 }

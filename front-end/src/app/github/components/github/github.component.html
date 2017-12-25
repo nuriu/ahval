@@ -19,7 +19,7 @@
   <div class="uk-section uk-section-default">
     <div class="uk-child-width-1-2@m" uk-grid>
 
-      <!-- SOL BÖLÜM -->
+      <!-- LEFT AREA -->
       <div>
         <ul class="uk-list">
           <li *ngFor="let item of receivedEvents; let i = index" [ngSwitch]="item.type">
@@ -74,14 +74,25 @@
 
           </li>
         </ul>
-      </div>
-      <!--/SOL BÖLÜM -->
 
-      <!-- SAĞ BÖLÜM -->
+        <!-- PAGINATION -->
+        <ul class="uk-pagination uk-flex-center" uk-margin>
+          <li *ngIf="activePage != 1"><a (click)="previousPage()" uk-scroll><span uk-pagination-previous></span></a></li>
+          <li name="paginationItem" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]; let i = index" [id]="i+1" (click)="setPage(i + 1)" uk-scroll>
+            <a>{{ i+1 }}</a>
+          </li>
+          <li *ngIf="activePage != 10"><a (click)="nextPage()" uk-scroll><span uk-pagination-next></span></a></li>
+        </ul>
+        <!--/PAGINATION -->
+
+      </div>
+      <!--/LEFT AREA -->
+
+      <!-- RIGHT AREA -->
       <div>
         <div class="uk-tile uk-tile-secondary uk-padding-small">
 
-          <!-- PROJE LİSTESİ -->
+          <!-- PROJECT LIST -->
           <h4>Projeler <span class="uk-badge">{{ repos?.length }}</span></h4>
           <ul class="uk-list">
             <li *ngFor="let item of repos">
@@ -91,19 +102,19 @@
               </a>
             </li>
           </ul>
-          <!--/PROJE LİSTESİ -->
+          <!--/PROJECT LIST -->
 
-          <!-- TAKİP EDİLENLER -->
+          <!-- FOLLOWINGS -->
           <h4>Takip Edilen Kişiler <span class="uk-badge">{{ followingUsers?.length }}</span></h4>
           <a href="#" *ngFor="let fu of followingUsers" [routerLink]="['/github/profile/' + fu?.login]">
             <img class="uk-border-circle uk-margin-right uk-margin-bottom" width="40" height="40"
                 src="{{ fu?.avatar_url }}" title="{{ fu?.login }}" uk-tooltip>
           </a>
-          <!--/TAKİP EDİLENLER -->
+          <!--/FOLLOWINGS -->
 
         </div>
       </div>
-      <!--/SAĞ BÖLÜM -->
+      <!--/RIGHT AREA -->
 
     </div>
   </div>

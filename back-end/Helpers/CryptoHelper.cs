@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace Ajanda.Helpers
+namespace Ahval.Helpers
 {
     /// <summary>
     /// Provides helper methods for hashing/salting and verifying passwords.

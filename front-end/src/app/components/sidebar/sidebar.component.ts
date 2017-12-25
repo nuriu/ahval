@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
     ngOnInit() {
         if (this.userService.isLoggedIn()) {
             this.userService.getComponentList().subscribe(c => {
-                c.userComponents.forEach(element => {
+                c['userComponents'].forEach(element => {
                     this.items.push(element.component);
                 });
             });

@@ -5,6 +5,8 @@ import * as UIkit from 'uikit';
 
 import { UserService } from '../../services/user.service';
 
+
+
 @Component({
     selector   : 'app-profile',
     templateUrl: './profile.component.html',
@@ -28,11 +30,11 @@ export class ProfileComponent implements OnInit {
             newEmailAddress: this.newEmailAddress
         });
 
-        this.userService.getProfileInfo().subscribe((res) => {
+        this.userService.getProfileInfo().subscribe(res => {
             if (res) {
                 this.user = res;
-                this.user.registeredAt = new Date(res.registeredAt + 'Z').toLocaleString();
-                this.user.lastLoggedInAt = new Date(res.lastLoggedInAt + 'Z').toLocaleString();
+                this.user.registeredAt = new Date(res['registeredAt'] + 'Z').toLocaleString();
+                this.user.lastLoggedInAt = new Date(res['lastLoggedInAt'] + 'Z').toLocaleString();
             } else {
                 // TODO: show error message.
             }
@@ -49,8 +51,8 @@ export class ProfileComponent implements OnInit {
             this.userService.update(this.updateForm.value.oldPassword,
                                     this.updateForm.value.newPassword,
                                     this.updateForm.value.newEmailAddress)
-            .subscribe((res) => {
-                if (res.success) {
+            .subscribe(res => {
+                if (res['success']) {
                     UIkit.notification('<span uk-icon="icon: check"></span> Güncelleme işlemi başarılı sonuçlandı!', {
                         status: 'success',
                         pos   : 'bottom-right'
@@ -64,5 +66,10 @@ export class ProfileComponent implements OnInit {
                 }
             });
         }
+    }
+
+    remove() {
+        this.userService.remove();
+        this.userService.logout();
     }
 }

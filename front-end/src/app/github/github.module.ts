@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { GitHubRoutingModule } from './github-routing.module';
 
@@ -11,11 +11,14 @@ import { RepositoryComponent } from './components/repository/repository.componen
 import { IssueComponent } from './components/issue/issue.component';
 
 import { GitHubService } from './services/github.service';
+import { WeeklyService } from '../weekly/services/weekly.service';
+
+
 
 @NgModule({
     imports: [
         CommonModule,
-        HttpModule,
+        HttpClientModule,
         GitHubRoutingModule
     ],
     declarations: [
@@ -26,7 +29,8 @@ import { GitHubService } from './services/github.service';
         IssueComponent
     ],
     providers: [
-        GitHubService
+        GitHubService,
+        WeeklyService
     ]
 })
 export class GitHubModule { }

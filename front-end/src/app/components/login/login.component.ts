@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { UserService } from '../../services/user.service';
+
 import * as UIkit from 'uikit';
 
-import { UserService } from '../../services/user.service';
+
 
 @Component({
     selector   : 'app-login',
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
                 if (res) {
                     UIkit.notification('<span uk-icon="icon: check"></span> Hoşgeldiniz!', {
                         status: 'success',
-                        pos   : 'bottom-right'
+                        pos   : 'top-center'
                     });
                     this.router.navigate(['home']);
                 }
@@ -42,7 +44,7 @@ export class LoginComponent implements OnInit {
                 if (err.status = 400) {
                     UIkit.notification('Giriş işlemi başarısız sonuçlandı. Lütfen tekrar deneyiniz.', {
                         status: 'danger',
-                        pos   : 'bottom-right'
+                        pos   : 'top-center'
                     });
                 }
             });
@@ -50,13 +52,13 @@ export class LoginComponent implements OnInit {
             if (!this.loginForm.value.username) {
                 UIkit.notification('Kullanıcı adı alanı boş bırakılamaz!', {
                     status: 'danger',
-                    pos   : 'bottom-right'
+                    pos   : 'top-center'
                 });
             }
             if (!this.loginForm.value.password) {
                 UIkit.notification('Parola alanı boş bırakılamaz!', {
                     status: 'danger',
-                    pos   : 'bottom-right'
+                    pos   : 'top-center'
                 });
             }
         }

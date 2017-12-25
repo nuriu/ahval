@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Ajanda.Authentication
+namespace Ahval.Authentication
 {
     public class JwtTokenOptions
     {

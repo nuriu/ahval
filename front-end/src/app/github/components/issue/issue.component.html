@@ -1,12 +1,8 @@
 <div class="uk-tile uk-tile-default">
 
   <ul class="uk-breadcrumb">
-    <li>
-      <a href="#" routerLink="/home">Ajanda</a>
-    </li>
-    <li>
-      <a href="#" routerLink="/github/home">GitHub</a>
-    </li>
+    <li><a href="#" routerLink="/home">Ajanda</a></li>
+    <li><a href="#" routerLink="/github/home">GitHub</a></li>
     <li>
       <a href="#" [routerLink]="['/github/profile/' + repoOwner?.login]">
         <img class="uk-border-rounded" [src]="[repoOwner?.avatar_url]" width="25" height="25"> {{ repoOwner?.login }}
@@ -15,9 +11,7 @@
     <li>
       <a href="#" [routerLink]="['/github/repository/' + issue?.user.login + '/' + repoName]">{{ repoName }}</a>
     </li>
-    <li>
-      <span>{{ issue?.number }}</span>
-    </li>
+    <li><span>{{ issue?.number }}</span></li>
   </ul>
 
   <hr class="uk-divider-icon">
@@ -37,7 +31,7 @@
         <h4 *ngIf="issue?.body_html">AÇIKLAMA</h4>
         <p *ngIf="issue?.body_html" [innerHTML]="[issue?.body_html]"></p>
         <div uk-grid>
-          <div class="uk-description-list">
+          <div class="uk-description-list" *ngIf="issue?.assignees.length > 0">
             <h4 class="uk-margin-remove" *ngIf="issue?.assignees.length == 1">SORUMLU KİŞİ</h4>
             <h4 class="uk-margin-remove" *ngIf="issue?.assignees.length > 1">SORUMLU KİŞİLER</h4>
             <dd *ngFor="let assignee of issue?.assignees" class="uk-margin-small-top">
@@ -58,6 +52,8 @@
         </div>
 
         <hr />
+
+        <!-- COMMENTS -->
         <div *ngIf="comments?.length > 0">
           <h4 class="uk-margin-remove">YORUMLAR</h4>
           <article class="uk-comment" *ngFor="let comment of comments">
@@ -76,11 +72,33 @@
             </header>
           </article>
         </div>
+        <!--/COMMENTS -->
 
+        <!-- COMMENT FORM -->
+        <div class="uk-margin uk-grid-small" id="commentForm" uk-grid>
+          <div class="uk-width-auto">
+            <img class="uk-comment-avatar" width="60" height="60" [src]=[user?.avatar_url] [title]="[user?.login]" uk-tooltip>
+          </div>
+          <div class="uk-width-expand">
+            <textarea class="uk-textarea" rows="5" placeholder="Yorumunuz..."></textarea>
+          </div>
+        </div>
+
+        <div class="uk-margin-large-left uk-grid-small" uk-grid>
+          <div class="uk-width-expand">
+            <input type="date" id="assignationDate" class="uk-input uk-width-auto">
+            <button class="uk-button uk-button-primary" (click)="addIssueAsWeeklyItem()">Haftalığa Ekle</button>
+          </div>
+          <div class="uk-width-auto">
+            <button class="uk-button uk-button-primary" (click)="addComment()">Yorumu Kaydet</button>
+          </div>
+        </div>
+        <!--/COMMENT FORM -->
       </div>
 
       <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
 
+        <!-- LABEL LIST -->
         <div *ngIf="issue?.labels.length > 0">
           <h4>ETİKETLER</h4>
           <dl class="uk-description-list">
@@ -91,9 +109,11 @@
             </dt>
           </dl>
         </div>
+        <!--/LABEL LIST -->
 
         <hr *ngIf="issue?.labels.length > 0" />
 
+        <!-- EVENT LIST -->
         <div *ngIf="events?.length > 0">
           <h4 class="uk-margin-remove">OLAYLAR</h4>
           <article class="uk-comment uk-margin-small" *ngFor="let event of events">
@@ -151,7 +171,7 @@
             </header>
           </article>
         </div>
-
+        <!--/EVENT LIST -->
       </div>
 
     </div>

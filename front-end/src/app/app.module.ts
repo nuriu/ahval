@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -17,6 +17,7 @@ import { UserGuard } from './guards/user.guard';
 import { GitHubGuard } from './guards/github.guard';
 
 import { UserService } from './services/user.service';
+import { HackerNewsService } from './services/hackernews.service';
 
 
 @NgModule({
@@ -32,11 +33,12 @@ import { UserService } from './services/user.service';
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpModule,
+        HttpClientModule,
         AppRoutingModule
     ],
     providers: [
         UserService,
+        HackerNewsService,
         UserGuard,
         GitHubGuard
     ],

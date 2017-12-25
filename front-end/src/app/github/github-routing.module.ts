@@ -6,6 +6,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RepositoryComponent } from './components/repository/repository.component';
 import { IssueComponent } from './components/issue/issue.component';
 
+
+
 const githubRoutes: Routes = [
     { path: 'home', component: GitHubComponent },
     { path: 'profile/:login', component: ProfileComponent },
