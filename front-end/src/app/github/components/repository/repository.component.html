@@ -56,12 +56,12 @@
           <dd *ngIf="repo?.homepage">{{ repo?.homepage }}</dd>
         </dl>
         <hr>
-        <h4>İŞLER</h4>
+        <h4>İŞLER <a class="uk-button uk-button-primary uk-align-right uk-margin-xlarge-right" href="#issue-creating-modal" uk-toggle>İş Oluştur</a></h4>
         <dl class="uk-description-list uk-description-list-divider">
           <dt *ngFor="let issue of issues">
             <a class="uk-link-muted" [routerLink]="['/github/issue/' + repo?.full_name + '/' + issue?.number]">
-                  (#{{ issue?.number}})&nbsp; {{ issue?.title | uppercase }}
-                </a>
+              (#{{ issue?.number}})&nbsp; {{ issue?.title | uppercase }}
+            </a>
             <br /><br />
             <h5 class="uk-badge uk-padding-small uk-margin-remove-top uk-margin-small-bottom uk-margin-small-right" *ngFor="let label of issue?.labels"
               [style.background-color]="['#' + label?.color]">
@@ -73,3 +73,30 @@
 
     </div>
   </div>
+
+  <div id="issue-creating-modal" uk-modal>
+    <div class="uk-modal-dialog">
+      <button class="uk-modal-close-default" type="button" uk-close></button>
+      <div class="uk-modal-header">
+        <h2 class="uk-modal-title">İş Oluştur</h2>
+      </div>
+      <div class="uk-modal-body">
+        <form id="issueForm">
+          <fieldset class="uk-fieldset">
+            <div class="uk-margin">
+              <input class="uk-input" type="text" id="issueTitle" placeholder="Başlık">
+            </div>
+
+            <div class="uk-margin">
+              <textarea class="uk-textarea" rows="5" id="issueBody" placeholder="Açıklama"></textarea>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="uk-modal-footer uk-text-right">
+        <button class="uk-button uk-button-default uk-modal-close" type="button">İptal</button>
+        <button class="uk-button uk-button-primary" type="button" (click)="createIssue()">Oluştur</button>
+      </div>
+    </div>
+  </div>
+</div>

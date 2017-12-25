@@ -233,6 +233,22 @@ export class GitHubService {
         });
     }
 
+    createIssue(owner: string, repo: string, title: string, body?: string,
+                milestone?: number, labels?: Array<string>, assignees?: Array<string>) {
+        return this.http.post(this.APIUrl + '/repos/' + owner + '/' + repo + '/issues', {
+            title    : title,
+            body     : body,
+            milestone: milestone,
+            labels   : labels,
+            assignees: assignees
+        }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'token ' + this.token
+            })
+        });
+    }
+
     addIssueComment(owner: string, repo: string, number: number, comment: string) {
         return this.http.post(this.APIUrl + '/repos/' + owner + '/' + repo + '/issues/' + number + '/comments', {
             'body': comment

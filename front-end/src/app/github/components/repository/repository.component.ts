@@ -4,6 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { GitHubService } from '../../services/github.service';
 
+import * as $ from 'jquery';
+import * as UIkit from 'uikit';
+
+
+
 @Component({
     selector: 'app-github-repository',
     templateUrl: './repository.component.html',
@@ -63,5 +68,24 @@ export class RepositoryComponent implements OnInit {
             this.issues = data;
             // console.log(this.issues);
         });
+    }
+
+    createIssue() {
+        const title = $('#issueForm #issueTitle');
+        const body = $('#issueForm #issueBody');
+
+        if (title.val().toString().trim() !== '') {
+            this.githubService.createIssue(this.repo.owner.login, this.repo.name, title.val().toString(), body.val().toString())
+            .subscribe((data) => {
+                if (data != null) {
+                    window.location.reload();
+                }
+            });
+        } else {
+            UIkit.notification('Başlıksız iş oluşturulamaz!', {
+                status: 'danger',
+                pos: 'top-center'
+            });
+        }
     }
 }
