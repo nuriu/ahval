@@ -31,7 +31,7 @@
         <h4 *ngIf="issue?.body_html">AÇIKLAMA</h4>
         <p *ngIf="issue?.body_html" [innerHTML]="[issue?.body_html]"></p>
         <div uk-grid>
-          <div class="uk-description-list">
+          <div class="uk-description-list" *ngIf="issue?.assignees.length > 0">
             <h4 class="uk-margin-remove" *ngIf="issue?.assignees.length == 1">SORUMLU KİŞİ</h4>
             <h4 class="uk-margin-remove" *ngIf="issue?.assignees.length > 1">SORUMLU KİŞİLER</h4>
             <dd *ngFor="let assignee of issue?.assignees" class="uk-margin-small-top">
@@ -81,13 +81,16 @@
           </div>
           <div class="uk-width-expand">
             <textarea class="uk-textarea" rows="5" placeholder="Yorumunuz..."></textarea>
-            <div class="uk-margin-small">
-              <input type="date" id="assignationDate" class="uk-input uk-width-auto">
-              <button class="uk-button uk-button-primary" (click)="addIssueAsWeeklyItem()">Haftalığa Ekle</button>
-              <p class="uk-align-right">
-                <button class="uk-button uk-button-primary" (click)="addComment()">Yorumu Kaydet</button>
-              </p>
-            </div>
+          </div>
+        </div>
+
+        <div class="uk-margin-large-left uk-grid-small" uk-grid>
+          <div class="uk-width-expand">
+            <input type="date" id="assignationDate" class="uk-input uk-width-auto">
+            <button class="uk-button uk-button-primary" (click)="addIssueAsWeeklyItem()">Haftalığa Ekle</button>
+          </div>
+          <div class="uk-width-auto">
+            <button class="uk-button uk-button-primary" (click)="addComment()">Yorumu Kaydet</button>
           </div>
         </div>
         <!--/COMMENT FORM -->
