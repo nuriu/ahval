@@ -35,6 +35,7 @@
     </li>
     <li *ngFor="let component of items" [ngSwitch]="component">
       <a *ngSwitchCase="'GITHUB'" [routerLink]="[component.toLowerCase() + '/home']" routerLinkActive="active" uk-icon="icon: github; ratio: 2.5"></a>
+      <a *ngSwitchCase="'GITLAB'" [routerLink]="[component.toLowerCase() + '/home']" routerLinkActive="active" uk-icon="icon: git-branch; ratio: 2.5"></a>
       <a *ngSwitchCase="'WEEKLY'" [routerLink]="[component.toLowerCase() + '/home']" routerLinkActive="active" uk-icon="icon: grid; ratio: 2.5"></a>
     </li>
     <li>
