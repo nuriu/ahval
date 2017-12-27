@@ -1,0 +1,55 @@
+<div class="uk-tile uk-tile-default">
+
+  <div style="width:100%">
+    <img class="uk-border-circle uk-align-center uk-margin-medium-top uk-margin-remove-bottom" width="150" height="150" [src]=[user?.avatar_url]>
+    <p class="uk-h4 uk-text-center">{{ user?.name }}</p>
+    <hr class="uk-divider-icon">
+  </div>
+
+  <div class="uk-child-width-1-2@s uk-grid-collapse" uk-grid>
+    <div class="uk-tile uk-tile-primary">
+      <p class="uk-h4">PROFİL BİLGİLERİ</p>
+      <div class="uk-margin-remove-top">
+        <dl class="uk-description-list">
+          <dt *ngIf="user?.bio">BİYOGRAFİ:</dt>
+          <dd *ngIf="user?.bio">{{ user?.bio }}</dd>
+
+          <dt *ngIf="user?.location">KONUM:</dt>
+          <dd *ngIf="user?.location">{{ user?.location }}</dd>
+
+          <dt *ngIf="user?.skype">SKYPE ADRESİ:</dt>
+          <dd *ngIf="user?.skype">{{ user?.skype }}</dd>
+
+          <dt *ngIf="user?.twitter">TWITTER ADRESİ:</dt>
+          <dd *ngIf="user?.twitter">{{ user?.twitter }}</dd>
+
+          <dt *ngIf="user?.linkedin">LINKEDIN ADRESİ:</dt>
+          <dd *ngIf="user?.linkedin">{{ user?.linkedin }}</dd>
+
+          <dt *ngIf="user?.website_url">WEB ADRESİ:</dt>
+          <dd *ngIf="user?.website_url">
+            <a href="{{ user?.website_url }}" rel="external" target="_blank">{{ user?.website_url }}</a>
+          </dd>
+
+          <dt *ngIf="user?.organization">ORGANİZASYON:</dt>
+          <dd *ngIf="user?.organization">{{ user?.organization }}</dd>
+        </dl>
+      </div>
+
+    </div>
+
+    <div class="uk-tile uk-tile-secondary">
+      <p class="uk-h4">PROJELER
+        <span class="uk-badge">{{ repos?.length }}</span>
+      </p>
+      <ul class="uk-list">
+        <li *ngFor="let item of repos">
+          <a [routerLink]="['/gitlab/repository/' + item?.path_with_namespace]">
+            {{ item?.path_with_namespace }}
+            <span class="uk-badge">{{ item?.star_count }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
