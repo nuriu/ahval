@@ -1,0 +1,19 @@
+div.uk-tile {
+    padding-top: 2.5rem;
+}
+
+hr.uk-divider-icon {
+    margin-top: 0.5rem;
+}
+
+ul.uk-breadcrumb {
+    margin-bottom: 0.5rem;
+}
+
+div.uk-section-default {
+    padding-top: 0px;
+}
+
+dl > dt {
+    color: white;
+}

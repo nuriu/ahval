@@ -1,0 +1,45 @@
+<div class="uk-tile uk-tile-default">
+
+  <div style="width:100%">
+    <img class="uk-border-circle uk-align-center uk-margin-medium-top uk-margin-remove-bottom" width="150" height="150" [src]=[group?.avatar_url]>
+    <p class="uk-h4 uk-text-center">{{ group?.name }}</p>
+    <p *ngIf="group?.description" class="uk-h4 uk-text-center">{{ group?.description }}</p>
+    <hr class="uk-divider-icon">
+  </div>
+
+  <div class="uk-child-width-1-2@s uk-grid-collapse" uk-grid>
+    <div class="uk-tile uk-tile-primary">
+      <p class="uk-h4">ÜYELER
+        <span *ngIf="members?.length < 100" class="uk-badge">{{ members?.length }}</span>
+        <span *ngIf="members?.length > 99" class="uk-badge">{{ members?.length }}+</span>
+      </p>
+      <div class="uk-margin-remove-top">
+        <dl class="uk-description-list">
+          <dd>
+            <span *ngFor="let m of members">
+              <a href="#" [routerLink]="['/gitlab/profile/' + m?.username]">
+                <img class="uk-border-rounded uk-margin-right uk-margin-bottom" width="50" height="50" [src]=[m?.avatar_url] title="{{ m?.username }}"
+                  uk-tooltip>
+              </a>
+            </span>
+          </dd>
+        </dl>
+      </div>
+
+    </div>
+
+    <div class="uk-tile uk-tile-secondary">
+      <p class="uk-h4">PROJELER
+        <span *ngIf="repos?.length" class="uk-badge">{{ repos?.length }}</span>
+      </p>
+      <ul class="uk-list">
+        <li *ngFor="let item of repos">
+          <a [routerLink]="['/gitlab/repository/' + item?.path_with_namespace]">
+            {{ item?.path_with_namespace }}
+            <span class="uk-badge">{{ item?.star_count }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
