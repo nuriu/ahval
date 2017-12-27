@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
 
         if (this.userService.isLoggedIn()) {
             this.userService.getComponentList().subscribe(c => {
-                console.log(c);
                 c['userComponents'].forEach(element => {
                     this.components.push(element.component);
                 });

@@ -15,6 +15,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 import { UserGuard } from './guards/user.guard';
 import { GitHubGuard } from './guards/github.guard';
+import { GitLabGuard } from './guards/gitlab.guard';
 
 import { UserService } from './services/user.service';
 import { HackerNewsService } from './services/hackernews.service';
@@ -40,7 +41,8 @@ import { HackerNewsService } from './services/hackernews.service';
         UserService,
         HackerNewsService,
         UserGuard,
-        GitHubGuard
+        GitHubGuard,
+        GitLabGuard
     ],
     bootstrap: [AppComponent]
 })
