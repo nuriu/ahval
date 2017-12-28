@@ -1,0 +1,163 @@
+<div class="uk-tile uk-tile-default">
+
+  <div class="uk-section uk-section-default">
+    <h2 class="uk-heading-primary">
+      <span *ngIf="issue?.state == 'closed'" uk-icon="icon: lock; ratio: 2"></span>
+      <span *ngIf="issue?.state == 'opened'" uk-icon="icon: unlock; ratio: 2"></span>
+      <span *ngIf="issue?.state == 'closed'" class="uk-badge uk-padding-small uk-margin-remove">KAPALI</span>
+      <span *ngIf="issue?.state == 'opened'" class="uk-badge uk-padding-small uk-margin-remove">AÇIK</span>
+      <span>{{ issue?.title }}</span>
+    </h2>
+    <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
+
+      <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
+
+        <h4 *ngIf="issue?.description">AÇIKLAMA</h4>
+        <p *ngIf="issue?.description">{{ issue?.description }}</p>
+        <div uk-grid>
+          <div class="uk-description-list" *ngIf="issue?.assignees.length > 0">
+            <h4 class="uk-margin-remove" *ngIf="issue?.assignees.length == 1">SORUMLU KİŞİ</h4>
+            <h4 class="uk-margin-remove" *ngIf="issue?.assignees.length > 1">SORUMLU KİŞİLER</h4>
+            <dd *ngFor="let assignee of issue?.assignees" class="uk-margin-small-top">
+              <img class="uk-border-rounded" [src]="[assignee.avatar_url]" width="30" height="30">
+              <a class="uk-link-muted" [routerLink]="['/gitlab/profile/' + assignee.username]">
+                {{ assignee.username }}
+              </a>
+            </dd>
+          </div>
+          <div class="uk-description-list">
+            <h4 class="uk-margin-remove">OLUŞTURULMA TARİHİ</h4>
+            <dd class="uk-margin-small-top">{{ issue?.created_at.toLocaleString() }}</dd>
+          </div>
+          <div class="uk-description-list">
+            <h4 class="uk-margin-remove">GÜNCELLENME TARİHİ</h4>
+            <dd class="uk-margin-small-top">{{ issue?.updated_at.toLocaleString() }}</dd>
+          </div>
+        </div>
+
+        <hr />
+
+        <!-- COMMENTS -->
+        <div *ngIf="comments?.length > 0">
+          <h4 class="uk-margin-remove">YORUMLAR</h4>
+          <article class="uk-comment" *ngFor="let comment of comments">
+            <header class="uk-comment-header uk-grid-medium uk-flex-middle uk-margin-remove-bottom" uk-grid>
+              <div class="uk-width-auto">
+                <img class="uk-comment-avatar" width="60" height="60" [src]=[comment?.user.avatar_url] [title]="[comment?.user.login]" uk-tooltip>
+              </div>
+              <div class="uk-width-expand">
+                <h4 class="uk-comment-title uk-margin-top uk-margin-remove-bottom">
+                  <a class="uk-link-reset" [routerLink]="['/github/profile/' + comment?.user.login]">{{ comment?.user.login }}</a>&nbsp;
+                  <small>{{ comment?.created_at.toLocaleString() }}</small>
+                </h4>
+                <div class="uk-comment-meta uk-margin-remove-top uk-padding-remove-left" [innerHTML]="[comment?.body_html]">
+                </div>
+              </div>
+            </header>
+          </article>
+        </div>
+        <!--/COMMENTS -->
+
+        <!-- COMMENT FORM -->
+        <div class="uk-margin uk-grid-small" id="commentForm" uk-grid>
+          <div class="uk-width-auto">
+            <img class="uk-comment-avatar" width="60" height="60" [src]=[user?.avatar_url] [title]="[user?.username]" uk-tooltip>
+          </div>
+          <div class="uk-width-expand">
+            <textarea class="uk-textarea" rows="5" placeholder="Yorumunuz..."></textarea>
+          </div>
+        </div>
+
+        <div class="uk-margin-large-left uk-grid-small" uk-grid>
+          <div class="uk-width-auto">
+            <input type="date" id="assignationDate" class="uk-input uk-width-auto">
+            <button class="uk-button uk-button-primary" (click)="addIssueAsWeeklyItem()">Haftalığa Ekle</button>
+          </div>
+          <div class="uk-width-expand">
+            <button class="uk-button uk-button-primary" (click)="addComment()">Yorumu Kaydet</button>
+          </div>
+        </div>
+        <!--/COMMENT FORM -->
+      </div>
+
+      <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
+
+        <!-- LABEL LIST -->
+        <div *ngIf="issue?.labels.length > 0">
+          <h4>ETİKETLER</h4>
+          <dl class="uk-description-list">
+            <dt *ngFor="let label of issue?.labels" class="uk-margin-small">
+              <h5 class="uk-badge uk-padding-small uk-margin-remove">
+                {{ label }}
+              </h5>
+            </dt>
+          </dl>
+        </div>
+        <!--/LABEL LIST -->
+
+        <hr *ngIf="issue?.labels.length > 0" />
+
+        <!-- EVENT LIST -->
+        <div *ngIf="events?.length > 0">
+          <h4 class="uk-margin-remove">OLAYLAR</h4>
+          <article class="uk-comment uk-margin-small" *ngFor="let event of events">
+            <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+              <div class="uk-width-auto">
+                <img class="uk-comment-avatar" width="50" height="50" [src]=[event?.actor.avatar_url] [title]="[event?.actor.login]" uk-tooltip>
+              </div>
+              <div class="uk-width-expand">
+                <h4 class="uk-comment-title uk-margin-remove">
+                  <a class="uk-link-reset" [routerLink]="['/github/profile/' + event?.actor.login]">{{ event?.actor.login }}</a>&nbsp;
+                  <span style="font-size:0.75rem;">{{ event?.created_at.toLocaleString() }}</span>
+                </h4>
+                <div class="uk-comment-meta uk-margin-remove-top uk-padding-remove-left" [ngSwitch]="event?.event">
+                  <div *ngSwitchCase="'labeled'">
+                    <span style="font-size:1rem;">Yeni bir etiket ekledi: </span>
+                    <span class="uk-badge uk-padding-small uk-margin-remove" [style.background-color]="['#' + event?.label.color]">
+                      {{ event?.label.name }}
+                    </span>
+                  </div>
+                  <div *ngSwitchCase="'unlabeled'">
+                    <span class="uk-badge uk-padding-small uk-margin-remove" [style.background-color]="['#' + event?.label.color]">
+                      {{ event?.label.name }}
+                    </span>
+                    <span style="font-size:1rem;">İsimli etiketi bu işten kaldırdı.</span>
+                  </div>
+                  <div *ngSwitchCase="'milestoned'">
+                    <span style="font-size:1rem;">Bu işi
+                      <b>{{ event?.milestone.title }}</b> isimli kilometre-taşına ekledi.</span>
+                  </div>
+                  <div *ngSwitchCase="'demilestoned'">
+                    <span style="font-size:1rem;">Bu işi
+                      <b>{{ event?.milestone.title }}</b> isimli kilometre-taşından kaldırdı.</span>
+                  </div>
+                  <div *ngSwitchCase="'referenced'">
+                    <span style="font-size:1rem;">Bir katkıda bu işten bahsetti.</span>
+                  </div>
+                  <div *ngSwitchCase="'added_to_project'">
+                    <span style="font-size:1rem;">Bu işi bir proje tahtasına ekledi.</span>
+                  </div>
+                  <div *ngSwitchCase="'moved_columns_in_project'">
+                    <span style="font-size:1rem;">Bu işin proje tahtasındaki yerini değiştirdi.</span>
+                  </div>
+                  <div *ngSwitchCase="'assigned'">
+                    <span style="font-size:1rem;">
+                      Bu işi
+                      <a class="uk-link-muted" [routerLink]="['/github/profile/' + event?.assignee.login]">{{ event?.assignee.login }}</a> isimli kullanıcıya atadı.
+                    </span>
+                  </div>
+                  <div *ngSwitchCase="'closed'">
+                    <span style="font-size:1rem;">Bu işi kapandı olarak işaretledi.</span>
+                  </div>
+                  <div *ngSwitchDefault>{{ event?.event }}</div>
+                </div>
+              </div>
+            </header>
+          </article>
+        </div>
+        <!--/EVENT LIST -->
+      </div>
+
+    </div>
+  </div>
+

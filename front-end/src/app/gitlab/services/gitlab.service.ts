@@ -140,6 +140,26 @@ export class GitLabService {
         });
     }
 
+    getIssueInfo(owner: string, name: string, number: number) {
+        return this.http.get(this.APIUrl + '/projects/' + encodeURIComponent(owner + '/' + name) + '/issues/' + number, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Private-Token': this.token
+            })
+        });
+    }
+
+    addIssueComment(owner: string, name: string, number: number, body: string) {
+        return this.http.post(this.APIUrl + '/projects/' + encodeURIComponent(owner + '/' + name) + '/issues/' + number + '/notes', {
+            body: body
+        }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Private-Token': this.token
+            })
+        });
+    }
+
     createProjectIssue(owner: string, name: string, title: string, desc?: string) {
         return this.http.post(this.APIUrl + '/projects/' + encodeURIComponent(owner + '/' + name) + '/issues', {
             title      : title,
