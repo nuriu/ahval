@@ -97,10 +97,10 @@ export class IssueComponent implements OnInit {
     }
 
     addComment() {
-        if ($('#commentForm>textarea').val() != null &&
-            $('#commentForm>textarea').val().toString().trim() !== '') {
+        if ($('#commentForm > div > textarea').val() != null &&
+            $('#commentForm > div > textarea').val().toString().trim() !== '') {
             this.githubService.addIssueComment(this.repoOwner.login, this.repoName, this.issue.number,
-                                               $('#commentForm>textarea').val().toString())
+                                               $('#commentForm > div > textarea').val().toString())
             .subscribe(res => {
                 // console.log(res);
             });
