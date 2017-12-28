@@ -21,7 +21,7 @@ interface DateItemViewModel {
 })
 export class WeeklyComponent implements OnInit {
     @Input() notesPerDate: Array<DateItemViewModel>;
-    @Input() ghIssuesPerDate: Array<DateItemViewModel>;
+    @Input() issuesPerDate: Array<DateItemViewModel>;
 
     constructor(private weeklyService: WeeklyService,
                 private userService: UserService) {}
@@ -30,12 +30,12 @@ export class WeeklyComponent implements OnInit {
         moment.locale('tr');
         this.fillDates();
         this.fillNotes();
-        this.fillGitHubIssues();
+        this.fillIssues();
     }
 
     fillDates() {
         this.notesPerDate = new Array<DateItemViewModel>();
-        this.ghIssuesPerDate = new Array<DateItemViewModel>();
+        this.issuesPerDate = new Array<DateItemViewModel>();
 
         for (let i = 0; i < 7; i++) {
             this.notesPerDate.push({
@@ -43,7 +43,7 @@ export class WeeklyComponent implements OnInit {
                 items: new Array<Object>()
             });
 
-            this.ghIssuesPerDate.push({
+            this.issuesPerDate.push({
                 date : moment().startOf('isoWeek').add(i, 'days'),
                 items: new Array<Object>()
             });
@@ -62,11 +62,11 @@ export class WeeklyComponent implements OnInit {
         });
     }
 
-    fillGitHubIssues() {
-        this.weeklyService.getIssuesForWeek(this.ghIssuesPerDate[0].date).subscribe((res: any) => {
+    fillIssues() {
+        this.weeklyService.getIssuesForWeek(this.issuesPerDate[0].date).subscribe((res: any) => {
             res.forEach(issue => {
                 console.log(issue);
-                this.ghIssuesPerDate.forEach(element => {
+                this.issuesPerDate.forEach(element => {
                     if (issue.date === element.date.format('DD.MM.Y')) {
                         element.items.push(issue);
                     }
@@ -80,8 +80,8 @@ export class WeeklyComponent implements OnInit {
             this.notesPerDate[i].date.add(7, 'days');
             this.notesPerDate[i].items = new Array<Object>();
 
-            this.ghIssuesPerDate[i].date.add(7, 'days');
-            this.ghIssuesPerDate[i].items = new Array<Object>();
+            this.issuesPerDate[i].date.add(7, 'days');
+            this.issuesPerDate[i].items = new Array<Object>();
         }
 
         this.fillNotes();
@@ -93,8 +93,8 @@ export class WeeklyComponent implements OnInit {
             this.notesPerDate[i].date.subtract(7, 'days');
             this.notesPerDate[i].items = new Array<Object>();
 
-            this.ghIssuesPerDate[i].date.subtract(7, 'days');
-            this.ghIssuesPerDate[i].items = new Array<Object>();
+            this.issuesPerDate[i].date.subtract(7, 'days');
+            this.issuesPerDate[i].items = new Array<Object>();
         }
 
         this.fillNotes();
@@ -159,10 +159,10 @@ export class WeeklyComponent implements OnInit {
         if (item !== null && item.id.trim() !== '') {
             this.weeklyService.removeIssue(item.id).subscribe(res => {
                 if (res === true) {
-                    const i = this.ghIssuesPerDate[index].items.indexOf(item, 0);
+                    const i = this.issuesPerDate[index].items.indexOf(item, 0);
 
                     if (i > -1) {
-                        this.ghIssuesPerDate[index].items.splice(i, 1);
+                        this.issuesPerDate[index].items.splice(i, 1);
                     }
 
                     UIkit.notification('<span uk-icon="icon: check"></span> İş kaydınız başarıyla silindi!', {

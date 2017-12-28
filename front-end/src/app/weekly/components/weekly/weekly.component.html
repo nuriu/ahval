@@ -14,14 +14,15 @@
   <div class="uk-section uk-section-default">
 
     <div style="width: 100%">
-      <a class="uk-link-muted uk-text-meta" (click)="decrementWeek()"><< Önceki Hafta</a>
-        <a class="uk-link-muted uk-text-meta" style="float: right; text-align: right;" (click)="incrementWeek()">Sonraki Hafta >></a>
+      <a class="uk-link-muted uk-text-meta" (click)="decrementWeek()">
+        << Önceki Hafta</a>
+          <a class="uk-link-muted uk-text-meta" style="float: right; text-align: right;" (click)="incrementWeek()">Sonraki Hafta >></a>
 
-        <div class="uk-text-center">
-          <span class="uk-link-muted uk-text-lead">
-            {{ this.notesPerDate[0].date.format('DD.MM.Y') }} - {{ this.notesPerDate[6].date.format('DD.MM.Y') }}
-          </span>
-        </div>
+          <div class="uk-text-center">
+            <span class="uk-link-muted uk-text-lead">
+              {{ this.notesPerDate[0].date.format('DD.MM.Y') }} - {{ this.notesPerDate[6].date.format('DD.MM.Y') }}
+            </span>
+          </div>
     </div>
     <br />
 
@@ -48,10 +49,19 @@
                 <a (click)="removeNote(item, i)" uk-icon="icon: trash" style="float: right;"></a>
               </p>
             </li>
-            <li *ngFor="let item of ghIssuesPerDate[i].items">
+            <li *ngFor="let item of issuesPerDate[i].items">
               <p *ngIf="item.issue">
-                <span uk-icon="icon: github; ratio: 1.5"></span>
-                <a [href]="'/github/repository/' + item.issue.repoIdentifier">{{ item.issue.repoIdentifier }}</a> > <a  [href]="'github/issue/' + item.issue.repoIdentifier + '/' + item.issue.number">#{{ item.issue.number }}</a>
+                <span *ngIf="item.issue.component=='GITHUB'" uk-icon="icon: github; ratio: 1.5"></span>
+                <span *ngIf="item.issue.component=='GITLAB'" uk-icon="icon: git-branch; ratio: 1.5"></span>
+
+                <span *ngIf="item.issue.component=='GITHUB'">
+                  <a [href]="'/github/repository/' + item.issue.repoIdentifier">{{ item.issue.repoIdentifier }}</a> >
+                  <a [href]="'/github/issue/' + item.issue.repoIdentifier + '/' + item.issue.number">#{{ item.issue.number }}</a>
+                </span>
+                <span *ngIf="item.issue.component=='GITLAB'">
+                  <a [href]="'/gitlab/repository/' + item.issue.repoIdentifier">{{ item.issue.repoIdentifier }}</a> >
+                  <a [href]="'/gitlab/issue/' + item.issue.repoIdentifier + '/' + item.issue.number">#{{ item.issue.number }}</a>
+                </span>
                 <a (click)="removeIssue(item, i)" uk-icon="icon: trash" style="float: right;"></a>
               </p>
             </li>
