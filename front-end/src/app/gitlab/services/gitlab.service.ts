@@ -103,4 +103,40 @@ export class GitLabService {
             })
         });
     }
+
+    getGroupIssues(name: string) {
+        return this.http.get(this.APIUrl + '/groups/' + name + '/issues', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Private-Token': this.token
+            })
+        });
+    }
+
+    getProject(owner: string, name: string) {
+        return this.http.get(this.APIUrl + '/projects/' + encodeURIComponent(owner + '/' + name), {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Private-Token': this.token
+            })
+        });
+    }
+
+    getProjectCommits(owner: string, name: string) {
+        return this.http.get(this.APIUrl + '/projects/' + encodeURIComponent(owner + '/' + name) + '/repository/commits', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Private-Token': this.token
+            })
+        });
+    }
+
+    getProjectIssues(owner: string, name: string) {
+        return this.http.get(this.APIUrl + '/projects/' + encodeURIComponent(owner + '/' + name) + '/issues', {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Private-Token': this.token
+            })
+        });
+    }
 }

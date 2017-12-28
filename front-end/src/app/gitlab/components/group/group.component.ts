@@ -13,6 +13,7 @@ export class GroupComponent implements OnInit {
     @Input() group;
     @Input() members;
     @Input() repos;
+    @Input() issues;
 
     constructor(private gitlabService: GitLabService,
                 private userService  : UserService,
@@ -40,7 +41,7 @@ export class GroupComponent implements OnInit {
                 // console.log(this.group);
                 this.getGroupMembers();
             }
-        )
+        );
     }
 
     getGroupMembers() {
@@ -51,17 +52,22 @@ export class GroupComponent implements OnInit {
                 // console.log(this.members);
                 this.getGroupProjects();
             }
-        )
+        );
     }
 
     getGroupProjects() {
         this.repos = this.group.projects;
-        // this.gitlabService.getGroupProjects(this.group.path).subscribe(
-        //     data  => this.repos = data,
-        //     error => console.log(error),
-        //     ()    => {
-        //         // console.log(this.repos);
-        //     }
-        // )
+
+        this.getGroupIssues();
+    }
+
+    getGroupIssues() {
+        this.gitlabService.getGroupIssues(this.group.path).subscribe(
+            data  => this.issues = data,
+            error => console.log(error),
+            ()    => {
+                // console.log(this.issues);
+            }
+        );
     }
 }
