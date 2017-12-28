@@ -139,4 +139,16 @@ export class GitLabService {
             })
         });
     }
+
+    createProjectIssue(owner: string, name: string, title: string, desc?: string) {
+        return this.http.post(this.APIUrl + '/projects/' + encodeURIComponent(owner + '/' + name) + '/issues', {
+            title      : title,
+            description: desc
+        }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Private-Token': this.token
+            })
+        });
+    }
 }

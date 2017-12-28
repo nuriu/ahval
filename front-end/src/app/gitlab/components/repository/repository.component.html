@@ -1,0 +1,83 @@
+<div class="uk-tile uk-tile-default">
+
+  <div class="uk-section uk-section-default">
+    <h2 class="uk-heading-primary">
+      <span>{{ repo?.name }}</span>
+      <small *ngIf="repo?.owner">
+        (<img class="uk-border-rounded" width="35" height="35" [src]=[repo?.owner.avatar_url]>
+        <a href="#" class="uk-link-muted" [routerLink]="['/gitlab/profile/' + repo?.owner.username]"> {{ repo?.owner.username }}</a>)
+      </small>
+    </h2>
+    <div class="uk-child-width-1-2@m uk-child-width-1-1@s uk-grid-collapse" uk-grid>
+
+      <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
+        <article class="uk-comment uk-margin-bottom" *ngFor="let c of commits">
+          <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+            <div class="uk-width-expand">
+              <h4 class="uk-comment-title uk-margin-remove">
+                <a class="uk-link-reset" href="#">{{ c?.author_name }}</a>
+                <small> ({{ c?.author_email }})</small>
+              </h4>
+              <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                <li><a href="#">{{ c?.committed_date.toLocaleString() }}</a></li>
+              </ul>
+            </div>
+          </header>
+          <div class="uk-comment-body">
+            <p>{{ c?.title }}</p>
+          </div>
+          <hr>
+        </article>
+      </div>
+
+      <div class="uk-margin-remove-top uk-tile uk-tile-default uk-padding-small">
+        <dl class="uk-description-list">
+          <dt *ngIf="repo?.description">AÇIKLAMA</dt>
+          <dd *ngIf="repo?.description">{{ repo?.description }}</dd>
+          <dt>OLUŞTURULMA TARİHİ</dt>
+          <dd>{{ repo?.created_at.toLocaleString() }}</dd>
+          <dt>GÜNCELLENME TARİHİ</dt>
+          <dd>{{ repo?.last_activity_at.toLocaleString() }}</dd>
+          <dt *ngIf="repo?.web_url">WEB ADRESİ</dt>
+          <dd *ngIf="repo?.web_url">{{ repo?.web_url }}</dd>
+        </dl>
+        <hr>
+        <h4>İŞLER <a class="uk-button uk-button-primary uk-align-right uk-margin-xlarge-right" href="#issue-creating-modal" uk-toggle>İş Oluştur</a></h4>
+        <dl class="uk-description-list uk-description-list-divider">
+          <dt *ngFor="let issue of issues">
+            <a class="uk-link-muted" [routerLink]="['/gitlab/issue/' + repo?.path_with_namespace + '/' + issue?.iid]">
+              (#{{ issue?.iid}})&nbsp; {{ issue?.title | uppercase }}
+            </a>
+          </dt>
+        </dl>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="issue-creating-modal" uk-modal>
+    <div class="uk-modal-dialog">
+      <button class="uk-modal-close-default" type="button" uk-close></button>
+      <div class="uk-modal-header">
+        <h2 class="uk-modal-title">İş Oluştur</h2>
+      </div>
+      <div class="uk-modal-body">
+        <form id="issueForm">
+          <fieldset class="uk-fieldset">
+            <div class="uk-margin">
+              <input class="uk-input" type="text" id="issueTitle" placeholder="Başlık">
+            </div>
+
+            <div class="uk-margin">
+              <textarea class="uk-textarea" rows="5" id="issueBody" placeholder="Açıklama"></textarea>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="uk-modal-footer uk-text-right">
+        <button class="uk-button uk-button-default uk-modal-close" type="button">İptal</button>
+        <button class="uk-button uk-button-primary" type="button" (click)="createIssue()">Oluştur</button>
+      </div>
+    </div>
+  </div>
+</div>
