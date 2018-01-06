@@ -85,7 +85,7 @@ export class WeeklyComponent implements OnInit {
         }
 
         this.fillNotes();
-        this.fillGitHubIssues();
+        this.fillIssues();
     }
 
     decrementWeek() {
@@ -98,7 +98,7 @@ export class WeeklyComponent implements OnInit {
         }
 
         this.fillNotes();
-        this.fillGitHubIssues();
+        this.fillIssues();
     }
 
     addNote(index: string) {
