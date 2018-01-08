@@ -14,7 +14,7 @@ export class GitLabComponent implements OnInit {
     @Input() user;
     @Input() repos;
     @Input() groups;
-    @Input() receivedEvents = new Array<any>();
+    @Input() receivedEvents;
 
     constructor(private gitlabService: GitLabService,
                 private userService: UserService) { }
@@ -54,10 +54,13 @@ export class GitLabComponent implements OnInit {
 
     getActiveUsersEvents() {
         this.gitlabService.getEvents().subscribe(
-            data  => this.receivedEvents = <Array<Object>>data,
+            data  => this.receivedEvents = data,
             error => console.log(error),
             ()    => {
-                // console.log(this.receivedEvents);
+                console.log(this.receivedEvents);
+                this.receivedEvents.forEach(element => {
+                    element['created_at'] = new Date(element['created_at']);
+                });
                 this.getActiveUsersGroups();
             }
         );
