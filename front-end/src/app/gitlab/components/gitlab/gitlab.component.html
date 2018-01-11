@@ -1,0 +1,97 @@
+<div class="uk-tile uk-tile-default">
+
+  <ul class="uk-breadcrumb">
+    <li><a href="#" routerLink="/home">Ajanda</a></li>
+    <li><a href="#" routerLink="/gitlab/home">GitLab</a></li>
+    <li>
+      <span href="#">Akış</span>
+    </li>
+  </ul>
+
+  <div class="uk-position-right uk-margin uk-margin-right" style="padding-top: 1rem; padding-right: 1rem;">
+    <a href="#" [routerLink]="['/gitlab/profile/' + user?.username]">
+      <img class="uk-border-circle" width="30" height="30" [src]=[user?.avatar_url]>
+    </a>
+  </div>
+
+  <hr class="uk-divider-icon">
+
+  <div class="uk-section uk-section-default">
+    <div class="uk-child-width-1-2@m" uk-grid>
+
+      <!-- LEFT AREA -->
+      <div>
+        <ul class="uk-list">
+          <li *ngFor="let item of receivedEvents; let i = index">
+            <article class="uk-comment">
+              <header class="uk-comment-header uk-grid-medium uk-flex-middle uk-margin-remove-bottom" uk-grid>
+                <div class="uk-width-auto">
+                  <img class="uk-comment-avatar" width="60" height="60" [src]="item?.author.avatar_url" [title]="item?.author.name" uk-tooltip>
+                </div>
+                <div class="uk-width-expand">
+                  <h5 class="uk-comment-title uk-margin-top uk-margin-remove-bottom">
+                    <a class="uk-link-reset" [routerLink]="['/gitlab/profile/' + item?.author.username]">{{ item?.author.name }}</a>&nbsp;
+                    <small>{{ item?.created_at.toLocaleString() }}</small>
+                  </h5>
+
+                  <div class="uk-comment-meta uk-margin-remove-top uk-padding-remove-left" [ngSwitch]="item.action_name">
+
+                    <p *ngSwitchCase="'created'">Bir proje oluşturdu.</p>
+
+                    <p *ngSwitchCase="'pushed new'">Yeni bir projeye katkı yaptı: <br /> {{ item?.push_data.commit_title }}</p>
+
+                    <p *ngSwitchCase="'pushed to'">Yeni bir katkı yaptı: <br /> {{ item?.push_data.commit_title }}</p>
+
+                    <p *ngSwitchCase="'commented on'">{{ item?.target_title }} başlıklı işe bir yorum yaptı:<br />
+                      {{ item?.note.body }}
+                    </p>
+
+                    <p *ngSwitchCase="'opened'" [ngSwitch]="item.target_type">Yeni bir
+                      <span *ngSwitchCase="'Milestone'">kilometretaşı</span>
+                      <span *ngSwitchCase="'Issue'">iş</span>
+                      <span *ngSwitchDefault>{{ item?.target_type }}</span>
+                       oluşturdu:<br />{{ item?.target_title }}
+                    </p>
+
+                    <p *ngSwitchDefault>{{ item?.action_name }} - {{ item?.target_type }}</p>
+                  </div>
+
+                </div>
+              </header>
+            </article>
+          </li>
+        </ul>
+      </div>
+      <!--/LEFT AREA -->
+
+      <!-- RIGHT AREA -->
+      <div>
+        <div class="uk-tile uk-tile-secondary uk-padding-small">
+
+          <!-- PROJECT LIST -->
+          <h4>Projeler <span class="uk-badge">{{ repos?.length }}</span></h4>
+          <ul class="uk-list">
+            <li *ngFor="let item of repos">
+              <a [routerLink]="['/gitlab/repository/' + item?.path_with_namespace]">
+                {{ item?.path_with_namespace }} <span class="uk-badge">{{ item?.star_count }}</span>
+              </a>
+            </li>
+          </ul>
+          <!--/PROJECT LIST -->
+
+          <!-- GROUPS -->
+          <h4>Gruplar <span class="uk-badge">{{ groups?.length }}</span></h4>
+          <a href="#" *ngFor="let g of groups" [routerLink]="['/gitlab/group/' + g?.path]">
+            <img class="uk-border-circle uk-margin-right uk-margin-bottom" width="40" height="40"
+                src="{{ g?.avatar_url }}" title="{{ g?.name }}" uk-tooltip>
+          </a>
+          <!--/GROUPS -->
+
+        </div>
+      </div>
+      <!--/RIGHT AREA -->
+
+    </div>
+  </div>
+
+</div>

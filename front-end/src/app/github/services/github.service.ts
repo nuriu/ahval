@@ -23,15 +23,6 @@ export class GitHubService {
         });
     }
 
-    getUserAvatarLink() {
-        return this.http.get(this.APIUrl + '/user', {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Authorization': 'token ' + this.token
-            })
-        });
-    }
-
     getRepos() {
         return this.http.get(this.APIUrl + '/user/repos', {
             headers: new HttpHeaders({

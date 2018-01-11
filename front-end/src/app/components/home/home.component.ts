@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { UserService } from '../../services/user.service';
 import { HackerNewsService } from '../../services/hackernews.service';
 
 
@@ -11,16 +12,28 @@ import { HackerNewsService } from '../../services/hackernews.service';
 })
 export class HomeComponent implements OnInit {
     private currentNewsType = 'top';
-    @Input() news: Array<any>;
 
-    constructor(private hackerNewsService: HackerNewsService) { }
+    @Input() news: Array<any>;
+    @Input() components: Array<string>;
+
+    constructor(private userService: UserService,
+                private hackerNewsService: HackerNewsService) { }
 
     ngOnInit() {
         this.news = new Array<any>();
+        this.components = new Array<string>();
 
         this.hackerNewsService.getTopStories().subscribe((data: Array<string>) => data.forEach(element => {
             this.hackerNewsService.getItem(element).subscribe((item) => this.news.push(item));
         }));
+
+        if (this.userService.isLoggedIn()) {
+            this.userService.getComponentList().subscribe(c => {
+                c['userComponents'].forEach(element => {
+                    this.components.push(element.component);
+                });
+            });
+        }
     }
 
     switchNewsTo(type: string) {

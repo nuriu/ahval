@@ -10,6 +10,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 import { UserGuard } from './guards/user.guard';
 import { GitHubGuard } from './guards/github.guard';
+import { GitLabGuard } from './guards/gitlab.guard';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     { path: 'home',     component: HomeComponent, canActivate: [UserGuard] },
     { path: 'profile',  component: ProfileComponent, canActivate: [UserGuard] },
     { path: 'github', loadChildren: './github/github.module#GitHubModule', canLoad: [GitHubGuard] },
+    { path: 'gitlab', loadChildren: './gitlab/gitlab.module#GitLabModule', canLoad: [GitLabGuard] },
     { path: 'weekly', loadChildren: './weekly/weekly.module#WeeklyModule' },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

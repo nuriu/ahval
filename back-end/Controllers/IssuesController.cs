@@ -162,15 +162,19 @@ namespace Ahval.Controllers
             var itemType = await db.WeeklyItemTypes.FirstOrDefaultAsync(wit => wit.Name == "ISSUE");
             
             // select issues ordered by row number
-            var issues = db.UserWeeklyItems.Include("User")
-                                            .Where(uwi => uwi.User == user && uwi.Type == itemType && dateRange.Contains(uwi.Date))
-                                            .OrderBy(uwi => uwi.RowNumber)
-                                            .Select(uwi => new {
-                                                id = uwi.Item_Id,
-                                                date = uwi.Date,
-                                                row = uwi.RowNumber,
-                                                issue = db.Issues.FirstOrDefault(n => n.Id == uwi.Item_Id)
-                                            });
+            var issues = db.UserWeeklyItems.Where(uwi => uwi.User == user && uwi.Type == itemType && dateRange.Contains(uwi.Date))
+                                           .OrderBy(uwi => uwi.RowNumber)
+                                           .Select(uwi => new {
+                                               id = uwi.Item_Id,
+                                               date = uwi.Date,
+                                               row = uwi.RowNumber,
+                                               issue = db.Issues.Where(n => n.Id == uwi.Item_Id).Select(i => new {
+                                                   id = i.Id,
+                                                   repoIdentifier = i.RepoIdentifier,
+                                                   number = i.Number,
+                                                   component = db.Components.FirstOrDefault(ic => ic.Id == i.Component.Id).Name
+                                               }).FirstOrDefault()
+                                           });
 
             return Ok(issues);
         }

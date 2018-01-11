@@ -102,13 +102,40 @@ namespace Ahval.Controllers
         public async Task<IActionResult> Update([FromBody] UpdateUserViewModel user)
         {
             // find signed in user
-            var dbUser = await db.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+            var dbUser = await db.Users.Include("UserComponents.Component").FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+            
+            // var ghc = await db.Components.FirstOrDefaultAsync(c => c.Name == "GITHUB");
+            // var glc = await db.Components.FirstOrDefaultAsync(c => c.Name == "GITLAB");
+
+            var ughc = dbUser.UserComponents.FirstOrDefault(uc => uc.Component.Name == "GITHUB");
+            var uglc = dbUser.UserComponents.FirstOrDefault(uc => uc.Component.Name == "GITLAB");
+
+
             // if user entered right password
             if (CryptoHelper.VerifyHashedPassword(dbUser.Password, user.OldPassword))
             {
-                // update password and email address with new ones
-                dbUser.Password = CryptoHelper.HashPassword(user.NewPassword);
-                dbUser.EmailAddress = user.newEmailAddress;
+                if (!String.IsNullOrEmpty(user.NewPassword))
+                {
+                    dbUser.Password = CryptoHelper.HashPassword(user.NewPassword);
+                }
+                
+                if (!String.IsNullOrEmpty(user.NewEmailAddress))
+                {
+                    dbUser.EmailAddress = user.NewEmailAddress;   
+                }
+
+                if (!String.IsNullOrEmpty(user.GitHubKey) && ughc != null)
+                {
+                    ughc.AccessToken = user.GitHubKey;
+                    db.Entry(ughc).State = EntityState.Modified;
+                }
+
+                if (!String.IsNullOrEmpty(user.GitLabKey) && uglc != null)
+                {
+                    uglc.AccessToken = user.GitLabKey;
+                    db.Entry(uglc).State = EntityState.Modified;
+                }
+                
                 // save changes
                 db.Entry(dbUser).State = EntityState.Modified;
                 await db.SaveChangesAsync();
