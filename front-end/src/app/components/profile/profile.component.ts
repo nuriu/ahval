@@ -17,6 +17,8 @@ export class ProfileComponent implements OnInit {
 
     updateForm: FormGroup;
     oldPassword     = new FormControl('', Validators.required);
+    githubKey       = new FormControl('', Validators.required);
+    gitlabKey       = new FormControl('', Validators.required);
     newPassword     = new FormControl('', Validators.required);
     newEmailAddress = new FormControl('', Validators.required);
 
@@ -26,6 +28,8 @@ export class ProfileComponent implements OnInit {
     ngOnInit() {
         this.updateForm = this.formBuilder.group({
             oldPassword    : this.oldPassword,
+            githubKey      : this.githubKey,
+            gitlabKey      : this.gitlabKey,
             newPassword    : this.newPassword,
             newEmailAddress: this.newEmailAddress
         });
@@ -50,7 +54,9 @@ export class ProfileComponent implements OnInit {
         } else {
             this.userService.update(this.updateForm.value.oldPassword,
                                     this.updateForm.value.newPassword,
-                                    this.updateForm.value.newEmailAddress)
+                                    this.updateForm.value.newEmailAddress,
+                                    this.updateForm.value.githubKey,
+                                    this.updateForm.value.gitlabKey)
             .subscribe(res => {
                 if (res['success']) {
                     UIkit.notification('<span uk-icon="icon: check"></span> Güncelleme işlemi başarılı sonuçlandı!', {

@@ -55,11 +55,13 @@ export class UserService {
         localStorage.removeItem('ajanda_auth_token');
     }
 
-    update(currentPassword: string, newPassword: string, newEmailAddress: string) {
+    update(currentPassword: string, newPassword: string, newEmailAddress: string, ghKey: string, glKey: string) {
         return this.http.put(this.APIUrl + '/account/update', {
             'OldPassword': currentPassword,
             'NewPassword': newPassword,
-            'NewEmailAddress': newEmailAddress
+            'NewEmailAddress': newEmailAddress,
+            'GitHubKey': ghKey,
+            'GitLabKey': glKey
         }, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',

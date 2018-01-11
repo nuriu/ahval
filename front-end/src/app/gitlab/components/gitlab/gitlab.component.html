@@ -38,7 +38,9 @@
 
                     <p *ngSwitchCase="'created'">Bir proje oluşturdu.</p>
 
-                    <p *ngSwitchCase="'pushed new'">Yeni bir katkı yaptı: <br /> {{ item?.push_data.commit_title }}</p>
+                    <p *ngSwitchCase="'pushed new'">Yeni bir projeye katkı yaptı: <br /> {{ item?.push_data.commit_title }}</p>
+
+                    <p *ngSwitchCase="'pushed to'">Yeni bir katkı yaptı: <br /> {{ item?.push_data.commit_title }}</p>
 
                     <p *ngSwitchCase="'commented on'">{{ item?.target_title }} başlıklı işe bir yorum yaptı:<br />
                       {{ item?.note.body }}

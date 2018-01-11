@@ -11,12 +11,12 @@ import { GitHubService } from '../../services/github.service';
 })
 export class ProfileComponent implements OnInit {
     @Input() user;
-    @Input() orgMembers     = new Array<Object>();
-    @Input() repos          = new Array<Object>();
-    @Input() orgs           = new Array<Object>();
-    @Input() receivedEvents = new Array<Object>();
-    @Input() followingUsers = new Array<Object>();
-    @Input() followers      = new Array<Object>();
+    @Input() orgMembers;
+    @Input() repos;
+    @Input() orgs;
+    @Input() receivedEvents;
+    @Input() followingUsers;
+    @Input() followers;
 
     constructor(private githubService: GitHubService,
                 private userService  : UserService,
@@ -69,74 +69,74 @@ export class ProfileComponent implements OnInit {
     }
 
     getOrganizationMembers(name: string) {
-        for (let i = 1; i < 30; i++) {
-            this.githubService.getOrgMembers(name, i).subscribe(
+        // for (let i = 1; i < 30; i++) {
+            this.githubService.getOrgMembers(name, 1).subscribe(
                 data => {
                     if (data['length'] < 1) {
                         return;
                     }
 
-                    this.orgMembers = this.orgMembers.concat(data);
+                    this.orgMembers = this.orgMembers = data;
                 },
                 error => console.log(error)
             );
-        }
+        // }
     }
 
     getUsersRepos() {
-        for (let i = 1; i < 30; i++) {
-            this.githubService.getUserRepos(this.user.login, 'updated', 'desc', i).subscribe(
+        // for (let i = 1; i < 30; i++) {
+            this.githubService.getUserRepos(this.user.login, 'updated', 'desc', 1).subscribe(
                 data => {
                     if (data['length'] < 1) {
                         return;
                     }
 
-                    this.repos = this.repos.concat(data);
+                    this.repos = this.repos = data;
                 },
                 error => console.log(error)
             );
-        }
+        // }
 
         this.getFollowingUsers();
     }
 
     getFollowingUsers() {
-        for (let i = 1; i < 30; i++) {
-            this.githubService.getFollowingUsers(this.user.login, i).subscribe(
+        // for (let i = 1; i < 30; i++) {
+            this.githubService.getFollowingUsers(this.user.login, 1).subscribe(
                 data => {
                     if (data['length'] < 1) {
                         return;
                     }
 
-                    this.followingUsers = this.followingUsers.concat(data);
+                    this.followingUsers = this.followingUsers = data;
                 },
                 error => console.log(error)
             );
-        }
+        // }
 
         this.getFollowers();
     }
 
     getFollowers() {
-        for (let i = 1; i < 30; i++) {
-            this.githubService.getFollowers(this.user.login, i).subscribe(
+        // for (let i = 1; i < 30; i++) {
+            this.githubService.getFollowers(this.user.login, 1).subscribe(
                 data => {
                     if (data['length'] < 1) {
                         return;
                     }
 
-                    this.followers = this.followers.concat(data);
+                    this.followers = this.followers = data;
                 },
                 error => console.log(error)
             );
-        }
+        // }
 
         this.getOrgs();
     }
 
     getOrgs() {
         this.githubService.getUserOrgs(this.user.login).subscribe(
-            data  => this.orgs.push(data),
+            data  => this.orgs = data,
             error => console.log(error),
             ()    => {
                 // console.log(this.orgs);
